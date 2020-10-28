@@ -14,6 +14,7 @@ Description of the Project
 3) Game will be implemented using Java language.
 
 Description of the Risk and Gameplay
+
 Risk is initially a board gamke that we tranfered into a computer game. It challenges players to come up with good strategies to conquer their
 enemy's territories and be the ruler of the world.
 
