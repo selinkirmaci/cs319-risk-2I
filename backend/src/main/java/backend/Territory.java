@@ -6,7 +6,7 @@ package backend;
  */
 public class Territory {
     private final String name;
-    Army army;
+    private Army army;
     
     
     Territory( String name ) {
