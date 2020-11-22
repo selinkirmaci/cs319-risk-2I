@@ -47,7 +47,10 @@ public class Game {
     public void fortifyTurn() {
         
     }
-    
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
     
     
 }

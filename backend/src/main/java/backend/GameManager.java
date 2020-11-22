@@ -25,8 +25,20 @@ public class GameManager {
 
         //ask for user amount first
         System.out.println( "Enter player amount:" );
-        int playerAmt = sc.nextInt();
+        int playerAmt = -1;
+        while( playerAmt == -1 ) {
+            try {
+                playerAmt = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println( "You should enter an integer value!" );
+                System.out.println( "Enter player amount again:" );
+            }
+        }
+
+        //create the players
         ArrayList<Player> players = createPlayers(playerAmt);
+
+        //initialise the game
         game = new Game(playerAmt, players, INITIAL_TROOP_AMT, MAP_FILE_PATH,
                 CARDS_FILE_PATH );
     }
@@ -40,7 +52,9 @@ public class GameManager {
             String username = sc.nextLine();
 
             System.out.println( "Select avatar for user " + i );
+
             int avatarChoice = sc.nextInt();
+            sc.nextLine();
             String avatarImgPath = setAvatarImage(avatarChoice);
             players.add( new Player( username, new Avatar(avatarImgPath) ) );
 
@@ -64,6 +78,8 @@ public class GameManager {
 
         return avatarImgPath;
     }
+
+
 
     // TODO:
     //  startGame(): Ask the user amount and usernames of each user.
