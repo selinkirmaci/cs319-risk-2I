@@ -6,12 +6,13 @@ public class Hand {
 
     private ArrayList<Card> cards;
 
-    Hand( ArrayList<Card> cards ) {
-        this.cards = cards;
+    Hand() {
+        cards = new ArrayList<Card>();
     }
 
-    void swapCards() {}
-    void getNewCards() {}
+    public void addCard( Card card ) {
+        cards.add(card);
+    }
 
 
 }

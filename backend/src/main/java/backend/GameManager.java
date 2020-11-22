@@ -11,7 +11,6 @@ public class GameManager {
     private Game game;
     private boolean gameOver;
     private SoundManager soundManager;
-    private Scanner sc;
     private final int INITIAL_TROOP_AMT = 100;
     private final String MAP_FILE_PATH = "./jsonfiles/map.json";
     private final String CARDS_FILE_PATH = "./jsonfiles/cards.json";
@@ -82,7 +81,6 @@ public class GameManager {
 
 
     // TODO:
-    //  startGame(): Ask the user amount and usernames of each user.
-    //  endGame(), restartGame(), loadGame()
+    //  endGame(), restartGame(), loadGame(), ...
 
 }

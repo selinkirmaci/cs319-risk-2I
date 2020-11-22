@@ -48,6 +48,25 @@ public class Game {
         
     }
 
+    /*  */
+    public void attackTurn() {
+
+    }
+
+    /*  */
+    public void draftTurn() {
+
+    }
+
+    /* returns true if the game is ended */
+    private boolean checkTermination() {
+        for( int i = 0; i < playerAmt; i++ ) {
+            // TODO: write termination conditions i.e. total game duration has ended( 1 may be 10 mins )
+        }
+
+        return true;
+    }
+
     public ArrayList<Player> getPlayers() {
         return players;
     }
