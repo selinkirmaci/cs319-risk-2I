@@ -17,6 +17,10 @@ public class Continent {
         this.territories = territories;
     }
 
+    public int getExtraArmies() {
+        return extraArmies;
+    }
+
     public ArrayList<Territory> getTerritories() {
         return territories;
     }

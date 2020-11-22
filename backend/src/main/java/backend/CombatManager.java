@@ -29,11 +29,11 @@ public class CombatManager {
             defRoll = dice.rollDice();
 
             if( attRoll > defRoll ) { //defender loses
-                defender.forfeit(1); //Will change: consider how the loss will be calculated!
+                defender.forfeit(1); //May change: consider how the loss will be calculated!
             } else if( attRoll == defRoll ) {
                 continue; //roll again
             } else { //attacker loses
-                attacker.forfeit(1); //Will change: consider how the loss will be calculated!
+                attacker.forfeit(1); //May change: consider how the loss will be calculated!
             }
         }
 

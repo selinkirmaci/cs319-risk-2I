@@ -18,6 +18,7 @@ public class Game {
     private CardLibrary cardLib;
     private Map map;
     private final JSONParser parser;
+    private final CombatManager cm;
     
     public Game( int playerAmt, Player[] players,
             int initialTroopAmt, String mapFilePath, String cardsFilePath ) {
@@ -28,6 +29,7 @@ public class Game {
         this.players = players;
         initCards( cardsFilePath );
         initMap( mapFilePath );
+        cm = new CombatManager();
     }
     
     
@@ -98,18 +100,35 @@ public class Game {
     }
 
     /* at the start a player's turn, the player receives infantries
-    as much as (num. of territories the player has)/3 */
+    as much as (num. of territories the player has)/3
+    the player cannot get less than 3 units regardless of the owned territory amount
+    players should also receive additional units if they own a whole continent */
     private void startTurn( Player p ) {
         int numOfTerr = p.getGainedTerritories().size();
-        p.addInfantries( numOfTerr / 3 );
+        int addition = 3;
+        if( (numOfTerr / 3) > 3 ) {
+            addition = numOfTerr / 3;
+        }
+        p.addInfantries( addition );
+
+        //add additional units for gained continents
+        for( int i = 0; i < p.getGainedContinents().size(); i++ ) {
+            int extra;
+            extra = p.getGainedContinents().get(i).getExtraArmies();
+            p.addInfantries( extra );
+        }
+
     }
 
 
+    /* TODO: turn logic for the game */
     private void manageTurns() {
 
     }
     
-    /* add troops to the already owned territories */
+    /* add troops to the already owned territories
+    * this function currently supports only one transfer action to one of the owned territories for simplicity,
+    * this may be changed to support several transfer actions */
     public void fortifyTurn( Player p ) {
         ArrayList<Territory> territories = p.getGainedTerritories();
         int numOfTerr = p.getGainedTerritories().size();
@@ -146,12 +165,17 @@ public class Game {
         army.fortify(troopsToFortify);
     }
 
-    /*  */
-    public void attackTurn() {
+    /* might attack to bordering territories
+    *  might choose not to attack
+    *  can attack as many times as the player wants */
+    public void attackTurn( Player p ) {
+        // TODO: first select the territory you want to attack from,
+        //  and then select a bordering territory to attack to
 
+        //cm.executeWar( attacker, defender );
     }
 
-    /*  */
+    /* receive cards */
     public void draftTurn() {
 
     }
@@ -159,7 +183,7 @@ public class Game {
     /* returns true if the game is ended */
     private boolean checkTermination() {
         for( int i = 0; i < playerAmt; i++ ) {
-            // TODO: write termination conditions i.e. total game duration has ended( 1 may be 10 mins )
+            // TODO: write termination conditions i.e. total game duration has ended( may be 10 mins )
         }
 
         return true;

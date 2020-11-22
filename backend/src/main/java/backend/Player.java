@@ -14,7 +14,6 @@ public class Player {
     private Hand hand;
     private boolean underAttack;
     private ArrayList<Continent> gainedContinents;
-
     private ArrayList<Territory> gainedTerritories;
     private final int playerId;
     
@@ -27,12 +26,26 @@ public class Player {
         this.playerId = playerId;
     }
 
+    public ArrayList<Continent> getGainedContinents() {
+        return gainedContinents;
+    }
+
     public int getInfantryAmt() {
         return infantryAmt;
     }
 
     public ArrayList<Territory> getGainedTerritories() {
         return gainedTerritories;
+    }
+
+    public void addGainedTerritory( Territory t ) {
+        gainedTerritories.add(t);
+        checkGainedContinents();
+    }
+
+    //TODO: check if there are gained continents
+    public void checkGainedContinents() {
+
     }
 
     public boolean hasNoTerritory() {
