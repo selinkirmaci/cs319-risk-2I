@@ -16,11 +16,11 @@ public class Army {
     public Army( ArrayList<Troop> troops, Player owner ) {
         this.owner = owner;
         this.troops = troops;
-        totalValue = computeTotalValue( troops );
+        computeTotalValue( troops );
     }
     
     //return total value of the army in terms of infantries
-    private int computeTotalValue( ArrayList<Troop> troops ) {
+    private void computeTotalValue( ArrayList<Troop> troops ) {
         int val = 0;
         for ( Troop troop : troops ) {
             if( troop instanceof Infantry ) {
@@ -32,7 +32,7 @@ public class Army {
             }
         }
         
-        return val;
+        totalValue = val;
     }
 
     public Player getOwner() {
@@ -46,6 +46,17 @@ public class Army {
     //reduce the amount of soldiers
     public void forfeit( int loss ) {
 
+        computeTotalValue(troops);
+    }
+
+    //increase the amount of soldiers
+    public void fortify( ArrayList<Troop> newTroops ) {
+
+        for( int i = 0; i < troops.size(); i++ ) {
+            troops.add( newTroops.get(i) );
+        }
+
+        computeTotalValue(troops);
     }
     
 }

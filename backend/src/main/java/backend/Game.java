@@ -2,6 +2,7 @@ package backend;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -95,10 +96,54 @@ public class Game {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
+
+    /* at the start a player's turn, the player receives infantries
+    as much as (num. of territories the player has)/3 */
+    private void startTurn( Player p ) {
+        int numOfTerr = p.getGainedTerritories().size();
+        p.addInfantries( numOfTerr / 3 );
+    }
+
+
+    private void manageTurns() {
+
+    }
     
-    /*  */
-    public void fortifyTurn() {
-        
+    /* add troops to the already owned territories */
+    public void fortifyTurn( Player p ) {
+        ArrayList<Territory> territories = p.getGainedTerritories();
+        int numOfTerr = p.getGainedTerritories().size();
+
+        System.out.println("Select which territory you want to fortify: ");
+        for( int i = 0; i < numOfTerr; i++ ) {
+            System.out.println( i + ": " + territories.get(i) );
+        }
+
+        Scanner sc = new Scanner(System.in);
+        int choice = sc.nextInt();
+
+        //CHECK HERE UPON TESTING TO AVOID SCANNER ERRORS
+
+        int troopAmt;
+        do {
+            System.out.println("Enter amount of troops you want to fortify: ");
+            troopAmt = sc.nextInt();
+        } while( troopAmt > p.getInfantryAmt() && troopAmt < 1 );
+
+
+        //put those troops into selected territory
+        p.useInfantries(troopAmt);
+        Territory territory = territories.get(choice);
+        Army army = territory.getArmy();
+
+        //create infantries
+        ArrayList<Troop> troopsToFortify = new ArrayList<Troop>();
+        for( int i = 0; i < troopAmt; i++ ) {
+            troopsToFortify.add( new Infantry() );
+        }
+
+        //fortify troops
+        army.fortify(troopsToFortify);
     }
 
     /*  */
