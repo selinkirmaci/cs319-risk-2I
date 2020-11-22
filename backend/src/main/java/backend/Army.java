@@ -58,5 +58,43 @@ public class Army {
 
         computeTotalValue(troops);
     }
-    
+
+    private int getInfantryAmt() {
+        int count = 0;
+        for( int i = 0; i < troops.size(); i++ ) {
+            if( troops.get(i) instanceof Infantry ) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    /* player might trade 5 infantries for one calvary
+    or 10 infantries for one artillery */
+    public void tradeTroops( int num ) {
+
+        int infAmt = getInfantryAmt();
+        if( (num == 5 && infAmt >= 5) ) { //convert to calvary
+            int i = 0;
+            while( i < num ) {
+                if( troops.get(i) instanceof Infantry ) {
+                    i++;
+                    Troop toDelete = troops.remove(i);
+                    toDelete = null; // to let garbage collector delete this troop
+                }
+            }
+            troops.add( new Calvary() );
+        } else if( (num == 10 && infAmt >= 10) ) { //convert to artillery
+            int i = 0;
+            while( i < num ) {
+                if( troops.get(i) instanceof Infantry ) {
+                    i++;
+                    Troop toDelete = troops.remove(i);
+                    toDelete = null; // to let garbage collector delete this troop
+                }
+            }
+            troops.add( new Artillery() );
+        }
+    }
 }

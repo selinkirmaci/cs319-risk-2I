@@ -16,6 +16,8 @@ public class Player {
     private ArrayList<Continent> gainedContinents;
     private ArrayList<Territory> gainedTerritories;
     private final int playerId;
+    private boolean hasLost;
+    private boolean won;
     
     public Player( String name, Avatar avatar, int infantryAmt, int playerId ) {
         this.name = name;
@@ -24,6 +26,16 @@ public class Player {
         hand = new Hand();
         this.infantryAmt = infantryAmt;
         this.playerId = playerId;
+        hasLost = false;
+        won = false;
+    }
+
+    public void wonGame() {
+        won = true;
+    }
+
+    public void lostGame() {
+        hasLost = true;
     }
 
     public ArrayList<Continent> getGainedContinents() {

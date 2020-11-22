@@ -129,7 +129,7 @@ public class Game {
     /* add troops to the already owned territories
     * this function currently supports only one transfer action to one of the owned territories for simplicity,
     * this may be changed to support several transfer actions */
-    public void fortifyTurn( Player p ) {
+    private void fortifyTurn( Player p ) {
         ArrayList<Territory> territories = p.getGainedTerritories();
         int numOfTerr = p.getGainedTerritories().size();
 
@@ -168,17 +168,35 @@ public class Game {
     /* might attack to bordering territories
     *  might choose not to attack
     *  can attack as many times as the player wants */
-    public void attackTurn( Player p ) {
+    private void attackTurn( Player p ) {
         // TODO: first select the territory you want to attack from,
         //  and then select a bordering territory to attack to
 
         //cm.executeWar( attacker, defender );
     }
 
-    /* receive cards */
-    public void draftTurn() {
+    /* receive cards
+    * TODO: check the conditions where a player receives a card. Also, add a turn method where the
+    *  player may convert some combinations of these cards into troops */
+    private void draftTurn() {
 
     }
+
+    /* if a player does not have any territory, that player loses the game */
+    private void checkIfLosed( Player p ) {
+        if( p.getGainedTerritories().size() == 0 ) {
+            p.lostGame();
+        }
+    }
+
+    /* if the player has all of the continents, the player wins */
+    private void checkIfWon( Player p ) {
+        if( p.getGainedContinents().size() == 7 ) {
+            p.wonGame();
+        }
+    }
+
+
 
     /* returns true if the game is ended */
     private boolean checkTermination() {
