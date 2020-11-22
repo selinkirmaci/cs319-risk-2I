@@ -83,7 +83,6 @@ public class Game {
                 //set the army of that territory
                 currTerr.setArmy(army);
             }
-
         }
     }
 

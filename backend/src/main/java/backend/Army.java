@@ -10,8 +10,8 @@ public class Army {
     
     private ArrayList<Troop> troops;
     private int totalValue; //total value of all of the troops in this army
-    Player owner; //owner of the army
-    Territory territory; //territory where the army is in( we may not use this! )
+    private Player owner; //owner of the army
+    private Territory territory; //territory where the army is in( we may not use this! )
     
     public Army( ArrayList<Troop> troops, Player owner ) {
         this.owner = owner;
@@ -33,6 +33,10 @@ public class Army {
         }
         
         return val;
+    }
+
+    public Player getOwner() {
+        return owner;
     }
     
     public int getTotalValue() {

@@ -36,6 +36,10 @@ public class Player {
         infantryAmt -= usage;
     }
 
+    public String getName() {
+        return name;
+    }
+
     void attack(Player defender, Territory territory) {};
 
     void sendTroops( int troopAmt, Player player ) {}
