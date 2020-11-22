@@ -13,7 +13,8 @@ public class GameManager {
     private SoundManager soundManager;
     private Scanner sc;
     private final int INITIAL_TROOP_AMT = 100;
-    private final int MAP_FILE_PATH = 100;
+    private final String MAP_FILE_PATH = "./jsonfiles/map.json";
+    private final String CARDS_FILE_PATH = "./jsonfiles/cards.json";
 
     public GameManager() {
         startGame();
@@ -26,7 +27,8 @@ public class GameManager {
         System.out.println( "Enter player amount:" );
         int playerAmt = sc.nextInt();
         ArrayList<Player> players = createPlayers(playerAmt);
-        game = new Game(playerAmt, players, INITIAL_TROOP_AMT,  );
+        game = new Game(playerAmt, players, INITIAL_TROOP_AMT, MAP_FILE_PATH,
+                CARDS_FILE_PATH );
     }
 
     /* ask for names and avatar pics of the users and create the players accordingly */
