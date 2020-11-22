@@ -11,22 +11,21 @@ public class Game {
     private ArrayList<Player> players;
     private int playerTurn;
     private final Dice dice;
-    private final int initialTroopAmt;
+    private final int INITIAL_TROOP_AMT;
     private int currentTroopAmt;
     private CardLibrary cardLib;
     private Map map;
     private final JSONParser parser;
     
-    public Game( int playerAmt, ArrayList<String> playerNames,
+    public Game( int playerAmt, ArrayList<Player> players,
             int initialTroopAmt, String mapFilePath, String cardsFilePath ) {
         this.parser = new JSONParser();
         this.playerAmt = playerAmt;
         this.dice = new Dice();
-        this.initialTroopAmt = initialTroopAmt;
+        this.INITIAL_TROOP_AMT = initialTroopAmt;
+        this.players = players;
         initCards( cardsFilePath );
         initMap( mapFilePath );
-        initPlayers( playerAmt, playerNames );
-        
     }
     
     
@@ -43,16 +42,6 @@ public class Game {
         ArrayList<Card> cards = parser.getCards( path );
         this.cardLib = new CardLibrary(cards);
     }
-    
-    
-    /* initialize players according to player amount and given names */
-    private void initPlayers( int playerAmt, ArrayList<String> names ) {
-        players = new ArrayList();
-        for( int i = 0; i < playerAmt; i++ ) {
-            players.add( new Player( names.get(i) ) );
-        }
-    }
-    
     
     /*  */
     public void fortifyTurn() {
