@@ -9,7 +9,7 @@ import org.json.simple.parser.*;
 /**
  * Parses JSON file which contains all of the data (continent names,
  * territory names and card properties) and returns them as preferred type
- * @author kaan
+ * @author Selcen
  */
 public class JSONParser {
 
@@ -23,7 +23,7 @@ public class JSONParser {
             for (int i = 0; i < continentList.size(); i++) {
                 JSONObject cont = (JSONObject) continentList.get(i);
                 String name = (String) cont.get("name");
-                int extraArmies = (int) cont.get("extraArmies");
+                int extraArmies = ((Long) cont.get("extraArmies")).intValue();
                 JSONArray territoryList = (JSONArray) cont.get("territories");
 
                 ArrayList<Territory> territories = new ArrayList<>();
@@ -56,7 +56,7 @@ public class JSONParser {
                 String name = (String) card.get("name");
                 String troopType = (String) card.get("troopType");
                 String territory = (String) card.get("territory");
-                int damage = (int) card.get("damage");
+                int damage = ((Long) card.get("damage")).intValue();
 
                 // determining troop type
                 Troop troop;

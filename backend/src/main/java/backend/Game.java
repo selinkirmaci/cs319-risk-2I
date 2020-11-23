@@ -29,6 +29,7 @@ public class Game {
         this.players = players;
         initCards( cardsFilePath );
         initMap( mapFilePath );
+        printMap();
         cm = new CombatManager();
     }
     
@@ -38,6 +39,18 @@ public class Game {
     private void initMap( String path ) {
         ArrayList<Continent> continents = parser.getContinents( path );
         map = new Map( continents );
+    }
+
+    public void printMap() {
+        for(int i = 0; i < map.getContinents().size(); i++) {
+            Continent c = map.getContinents().get(i);
+            System.out.println("Continent " + c.getName() + ": ");
+            for( int j = 0; j < c.getTerritories().size(); j++ ) {
+                Territory t = c.getTerritories().get(j);
+                System.out.println("    Territory: " + t.getName() + ": ");
+            }
+            System.out.println("------");
+        }
     }
     
     /* create cards by parsing the data from a JSON file preferably 

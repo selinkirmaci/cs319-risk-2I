@@ -24,4 +24,6 @@ public class Continent {
     public ArrayList<Territory> getTerritories() {
         return territories;
     }
+
+    public String getName() { return name; }
 }

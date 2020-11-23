@@ -20,4 +20,6 @@ public class Territory {
     public Army getArmy() {
         return army;
     }
+
+    public String getName() { return name; }
 }

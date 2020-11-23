@@ -12,8 +12,8 @@ public class GameManager {
     private boolean gameOver;
     private SoundManager soundManager;
     private final int INITIAL_TROOP_AMT = 100;
-    private final String MAP_FILE_PATH = "./jsonfiles/map.json";
-    private final String CARDS_FILE_PATH = "./jsonfiles/cards.json";
+    private final String MAP_FILE_PATH = "./src/main/java/backend/jsonfiles/map.json";
+    private final String CARDS_FILE_PATH = "./src/main/java/backend/jsonfiles/cards.json";
 
     public GameManager() {
         startGame();
@@ -25,7 +25,7 @@ public class GameManager {
         //ask for user amount first
         System.out.println( "Enter player amount(3-5):" );
         int playerAmt = -1;
-        while( playerAmt == -1 && playerAmt <= 2 && playerAmt > 5 ) {
+        while( playerAmt == -1 || playerAmt <= 2 || playerAmt > 5 ) {
             try {
                 playerAmt = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {

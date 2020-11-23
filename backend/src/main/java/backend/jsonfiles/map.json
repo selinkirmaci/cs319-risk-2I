@@ -1,18 +1,80 @@
 [
   {
-    "name": "exampleContinent1",
+    "name": "NorthAmerica",
     "extraArmies": 0,
     "territories": [
-      "exampleTerritory1",
-      "exampleTerritory2"
+      "Alaska",
+      "Alberta",
+      "CentralAmerica",
+      "EasternUS",
+      "Greenland",
+      "Northwest",
+      "Ontario",
+      "Quebec",
+      "WesternUS"
     ]
   },
   {
-    "name": "exampleContinent2...",
+    "name": "Europe",
     "extraArmies": 0,
     "territories": [
-      "exampleTerritory3",
-      "exampleTerritory4..."
+      "GreatBritain",
+      "Iceland",
+      "NorthernEurope",
+      "Scandinavia",
+      "SouthernEurope",
+      "Ukraine",
+      "WesternEurope"
+    ]
+  },
+  {
+    "name": "Asia",
+    "extraArmies": 0,
+    "territories": [
+      "Afghanistan",
+      "China",
+      "India",
+      "Irkutsk",
+      "Japan",
+      "Kamchatka",
+      "MiddleEast",
+      "Mongolia",
+      "Siam",
+      "Siberia",
+      "Ural",
+      "Yakutsk"
+    ]
+  },
+  {
+    "name": "SouthAmerica",
+    "extraArmies": 0,
+    "territories": [
+      "Argentina",
+      "Brazil",
+      "Peru",
+      "Venezuela"
+    ]
+  },
+  {
+    "name": "Africa",
+    "extraArmies": 0,
+    "territories": [
+      "Congo",
+      "EastAfrica",
+      "Egypt",
+      "Madagascar",
+      "NorthAfrica",
+      "SouthAfrica"
+    ]
+  },
+  {
+    "name": "Australia",
+    "extraArmies": 0,
+    "territories": [
+      "EasternAustralia",
+      "Indonesia",
+      "NewGuinea",
+      "WesternAustralia"
     ]
   }
 ]
