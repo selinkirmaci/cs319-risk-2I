@@ -23,6 +23,7 @@ public class Player {
         this.name = name;
         this.avatar = avatar;
         gainedContinents = new ArrayList<Continent>();
+        gainedTerritories = new ArrayList<Territory>();
         hand = new Hand();
         this.infantryAmt = infantryAmt;
         this.playerId = playerId;
@@ -81,7 +82,7 @@ public class Player {
     }
 
     public void addInfantries( int addition ) {
-        infantryAmt -= addition;
+        infantryAmt += addition;
     }
 
     public String getName() {

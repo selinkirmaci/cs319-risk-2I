@@ -28,9 +28,9 @@ public class Game {
         initialTroopAmt = players[0].getInfantryAmt();
         initCards( cardsFilePath );
         initMap( mapFilePath );
-        manageTurns();
 
         cm = new CombatManager();
+        manageTurns();
     }
     
     
@@ -71,6 +71,7 @@ public class Game {
     // this is the first turn when the game starts
     // each player will get a part of a randomly chosen continent
     public void initialTurn() {
+        System.out.println( "First Turn: Distributing armies into random continents" );
         ArrayList<Continent> conts = map.getContinents();
         ArrayList<Integer> playerContinents = new ArrayList<Integer>();
 
@@ -96,6 +97,7 @@ public class Game {
             for( int j = 0; j < 4; j++ ) {
                 Territory currTerr = currTerrs.get(j); // current territory
                 players[i].useInfantries(troopAmt); // reduce the amt of infantries that the player has
+                players[i].addGainedTerritory(currTerr); // add the gained territory
 
                 //create troops:
                 ArrayList<Troop> troops = new ArrayList<Troop>();
@@ -121,7 +123,7 @@ public class Game {
     }
 
     /* at the start a player's turn, the player receives infantries
-    as much as (num. of territories the player has)/3
+    as much as (num. of territories the player has) / 3
     the player cannot get less than 3 units regardless of the owned territory amount
     players should also receive additional units if they own a whole continent */
     private void startTurn( Player p ) {
@@ -131,14 +133,24 @@ public class Game {
             addition = numOfTerr / 3;
         }
         p.addInfantries( addition );
+        System.out.println( "Added " + addition + " infantries to player " + p.getName() );
 
         //add additional units for gained continents
         for( int i = 0; i < p.getGainedContinents().size(); i++ ) {
             int extra;
             extra = p.getGainedContinents().get(i).getExtraArmies();
             p.addInfantries( extra );
+            System.out.println( "Added " + extra + " amount of infantries to player " +
+                    p.getName() + " for continent " + p.getGainedContinents().get(i) );
         }
 
+    }
+
+    private void printInfAmt() {
+        for( int i = 0; i < playerAmt; i++ ) {
+            System.out.println( "Infantries in hand for player " + players[i].getName() + ": " +
+                    players[i].getInfantryAmt() );
+        }
     }
 
 
@@ -164,16 +176,28 @@ public class Game {
                 turn = turn % playerAmt;
                 current = players[turn];
             }
-
-
             System.out.println( "**** Turn of player: " + current.getName() + " ****" );
 
-            Scanner sc = new Scanner(System.in);
-            String a = sc.nextLine();
+            startTurn(current);
+
+            printInfAmt();
+
+            draftTurn(current);
+
+            printInfAmt();
+
+            printMap();
+
+
+
+            // TODO: call attackTurn here
+            //       may call fortifyTurn here
+            //       may call cardTurn here
+            //
+
 
 
             firstTurn = false;
-
 
             //prepare for next turn
             turn++;
@@ -186,13 +210,13 @@ public class Game {
     /* add troops to the already owned territories
     * this function currently supports only one transfer action to one of the owned territories for simplicity,
     * this may be changed to support several transfer actions */
-    private void fortifyTurn( Player p ) {
+    private void draftTurn( Player p ) {
         ArrayList<Territory> territories = p.getGainedTerritories();
         int numOfTerr = p.getGainedTerritories().size();
 
-        System.out.println("Select which territory you want to fortify: ");
+        System.out.println("Select which territory you want to strengthen: ");
         for( int i = 0; i < numOfTerr; i++ ) {
-            System.out.println( i + ": " + territories.get(i) );
+            System.out.println( i + ": " + territories.get(i).getName() );
         }
 
         Scanner sc = new Scanner(System.in);
@@ -202,10 +226,9 @@ public class Game {
 
         int troopAmt;
         do {
-            System.out.println("Enter amount of troops you want to fortify: ");
+            System.out.println("Enter amount of troops you want to deploy: ");
             troopAmt = sc.nextInt();
         } while( troopAmt > p.getInfantryAmt() && troopAmt < 1 );
-
 
         //put those troops into selected territory
         p.useInfantries(troopAmt);
@@ -235,7 +258,7 @@ public class Game {
     /* receive cards
     * TODO: check the conditions where a player receives a card. Also, add a turn method where the
     *  player may convert some combinations of these cards into troops */
-    private void draftTurn() {
+    private void cardTurn() {
 
     }
 

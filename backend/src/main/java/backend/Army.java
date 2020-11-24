@@ -1,5 +1,6 @@
 package backend;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,7 @@ public class Army {
         this.owner = owner;
         this.troops = troops;
         computeTotalValue( troops );
+        computeTroopAmts( troops );
     }
     
     //return total value of the army in terms of infantries
@@ -27,13 +29,10 @@ public class Army {
         int val = 0;
         for ( Troop troop : troops ) {
             if( troop instanceof Infantry ) {
-                infantryAmt++;
                 val += 1;
             } else if( troop instanceof Calvary ) {
-                calvaryAmt++;
                 val += 5;
             } else if( troop instanceof Artillery ) {
-                artilleryAmt++;
                 val += 10;
             }
         }
@@ -48,7 +47,6 @@ public class Army {
     /* for testing purposes */
     public void printArmy() {
         System.out.println("\t\tOwner of the army: " + owner.getName() );
-        System.out.println("\t\tTroops: ");
         System.out.println("\t\tInfantry: " + infantryAmt + ", Calvary: " + calvaryAmt +
                 ", Artillery: " + artilleryAmt );
         System.out.println( "\t\tTotal army value: " + totalValue );
@@ -65,18 +63,28 @@ public class Army {
 
     //reduce the amount of soldiers
     public void forfeit( int loss ) {
-
+        // TODO
         computeTotalValue(troops);
     }
 
     //increase the amount of soldiers
     public void fortify( ArrayList<Troop> newTroops ) {
-
-        for( int i = 0; i < troops.size(); i++ ) {
-            troops.add( newTroops.get(i) );
-        }
-
+        troops.addAll(newTroops);
         computeTotalValue(troops);
+        computeTroopAmts( newTroops );
+    }
+
+    private void computeTroopAmts( ArrayList<Troop> troops ) {
+        //update troop amounts
+        for ( Troop troop : troops ) {
+            if( troop instanceof Infantry ) {
+                infantryAmt++;
+            } else if( troop instanceof Calvary ) {
+                calvaryAmt++;
+            } else if( troop instanceof Artillery ) {
+                artilleryAmt++;
+            }
+        }
     }
 
     public int getInfantryAmt() {
@@ -97,6 +105,8 @@ public class Army {
 
         int infAmt = getInfantryAmt();
         if( (num == 5 && infAmt >= 5) ) { //convert to calvary
+            infantryAmt -= 5;
+            calvaryAmt += 1;
             int i = 0;
             while( i < num ) {
                 if( troops.get(i) instanceof Infantry ) {
@@ -107,6 +117,8 @@ public class Army {
             }
             troops.add( new Calvary() );
         } else if( (num == 10 && infAmt >= 10) ) { //convert to artillery
+            infantryAmt -= 10;
+            artilleryAmt += 1;
             int i = 0;
             while( i < num ) {
                 if( troops.get(i) instanceof Infantry ) {
@@ -117,5 +129,6 @@ public class Army {
             }
             troops.add( new Artillery() );
         }
+
     }
 }
