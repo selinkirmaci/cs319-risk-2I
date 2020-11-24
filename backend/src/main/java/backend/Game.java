@@ -13,23 +13,23 @@ public class Game {
     private Player[] players;
     private int playerTurn;
     private final Dice dice;
-    private final int INITIAL_TROOP_AMT;
     private int currentTroopAmt;
     private CardLibrary cardLib;
     private Map map;
     private final JSONParser parser;
     private final CombatManager cm;
+    private int initialTroopAmt; //initial troop amount for each player
     
-    public Game( int playerAmt, Player[] players,
-            int initialTroopAmt, String mapFilePath, String cardsFilePath ) {
+    public Game( int playerAmt, Player[] players, String mapFilePath, String cardsFilePath ) {
         this.parser = new JSONParser();
         this.playerAmt = playerAmt;
         this.dice = new Dice();
-        this.INITIAL_TROOP_AMT = initialTroopAmt;
         this.players = players;
+        initialTroopAmt = players[0].getInfantryAmt();
         initCards( cardsFilePath );
         initMap( mapFilePath );
-        printMap();
+        manageTurns();
+
         cm = new CombatManager();
     }
     
@@ -47,7 +47,15 @@ public class Game {
             System.out.println("Continent " + c.getName() + ": ");
             for( int j = 0; j < c.getTerritories().size(); j++ ) {
                 Territory t = c.getTerritories().get(j);
-                System.out.println("    Territory: " + t.getName() + ": ");
+                System.out.println("\tTerritory " + t.getName() + ": ");
+                Army a = t.getArmy();
+                if( a != null ) {
+                    a.printArmy();
+                } else {
+                    System.out.println("\t\t" + t.getName() + " has no army yet.");
+                }
+
+
             }
             System.out.println("------");
         }
@@ -82,7 +90,7 @@ public class Game {
             Continent currCont = conts.get(randomCont);
             ArrayList<Territory> currTerrs = currCont.getTerritories();
             int terrAmt = currTerrs.size();
-            int troopAmt = INITIAL_TROOP_AMT / 5;
+            int troopAmt = initialTroopAmt / 5;
 
             // distribute an army of 5 infantries into 4 continents (for now)
             for( int j = 0; j < 4; j++ ) {
@@ -136,7 +144,43 @@ public class Game {
 
     /* TODO: turn logic for the game */
     private void manageTurns() {
+        int turn = 0;
+        Player current = players[turn];
+        boolean firstTurn = true;
+        while( !checkTermination() ) {
 
+            /* execute the initial turn */
+            if( firstTurn ) {
+                initialTurn();
+                printMap();
+                for( int i = 0; i < playerAmt; i++ ) {
+                    System.out.println( "Infantries in hand for player " + players[i].getName() + ": " +
+                            players[i].getInfantryAmt() );
+                }
+            }
+
+            while( players[turn].hasLost() ) { //if the current player has lost the game, skip the turn of that player
+                turn++;
+                turn = turn % playerAmt;
+                current = players[turn];
+            }
+
+
+            System.out.println( "**** Turn of player: " + current.getName() + " ****" );
+
+            Scanner sc = new Scanner(System.in);
+            String a = sc.nextLine();
+
+
+            firstTurn = false;
+
+
+            //prepare for next turn
+            turn++;
+            turn = turn % playerAmt;
+            current = players[turn];
+
+        }
     }
     
     /* add troops to the already owned territories
@@ -198,14 +242,14 @@ public class Game {
     /* if a player does not have any territory, that player loses the game */
     private void checkIfLosed( Player p ) {
         if( p.getGainedTerritories().size() == 0 ) {
-            p.lostGame();
+            p.loseGame();
         }
     }
 
     /* if the player has all of the continents, the player wins */
     private void checkIfWon( Player p ) {
         if( p.getGainedContinents().size() == 7 ) {
-            p.wonGame();
+            p.winGame();
         }
     }
 
@@ -215,9 +259,10 @@ public class Game {
     private boolean checkTermination() {
         for( int i = 0; i < playerAmt; i++ ) {
             // TODO: write termination conditions i.e. total game duration has ended( may be 10 mins )
+            // or a player won the game etc.
         }
 
-        return true;
+        return false;
     }
 
     public Player [] getPlayers() {

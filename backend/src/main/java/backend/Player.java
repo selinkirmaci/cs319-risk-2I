@@ -30,12 +30,20 @@ public class Player {
         won = false;
     }
 
-    public void wonGame() {
+    public void winGame() {
         won = true;
     }
 
-    public void lostGame() {
+    public void loseGame() {
         hasLost = true;
+    }
+
+    public boolean hasLost() {
+        return hasLost;
+    }
+
+    public boolean hasWon() {
+        return won;
     }
 
     public ArrayList<Continent> getGainedContinents() {

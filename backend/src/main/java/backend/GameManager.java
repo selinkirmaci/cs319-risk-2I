@@ -38,7 +38,7 @@ public class GameManager {
         Player[] players = createPlayers(playerAmt);
 
         //initialise the game
-        game = new Game(playerAmt, players, INITIAL_TROOP_AMT, MAP_FILE_PATH,
+        game = new Game(playerAmt, players, MAP_FILE_PATH,
                 CARDS_FILE_PATH );
     }
 

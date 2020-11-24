@@ -12,6 +12,9 @@ public class Army {
     private int totalValue; //total value of all of the troops in this army
     private Player owner; //owner of the army
     private Territory territory; //territory where the army is in( we may not use this! )
+    private int infantryAmt = 0;
+    private int calvaryAmt = 0;
+    private int artilleryAmt = 0;
     
     public Army( ArrayList<Troop> troops, Player owner ) {
         this.owner = owner;
@@ -24,15 +27,32 @@ public class Army {
         int val = 0;
         for ( Troop troop : troops ) {
             if( troop instanceof Infantry ) {
+                infantryAmt++;
                 val += 1;
             } else if( troop instanceof Calvary ) {
+                calvaryAmt++;
                 val += 5;
             } else if( troop instanceof Artillery ) {
+                artilleryAmt++;
                 val += 10;
             }
         }
         
         totalValue = val;
+    }
+
+    public ArrayList<Troop> getTroops() {
+        return troops;
+    }
+
+    /* for testing purposes */
+    public void printArmy() {
+        System.out.println("\t\tOwner of the army: " + owner.getName() );
+        System.out.println("\t\tTroops: ");
+        System.out.println("\t\tInfantry: " + infantryAmt + ", Calvary: " + calvaryAmt +
+                ", Artillery: " + artilleryAmt );
+        System.out.println( "\t\tTotal army value: " + totalValue );
+
     }
 
     public Player getOwner() {
@@ -59,15 +79,16 @@ public class Army {
         computeTotalValue(troops);
     }
 
-    private int getInfantryAmt() {
-        int count = 0;
-        for( int i = 0; i < troops.size(); i++ ) {
-            if( troops.get(i) instanceof Infantry ) {
-                count++;
-            }
-        }
+    public int getInfantryAmt() {
+        return infantryAmt;
+    }
 
-        return count;
+    public int getArtilleryAmt() {
+        return artilleryAmt;
+    }
+
+    public int getCalvaryAmt() {
+        return calvaryAmt;
     }
 
     /* player might trade 5 infantries for one calvary
