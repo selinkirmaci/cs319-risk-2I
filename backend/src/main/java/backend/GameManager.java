@@ -86,14 +86,15 @@ public class GameManager {
     // returns the path of the avatar image with the given choice
     private String setAvatarImage( int choice ) {
         String avatarImgPath = "";
+        //TODO: add avatar images and change the paths accordingly
         if( choice == 1 ) {
-            avatarImgPath = "/avatarImgs/one.png";
+            avatarImgPath = "./src/main/java/backend/avatarImgs/one.png";
         } else if( choice == 2 ) {
-            avatarImgPath = "/avatarImgs/two.png";
+            avatarImgPath = "./src/main/java/backend/avatarImgs/two.png";
         } else if( choice == 3 ) {
-            avatarImgPath = "/avatarImgs/three.png";
+            avatarImgPath = "./src/main/java/backend/avatarImgs/three.png";
         } else if( choice == 4 ) {
-            avatarImgPath = "/avatarImgs/four.png";
+            avatarImgPath = "./src/main/java/backend/avatarImgs/four.png";
         }
 
         return avatarImgPath;

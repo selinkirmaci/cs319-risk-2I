@@ -222,8 +222,6 @@ public class Game {
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
 
-        //CHECK HERE UPON TESTING TO AVOID SCANNER ERRORS
-
         int troopAmt;
         do {
             System.out.println("Enter amount of troops you want to deploy: ");

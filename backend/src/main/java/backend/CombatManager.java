@@ -12,7 +12,7 @@ public class CombatManager {
        Update the armies and continent owner according to winner.  */
     public void executeWar( Army attacker, Army defender ) {
 
-        System.out.println("Executing war between attacker: " + attacker.getOwner().getName()
+        System.out.println( "Executing war between attacker: " + attacker.getOwner().getName()
                 + " and defender: " + defender.getOwner().getName() );
 
         int attRoll; //attacker's result from dice roll
