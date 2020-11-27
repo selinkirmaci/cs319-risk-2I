@@ -88,13 +88,13 @@ public class GameManager {
         String avatarImgPath = "";
         //TODO: add avatar images and change the paths accordingly
         if( choice == 1 ) {
-            avatarImgPath = "./src/main/java/backend/avatarImgs/one.png";
+            avatarImgPath = "./src/main/resources/images/alexander_p.png";
         } else if( choice == 2 ) {
-            avatarImgPath = "./src/main/java/backend/avatarImgs/two.png";
+            avatarImgPath = "./src/main/resources/images/hannibal_p.png";
         } else if( choice == 3 ) {
-            avatarImgPath = "./src/main/java/backend/avatarImgs/three.png";
+            avatarImgPath = "./src/main/resources/images/cengiz_p.png";
         } else if( choice == 4 ) {
-            avatarImgPath = "./src/main/java/backend/avatarImgs/four.png";
+            avatarImgPath = "./src/main/resources/images/caesar_p.png";
         }
 
         return avatarImgPath;

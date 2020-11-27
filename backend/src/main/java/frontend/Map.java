@@ -308,7 +308,7 @@ public class Map extends JFrame implements ActionListener {
                     null, options, options[0]);
             if(chosenoption == 3)
             {
-                playSound("snd_quitgame.wav",-10.0f);
+                playSound("./src/main/resources/sounds/snd_quitgame.wav",-10.0f);
                 int quit = JOptionPane.showConfirmDialog(null,
                         "ARE YOU A LOSER?", "QUIT?", JOptionPane.YES_NO_OPTION);
                 if(quit == 0)
@@ -323,7 +323,7 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource() == attackButton)
         {
-            playSound("snd_howtoplay.wav",-10.0f);
+            playSound("./src/main/resources/sounds/snd_howtoplay.wav",-10.0f);
             rollDiceButton.setEnabled(true);
             allianceButton.setEnabled(true);
             decreaseDice.setEnabled(true);
@@ -331,11 +331,11 @@ public class Map extends JFrame implements ActionListener {
             mainPanel.setVisible(false);
             panel1.setVisible(true);
             panel1.setLayout(null);
-            player1.setIcon(new ImageIcon("cengiz_p.png"));
+            player1.setIcon(new ImageIcon("./src/main/resources/images/cengiz_p.png"));
             player1.setBounds(70, 200, 100, 100);
             panel1.add(player1);
 
-            player2.setIcon(new ImageIcon("alexander_p.png"));
+            player2.setIcon(new ImageIcon("./src/main/resources/images/alexander_p.png"));
             player2.setBounds(920, 200, 100, 100);
             panel1.add(player2);
             panel1.add(cancelAttack);
@@ -381,13 +381,13 @@ public class Map extends JFrame implements ActionListener {
             int medium = Math.min(firstdice,seconddice);
             medium = Math.max(medium,thirddice);
 
-            firstDiceSet.setIcon(new ImageIcon("dicered" + min + ".png"));
-            secondDiceSet.setIcon(new ImageIcon("dicered" + medium + ".png"));
-            thirdDiceSet.setIcon(new ImageIcon("dicered" + max + ".png"));
+            firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + min + ".png"));
+            secondDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + medium + ".png"));
+            thirdDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + max + ".png"));
             max = Math.max(forthdice,fifthdice);
             min = Math.min(fifthdice,forthdice);
-            forthDiceSet.setIcon(new ImageIcon("diceblue" + min + ".png"));
-            fifthDiceSet.setIcon(new ImageIcon("diceblue" + max + ".png"));
+            forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + min + ".png"));
+            fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + max + ".png"));
             rollDiceButton.setEnabled(false);
             allianceButton.setEnabled(false);
             decreaseDice.setEnabled(false);
