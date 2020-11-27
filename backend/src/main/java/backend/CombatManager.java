@@ -1,3 +1,5 @@
+// Author: Sukru
+
 package backend;
 
 public class CombatManager {
@@ -18,8 +20,8 @@ public class CombatManager {
         int attRoll; //attacker's result from dice roll
         int defRoll; //defender's result from dice roll
 
-        //continue until defender has no units left
-        while( defender.getTotalValue() != 0 ) {
+        //continue rolling until the battle ends
+        while( defender.getTotalValue() != 0 && attacker.getTotalValue() != 0 ) {
 
             if( (attacker.getTotalValue() == 0) || (defender.getTotalValue() == 0) ) {
                 return; //battle has ended
@@ -28,12 +30,18 @@ public class CombatManager {
             attRoll = dice.rollDice();
             defRoll = dice.rollDice();
 
+            System.out.println( "Attacker rolled:" + attRoll );
+            System.out.println( "Defender rolled:" + defRoll );
+
             if( attRoll > defRoll ) { //defender loses
-                defender.forfeit(1); //May change: consider how the loss will be calculated!
+                System.out.println( "Defender lost one infantry. Current army value for defender:" + defender.getTotalValue() );
+                defender.forfeit(); //May change: consider how the loss will be calculated!
             } else if( attRoll == defRoll ) {
+                System.out.println( "Even." );
                 continue; //roll again
             } else { //attacker loses
-                attacker.forfeit(1); //May change: consider how the loss will be calculated!
+                System.out.println( "Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue() );
+                attacker.forfeit(); //May change: consider how the loss will be calculated!
             }
         }
 

@@ -45,7 +45,7 @@ public class GameManager {
     /* ask for names and avatar pics of the users and create the players accordingly */
     private Player[] createPlayers( int playerAmt ) {
         Player[] players = new Player[playerAmt];
-        Scanner sc= new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         for( int i = 0; i < playerAmt; i++ ) {
             System.out.println( "Enter username for user " + i );
             String username = sc.nextLine();

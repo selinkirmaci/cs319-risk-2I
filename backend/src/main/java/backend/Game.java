@@ -247,9 +247,9 @@ public class Game {
         army.fortify(troopsToFortify);
     }
 
-    /* might attack to bordering territories
-    *  might choose not to attack
-    *  can attack as many times as the player wants */
+    /* TODO: might choose not to attack
+     *  should be able to attack as many times as the player wants
+     * Author: Sukru */
     private void attackTurn( Player p ) {
 
         ArrayList<Territory> nonEmptyTerritories = map.getAllNonEmptyTerritories();
@@ -264,6 +264,7 @@ public class Game {
 
         Scanner sc = new Scanner(System.in);
         from = sc.nextInt();
+        sc.nextLine();
 
         // defender
         Territory fromTerritory = myTerrs.get(from);
@@ -277,22 +278,22 @@ public class Game {
 
         sc = new Scanner(System.in);
         to = sc.nextInt();
+        sc.nextLine();
 
         // attacker
         Territory toTerritory = nonEmptyTerritories.get(to);
 
-        System.out.println( "Enter amount of troops you want to deploy for attacking: " );
-        int troopAmt = sc.nextInt();
-
-        Army def = fromTerritory.getArmy();
-        Army att = toTerritory.getArmy();
+        Army att = fromTerritory.getArmy();
+        Army def = toTerritory.getArmy();
 
         cm.executeWar( att, def );
 
         if( (att.getTotalValue() == 0) ) { // attacker loses
+            System.out.println( "Attacker loses." );
             toTerritory.getArmy().changeOwner(p);
         } else if( (def.getTotalValue() == 0) ) {
             // attacker wins. defender's territory is now attacker's
+            System.out.println( "Attacker wins. Defender's territory is now attacker's" );
             def.changeOwner( att.getOwner() );
             ArrayList<Troop> toAdd = new ArrayList<>();
             toAdd.add( new Infantry() );
