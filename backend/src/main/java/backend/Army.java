@@ -129,6 +129,9 @@ public class Army {
             }
             troops.add( new Artillery() );
         }
+    }
 
+    public void changeOwner( Player p ) {
+        owner = p;
     }
 }

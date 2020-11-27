@@ -1,3 +1,6 @@
+
+// Author: Selin
+
 package frontend;
 
 import javax.sound.sampled.FloatControl;
@@ -31,9 +34,9 @@ import javax.sound.sampled.AudioSystem;
 public class Map extends JFrame implements ActionListener {
     private JPanel mainPanel;
     private JLayeredPane settingPane;
-    private JPanel panel1;
-    private JLabel player1;
-    private JLabel player2;
+    private JPanel panel1 = new JPanel();
+    private JLabel player1 = new JLabel();
+    private JLabel player2 = new JLabel();
     private JLabel territoryName;
     private JLabel background;
     private JLabel avatar1,avatar2,avatar3,avatar4;

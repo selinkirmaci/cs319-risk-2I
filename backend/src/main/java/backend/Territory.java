@@ -18,7 +18,11 @@ public class Territory {
     }
     
     public Army getArmy() {
-        return army;
+        if( army == null ) {
+            return null;
+        } else {
+            return army;
+        }
     }
 
     public String getName() { return name; }

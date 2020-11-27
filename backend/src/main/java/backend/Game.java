@@ -19,6 +19,7 @@ public class Game {
     private final JSONParser parser;
     private final CombatManager cm;
     private int initialTroopAmt; //initial troop amount for each player
+    private final int CONTINENT_AMT = 6;
     
     public Game( int playerAmt, Player[] players, String mapFilePath, String cardsFilePath ) {
         this.parser = new JSONParser();
@@ -188,6 +189,9 @@ public class Game {
 
             printMap();
 
+            attackTurn(current);
+
+            printMap();
 
 
             // TODO: call attackTurn here
@@ -247,10 +251,53 @@ public class Game {
     *  might choose not to attack
     *  can attack as many times as the player wants */
     private void attackTurn( Player p ) {
-        // TODO: first select the territory you want to attack from,
-        //  and then select a bordering territory to attack to
 
-        //cm.executeWar( attacker, defender );
+        ArrayList<Territory> nonEmptyTerritories = map.getAllNonEmptyTerritories();
+        ArrayList<Territory> myTerrs = p.getGainedTerritories();
+        int myTerrsAmt = p.getGainedTerritories().size();
+        int from, to;
+
+        System.out.println("Select which territory you want to attack from: ");
+        for( int i = 0; i < myTerrsAmt; i++ ) {
+            System.out.println( i + ": " + myTerrs.get(i).getName() );
+        }
+
+        Scanner sc = new Scanner(System.in);
+        from = sc.nextInt();
+
+        // defender
+        Territory fromTerritory = myTerrs.get(from);
+
+        System.out.println("Select which territory you want to attack to: ");
+        for( int i = 0; i < nonEmptyTerritories.size(); i++ ) {
+            if( nonEmptyTerritories.get(i).getArmy().getOwner() != p ) { // if the territory is not player p's
+                System.out.println( i + ": " + nonEmptyTerritories.get(i).getName() );
+            }
+        }
+
+        sc = new Scanner(System.in);
+        to = sc.nextInt();
+
+        // attacker
+        Territory toTerritory = nonEmptyTerritories.get(to);
+
+        System.out.println( "Enter amount of troops you want to deploy for attacking: " );
+        int troopAmt = sc.nextInt();
+
+        Army def = fromTerritory.getArmy();
+        Army att = toTerritory.getArmy();
+
+        cm.executeWar( att, def );
+
+        if( (att.getTotalValue() == 0) ) { // attacker loses
+            toTerritory.getArmy().changeOwner(p);
+        } else if( (def.getTotalValue() == 0) ) {
+            // attacker wins. defender's territory is now attacker's
+            def.changeOwner( att.getOwner() );
+            ArrayList<Troop> toAdd = new ArrayList<>();
+            toAdd.add( new Infantry() );
+            def.fortify( toAdd ); // add a single infantry to the gained territory TODO: FOR NOW
+        }
     }
 
     /* receive cards

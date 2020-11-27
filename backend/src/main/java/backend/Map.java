@@ -17,5 +17,42 @@ public class Map {
     public ArrayList<Continent> getContinents() {
         return continents;
     }
+
+    /* get all territories which has an army in it */
+    public ArrayList<Territory> getAllNonEmptyTerritories() {
+        Continent currC;
+        Territory currT;
+        ArrayList<Territory> nonEmpty = new ArrayList<>();
+        for( int i = 0; i < continents.size(); i++ ) {
+            currC = continents.get(i);
+            for( int j = 0; j < currC.getTerritories().size(); j++ ) {
+                currT = currC.getTerritories().get(j);
+                if( currT.getArmy() != null ) {
+                    nonEmpty.add(currT);
+                }
+            }
+        }
+
+        return nonEmpty;
+    }
+
+
+    /* returns the territory with the corresponding name, returns null if not found */
+    public Territory getTerritoryFromName( String territory ) {
+        Continent currC;
+        Territory currT;
+        ArrayList<Territory> nonEmpty = new ArrayList<>();
+        for( int i = 0; i < continents.size(); i++ ) {
+            currC = continents.get(i);
+            for( int j = 0; j < currC.getTerritories().size(); j++ ) {
+                currT = currC.getTerritories().get(j);
+                if( currT.getName().equals(territory) ) {
+                    return currT;
+                }
+            }
+        }
+
+        return null;
+    }
     
 }
