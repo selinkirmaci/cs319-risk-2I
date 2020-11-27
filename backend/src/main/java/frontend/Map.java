@@ -1,4 +1,4 @@
-package backend;
+package frontend;
 
 import javax.sound.sampled.FloatControl;
 import javax.swing.*;
@@ -71,23 +71,23 @@ public class Map extends JFrame implements ActionListener {
 
         firstDiceSet = new JLabel("");
         firstDiceSet.setBounds(40, 280, 100, 100);
-        firstDiceSet.setIcon(new ImageIcon("dicered1.png"));
+        firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered1.png"));
 
         secondDiceSet = new JLabel("");
         secondDiceSet.setBounds(100, 280, 100, 100);
-        secondDiceSet.setIcon(new ImageIcon("dicered1.png"));
+        secondDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered1.png"));
 
         thirdDiceSet = new JLabel("");
         thirdDiceSet.setBounds(160, 280, 100, 100);
-        thirdDiceSet.setIcon(new ImageIcon("dicered1.png"));
+        thirdDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered1.png"));
 
         forthDiceSet = new JLabel("");
         forthDiceSet.setBounds(920, 280, 100, 100);
-        forthDiceSet.setIcon(new ImageIcon("diceblue1.png"));
+        forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue1.png"));
 
         fifthDiceSet = new JLabel("");
         fifthDiceSet.setBounds(980, 280, 100, 100);
-        fifthDiceSet.setIcon(new ImageIcon("diceblue1.png"));
+        fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue1.png"));
 
         rollDiceButton = new JButton("ROLL DICE");
         rollDiceButton.setBounds(520,720,100,50);
@@ -111,7 +111,7 @@ public class Map extends JFrame implements ActionListener {
 
 
         background = new JLabel("");
-        background.setIcon(new ImageIcon("map.v1.jpg"));
+        background.setIcon(new ImageIcon("./src/main/resources/images/map.v1.jpg"));
         background.setBounds(0, -165, 1300, 1100); //1860,1200
 
         avatar1 = new JLabel("");
@@ -119,19 +119,19 @@ public class Map extends JFrame implements ActionListener {
         avatar3 = new JLabel("");
         avatar4 = new JLabel("");
 
-        avatar1.setIcon(new ImageIcon("alexander_p.png"));
+        avatar1.setIcon(new ImageIcon("./src/main/resources/images/alexander_p.png"));
         avatar1.setBounds(80,180,80,80);
         background.add(avatar1);
 
-        avatar3.setIcon(new ImageIcon("hannibal_p.png"));
+        avatar3.setIcon(new ImageIcon("./src/main/resources/images/hannibal_p.png"));
         avatar3.setBounds(980,180,80,80);
         background.add(avatar3);
 
-        avatar2.setIcon(new ImageIcon("cengiz_p.png"));
+        avatar2.setIcon(new ImageIcon("./src/main/resources/images/cengiz_p.png"));
         avatar2.setBounds(80,860,80,80);
         background.add(avatar2);
 
-        avatar4.setIcon(new ImageIcon("caesar_p.png"));
+        avatar4.setIcon(new ImageIcon("./src/main/resources/images/caesar_p.png"));
         avatar4.setBounds(980,860,80,80);
         background.add(avatar4);
 
