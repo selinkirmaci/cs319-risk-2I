@@ -1,5 +1,4 @@
-
-// Author: Selin
+//Author: Selin
 
 package frontend;
 
@@ -62,11 +61,9 @@ public class Map extends JFrame implements ActionListener {
             }
         });
          */
+
     }
 
-    /**
-     * Create the frame.
-     */
     public Map()
     {
         territoryName = new JLabel("");
@@ -115,7 +112,7 @@ public class Map extends JFrame implements ActionListener {
 
         background = new JLabel("");
         background.setIcon(new ImageIcon("./src/main/resources/images/map.v1.jpg"));
-        background.setBounds(0, -165, 1300, 1100); //1860,1200
+        background.setBounds(0, -165, 1580, 1100); //1860,1200
 
         avatar1 = new JLabel("");
         avatar2 = new JLabel("");
@@ -266,7 +263,6 @@ public class Map extends JFrame implements ActionListener {
         settingPane.add(buttonback);
 
         mainPanel.add(background);
-        //add(panel1);
         add(mainPanel);
 
     }
@@ -316,7 +312,7 @@ public class Map extends JFrame implements ActionListener {
                         "ARE YOU A LOSER?", "QUIT?", JOptionPane.YES_NO_OPTION);
                 if(quit == 0)
                 {
-                    dispose();
+                    //dispose();
                 }
             }else if(chosenoption == 2)
             {
@@ -425,7 +421,7 @@ public class Map extends JFrame implements ActionListener {
             }
         }
         repaint();
-        pack();
+        //pack();
     }
 }
 

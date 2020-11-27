@@ -15,14 +15,15 @@ public class GameManager {
     private final String MAP_FILE_PATH = "./src/main/java/backend/jsonfiles/map.json";
     private final String CARDS_FILE_PATH = "./src/main/java/backend/jsonfiles/cards.json";
 
-    public GameManager() {
-        startGame();
+    public GameManager(int playerNumber,String[] playernames, int[]playerAvatarIndexs) {
+        startGame(playerNumber, playernames,playerAvatarIndexs);
     }
 
-    private void startGame() {
-        Scanner sc= new Scanner(System.in);
+    private void startGame(int playerNumber,String[] playernames, int[]playerAvatars) {
+        //Scanner sc= new Scanner(System.in);
 
         //ask for user amount first
+        /*
         System.out.println( "Enter player amount(3-5):" );
         int playerAmt = -1;
         while( playerAmt == -1 || playerAmt <= 2 || playerAmt > 5 ) {
@@ -33,20 +34,21 @@ public class GameManager {
                 System.out.println( "Enter player amount again:" );
             }
         }
-
+*/
         //create the players
-        Player[] players = createPlayers(playerAmt);
+        Player[] players = createPlayers(playerNumber,playernames,playerAvatars);
 
         //initialise the game
-        game = new Game(playerAmt, players, MAP_FILE_PATH,
+        game = new Game(playerNumber, players, MAP_FILE_PATH,
                 CARDS_FILE_PATH );
     }
 
     /* ask for names and avatar pics of the users and create the players accordingly */
-    private Player[] createPlayers( int playerAmt ) {
+    private Player[] createPlayers( int playerAmt,String[] playernames, int[]playerAvatars ) {
         Player[] players = new Player[playerAmt];
-        Scanner sc = new Scanner(System.in);
+        Scanner sc= new Scanner(System.in);
         for( int i = 0; i < playerAmt; i++ ) {
+            /*
             System.out.println( "Enter username for user " + i );
             String username = sc.nextLine();
 
@@ -55,14 +57,16 @@ public class GameManager {
             int avatarChoice = sc.nextInt();
             sc.nextLine();
 
+             */
+
             //set path of avatar image
-            String avatarImgPath = setAvatarImage(avatarChoice);
+            String avatarImgPath = setAvatarImage(playerAvatars[i]);
 
             //get infantry amount
             int infantryAmt = getInfantryAmt(playerAmt);
 
             //add each player
-            players[i] = new Player( username, new Avatar(avatarImgPath), infantryAmt, i );
+            players[i] = new Player( playernames[i], new Avatar(avatarImgPath), infantryAmt, i );
 
         }
 
