@@ -14,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -46,12 +47,17 @@ public class Map extends JFrame implements ActionListener {
     JButton attackButton,retreatButton;
     JButton pauseButton;
     JButton draftButton;
+    JButton nextPlayerButton;
     JButton cancelAttack,rollDiceButton,allianceButton,decreaseDice,increaseDice;
     String chosenTerritory;
     JLabel firstDiceSet,secondDiceSet,thirdDiceSet,forthDiceSet,fifthDiceSet;
     int diceNumberLeft = 3;
 
-    public static void main(String[] args) {
+    private GameManager gameManager;
+
+
+/*
+*     public static void main(String[] args) {
         Map frame = new Map();
         frame.setVisible(true);
         frame.setTitle("Risk");
@@ -59,17 +65,19 @@ public class Map extends JFrame implements ActionListener {
         frame.setPreferredSize(new Dimension(1150,830)); //1570,800
         frame.setResizable(false);
         frame.pack();
-        /*
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-            }
-        });
-         */
+        //EventQueue.invokeLater(new Runnable() {
+        //    public void run() {
+        //    }
+        //});
 
-    }
 
-    public Map()
+}
+* */
+
+    public Map( GameManager gameManager )
     {
+        this.gameManager = gameManager;
+
         territoryName = new JLabel("");
         territoryName.setBounds(500,20,300,50);
 
@@ -242,12 +250,22 @@ public class Map extends JFrame implements ActionListener {
 
         draftButton = new JButton("DRAFT");
         draftButton.setName("DRAFT");
-        draftButton.setBounds(200, 940, 150, 50);
+        draftButton.setBounds(200, 930, 150, 50);
         draftButton.setContentAreaFilled(true);
         draftButton.setBorderPainted(true);
         draftButton.setEnabled(false);
         draftButton.addActionListener(this);
         background.add(draftButton);
+
+
+        nextPlayerButton = new JButton("NEXT PLAYER");
+        nextPlayerButton.setName("NEXT PLAYER");
+        nextPlayerButton.setBounds(350, 880, 150, 50);
+        nextPlayerButton.setContentAreaFilled(true);
+        nextPlayerButton.setBorderPainted(true);
+        nextPlayerButton.setEnabled(true);
+        nextPlayerButton.addActionListener(this);
+        background.add(nextPlayerButton);
 
         retreatButton = new JButton("RETREAT");
         retreatButton.setBounds(800, 880, 150, 50);
@@ -307,10 +325,14 @@ public class Map extends JFrame implements ActionListener {
             attackButton.setEnabled(true);
             retreatButton.setEnabled(true);
             draftButton.setEnabled(true);
-            if(tmp.getName() != "ATTACK") {
+            if(tmp.getName() == "DRAFT") {
+                System.out.println(chosenTerritory);
+            }
+            else if(tmp.getName() != "ATTACK") {
                 chosenTerritory = tmp.getName();
                 System.out.println(chosenTerritory);
             }
+
         }
         if(e.getSource()==pauseButton)
         {
@@ -334,6 +356,7 @@ public class Map extends JFrame implements ActionListener {
                 mainPanel.setEnabled(false);
             }
         }
+
         if(e.getSource() == attackButton)
         {
             playSound("./src/main/resources/sounds/snd_howtoplay.wav",-10.0f);
@@ -372,10 +395,11 @@ public class Map extends JFrame implements ActionListener {
             panel1.add(fifthDiceSet);
             add(panel1);
 
+            //TODO
+            gameManager.getGame().attackTurn();
+
         }
-        if( e.getSource() == draftButton ) {
-            System.out.println( "Drafting " + chosenTerritory );
-        }
+
         if(e.getSource()==cancelAttack)
         {
             remove(panel1);
@@ -383,6 +407,7 @@ public class Map extends JFrame implements ActionListener {
             attackButton.setEnabled(false);
             retreatButton.setEnabled(false);
         }
+
         if(e.getSource() == rollDiceButton)
         {
             int firstdice = (int) (Math.random() * 6) + 1;
@@ -409,6 +434,7 @@ public class Map extends JFrame implements ActionListener {
             decreaseDice.setEnabled(false);
             increaseDice.setEnabled(false);
         }
+
         if(e.getSource() == decreaseDice)
         {
             thirdDiceSet.setVisible(false);
@@ -423,6 +449,7 @@ public class Map extends JFrame implements ActionListener {
                 decreaseDice.setEnabled(false);
             }
         }
+
         if(e.getSource() == increaseDice)
         {
             secondDiceSet.setVisible(true);
@@ -436,6 +463,32 @@ public class Map extends JFrame implements ActionListener {
             {
                 increaseDice.setEnabled(false);
             }
+        }
+
+        if( e.getSource() == draftButton ) {
+            System.out.println( "Drafting " + chosenTerritory );
+
+            // TODO: burada bir panel( ya da frame ) ile troopAmt isteyecek
+            Scanner sc = new Scanner(System.in);
+            int troopAmt = sc.nextInt();
+            sc.nextLine();
+
+            int playerTurn = gameManager.getGame().getCurrentPlayerTurn();
+            Player p = gameManager.getGame().getPlayers()[playerTurn];
+            int numOfTerr = p.getGainedTerritories().size();
+
+            Territory chosen = gameManager.getGame().getMap().getTerritoryFromName(chosenTerritory);
+
+            gameManager.getGame().draftTurn( chosen, troopAmt );
+
+            // TODO: Add a notification panel to show the drafted soldier amount and the territory name.
+        }
+
+        if( e.getSource() == nextPlayerButton ) {
+
+            //pass the turn to the next player
+            gameManager.getGame().passTurn();
+
         }
         repaint();
         //pack();

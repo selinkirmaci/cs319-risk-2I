@@ -71,7 +71,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	private int avatarNoP1 = 0, avatarNoP2 = 0, avatarNoP3 = 0, avatarNoP4 = 0;
 	private int numOfPlayers = 4;
-	private int[]playerAvatarIndexes = new int[4];
+	private int[] playerAvatarIndexes = new int[4];
 	private String[] playerNames = new String[4];
 
 	private GameManager gameManager;
@@ -106,7 +106,11 @@ public class GUI extends JFrame implements ActionListener {
 	public GUI()
 	{
 
+		/* CREATE GAME MANAGER */
 		gameManager = new GameManager();
+
+
+
 		// ###############  Main Menu Panel  ###############
 
 		pnlMainMenu = new JPanel();
@@ -938,8 +942,6 @@ public class GUI extends JFrame implements ActionListener {
 
 			numOfPlayers = 4;
 
-
-
 		}
 
 		if(e.getSource()==btnContinueFromStartGameMenu)
@@ -1007,17 +1009,20 @@ public class GUI extends JFrame implements ActionListener {
 					playerAvatarIndexes[1] = avatarNoP2;
 					remove(pnlStartGameMenu);
 					dispose();
-					Map frame = new Map();
+
+					// Start the actual game
+
+					Map frame = new Map(gameManager);
 					frame.setVisible(true);
 					frame.setTitle("Risk");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
+
 					gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
 
 				}
-
 
 			}
 			////
@@ -1072,13 +1077,17 @@ public class GUI extends JFrame implements ActionListener {
 					playerAvatarIndexes[1] = avatarNoP2;
 					playerAvatarIndexes[2] = avatarNoP3;
 					dispose();
-					Map frame = new Map();
+
+					// Start the actual game
+
+					Map frame = new Map(gameManager);
 					frame.setVisible(true);
 					frame.setTitle("Risk");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
+
 					gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
 
 				}
@@ -1140,16 +1149,18 @@ public class GUI extends JFrame implements ActionListener {
 					playerAvatarIndexes[1] = avatarNoP2;
 					playerAvatarIndexes[2] = avatarNoP3;
 					playerAvatarIndexes[3] = avatarNoP4;
-
 					dispose();
-					Map frame = new Map();
+
+					// Start the actual game
+					Map frame = new Map(gameManager);
 					frame.setVisible(true);
 					frame.setTitle("Risk");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
-					gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes );
+
+					gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
 				}
 
 			}
