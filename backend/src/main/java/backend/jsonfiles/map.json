@@ -1,80 +1,89 @@
 [
   {
-    "name": "Kunosra",
+    "name": "Klinosra",
     "extraArmies": 0,
     "territories": [
-      "Hahr Hinkel",
-      "Grimmentz",
-      "Noira",
-      "Zingelburg",
-      "Zlingeland",
-      "Northwest",
-      "Ontario",
-      "Quebec",
-      "WesternUS"
+      "Raken",
+      "Perleninsel",
+      "Grimmspitze",
+      "Ziegelherz",
+      "Nosra",
+      "Klinos",
+      "Ost-Klina",
+      "Nord-Ziegelsand",
+      "Ziegelsand",
+      "Hohe Hinkel"
     ]
   },
   {
-    "name": "Europe",
+    "name": "Zamuria",
     "extraArmies": 0,
     "territories": [
-      "GreatBritain",
-      "Iceland",
-      "NorthernEurope",
-      "Scandinavia",
-      "SouthernEurope",
-      "Ukraine",
-      "WesternEurope"
+      "Nord-forstheim",
+      "Südforstheim",
+      "Eishaiz",
+      "Zankostane",
+      "Silbertal",
+      "Zamuria"
     ]
   },
   {
-    "name": "Asia",
+    "name": "Teutonia",
     "extraArmies": 0,
     "territories": [
-      "Afghanistan",
-      "China",
-      "India",
-      "Irkutsk",
-      "Japan",
-      "Kamchatka",
-      "MiddleEast",
-      "Mongolia",
-      "Siam",
-      "Siberia",
-      "Ural",
-      "Yakutsk"
+      "Sandwacht",
+      "Eden",
+      "TautonischeHochebene",
+      "Wadland",
+      "Prachthafen",
+      "Bürthal",
+      "Hochlaub",
+      "Ostesteinburg",
+      "TeutonischerHammer"
     ]
   },
   {
-    "name": "SouthAmerica",
+    "name": "Grinomika",
     "extraArmies": 0,
     "territories": [
-      "Argentina",
-      "Brazil",
-      "Peru",
-      "Venezuela"
+      "Sumbaspitze",
+      "Nosptenburg",
+      "Graue Ebene",
+      "Hoiawald"
     ]
   },
   {
-    "name": "Africa",
+    "name": "Mimiken",
     "extraArmies": 0,
     "territories": [
-      "Congo",
-      "EastAfrica",
-      "Egypt",
-      "Madagascar",
-      "NorthAfrica",
-      "SouthAfrica"
+      "Niederswith",
+      "Bakanwald",
+      "Rorschachwall",
+      "Schwarzfeld",
+      "Mimiken",
+      "Waithenland",
+      "Windbergen"
     ]
   },
   {
-    "name": "Australia",
+    "name": "Kultanien",
     "extraArmies": 0,
     "territories": [
-      "EasternAustralia",
-      "Indonesia",
-      "NewGuinea",
-      "WesternAustralia"
+      "Goldbach",
+      "Sonnenwiese",
+      "Haus der Sonne",
+      "Morgenfeld",
+      "Morgenrücken",
+      "Uppenwald",
+      "Waithfels"
+    ]
+  },
+  {
+    "name": "Donner",
+    "extraArmies": 0,
+    "territories": [
+      "Wuselwiese",
+      "Donnerwald"
     ]
   }
 ]
