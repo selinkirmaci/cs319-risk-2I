@@ -260,39 +260,16 @@ public class Game {
     /* TODO: might choose not to attack
      *  should be able to attack as many times as the player wants
      * Author: Sukru */
-    public void attackTurn( Territory toAttack ) {
+    // returns true when the attacker wins, false otherwise
+    public boolean attackTurn( Territory attackFrom, Territory attackTo ) {
         Player p = players[currentPlayerTurn];
         turnType = "attack";
-        ArrayList<Territory> nonEmptyTerritories = map.getAllNonEmptyTerritories();
-        ArrayList<Territory> myTerrs = p.getGainedTerritories();
-        int myTerrsAmt = p.getGainedTerritories().size();
-        int from, to;
-
-        System.out.println("Select which territory you want to attack from: ");
-        for( int i = 0; i < myTerrsAmt; i++ ) {
-            System.out.println( i + ": " + myTerrs.get(i).getName() );
-        }
-
-        Scanner sc = new Scanner(System.in);
-        from = sc.nextInt();
-        sc.nextLine();
 
         // defender
-        Territory fromTerritory = myTerrs.get(from);
-
-        System.out.println("Select which territory you want to attack to: ");
-        for( int i = 0; i < nonEmptyTerritories.size(); i++ ) {
-            if( nonEmptyTerritories.get(i).getArmy().getOwner() != p ) { // if the territory is not player p's
-                System.out.println( i + ": " + nonEmptyTerritories.get(i).getName() );
-            }
-        }
-
-        sc = new Scanner(System.in);
-        to = sc.nextInt();
-        sc.nextLine();
+        Territory fromTerritory = attackFrom;
 
         // attacker
-        Territory toTerritory = nonEmptyTerritories.get(to);
+        Territory toTerritory = attackTo;
 
         Army att = fromTerritory.getArmy();
         Army def = toTerritory.getArmy();
@@ -302,6 +279,8 @@ public class Game {
         if( (att.getTotalValue() == 0) ) { // attacker loses
             System.out.println( "Attacker loses." );
             toTerritory.getArmy().changeOwner(p);
+            printMap();
+            return false;
         } else if( (def.getTotalValue() == 0) ) {
             // attacker wins. defender's territory is now attacker's
             System.out.println( "Attacker wins. Defender's territory is now attacker's" );
@@ -309,9 +288,12 @@ public class Game {
             ArrayList<Troop> toAdd = new ArrayList<>();
             toAdd.add( new Infantry() );
             def.fortify( toAdd ); // add a single infantry to the gained territory TODO: FOR NOW
+            printMap();
+            return true;
         }
 
-        printMap();
+        System.out.println( "There is an error in attackTurn!" );
+        return false; // should not happen
     }
 
     /* receive cards
@@ -351,7 +333,7 @@ public class Game {
         return players;
     }
 
-    private void printInfAmt() {
+    public void printInfAmt() {
         for( int i = 0; i < playerAmt; i++ ) {
             System.out.println( "Infantries in hand for player " + players[i].getName() + ": " +
                     players[i].getInfantryAmt() );

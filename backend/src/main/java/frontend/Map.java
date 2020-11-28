@@ -53,6 +53,10 @@ public class Map extends JFrame implements ActionListener {
     JLabel firstDiceSet,secondDiceSet,thirdDiceSet,forthDiceSet,fifthDiceSet;
     int diceNumberLeft = 3;
 
+    String from = "";
+    String to = "";
+    boolean setFrom = true;
+
     private GameManager gameManager;
 
 
@@ -319,12 +323,30 @@ public class Map extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e)
     {
-        JButton tmp = (JButton) e.getSource();
-        if(tmp!= null || e.getSource() != pauseButton|| e.getSource() != attackButton|| e.getSource() != retreatButton)
+
+        if( (e.getSource() != pauseButton) &&
+                (e.getSource() != attackButton) && (e.getSource() != retreatButton) )
         {
-            attackButton.setEnabled(true);
+            JButton tmp = (JButton) e.getSource();
+            if(setFrom) {
+                from = tmp.getName();
+                setFrom = !setFrom;
+            } else if( from != "" ) {
+                to = tmp.getName();
+                setFrom = !setFrom;
+            } else {
+                from = tmp.getName();
+            }
+
+            if( !from.equals("") && !to.equals("") ) {
+                attackButton.setEnabled(true);
+            } else {
+                attackButton.setEnabled(false);
+            }
+
             retreatButton.setEnabled(true);
             draftButton.setEnabled(true);
+
             if(tmp.getName() == "DRAFT") {
                 System.out.println(chosenTerritory);
             }
@@ -359,44 +381,62 @@ public class Map extends JFrame implements ActionListener {
 
         if(e.getSource() == attackButton)
         {
-            playSound("./src/main/resources/sounds/snd_howtoplay.wav",-10.0f);
-            rollDiceButton.setEnabled(true);
-            allianceButton.setEnabled(true);
-            decreaseDice.setEnabled(true);
-            increaseDice.setEnabled(true);
-            mainPanel.setVisible(false);
-            panel1.setVisible(true);
-            panel1.setLayout(null);
-            player1.setIcon(new ImageIcon("./src/main/resources/images/cengiz_p.png"));
-            player1.setBounds(70, 200, 100, 100);
-            panel1.add(player1);
-
-            player2.setIcon(new ImageIcon("./src/main/resources/images/alexander_p.png"));
-            player2.setBounds(920, 200, 100, 100);
-            panel1.add(player2);
-            panel1.add(cancelAttack);
-
-            System.out.println(chosenTerritory);
-            territoryName.setText("BATTLE FOR "+chosenTerritory);
-            panel1.add(territoryName);
-
-            panel1.add(rollDiceButton);
-
-            panel1.add(decreaseDice);
-
-            panel1.add(allianceButton);
-
-            panel1.add(increaseDice);
-
-            panel1.add(firstDiceSet);
-            panel1.add(secondDiceSet);
-            panel1.add(thirdDiceSet);
-            panel1.add(forthDiceSet);
-            panel1.add(fifthDiceSet);
-            add(panel1);
-
             //TODO
-            gameManager.getGame().attackTurn();
+            Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
+            Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
+
+            System.out.println("Executing war from "+from + " to " + to + "!");
+
+            if( fromTerr.getArmy() == null || toTerr.getArmy() == null ) {
+                System.out.println("One of the armies are null!");
+            } else {
+                System.out.println("Executing war from "+from + " to " + to + "!");
+                boolean attackerWon = gameManager.getGame().attackTurn(fromTerr, toTerr);
+
+                playSound("./src/main/resources/sounds/snd_howtoplay.wav",-10.0f);
+                /*
+                rollDiceButton.setEnabled(true);
+                allianceButton.setEnabled(true);
+                decreaseDice.setEnabled(true);
+                increaseDice.setEnabled(true);
+                mainPanel.setVisible(false);
+                panel1.setVisible(true);
+                panel1.setLayout(null);
+                player1.setIcon(new ImageIcon("./src/main/resources/images/cengiz_p.png"));
+                player1.setBounds(70, 200, 100, 100);
+                panel1.add(player1);
+
+                player2.setIcon(new ImageIcon("./src/main/resources/images/alexander_p.png"));
+                player2.setBounds(920, 200, 100, 100);
+                panel1.add(player2);
+                panel1.add(cancelAttack);
+
+                System.out.println(chosenTerritory);
+                territoryName.setText("BATTLE FROM " + from + " TO " + to);
+                panel1.add(territoryName);
+
+                panel1.add(rollDiceButton);
+
+                panel1.add(decreaseDice);
+
+                panel1.add(allianceButton);
+
+                panel1.add(increaseDice);
+
+                panel1.add(firstDiceSet);
+                panel1.add(secondDiceSet);
+                panel1.add(thirdDiceSet);
+                panel1.add(forthDiceSet);
+                panel1.add(fifthDiceSet);
+                add(panel1);
+                
+                 */
+
+                from = "";
+                to = "";
+            }
+
+            attackButton.setEnabled(false);
 
         }
 
@@ -470,24 +510,40 @@ public class Map extends JFrame implements ActionListener {
 
             // TODO: burada bir panel( ya da frame ) ile troopAmt isteyecek
             Scanner sc = new Scanner(System.in);
+
             int troopAmt = sc.nextInt();
             sc.nextLine();
 
             int playerTurn = gameManager.getGame().getCurrentPlayerTurn();
             Player p = gameManager.getGame().getPlayers()[playerTurn];
-            int numOfTerr = p.getGainedTerritories().size();
-
+            int maxInfAmt = p.getInfantryAmt();
             Territory chosen = gameManager.getGame().getMap().getTerritoryFromName(chosenTerritory);
 
-            gameManager.getGame().draftTurn( chosen, troopAmt );
+            if( troopAmt > maxInfAmt ) {
+                // TODO: Error alert here!
+                System.out.println("Amount of infantries in hand is: " + maxInfAmt );
+            } else {
+                // TODO: Add a notification panel to show the drafted soldier amount and the territory name.
+                gameManager.getGame().draftTurn( chosen, troopAmt );
 
-            // TODO: Add a notification panel to show the drafted soldier amount and the territory name.
+                from = "";
+                to = "";
+            }
+
+            gameManager.getGame().printInfAmt();
+            attackButton.setEnabled(false);
+
         }
 
         if( e.getSource() == nextPlayerButton ) {
 
             //pass the turn to the next player
             gameManager.getGame().passTurn();
+            gameManager.getGame().printInfAmt();
+
+            from = "";
+            to = "";
+            attackButton.setEnabled(false);
 
         }
         repaint();
