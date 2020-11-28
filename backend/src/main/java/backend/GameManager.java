@@ -15,11 +15,11 @@ public class GameManager {
     private final String MAP_FILE_PATH = "./src/main/java/backend/jsonfiles/map.json";
     private final String CARDS_FILE_PATH = "./src/main/java/backend/jsonfiles/cards.json";
 
-    public GameManager(int playerNumber,String[] playernames, int[]playerAvatarIndexs) {
-        startGame(playerNumber, playernames,playerAvatarIndexs);
+    public GameManager(/*int playerNumber,String[] playernames, int[]playerAvatarIndexs*/) {
+        //startGame(playerNumber, playernames,playerAvatarIndexs);
     }
 
-    private void startGame(int playerNumber,String[] playernames, int[]playerAvatars) {
+    public void startGame(int playerNumber,String[] playernames, int[]playerAvatars) {
         //Scanner sc= new Scanner(System.in);
 
         //ask for user amount first

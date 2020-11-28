@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioSystem;
+import backend.*;
 
 public class Map extends JFrame implements ActionListener {
     private JPanel mainPanel;
@@ -39,9 +40,12 @@ public class Map extends JFrame implements ActionListener {
     private JLabel territoryName;
     private JLabel background;
     private JLabel avatar1,avatar2,avatar3,avatar4;
-    JButton buttonterritory,buttonterritory2,buttonterritory3,buttonterritory4,buttonterritory5,buttonterritory6,buttonterritory7,buttonterritory8,buttonterritory9,buttonterritory10,buttonterritory11;
+
+    JButton buttonterritory,buttonterritory2,buttonterritory3,buttonterritory4,buttonterritory5,
+            buttonterritory6,buttonterritory7,buttonterritory8,buttonterritory9,buttonterritory10,buttonterritory11;
     JButton attackButton,retreatButton;
     JButton pauseButton;
+    JButton draftButton;
     JButton cancelAttack,rollDiceButton,allianceButton,decreaseDice,increaseDice;
     String chosenTerritory;
     JLabel firstDiceSet,secondDiceSet,thirdDiceSet,forthDiceSet,fifthDiceSet;
@@ -144,7 +148,7 @@ public class Map extends JFrame implements ActionListener {
         buttonterritory.setContentAreaFilled(false);
         buttonterritory.setBorderPainted(true);
         buttonterritory.addActionListener(this);
-        buttonterritory.setName("territory1");
+        buttonterritory.setName("Klinos");
         background.add(buttonterritory);
 
         buttonterritory2 = new JButton("");
@@ -152,7 +156,7 @@ public class Map extends JFrame implements ActionListener {
         buttonterritory2.setContentAreaFilled(false);
         buttonterritory2.setBorderPainted(true);
         buttonterritory2.addActionListener(this);
-        buttonterritory2.setName("territory2");
+        buttonterritory2.setName("Nord-Ziegelsand");
         mainPanel.add(buttonterritory2);
 
         buttonterritory9 = new JButton("");
@@ -160,7 +164,7 @@ public class Map extends JFrame implements ActionListener {
         buttonterritory9.setContentAreaFilled(false);
         buttonterritory9.setBorderPainted(true);
         buttonterritory9.addActionListener(this);
-        buttonterritory9.setName("territory9");
+        buttonterritory9.setName("Ziegelsand");
         mainPanel.add(buttonterritory9);
 
         buttonterritory3 = new JButton("");
@@ -168,7 +172,7 @@ public class Map extends JFrame implements ActionListener {
         buttonterritory3.setContentAreaFilled(false);
         buttonterritory3.setBorderPainted(true);
         buttonterritory3.addActionListener(this);
-        buttonterritory3.setName("territory3");
+        buttonterritory3.setName("Graue Ebene");
         mainPanel.add(buttonterritory3);
 
         buttonterritory4 = new JButton("");
@@ -176,7 +180,7 @@ public class Map extends JFrame implements ActionListener {
         buttonterritory4.setContentAreaFilled(false);
         buttonterritory4.setBorderPainted(true);
         buttonterritory4.addActionListener(this);
-        buttonterritory4.setName("territory4");
+        buttonterritory4.setName("Rorschachwall");
         mainPanel.add(buttonterritory4);
 
         buttonterritory5 = new JButton("");
@@ -184,7 +188,7 @@ public class Map extends JFrame implements ActionListener {
         buttonterritory5.setContentAreaFilled(false);
         buttonterritory5.setBorderPainted(true);
         buttonterritory5.addActionListener(this);
-        buttonterritory5.setName("territory5");
+        buttonterritory5.setName("Bakanwald");
         mainPanel.add(buttonterritory5);
 
         buttonterritory8 = new JButton("");
@@ -192,7 +196,7 @@ public class Map extends JFrame implements ActionListener {
         buttonterritory8.setContentAreaFilled(false);
         buttonterritory8.setBorderPainted(true);
         buttonterritory8.addActionListener(this);
-        buttonterritory8.setName("territory8");
+        buttonterritory8.setName("Waithfels");
         mainPanel.add(buttonterritory8);
 
         buttonterritory6 = new JButton("");
@@ -200,7 +204,7 @@ public class Map extends JFrame implements ActionListener {
         buttonterritory6.setContentAreaFilled(false);
         buttonterritory6.setBorderPainted(true);
         buttonterritory6.addActionListener(this);
-        buttonterritory6.setName("territory6");
+        buttonterritory6.setName("Schwarzfeld");
         mainPanel.add(buttonterritory6);
 
         buttonterritory7 = new JButton("");
@@ -208,7 +212,7 @@ public class Map extends JFrame implements ActionListener {
         buttonterritory7.setContentAreaFilled(false);
         buttonterritory7.setBorderPainted(true);
         buttonterritory7.addActionListener(this);
-        buttonterritory7.setName("territory7");
+        buttonterritory7.setName("Mimiken");
         mainPanel.add(buttonterritory7);
 
         buttonterritory10 = new JButton("");
@@ -216,7 +220,7 @@ public class Map extends JFrame implements ActionListener {
         buttonterritory10.setContentAreaFilled(false);
         buttonterritory10.setBorderPainted(true);
         buttonterritory10.addActionListener(this);
-        buttonterritory10.setName("territory10");
+        buttonterritory10.setName("Bürthal");
         mainPanel.add(buttonterritory10);
 
         buttonterritory11 = new JButton("");
@@ -224,7 +228,7 @@ public class Map extends JFrame implements ActionListener {
         buttonterritory11.setContentAreaFilled(false);
         buttonterritory11.setBorderPainted(true);
         buttonterritory11.addActionListener(this);
-        buttonterritory11.setName("territory11");
+        buttonterritory11.setName("Morgenfeld");
         mainPanel.add(buttonterritory11);
 
         attackButton = new JButton("ATTACK");
@@ -235,6 +239,15 @@ public class Map extends JFrame implements ActionListener {
         attackButton.setEnabled(false);
         attackButton.addActionListener(this);
         background.add(attackButton);
+
+        draftButton = new JButton("DRAFT");
+        draftButton.setName("DRAFT");
+        draftButton.setBounds(200, 940, 150, 50);
+        draftButton.setContentAreaFilled(true);
+        draftButton.setBorderPainted(true);
+        draftButton.setEnabled(false);
+        draftButton.addActionListener(this);
+        background.add(draftButton);
 
         retreatButton = new JButton("RETREAT");
         retreatButton.setBounds(800, 880, 150, 50);
@@ -293,6 +306,7 @@ public class Map extends JFrame implements ActionListener {
         {
             attackButton.setEnabled(true);
             retreatButton.setEnabled(true);
+            draftButton.setEnabled(true);
             if(tmp.getName() != "ATTACK") {
                 chosenTerritory = tmp.getName();
                 System.out.println(chosenTerritory);
@@ -358,6 +372,9 @@ public class Map extends JFrame implements ActionListener {
             panel1.add(fifthDiceSet);
             add(panel1);
 
+        }
+        if( e.getSource() == draftButton ) {
+            System.out.println( "Drafting " + chosenTerritory );
         }
         if(e.getSource()==cancelAttack)
         {

@@ -74,6 +74,8 @@ public class GUI extends JFrame implements ActionListener {
 	private int[]playerAvatarIndexes = new int[4];
 	private String[] playerNames = new String[4];
 
+	private GameManager gameManager;
+
 
 
 	/**
@@ -103,6 +105,8 @@ public class GUI extends JFrame implements ActionListener {
 	 */
 	public GUI()
 	{
+
+		gameManager = new GameManager();
 		// ###############  Main Menu Panel  ###############
 
 		pnlMainMenu = new JPanel();
@@ -1010,8 +1014,7 @@ public class GUI extends JFrame implements ActionListener {
 					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
-					//add(m);
-					//GameManager g = new GameManager(numOfPlayers,playerNames,playerAvatarIndexes);
+					gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
 
 				}
 
@@ -1076,7 +1079,8 @@ public class GUI extends JFrame implements ActionListener {
 					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
-					//GameManager g = new GameManager(numOfPlayers,playerNames,playerAvatarIndexes);
+					gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
+
 				}
 
 			}
@@ -1145,7 +1149,7 @@ public class GUI extends JFrame implements ActionListener {
 					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
-					//GameManager g = new GameManager(numOfPlayers,playerNames,playerAvatarIndexes);
+					gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes );
 				}
 
 			}
