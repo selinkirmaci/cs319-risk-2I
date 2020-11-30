@@ -342,8 +342,13 @@ public class Map extends JFrame implements ActionListener {
         //get army values
         for(int i = 0; i < 45; i++ )
         {
-            if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null)
-                territories[i].setText(""+game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
+            if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null) {
+                territories[i].setText("" + game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
+                if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getOwner().getName()== players[currentPlayer].getName())
+                    territories[i].setForeground(Color.CYAN);
+                else
+                    territories[i].setForeground(Color.WHITE);
+            }
             mainPanel.add(territories[i]);
         }
 
@@ -644,8 +649,13 @@ public class Map extends JFrame implements ActionListener {
 
                 //update army values
                 for (int i = 0; i < 45; i++) {
-                    if (game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null)
+                    if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null) {
                         territories[i].setText("" + game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
+                        if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getOwner().getName()== players[currentPlayer].getName())
+                            territories[i].setForeground(Color.CYAN);
+                        else
+                            territories[i].setForeground(Color.WHITE);
+                    }
                 }
                 gameManager.getGame().printInfAmt();
                 attackButton.setEnabled(false);
@@ -669,6 +679,15 @@ public class Map extends JFrame implements ActionListener {
             from = "";
             to = "";
             attackButton.setEnabled(false);
+            for (int i = 0; i < 45; i++) {
+                if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null) {
+                    territories[i].setText("" + game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
+                    if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getOwner().getName()== players[currentPlayer].getName())
+                        territories[i].setForeground(Color.CYAN);
+                    else
+                        territories[i].setForeground(Color.WHITE);
+                }
+            }
             if(currentPlayer == 0)
             {
                 player1name.setText(players[0].getName()+" Infantry numbers:" + players[0].getInfantryAmt());
