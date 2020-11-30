@@ -1162,6 +1162,8 @@ public class GUI extends JFrame implements ActionListener {
 		if(e.getSource()==btnHowToPlay)
 		{
 			playSound("./src/main/resources/sounds/snd_howtoplay.wav");
+			remove(pnlMainMenu);
+			//add(pnlHowToPlay);
 		}
 
 		if(e.getSource()==btnChooseColour1)
