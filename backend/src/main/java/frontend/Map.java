@@ -13,6 +13,8 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.io.File;
 import java.util.Scanner;
 
@@ -41,6 +43,8 @@ public class Map extends JFrame implements ActionListener {
     private JLabel territoryName;
     private JLabel background;
     private JLabel avatar1,avatar2,avatar3,avatar4;
+    private JLabel player1name,player2name,player3name,player4name;
+    CircleComponent component1 = new CircleComponent(90);
 
     JButton buttonterritory,buttonterritory2,buttonterritory3,buttonterritory4,buttonterritory5,
             buttonterritory6,buttonterritory7,buttonterritory8,buttonterritory9,buttonterritory10,buttonterritory11;
@@ -58,6 +62,10 @@ public class Map extends JFrame implements ActionListener {
     boolean setFrom = true;
 
     private GameManager gameManager;
+    private Game game;
+    Player[] players;
+    int currentPlayer;
+    int noOfPlayers;
 
 
 /*
@@ -80,8 +88,13 @@ public class Map extends JFrame implements ActionListener {
 
     public Map( GameManager gameManager )
     {
-        this.gameManager = gameManager;
 
+        this.gameManager = gameManager;
+        game = gameManager.getGame();
+        players = game.getPlayers();
+        currentPlayer = game.getCurrentPlayerTurn();
+
+        noOfPlayers = players.length;
         territoryName = new JLabel("");
         territoryName.setBounds(500,20,300,50);
 
@@ -127,7 +140,7 @@ public class Map extends JFrame implements ActionListener {
 
 
         background = new JLabel("");
-        background.setIcon(new ImageIcon("./src/main/resources/images/map.v1.jpg"));
+        background.setIcon(new ImageIcon("./src/main/resources/images/map_hq_v2.jpg"));
         background.setBounds(0, -165, 1580, 1100); //1860,1200
 
         avatar1 = new JLabel("");
@@ -137,110 +150,168 @@ public class Map extends JFrame implements ActionListener {
 
         avatar1.setIcon(new ImageIcon("./src/main/resources/images/alexander_p.png"));
         avatar1.setBounds(80,180,80,80);
+        player1name = new JLabel(players[0].getName()+" Infantry numbers:" + players[0].getInfantryAmt());
+        player1name.setBounds(60,230,800,80);
         background.add(avatar1);
 
         avatar3.setIcon(new ImageIcon("./src/main/resources/images/hannibal_p.png"));
         avatar3.setBounds(980,180,80,80);
+        player2name = new JLabel(players[1].getName()+" Infantry numbers:" + players[1].getInfantryAmt());
+        player2name.setBounds(960,230,200,80);
         background.add(avatar3);
 
         avatar2.setIcon(new ImageIcon("./src/main/resources/images/cengiz_p.png"));
         avatar2.setBounds(80,860,80,80);
+        if(noOfPlayers >=3) {
+            player3name = new JLabel(players[2].getName()+" Infantry numbers:" + players[2].getInfantryAmt());
+        }else
+            player3name = new JLabel("");
+        player3name.setBounds(60,910,200,80);
         background.add(avatar2);
 
         avatar4.setIcon(new ImageIcon("./src/main/resources/images/caesar_p.png"));
         avatar4.setBounds(980,860,80,80);
+        if(noOfPlayers >=4) {
+            player4name = new JLabel(players[3].getName()+" Infantry numbers:" + players[3].getInfantryAmt());
+        }else
+            player4name = new JLabel("");
+        player4name.setBounds(960,910,200,80);
         background.add(avatar4);
+        background.add(player1name);
+        background.add(player2name);
+        background.add(player3name);
+        background.add(player4name);
 
         cancelAttack = new JButton("BACK");
         cancelAttack.addActionListener(this);
         cancelAttack.setBounds(20,20,100,50);
 
-        buttonterritory = new JButton("");
+        if(game.getMap().getTerritoryFromName("Klinos").getArmy() != null)
+            buttonterritory = new JButton(""+game.getMap().getTerritoryFromName("Klinos").getArmy().getTotalValue());
+        else
+            buttonterritory = new JButton("");
         buttonterritory.setBounds(155, 330, 60, 60);
         buttonterritory.setContentAreaFilled(false);
         buttonterritory.setBorderPainted(true);
         buttonterritory.addActionListener(this);
         buttonterritory.setName("Klinos");
+        buttonterritory.setForeground(Color.white);
         background.add(buttonterritory);
-
-        buttonterritory2 = new JButton("");
+        if(game.getMap().getTerritoryFromName("Nord-Ziegelsand").getArmy() != null)
+            buttonterritory2 = new JButton(""+game.getMap().getTerritoryFromName("Nord-Ziegelsand").getArmy().getTotalValue());
+       else
+            buttonterritory2 = new JButton("");
         buttonterritory2.setBounds(295, 270, 150, 60);
         buttonterritory2.setContentAreaFilled(false);
         buttonterritory2.setBorderPainted(true);
         buttonterritory2.addActionListener(this);
         buttonterritory2.setName("Nord-Ziegelsand");
+        buttonterritory2.setForeground(Color.white);
         mainPanel.add(buttonterritory2);
 
-        buttonterritory9 = new JButton("");
+        if(game.getMap().getTerritoryFromName("Ziegelsand").getArmy()!= null)
+            buttonterritory9 = new JButton(""+game.getMap().getTerritoryFromName("Ziegelsand").getArmy().getTotalValue());
+        else
+            buttonterritory9 = new JButton("");
         buttonterritory9.setBounds(350, 360, 100, 60);
         buttonterritory9.setContentAreaFilled(false);
         buttonterritory9.setBorderPainted(true);
         buttonterritory9.addActionListener(this);
         buttonterritory9.setName("Ziegelsand");
+        buttonterritory9.setForeground(Color.white);
         mainPanel.add(buttonterritory9);
-
-        buttonterritory3 = new JButton("");
+        if(game.getMap().getTerritoryFromName("Graue Ebene").getArmy()!= null)
+            buttonterritory3 = new JButton(""+game.getMap().getTerritoryFromName("Graue Ebene").getArmy().getTotalValue());
+        else
+            buttonterritory3 = new JButton("");
         buttonterritory3.setBounds(510, 210, 60, 60);
         buttonterritory3.setContentAreaFilled(false);
         buttonterritory3.setBorderPainted(true);
         buttonterritory3.addActionListener(this);
         buttonterritory3.setName("Graue Ebene");
+        buttonterritory3.setForeground(Color.white);
         mainPanel.add(buttonterritory3);
 
-        buttonterritory4 = new JButton("");
+        if(game.getMap().getTerritoryFromName("Rorschachwall").getArmy()!= null)
+            buttonterritory4 = new JButton(""+game.getMap().getTerritoryFromName("Rorschachwall").getArmy().getTotalValue());
+        else
+            buttonterritory4 = new JButton("");
         buttonterritory4.setBounds(655, 100, 150, 60);
         buttonterritory4.setContentAreaFilled(false);
         buttonterritory4.setBorderPainted(true);
         buttonterritory4.addActionListener(this);
         buttonterritory4.setName("Rorschachwall");
+        buttonterritory4.setForeground(Color.white);
         mainPanel.add(buttonterritory4);
 
-        buttonterritory5 = new JButton("");
+        if(game.getMap().getTerritoryFromName("Bakanwald").getArmy()!=null)
+             buttonterritory5 = new JButton(""+game.getMap().getTerritoryFromName("Bakanwald").getArmy().getTotalValue());
+        else
+            buttonterritory5 = new JButton("");
         buttonterritory5.setBounds(655, 160, 100, 60);
         buttonterritory5.setContentAreaFilled(false);
         buttonterritory5.setBorderPainted(true);
         buttonterritory5.addActionListener(this);
         buttonterritory5.setName("Bakanwald");
+        buttonterritory5.setForeground(Color.white);
         mainPanel.add(buttonterritory5);
 
-        buttonterritory8 = new JButton("");
+        if(game.getMap().getTerritoryFromName("Waithfels").getArmy()!=null)
+            buttonterritory8 = new JButton(""+game.getMap().getTerritoryFromName("Waithfels").getArmy().getTotalValue());
+        else
+            buttonterritory8 = new JButton("");
         buttonterritory8.setBounds(915, 250, 100, 60);
         buttonterritory8.setContentAreaFilled(false);
         buttonterritory8.setBorderPainted(true);
         buttonterritory8.addActionListener(this);
         buttonterritory8.setName("Waithfels");
+        buttonterritory8.setForeground(Color.white);
         mainPanel.add(buttonterritory8);
 
-        buttonterritory6 = new JButton("");
+        if(game.getMap().getTerritoryFromName("Schwarzfeld").getArmy()!=null)
+            buttonterritory6 = new JButton(""+game.getMap().getTerritoryFromName("Schwarzfeld").getArmy().getTotalValue());
+        else
+            buttonterritory6 = new JButton("");
         buttonterritory6.setBounds(800, 150, 110, 60);
         buttonterritory6.setContentAreaFilled(false);
         buttonterritory6.setBorderPainted(true);
         buttonterritory6.addActionListener(this);
         buttonterritory6.setName("Schwarzfeld");
+        buttonterritory6.setForeground(Color.white);
         mainPanel.add(buttonterritory6);
 
-        buttonterritory7 = new JButton("");
+        if(game.getMap().getTerritoryFromName("Mimiken").getArmy()!=null)
+            buttonterritory7 = new JButton(""+game.getMap().getTerritoryFromName("Mimiken").getArmy().getTotalValue());
+        else
+            buttonterritory7 = new JButton("");
         buttonterritory7.setBounds(950, 140, 150, 60);
         buttonterritory7.setContentAreaFilled(false);
         buttonterritory7.setBorderPainted(true);
         buttonterritory7.addActionListener(this);
         buttonterritory7.setName("Mimiken");
+        buttonterritory7.setForeground(Color.white);
         mainPanel.add(buttonterritory7);
-
-        buttonterritory10 = new JButton("");
+        if(game.getMap().getTerritoryFromName("Bürthal").getArmy()!=null)
+            buttonterritory10 = new JButton(""+game.getMap().getTerritoryFromName("Bürthal").getArmy().getTotalValue());
+        else
+            buttonterritory10 = new JButton("");
         buttonterritory10.setBounds(605, 520, 150, 60);
         buttonterritory10.setContentAreaFilled(false);
         buttonterritory10.setBorderPainted(true);
         buttonterritory10.addActionListener(this);
         buttonterritory10.setName("Bürthal");
+        buttonterritory10.setForeground(Color.white);
         mainPanel.add(buttonterritory10);
-
-        buttonterritory11 = new JButton("");
+        if(game.getMap().getTerritoryFromName("Morgenfeld").getArmy()!= null)
+            buttonterritory11 = new JButton(""+game.getMap().getTerritoryFromName("Morgenfeld").getArmy().getTotalValue());
+        else
+            buttonterritory11 = new JButton("");
         buttonterritory11.setBounds(945, 510, 150, 60);
         buttonterritory11.setContentAreaFilled(false);
         buttonterritory11.setBorderPainted(true);
         buttonterritory11.addActionListener(this);
         buttonterritory11.setName("Morgenfeld");
+        buttonterritory11.setForeground(Color.white);
         mainPanel.add(buttonterritory11);
 
         attackButton = new JButton("ATTACK");
@@ -296,7 +367,11 @@ public class Map extends JFrame implements ActionListener {
 
         settingPane.add(label1);
         settingPane.add(buttonback);
-
+        component1.setLocation(80 ,175);
+        component1.setSize(component1.getPreferredSize());
+        background.add(component1);
+        background.repaint();
+        background.revalidate();
         mainPanel.add(background);
         add(mainPanel);
 
@@ -384,6 +459,14 @@ public class Map extends JFrame implements ActionListener {
             //TODO
             Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
             Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
+
+            if(!players[currentPlayer].hasTerritory(fromTerr))
+            {
+                JOptionPane.showMessageDialog(null, "You don't have this territory yet");
+            }else if(players[currentPlayer].hasTerritory(toTerr))
+            {
+                JOptionPane.showMessageDialog(null, "You already own this territory");
+            }
 
             System.out.println("Executing war from "+from + " to " + to + "!");
 
@@ -507,13 +590,22 @@ public class Map extends JFrame implements ActionListener {
 
         if( e.getSource() == draftButton ) {
             System.out.println( "Drafting " + chosenTerritory );
+            String m="";
+            /*
+            if(!players[currentPlayer].hasTerritory(game.getMap().getTerritoryFromName(chosenTerritory)))
+            {
+                JOptionPane.showMessageDialog(null, "You don't have this territory yet");
+            }else
+
+             */
+                m = JOptionPane.showInputDialog("Drafting " + chosenTerritory +". How many soldiers?");
 
             // TODO: burada bir panel( ya da frame ) ile troopAmt isteyecek
-            Scanner sc = new Scanner(System.in);
+            //Scanner sc = new Scanner(System.in);
 
-            int troopAmt = sc.nextInt();
-            sc.nextLine();
-
+            //int troopAmt = sc.nextInt();
+            //sc.nextLine();
+            int troopAmt = Integer.parseInt(m);
             int playerTurn = gameManager.getGame().getCurrentPlayerTurn();
             Player p = gameManager.getGame().getPlayers()[playerTurn];
             int maxInfAmt = p.getInfantryAmt();
@@ -529,26 +621,93 @@ public class Map extends JFrame implements ActionListener {
                 from = "";
                 to = "";
             }
+            if(game.getMap().getTerritoryFromName("Klinos").getArmy() != null) {
+                buttonterritory.setText("" + game.getMap().getTerritoryFromName("Klinos").getArmy().getTotalValue());
 
+                System.out.println("Territory kinos"+game.getMap().getTerritoryFromName("Klinos").getArmy().getTotalValue());
+            }else
+                System.out.println("gives null");
+            if(game.getMap().getTerritoryFromName("Nord-Ziegelsand").getArmy() != null)
+                buttonterritory2.setText(""+game.getMap().getTerritoryFromName("Nord-Ziegelsand").getArmy().getTotalValue());
+            if(game.getMap().getTerritoryFromName("Graue Ebene").getArmy()!= null)
+                buttonterritory3.setText(""+game.getMap().getTerritoryFromName("Graue Ebene").getArmy().getTotalValue());
+            if(game.getMap().getTerritoryFromName("Rorschachwall").getArmy()!= null)
+                buttonterritory4.setText(""+game.getMap().getTerritoryFromName("Rorschachwall").getArmy().getTotalValue());
+            if(game.getMap().getTerritoryFromName("Bakanwald").getArmy()!=null)
+                buttonterritory5.setText(""+game.getMap().getTerritoryFromName("Bakanwald").getArmy().getTotalValue());
+
+            if(game.getMap().getTerritoryFromName("Waithfels").getArmy()!=null)
+                buttonterritory8.setText(""+game.getMap().getTerritoryFromName("Waithfels").getArmy().getTotalValue());
+
+            if(game.getMap().getTerritoryFromName("Schwarzfeld").getArmy()!=null)
+                buttonterritory6.setText(""+game.getMap().getTerritoryFromName("Schwarzfeld").getArmy().getTotalValue());
+
+            if(game.getMap().getTerritoryFromName("Mimiken").getArmy()!=null)
+                buttonterritory7.setText(""+game.getMap().getTerritoryFromName("Mimiken").getArmy().getTotalValue());
+            if(game.getMap().getTerritoryFromName("Bürthal").getArmy()!=null)
+                buttonterritory10.setText(""+game.getMap().getTerritoryFromName("Bürthal").getArmy().getTotalValue());
+            if(game.getMap().getTerritoryFromName("Morgenfeld").getArmy()!= null)
+                buttonterritory11.setText(""+game.getMap().getTerritoryFromName("Morgenfeld").getArmy().getTotalValue());
             gameManager.getGame().printInfAmt();
             attackButton.setEnabled(false);
+            revalidate();
 
         }
 
         if( e.getSource() == nextPlayerButton ) {
 
             //pass the turn to the next player
-            gameManager.getGame().passTurn();
-            gameManager.getGame().printInfAmt();
-
+            game.passTurn();
+            game.printInfAmt();
+            currentPlayer = game.getCurrentPlayerTurn();
             from = "";
             to = "";
             attackButton.setEnabled(false);
+            if(currentPlayer == 0)
+            {
+                player1name.setText(players[0].getName()+" Infantry numbers:" + players[0].getInfantryAmt());
+                component1.setLocation(70 ,175);
+                component1.setSize(component1.getPreferredSize());
+                background.add(component1);
+                background.repaint();
+                background.revalidate();
+
+            }else if(currentPlayer == 1)
+            {
+                player2name.setText(players[1].getName()+" Infantry numbers:" + players[1].getInfantryAmt());
+                component1.setLocation(970,175);
+                component1.setSize(component1.getPreferredSize());
+                background.add(component1);
+                background.repaint();
+                background.revalidate();
+
+            }else if(currentPlayer == 2)
+            {
+                player3name.setText(players[2].getName()+" Infantry numbers:" + players[2].getInfantryAmt());
+                component1.setLocation(70,855);
+                component1.setSize(component1.getPreferredSize());
+                background.add(component1);
+                background.repaint();
+                background.revalidate();
+
+            }else if(currentPlayer == 3)
+            {
+                player4name.setText(players[3].getName()+" Infantry numbers:" + players[3].getInfantryAmt());
+                component1.setLocation(970,855);
+                component1.setSize(component1.getPreferredSize());
+                background.add(component1);
+                background.repaint();
+                background.revalidate();
+            }
+            JOptionPane.showMessageDialog(null, "Player "+ players[currentPlayer].getName()+" got 3 more soldiers");
 
         }
         repaint();
         //pack();
     }
+
+
+
 }
 
 

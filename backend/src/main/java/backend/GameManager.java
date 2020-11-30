@@ -15,7 +15,15 @@ public class GameManager {
     private final String MAP_FILE_PATH = "./src/main/java/backend/jsonfiles/map.json";
     private final String CARDS_FILE_PATH = "./src/main/java/backend/jsonfiles/cards.json";
 
-    public GameManager() { }
+    public GameManager(int playerNumber,String[] playernames, int[]playerAvatars)
+    {
+        Player[] players = createPlayers(playerNumber,playernames,playerAvatars);
+
+        //initialise the game
+        game = new Game(playerNumber, players, MAP_FILE_PATH,
+                CARDS_FILE_PATH );
+        this.game = game;
+    }
 
     public void startGame(int playerNumber,String[] playernames, int[]playerAvatars) {
 

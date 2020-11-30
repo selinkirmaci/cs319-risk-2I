@@ -107,7 +107,7 @@ public class GUI extends JFrame implements ActionListener {
 	{
 
 		/* CREATE GAME MANAGER */
-		gameManager = new GameManager();
+		//gameManager = new GameManager();
 
 
 
@@ -1012,6 +1012,7 @@ public class GUI extends JFrame implements ActionListener {
 
 					// Start the actual game
 
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes);
 					Map frame = new Map(gameManager);
 					frame.setVisible(true);
 					frame.setTitle("Risk");
@@ -1069,7 +1070,6 @@ public class GUI extends JFrame implements ActionListener {
 				else
 				{
 					playSound("./src/main/resources/sounds/snd_victory.wav");
-					JOptionPane.showMessageDialog(null, "Successful"+ numOfPlayers);
 					playerNames[0] = s1;
 					playerNames[1] = s2;
 					playerNames[2] = s3;
@@ -1140,7 +1140,6 @@ public class GUI extends JFrame implements ActionListener {
 				else
 				{
 					playSound("./src/main/resources/sounds/snd_victory.wav");
-					JOptionPane.showMessageDialog(null, "Successful"+ numOfPlayers);
 					playerNames[0] = s1;
 					playerNames[1] = s2;
 					playerNames[2] = s3;
