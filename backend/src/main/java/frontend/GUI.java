@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+import javax.sound.sampled.FloatControl;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -805,6 +806,9 @@ public class GUI extends JFrame implements ActionListener {
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile( ));
 			Clip clip = AudioSystem.getClip( );
 			clip.open(audioInputStream);
+			FloatControl gainControl =
+					(FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-10.0f);
 			clip.start( );
 		}
 		catch(Exception ex)
@@ -1021,7 +1025,7 @@ public class GUI extends JFrame implements ActionListener {
 					frame.setResizable(false);
 					frame.pack();
 
-					gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
+					//gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
 
 				}
 
@@ -1079,7 +1083,7 @@ public class GUI extends JFrame implements ActionListener {
 					dispose();
 
 					// Start the actual game
-
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes);
 					Map frame = new Map(gameManager);
 					frame.setVisible(true);
 					frame.setTitle("Risk");
@@ -1088,7 +1092,7 @@ public class GUI extends JFrame implements ActionListener {
 					frame.setResizable(false);
 					frame.pack();
 
-					gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
+					//gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
 
 				}
 
@@ -1149,7 +1153,7 @@ public class GUI extends JFrame implements ActionListener {
 					playerAvatarIndexes[2] = avatarNoP3;
 					playerAvatarIndexes[3] = avatarNoP4;
 					dispose();
-
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes);
 					// Start the actual game
 					Map frame = new Map(gameManager);
 					frame.setVisible(true);
@@ -1159,7 +1163,7 @@ public class GUI extends JFrame implements ActionListener {
 					frame.setResizable(false);
 					frame.pack();
 
-					gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
+					//gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
 				}
 
 			}

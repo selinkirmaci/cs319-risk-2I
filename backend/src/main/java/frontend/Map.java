@@ -13,6 +13,8 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
@@ -47,7 +49,10 @@ public class Map extends JFrame implements ActionListener {
     CircleComponent component1 = new CircleComponent(90);
 
     JButton buttonterritory,buttonterritory2,buttonterritory3,buttonterritory4,buttonterritory5,
-            buttonterritory6,buttonterritory7,buttonterritory8,buttonterritory9,buttonterritory10,buttonterritory11;
+            buttonterritory6,buttonterritory7,buttonterritory8,buttonterritory9,buttonterritory10,
+            buttonterritory11,buttonterritory12,buttonterritory13,buttonterritory14,buttonterritory15,buttonterritory16,
+            buttonterritory17,buttonterritory18;
+    JButton[] territories;
     JButton attackButton,retreatButton;
     JButton pauseButton;
     JButton draftButton;
@@ -93,6 +98,34 @@ public class Map extends JFrame implements ActionListener {
         game = gameManager.getGame();
         players = game.getPlayers();
         currentPlayer = game.getCurrentPlayerTurn();
+        territories = new JButton[45];
+
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println(e.getX()+" "+e.getY());
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
         noOfPlayers = players.length;
         territoryName = new JLabel("");
@@ -186,133 +219,133 @@ public class Map extends JFrame implements ActionListener {
         cancelAttack.addActionListener(this);
         cancelAttack.setBounds(20,20,100,50);
 
-        if(game.getMap().getTerritoryFromName("Klinos").getArmy() != null)
-            buttonterritory = new JButton(""+game.getMap().getTerritoryFromName("Klinos").getArmy().getTotalValue());
-        else
-            buttonterritory = new JButton("");
-        buttonterritory.setBounds(155, 330, 60, 60);
-        buttonterritory.setContentAreaFilled(false);
-        buttonterritory.setBorderPainted(true);
-        buttonterritory.addActionListener(this);
-        buttonterritory.setName("Klinos");
-        buttonterritory.setForeground(Color.white);
-        background.add(buttonterritory);
-        if(game.getMap().getTerritoryFromName("Nord-Ziegelsand").getArmy() != null)
-            buttonterritory2 = new JButton(""+game.getMap().getTerritoryFromName("Nord-Ziegelsand").getArmy().getTotalValue());
-       else
-            buttonterritory2 = new JButton("");
-        buttonterritory2.setBounds(295, 270, 150, 60);
-        buttonterritory2.setContentAreaFilled(false);
-        buttonterritory2.setBorderPainted(true);
-        buttonterritory2.addActionListener(this);
-        buttonterritory2.setName("Nord-Ziegelsand");
-        buttonterritory2.setForeground(Color.white);
-        mainPanel.add(buttonterritory2);
+        //initialize buttons for territories
+        for(int i = 0; i < 45; i++)
+        {
+            territories[i] = new JButton("");
+            territories[i].setBorderPainted(true);
+            territories[i].addActionListener(this);
+            territories[i].setContentAreaFilled(false);
+            territories[i].setForeground(Color.white);
+        }
+        //set names of the buttons
+        territories[0].setName( "Raken");
+        territories[1].setName("Perleninsel");
+        territories[2].setName("Grimmspitze");
+        territories[3].setName("Ziegelherz");
+        territories[4].setName("Nosra");
+        territories[5].setName("Klinos");
+        territories[6].setName("Ost-Klina");
+        territories[7].setName("Nord-Ziegelsand");
+        territories[8].setName("Ziegelsand");
+        territories[9].setName("Hohe Hinkel");
 
-        if(game.getMap().getTerritoryFromName("Ziegelsand").getArmy()!= null)
-            buttonterritory9 = new JButton(""+game.getMap().getTerritoryFromName("Ziegelsand").getArmy().getTotalValue());
-        else
-            buttonterritory9 = new JButton("");
-        buttonterritory9.setBounds(350, 360, 100, 60);
-        buttonterritory9.setContentAreaFilled(false);
-        buttonterritory9.setBorderPainted(true);
-        buttonterritory9.addActionListener(this);
-        buttonterritory9.setName("Ziegelsand");
-        buttonterritory9.setForeground(Color.white);
-        mainPanel.add(buttonterritory9);
-        if(game.getMap().getTerritoryFromName("Graue Ebene").getArmy()!= null)
-            buttonterritory3 = new JButton(""+game.getMap().getTerritoryFromName("Graue Ebene").getArmy().getTotalValue());
-        else
-            buttonterritory3 = new JButton("");
-        buttonterritory3.setBounds(510, 210, 60, 60);
-        buttonterritory3.setContentAreaFilled(false);
-        buttonterritory3.setBorderPainted(true);
-        buttonterritory3.addActionListener(this);
-        buttonterritory3.setName("Graue Ebene");
-        buttonterritory3.setForeground(Color.white);
-        mainPanel.add(buttonterritory3);
+        territories[10].setName("Südforstheim");
+        territories[11].setName("Eishaiz");
+        territories[12].setName("Zankostane");
+        territories[13].setName("Silbertal");
+        territories[14].setName("Zamuria");
 
-        if(game.getMap().getTerritoryFromName("Rorschachwall").getArmy()!= null)
-            buttonterritory4 = new JButton(""+game.getMap().getTerritoryFromName("Rorschachwall").getArmy().getTotalValue());
-        else
-            buttonterritory4 = new JButton("");
-        buttonterritory4.setBounds(655, 100, 150, 60);
-        buttonterritory4.setContentAreaFilled(false);
-        buttonterritory4.setBorderPainted(true);
-        buttonterritory4.addActionListener(this);
-        buttonterritory4.setName("Rorschachwall");
-        buttonterritory4.setForeground(Color.white);
-        mainPanel.add(buttonterritory4);
+        territories[15].setName("Eden");
+        territories[16].setName("TautonischeHochebene");
+        territories[17].setName("Wadland");
+        territories[18].setName("Prachthafen");
+        territories[19].setName("Bürthal");
+        territories[20].setName("Hochlaub");
+        territories[21].setName("Ostesteinburg");
+        territories[22].setName("TeutonischerHammer");
 
-        if(game.getMap().getTerritoryFromName("Bakanwald").getArmy()!=null)
-             buttonterritory5 = new JButton(""+game.getMap().getTerritoryFromName("Bakanwald").getArmy().getTotalValue());
-        else
-            buttonterritory5 = new JButton("");
-        buttonterritory5.setBounds(655, 160, 100, 60);
-        buttonterritory5.setContentAreaFilled(false);
-        buttonterritory5.setBorderPainted(true);
-        buttonterritory5.addActionListener(this);
-        buttonterritory5.setName("Bakanwald");
-        buttonterritory5.setForeground(Color.white);
-        mainPanel.add(buttonterritory5);
+        territories[23].setName("Nosptenburg");
+        territories[24].setName("Graue Ebene");
+        territories[25].setName("Hoiawald");
 
-        if(game.getMap().getTerritoryFromName("Waithfels").getArmy()!=null)
-            buttonterritory8 = new JButton(""+game.getMap().getTerritoryFromName("Waithfels").getArmy().getTotalValue());
-        else
-            buttonterritory8 = new JButton("");
-        buttonterritory8.setBounds(915, 250, 100, 60);
-        buttonterritory8.setContentAreaFilled(false);
-        buttonterritory8.setBorderPainted(true);
-        buttonterritory8.addActionListener(this);
-        buttonterritory8.setName("Waithfels");
-        buttonterritory8.setForeground(Color.white);
-        mainPanel.add(buttonterritory8);
+        territories[26].setName("Bakanwald");
+        territories[27].setName("Rorschachwall");
+        territories[28].setName("Schwarzfeld");
+        territories[29].setName("Mimiken");
+        territories[30].setName("Waithenland");
+        territories[31].setName("Windbergen");
 
-        if(game.getMap().getTerritoryFromName("Schwarzfeld").getArmy()!=null)
-            buttonterritory6 = new JButton(""+game.getMap().getTerritoryFromName("Schwarzfeld").getArmy().getTotalValue());
-        else
-            buttonterritory6 = new JButton("");
-        buttonterritory6.setBounds(800, 150, 110, 60);
-        buttonterritory6.setContentAreaFilled(false);
-        buttonterritory6.setBorderPainted(true);
-        buttonterritory6.addActionListener(this);
-        buttonterritory6.setName("Schwarzfeld");
-        buttonterritory6.setForeground(Color.white);
-        mainPanel.add(buttonterritory6);
+        territories[32].setName("Sonnenwiese");
+        territories[33].setName("Haus der Sonne");
+        territories[34].setName("Morgenfeld");
+        territories[35].setName("Morgenrücken");
+        territories[36].setName("Uppenwald");
+        territories[37].setName("Waithfels");
 
-        if(game.getMap().getTerritoryFromName("Mimiken").getArmy()!=null)
-            buttonterritory7 = new JButton(""+game.getMap().getTerritoryFromName("Mimiken").getArmy().getTotalValue());
-        else
-            buttonterritory7 = new JButton("");
-        buttonterritory7.setBounds(950, 140, 150, 60);
-        buttonterritory7.setContentAreaFilled(false);
-        buttonterritory7.setBorderPainted(true);
-        buttonterritory7.addActionListener(this);
-        buttonterritory7.setName("Mimiken");
-        buttonterritory7.setForeground(Color.white);
-        mainPanel.add(buttonterritory7);
-        if(game.getMap().getTerritoryFromName("Bürthal").getArmy()!=null)
-            buttonterritory10 = new JButton(""+game.getMap().getTerritoryFromName("Bürthal").getArmy().getTotalValue());
-        else
-            buttonterritory10 = new JButton("");
-        buttonterritory10.setBounds(605, 520, 150, 60);
-        buttonterritory10.setContentAreaFilled(false);
-        buttonterritory10.setBorderPainted(true);
-        buttonterritory10.addActionListener(this);
-        buttonterritory10.setName("Bürthal");
-        buttonterritory10.setForeground(Color.white);
-        mainPanel.add(buttonterritory10);
-        if(game.getMap().getTerritoryFromName("Morgenfeld").getArmy()!= null)
-            buttonterritory11 = new JButton(""+game.getMap().getTerritoryFromName("Morgenfeld").getArmy().getTotalValue());
-        else
-            buttonterritory11 = new JButton("");
-        buttonterritory11.setBounds(945, 510, 150, 60);
-        buttonterritory11.setContentAreaFilled(false);
-        buttonterritory11.setBorderPainted(true);
-        buttonterritory11.addActionListener(this);
-        buttonterritory11.setName("Morgenfeld");
-        buttonterritory11.setForeground(Color.white);
-        mainPanel.add(buttonterritory11);
+        territories[38].setName("Donnerwald");
+        territories[39].setName("Wuselwiese");
+        territories[40].setName("Goldbach");
+        territories[41].setName("Niederswith");
+        territories[42].setName("Sumbaspitze");
+        territories[43].setName("Sandwacht");
+        territories[44].setName("Nord-forstheim");
+
+        //set the bound of the territory buttons
+        territories[0].setBounds(35, 250, 60, 60);
+        territories[1].setBounds(35, 365, 60, 60);
+        territories[2].setBounds(150, 450, 110, 60);
+        territories[3].setBounds(200, 330, 110, 60);
+        territories[4].setBounds(200, 270, 60, 60);
+        territories[5].setBounds(124, 186, 60, 60);
+        territories[6].setBounds(231, 173, 60, 60);
+        territories[7].setBounds(295, 270, 150, 60);
+        territories[8].setBounds(350, 360, 60, 60);
+        //random
+        territories[9].setBounds(273,434,60,60);
+        territories[10].setBounds(77, 613, 60, 60);
+        territories[11].setBounds(180, 574, 60, 60);
+        territories[12].setBounds(280, 555, 60, 60);
+        territories[13].setBounds(226, 657, 60, 60);
+        territories[14].setBounds(383, 610, 60, 60);
+        territories[15].setBounds(606, 345, 60, 60);
+        territories[16].setBounds(586, 436, 60, 60);
+        territories[17].setBounds(543, 502, 60, 60);
+        territories[18].setBounds(451, 545, 60, 60);
+        //random ends
+        territories[19].setBounds(605, 520, 150, 60);
+        //random starts
+        territories[20].setBounds(714, 496, 60, 60);
+        territories[21].setBounds(765, 449, 60, 60);
+        territories[22].setBounds(711, 388, 60, 60);
+        territories[23].setBounds(472, 139, 60, 60);
+        //random ends
+        territories[24].setBounds(490, 210, 60, 60);
+        //random starts
+        territories[25].setBounds(572, 120, 60, 60);
+        //random ends
+        territories[26].setBounds(655, 160, 100, 60);
+        territories[27].setBounds(655, 100, 150, 60);
+        territories[28].setBounds(800, 150, 110, 60);
+        territories[29].setBounds(950, 140, 150, 60);
+        //random starts
+        territories[30].setBounds(843, 259, 60, 60);
+        territories[31].setBounds(1040, 274, 60, 60);
+        territories[32].setBounds(899, 649, 60, 60);
+        territories[33].setBounds(1009, 662, 60, 60);
+        //random ends
+        territories[34].setBounds(945, 510, 150, 60);
+        //random starts
+        territories[35].setBounds(1035, 467, 60, 60);
+        territories[36].setBounds(891, 386, 60, 60);
+        //random ends
+        territories[37].setBounds(932, 336, 100, 60);
+        //random starts
+        territories[38].setBounds(611, 669, 60, 60);
+        territories[39].setBounds(615, 612, 60, 60);
+        territories[40].setBounds(699, 656, 60, 60);
+        territories[41].setBounds(782, 333, 60, 60);
+        territories[42].setBounds(354, 89, 60, 60);
+        territories[43].setBounds(436, 378, 60, 60);
+        territories[44].setBounds(63, 557, 60, 60);
+
+        //get army values
+        for(int i = 0; i < 45; i++ )
+        {
+            if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null)
+                territories[i].setText(""+game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
+            mainPanel.add(territories[i]);
+        }
 
         attackButton = new JButton("ATTACK");
         attackButton.setName("ATTACK");
@@ -591,20 +624,8 @@ public class Map extends JFrame implements ActionListener {
         if( e.getSource() == draftButton ) {
             System.out.println( "Drafting " + chosenTerritory );
             String m="";
-            /*
-            if(!players[currentPlayer].hasTerritory(game.getMap().getTerritoryFromName(chosenTerritory)))
-            {
-                JOptionPane.showMessageDialog(null, "You don't have this territory yet");
-            }else
+            m = JOptionPane.showInputDialog("Drafting " + chosenTerritory +". How many soldiers?");
 
-             */
-                m = JOptionPane.showInputDialog("Drafting " + chosenTerritory +". How many soldiers?");
-
-            // TODO: burada bir panel( ya da frame ) ile troopAmt isteyecek
-            //Scanner sc = new Scanner(System.in);
-
-            //int troopAmt = sc.nextInt();
-            //sc.nextLine();
             int troopAmt = Integer.parseInt(m);
             int playerTurn = gameManager.getGame().getCurrentPlayerTurn();
             Player p = gameManager.getGame().getPlayers()[playerTurn];
@@ -616,41 +637,26 @@ public class Map extends JFrame implements ActionListener {
                 System.out.println("Amount of infantries in hand is: " + maxInfAmt );
             } else {
                 // TODO: Add a notification panel to show the drafted soldier amount and the territory name.
-                gameManager.getGame().draftTurn( chosen, troopAmt );
+                gameManager.getGame().draftTurn(chosen, troopAmt);
 
                 from = "";
                 to = "";
+
+                //update army values
+                for (int i = 0; i < 45; i++) {
+                    if (game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null)
+                        territories[i].setText("" + game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
+                }
+                gameManager.getGame().printInfAmt();
+                attackButton.setEnabled(false);
+                player1name.setText(players[0].getName() + " Infantry numbers:" + players[0].getInfantryAmt());
+                player2name.setText(players[1].getName() + " Infantry numbers:" + players[1].getInfantryAmt());
+                if(noOfPlayers>=3)
+                    player3name.setText(players[2].getName() + " Infantry numbers:" + players[2].getInfantryAmt());
+                if(noOfPlayers>=4)
+                player4name.setText(players[3].getName() + " Infantry numbers:" + players[3].getInfantryAmt());
+                revalidate();
             }
-            if(game.getMap().getTerritoryFromName("Klinos").getArmy() != null) {
-                buttonterritory.setText("" + game.getMap().getTerritoryFromName("Klinos").getArmy().getTotalValue());
-
-                System.out.println("Territory kinos"+game.getMap().getTerritoryFromName("Klinos").getArmy().getTotalValue());
-            }else
-                System.out.println("gives null");
-            if(game.getMap().getTerritoryFromName("Nord-Ziegelsand").getArmy() != null)
-                buttonterritory2.setText(""+game.getMap().getTerritoryFromName("Nord-Ziegelsand").getArmy().getTotalValue());
-            if(game.getMap().getTerritoryFromName("Graue Ebene").getArmy()!= null)
-                buttonterritory3.setText(""+game.getMap().getTerritoryFromName("Graue Ebene").getArmy().getTotalValue());
-            if(game.getMap().getTerritoryFromName("Rorschachwall").getArmy()!= null)
-                buttonterritory4.setText(""+game.getMap().getTerritoryFromName("Rorschachwall").getArmy().getTotalValue());
-            if(game.getMap().getTerritoryFromName("Bakanwald").getArmy()!=null)
-                buttonterritory5.setText(""+game.getMap().getTerritoryFromName("Bakanwald").getArmy().getTotalValue());
-
-            if(game.getMap().getTerritoryFromName("Waithfels").getArmy()!=null)
-                buttonterritory8.setText(""+game.getMap().getTerritoryFromName("Waithfels").getArmy().getTotalValue());
-
-            if(game.getMap().getTerritoryFromName("Schwarzfeld").getArmy()!=null)
-                buttonterritory6.setText(""+game.getMap().getTerritoryFromName("Schwarzfeld").getArmy().getTotalValue());
-
-            if(game.getMap().getTerritoryFromName("Mimiken").getArmy()!=null)
-                buttonterritory7.setText(""+game.getMap().getTerritoryFromName("Mimiken").getArmy().getTotalValue());
-            if(game.getMap().getTerritoryFromName("Bürthal").getArmy()!=null)
-                buttonterritory10.setText(""+game.getMap().getTerritoryFromName("Bürthal").getArmy().getTotalValue());
-            if(game.getMap().getTerritoryFromName("Morgenfeld").getArmy()!= null)
-                buttonterritory11.setText(""+game.getMap().getTerritoryFromName("Morgenfeld").getArmy().getTotalValue());
-            gameManager.getGame().printInfAmt();
-            attackButton.setEnabled(false);
-            revalidate();
 
         }
 
