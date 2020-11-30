@@ -368,6 +368,7 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource() == rollDiceButton)
         {
+        	playSound("./src/main/resources/sounds/snd_dicethrow.wav",-10.0f);
             int firstdice = (int) (Math.random() * 6) + 1;
             int seconddice = (int) (Math.random() * 6) + 1;
             int thirddice = (int) (Math.random() * 6) + 1;
