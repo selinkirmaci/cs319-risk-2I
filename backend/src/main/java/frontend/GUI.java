@@ -41,9 +41,12 @@ public class GUI extends JFrame implements ActionListener {
 	private JPanel pnlMainMenu, pnlStartGameMenu, pnlHowToPlay, pnlCredits;
 
 
-	private JButton btnStartGame, btnHowToPlay, btnQuitGame, btnCredits, btnBackFromCredits, btnBackFromStartGameMenu,btnContinueFromStartGameMenu;
+	private JButton btnStartGame, btnHowToPlay, btnBackFromHtp, btnHtpPrev, btnHtpNext, btnQuitGame, btnCredits, btnBackFromCredits, btnBackFromStartGameMenu,btnContinueFromStartGameMenu;
 
 	private JButton btnNumOfPlayers2, btnNumOfPlayers3, btnNumOfPlayers4;
+	
+	private int htpPageNum = 1;
+	private JLabel lblHowToPlayBackground, htpPage1, htpPage2, htpPage3, htpPage4, htpPage5, htpPage6, htpPage7;
 
 	private JButton btnChooseColour1, btnChooseColour2, btnChooseColour3, btnChooseColour4;
 	private JButton btnChooseAvatar1, btnChooseAvatar2, btnChooseAvatar3, btnChooseAvatar4;
@@ -168,6 +171,76 @@ public class GUI extends JFrame implements ActionListener {
 		pnlCredits.add(lblCreditsBackground);
 
 		// ###############  End of Credits Panel  ###############
+		
+		// ############### How to Play Panel ##################
+		
+		pnlHowToPlay = new JPanel();
+		pnlHowToPlay.setPreferredSize(new Dimension(300,300));
+		
+		lblHowToPlayBackground = new JLabel("");
+		lblHowToPlayBackground.setIcon(new ImageIcon("./src/main/resources/images/htpBackground.png"));
+		lblHowToPlayBackground.setBounds(0, -165, 1580, 1100); //1860,1200
+		
+		htpPage1 = new JLabel("");
+		htpPage1.setIcon(new ImageIcon("./src/main/resources/images/htpPage1.png"));
+		htpPage1.setBounds(428, -170, 1580, 1100); //1860,1200
+		
+		
+		htpPage2 = new JLabel("");
+		htpPage2.setIcon(new ImageIcon("./src/main/resources/images/htpPage2.png"));
+		htpPage2.setBounds(428, -170, 1580, 1100); //1860,1200
+		
+		htpPage3 = new JLabel("");
+		htpPage3.setIcon(new ImageIcon("./src/main/resources/images/htpPage3.png"));
+		htpPage3.setBounds(428, -170, 1580, 1100); //1860,1200
+		
+		htpPage4 = new JLabel("");
+		htpPage4.setIcon(new ImageIcon("./src/main/resources/images/htpPage4.png"));
+		htpPage4.setBounds(428, -170, 1580, 1100); //1860,1200
+		
+		htpPage5 = new JLabel("");
+		htpPage5.setIcon(new ImageIcon("./src/main/resources/images/htpPage5.png"));
+		htpPage5.setBounds(428, -170, 1580, 1100); //1860,1200
+		
+		htpPage6 = new JLabel("");
+		htpPage6.setIcon(new ImageIcon("./src/main/resources/images/htpPage6.png"));
+		htpPage6.setBounds(428, -170, 1580, 1100); //1860,1200
+		
+		htpPage7 = new JLabel("");
+		htpPage7.setIcon(new ImageIcon("./src/main/resources/images/htpPage7.png"));
+		htpPage7.setBounds(428, -170, 1580, 1100); //1860,1200
+		
+		
+		btnBackFromHtp = new JButton("");
+		btnBackFromHtp.setBounds(35, 670, 280, 75);
+		btnBackFromHtp.setContentAreaFilled(false);
+		btnBackFromHtp.setBorderPainted(true);
+		lblHowToPlayBackground.add(btnBackFromHtp);
+		
+		Border thick = new LineBorder(Color.red, 4);
+		
+		
+		
+		btnHtpPrev = new JButton("Previous Page");
+		btnHtpPrev.setBounds(500, 620, 120, 50);
+		btnHtpPrev.setContentAreaFilled(false);
+		btnHtpPrev.setBorderPainted(true);
+		btnHtpPrev.setBorder(thick);
+		btnHtpPrev.setFont(new Font(Font.SERIF,Font.BOLD,16));
+		lblHowToPlayBackground.add(btnHtpPrev);
+		
+		btnHtpNext = new JButton("Next Page");
+		btnHtpNext.setBounds(900, 620, 120, 50);
+		btnHtpNext.setContentAreaFilled(false);
+		btnHtpNext.setBorderPainted(true);
+		btnHtpNext.setBorder(thick);
+		btnHtpNext.setFont(new Font(Font.SERIF,Font.BOLD,16));
+		lblHowToPlayBackground.add(btnHtpNext);
+		
+		pnlHowToPlay.add(lblHowToPlayBackground);
+
+		
+		// ############### End of How to Play Panel ##################
 
 		// ###############  Start Game Menu Panel  ###############
 
@@ -785,6 +858,11 @@ public class GUI extends JFrame implements ActionListener {
 		btnGreen4.addActionListener(this);
 		btnCyan4.addActionListener(this);
 		btnPink4.addActionListener(this);
+		
+		btnHtpPrev.addActionListener(this);
+		btnHtpNext.addActionListener(this);
+		btnBackFromHtp.addActionListener(this);
+
 
 	}
 
@@ -1163,7 +1241,9 @@ public class GUI extends JFrame implements ActionListener {
 		{
 			playSound("./src/main/resources/sounds/snd_howtoplay.wav");
 			remove(pnlMainMenu);
-			//add(pnlHowToPlay);
+			add(pnlHowToPlay);
+			lblHowToPlayBackground.add(htpPage1);
+			htpPageNum = 1;
 		}
 
 		if(e.getSource()==btnChooseColour1)
@@ -4074,6 +4154,143 @@ public class GUI extends JFrame implements ActionListener {
 
 
 
+		}
+		
+		if(e.getSource()==btnHtpNext)
+		{
+			if(htpPageNum == 1)
+			{
+				lblHowToPlayBackground.remove(htpPage1);
+				lblHowToPlayBackground.add(htpPage2);
+				htpPageNum++;
+			}
+			
+			else if(htpPageNum == 2)
+			{
+				lblHowToPlayBackground.remove(htpPage2);
+				lblHowToPlayBackground.add(htpPage3);
+				htpPageNum++;
+			}
+			
+			else if(htpPageNum == 3)
+			{
+				lblHowToPlayBackground.remove(htpPage3);
+				lblHowToPlayBackground.add(htpPage4);
+				htpPageNum++;
+			}
+			
+			else if(htpPageNum == 4)
+			{
+				lblHowToPlayBackground.remove(htpPage4);
+				lblHowToPlayBackground.add(htpPage5);
+				htpPageNum++;
+			}
+			
+			else if(htpPageNum == 5)
+			{
+				lblHowToPlayBackground.remove(htpPage5);
+				lblHowToPlayBackground.add(htpPage6);
+				htpPageNum++;
+			}
+			
+			else if(htpPageNum == 6)
+			{
+				lblHowToPlayBackground.remove(htpPage6);
+				lblHowToPlayBackground.add(htpPage7);
+				htpPageNum++;
+			}
+		
+				
+		}
+		
+		if(e.getSource()==btnHtpPrev)
+		{
+			if(htpPageNum == 7)
+			{
+				lblHowToPlayBackground.remove(htpPage7);
+				lblHowToPlayBackground.add(htpPage6);
+				htpPageNum--;
+			}
+			
+			else if(htpPageNum == 6)
+			{
+				lblHowToPlayBackground.remove(htpPage6);
+				lblHowToPlayBackground.add(htpPage5);
+				htpPageNum--;
+			}
+			
+			else if(htpPageNum == 5)
+			{
+				lblHowToPlayBackground.remove(htpPage5);
+				lblHowToPlayBackground.add(htpPage4);
+				htpPageNum--;
+			}
+			
+			else if(htpPageNum == 4)
+			{
+				lblHowToPlayBackground.remove(htpPage4);
+				lblHowToPlayBackground.add(htpPage3);
+				htpPageNum--;
+			}
+			
+			else if(htpPageNum == 3)
+			{
+				lblHowToPlayBackground.remove(htpPage3);
+				lblHowToPlayBackground.add(htpPage2);
+				htpPageNum--;
+			}
+			
+			else if(htpPageNum == 2)
+			{
+				lblHowToPlayBackground.remove(htpPage2);
+				lblHowToPlayBackground.add(htpPage1);
+				htpPageNum--;
+			}
+		
+				
+		}
+		
+		if(e.getSource() == btnBackFromHtp)
+		{
+			
+			if(htpPageNum == 1)
+			{
+				lblHowToPlayBackground.remove(htpPage1);
+			}
+			
+			if(htpPageNum == 2)
+			{
+				lblHowToPlayBackground.remove(htpPage2);
+			}
+			
+			if(htpPageNum == 3)
+			{
+				lblHowToPlayBackground.remove(htpPage3);
+			}
+			
+			if(htpPageNum == 4)
+			{
+				lblHowToPlayBackground.remove(htpPage4);
+			}
+			
+			if(htpPageNum == 5)
+			{
+				lblHowToPlayBackground.remove(htpPage5);
+			}
+			
+			if(htpPageNum == 6)
+			{
+				lblHowToPlayBackground.remove(htpPage6);
+			}
+			
+			if(htpPageNum == 7)
+			{
+				lblHowToPlayBackground.remove(htpPage7);
+			}
+			remove(pnlHowToPlay);
+			add(pnlMainMenu);
+			
+				
 		}
 
 
