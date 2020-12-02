@@ -322,7 +322,7 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource() == attackButton)
         {
-            playSound("./src/main/resources/sounds/snd_howtoplay.wav",-10.0f);
+            playSound("./src/main/resources/sounds/snd_sword1.wav",-10.0f);
             rollDiceButton.setEnabled(true);
             allianceButton.setEnabled(true);
             decreaseDice.setEnabled(true);
