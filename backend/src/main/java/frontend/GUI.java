@@ -1037,44 +1037,44 @@ public class GUI extends JFrame implements ActionListener {
 				if( c1.equals(c5) || c2.equals(c5) )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Every player must choose a color."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Every player must choose a color.");
 				}
 
 				else if( c1.equals(c2) )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Colors must be unique for each player."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Colors must be unique for each player.");
 				}
 
 				else if( avatarNoP1 == 0 || avatarNoP2 == 0  )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Every player must have an avatar."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Every player must have an avatar.");
 				}
 
 				else if( avatarNoP1 == avatarNoP2  )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Avatars must be unique for each player."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Avatars must be unique for each player.");
 
 				}
 
 				else if( s1.equals("") || s2.equals("") )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Every player must enter a nickname."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Every player must enter a nickname.");
 				}
 
 				else if( s1.equals(s2)  )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Nicknames must be unique for each player."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Nicknames must be unique for each player.");
 				}
 
 				else
 				{
 					playSound("./src/main/resources/sounds/snd_victory.wav");
-					//JOptionPane.showMessageDialog(null, "Successful"+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "The game is starting with "+ numOfPlayers+" players");
 					playerNames[0] = s1;
 					playerNames[1] = s2;
 					playerAvatarIndexes[0] = avatarNoP1;
@@ -1102,44 +1102,44 @@ public class GUI extends JFrame implements ActionListener {
 				if( c1.equals(c5) || c2.equals(c5) || c3.equals(c5) )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Every player must choose a color."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Every player must choose a color.");
 				}
 
 				else if( c1.equals(c2) || c1.equals(c3) || c2.equals(c3) )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Colors must be unique for each player."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Colors must be unique for each player.");
 				}
 
 				else if( avatarNoP1 == 0 || avatarNoP2 == 0 || avatarNoP3 == 0 )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Every player must have an avatar."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Every player must have an avatar.");
 				}
 
 				else if( avatarNoP1 == avatarNoP2 || avatarNoP1 == avatarNoP3 || avatarNoP2 == avatarNoP3 )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Avatars must be unique for each player."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Avatars must be unique for each player.");
 
 				}
 
 				else if( s1.equals("") || s2.equals("") || s3.equals("") )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Every player must enter a nickname."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Every player must enter a nickname.");
 				}
 
 				else if( s1.equals(s2) || s1.equals(s3) || s2.equals(s3) )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Nicknames must be unique for each player."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Nicknames must be unique for each player.");
 				}
 
 				else
 				{
 					playSound("./src/main/resources/sounds/snd_victory.wav");
-					JOptionPane.showMessageDialog(null, "Successful"+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "The game is starting with "+ numOfPlayers+" players");
 					playerNames[0] = s1;
 					playerNames[1] = s2;
 					playerNames[2] = s3;
@@ -1166,7 +1166,7 @@ public class GUI extends JFrame implements ActionListener {
 				if( c1.equals(c5) || c2.equals(c5) || c3.equals(c5) || c4.equals(c5))
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Every player must choose a color."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Every player must choose a color.");
 
 				}
 
@@ -1174,38 +1174,38 @@ public class GUI extends JFrame implements ActionListener {
 				else if( c1.equals(c2) || c1.equals(c3) || c1.equals(c4) || c2.equals(c3) || c2.equals(c4) || c3.equals(c4) )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Colors must be unique for each player."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Colors must be unique for each player.");
 				}
 
 				else if( avatarNoP1 == 0 || avatarNoP2 == 0 || avatarNoP3 == 0 || avatarNoP4 == 0 )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Every player must have an avatar."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Every player must have an avatar.");
 				}
 
 				else if( avatarNoP1 == avatarNoP2 || avatarNoP1 == avatarNoP3 || avatarNoP1 == avatarNoP4 || avatarNoP2 == avatarNoP3 || avatarNoP2 == avatarNoP4 || avatarNoP3 == avatarNoP4 )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Avatars must be unique for each player."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Avatars must be unique for each player.");
 
 				}
 
 				else if( s1.equals("") || s2.equals("") || s3.equals("") || s4.equals("") )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Every player must enter a nickname."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Every player must enter a nickname.");
 				}
 
 				else if( s1.equals(s2) || s1.equals(s3) || s1.equals(s4) || s2.equals(s3) || s2.equals(s4) || s3.equals(s4) )
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
-					JOptionPane.showMessageDialog(null, "Nicknames must be unique for each player."+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "Nicknames must be unique for each player.");
 				}
 
 				else
 				{
 					playSound("./src/main/resources/sounds/snd_victory.wav");
-					JOptionPane.showMessageDialog(null, "Successful"+ numOfPlayers);
+					JOptionPane.showMessageDialog(null, "The game is starting with "+ numOfPlayers+" players");
 					playerNames[0] = s1;
 					playerNames[1] = s2;
 					playerNames[2] = s3;
@@ -4160,6 +4160,7 @@ public class GUI extends JFrame implements ActionListener {
 		{
 			if(htpPageNum == 1)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage1);
 				lblHowToPlayBackground.add(htpPage2);
 				htpPageNum++;
@@ -4167,6 +4168,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			else if(htpPageNum == 2)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage2);
 				lblHowToPlayBackground.add(htpPage3);
 				htpPageNum++;
@@ -4174,6 +4176,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			else if(htpPageNum == 3)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage3);
 				lblHowToPlayBackground.add(htpPage4);
 				htpPageNum++;
@@ -4181,6 +4184,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			else if(htpPageNum == 4)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage4);
 				lblHowToPlayBackground.add(htpPage5);
 				htpPageNum++;
@@ -4188,6 +4192,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			else if(htpPageNum == 5)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage5);
 				lblHowToPlayBackground.add(htpPage6);
 				htpPageNum++;
@@ -4195,6 +4200,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			else if(htpPageNum == 6)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage6);
 				lblHowToPlayBackground.add(htpPage7);
 				htpPageNum++;
@@ -4207,6 +4213,7 @@ public class GUI extends JFrame implements ActionListener {
 		{
 			if(htpPageNum == 7)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage7);
 				lblHowToPlayBackground.add(htpPage6);
 				htpPageNum--;
@@ -4214,6 +4221,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			else if(htpPageNum == 6)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage6);
 				lblHowToPlayBackground.add(htpPage5);
 				htpPageNum--;
@@ -4221,6 +4229,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			else if(htpPageNum == 5)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage5);
 				lblHowToPlayBackground.add(htpPage4);
 				htpPageNum--;
@@ -4228,6 +4237,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			else if(htpPageNum == 4)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage4);
 				lblHowToPlayBackground.add(htpPage3);
 				htpPageNum--;
@@ -4235,6 +4245,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			else if(htpPageNum == 3)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage3);
 				lblHowToPlayBackground.add(htpPage2);
 				htpPageNum--;
@@ -4242,6 +4253,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			else if(htpPageNum == 2)
 			{
+				playSound("./src/main/resources/sounds/snd_changePage.wav");
 				lblHowToPlayBackground.remove(htpPage2);
 				lblHowToPlayBackground.add(htpPage1);
 				htpPageNum--;
@@ -4252,6 +4264,7 @@ public class GUI extends JFrame implements ActionListener {
 		
 		if(e.getSource() == btnBackFromHtp)
 		{
+			playSound("./src/main/resources/sounds/snd_howtoplay.wav");
 			
 			if(htpPageNum == 1)
 			{
