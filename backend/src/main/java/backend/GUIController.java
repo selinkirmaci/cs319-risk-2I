@@ -1,12 +1,13 @@
 package backend;
 
 public class GUIController {
-    private Game game;
+    private GameManager gameManager;
     private frontend.Map map;
 
-    public GUIController( Game game, frontend.Map map ) {
-        this.game = game;
+    public GUIController( GameManager gameManager, frontend.Map map ) {
+        this.gameManager = gameManager;
         this.map = map;
     }
+
 
 }

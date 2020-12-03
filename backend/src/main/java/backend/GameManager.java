@@ -15,49 +15,31 @@ public class GameManager {
     private final String MAP_FILE_PATH = "./src/main/java/backend/jsonfiles/map.json";
     private final String CARDS_FILE_PATH = "./src/main/java/backend/jsonfiles/cards.json";
 
-    public GameManager(int playerNumber,String[] playernames, int[]playerAvatarIndexs) {
-        startGame(playerNumber, playernames,playerAvatarIndexs);
+    public GameManager(int playerNumber,String[] playernames, int[]playerAvatars)
+    {
+        Player[] players = createPlayers(playerNumber,playernames,playerAvatars);
+
+        //initialise the game
+        game = new Game(playerNumber, players, MAP_FILE_PATH,
+                CARDS_FILE_PATH );
+        this.game = game;
     }
 
-    private void startGame(int playerNumber,String[] playernames, int[]playerAvatars) {
-        //Scanner sc= new Scanner(System.in);
+    public void startGame(int playerNumber,String[] playernames, int[]playerAvatars) {
 
-        //ask for user amount first
-        /*
-        System.out.println( "Enter player amount(3-5):" );
-        int playerAmt = -1;
-        while( playerAmt == -1 || playerAmt <= 2 || playerAmt > 5 ) {
-            try {
-                playerAmt = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println( "You should enter an integer value between 3 to 5!" );
-                System.out.println( "Enter player amount again:" );
-            }
-        }
-*/
         //create the players
         Player[] players = createPlayers(playerNumber,playernames,playerAvatars);
 
         //initialise the game
         game = new Game(playerNumber, players, MAP_FILE_PATH,
                 CARDS_FILE_PATH );
+        this.game = game;
     }
 
-    /* ask for names and avatar pics of the users and create the players accordingly */
+    /* get the names and avatar pics of the users and create the players accordingly */
     private Player[] createPlayers( int playerAmt,String[] playernames, int[]playerAvatars ) {
         Player[] players = new Player[playerAmt];
-        Scanner sc= new Scanner(System.in);
         for( int i = 0; i < playerAmt; i++ ) {
-            /*
-            System.out.println( "Enter username for user " + i );
-            String username = sc.nextLine();
-
-            System.out.println( "Select avatar for user " + i );
-
-            int avatarChoice = sc.nextInt();
-            sc.nextLine();
-
-             */
 
             //set path of avatar image
             String avatarImgPath = setAvatarImage(playerAvatars[i]);
@@ -76,7 +58,9 @@ public class GameManager {
     /* return infantry amt for each player based on player amt */
     private int getInfantryAmt( int playerAmt ) {
         int infAmt = 0;
-        if( playerAmt == 3 ) {
+        if( playerAmt == 2 ) {
+            infAmt = 40;
+        } else if( playerAmt == 3 ) {
             infAmt = 35;
         } else if( playerAmt == 4 ) {
             infAmt = 30;
@@ -102,6 +86,10 @@ public class GameManager {
         }
 
         return avatarImgPath;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
 

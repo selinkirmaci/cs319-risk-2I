@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+import javax.sound.sampled.FloatControl;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -44,7 +45,7 @@ public class GUI extends JFrame implements ActionListener {
 	private JButton btnStartGame, btnHowToPlay, btnBackFromHtp, btnHtpPrev, btnHtpNext, btnQuitGame, btnCredits, btnBackFromCredits, btnBackFromStartGameMenu,btnContinueFromStartGameMenu;
 
 	private JButton btnNumOfPlayers2, btnNumOfPlayers3, btnNumOfPlayers4;
-	
+
 	private int htpPageNum = 1;
 	private JLabel lblHowToPlayBackground, htpPage1, htpPage2, htpPage3, htpPage4, htpPage5, htpPage6, htpPage7;
 
@@ -74,8 +75,10 @@ public class GUI extends JFrame implements ActionListener {
 
 	private int avatarNoP1 = 0, avatarNoP2 = 0, avatarNoP3 = 0, avatarNoP4 = 0;
 	private int numOfPlayers = 4;
-	private int[]playerAvatarIndexes = new int[4];
+	private int[] playerAvatarIndexes = new int[4];
 	private String[] playerNames = new String[4];
+
+	private GameManager gameManager;
 
 
 
@@ -106,6 +109,12 @@ public class GUI extends JFrame implements ActionListener {
 	 */
 	public GUI()
 	{
+
+		/* CREATE GAME MANAGER */
+		//gameManager = new GameManager();
+
+
+
 		// ###############  Main Menu Panel  ###############
 
 		pnlMainMenu = new JPanel();
@@ -171,56 +180,56 @@ public class GUI extends JFrame implements ActionListener {
 		pnlCredits.add(lblCreditsBackground);
 
 		// ###############  End of Credits Panel  ###############
-		
+
 		// ############### How to Play Panel ##################
-		
+
 		pnlHowToPlay = new JPanel();
 		pnlHowToPlay.setPreferredSize(new Dimension(300,300));
-		
+
 		lblHowToPlayBackground = new JLabel("");
 		lblHowToPlayBackground.setIcon(new ImageIcon("./src/main/resources/images/htpBackground.png"));
 		lblHowToPlayBackground.setBounds(0, -165, 1580, 1100); //1860,1200
-		
+
 		htpPage1 = new JLabel("");
 		htpPage1.setIcon(new ImageIcon("./src/main/resources/images/htpPage1.png"));
 		htpPage1.setBounds(428, -170, 1580, 1100); //1860,1200
-		
-		
+
+
 		htpPage2 = new JLabel("");
 		htpPage2.setIcon(new ImageIcon("./src/main/resources/images/htpPage2.png"));
 		htpPage2.setBounds(428, -170, 1580, 1100); //1860,1200
-		
+
 		htpPage3 = new JLabel("");
 		htpPage3.setIcon(new ImageIcon("./src/main/resources/images/htpPage3.png"));
 		htpPage3.setBounds(428, -170, 1580, 1100); //1860,1200
-		
+
 		htpPage4 = new JLabel("");
 		htpPage4.setIcon(new ImageIcon("./src/main/resources/images/htpPage4.png"));
 		htpPage4.setBounds(428, -170, 1580, 1100); //1860,1200
-		
+
 		htpPage5 = new JLabel("");
 		htpPage5.setIcon(new ImageIcon("./src/main/resources/images/htpPage5.png"));
 		htpPage5.setBounds(428, -170, 1580, 1100); //1860,1200
-		
+
 		htpPage6 = new JLabel("");
 		htpPage6.setIcon(new ImageIcon("./src/main/resources/images/htpPage6.png"));
 		htpPage6.setBounds(428, -170, 1580, 1100); //1860,1200
-		
+
 		htpPage7 = new JLabel("");
 		htpPage7.setIcon(new ImageIcon("./src/main/resources/images/htpPage7.png"));
 		htpPage7.setBounds(428, -170, 1580, 1100); //1860,1200
-		
-		
+
+
 		btnBackFromHtp = new JButton("");
 		btnBackFromHtp.setBounds(35, 670, 280, 75);
 		btnBackFromHtp.setContentAreaFilled(false);
 		btnBackFromHtp.setBorderPainted(true);
 		lblHowToPlayBackground.add(btnBackFromHtp);
-		
+
 		Border thick = new LineBorder(Color.red, 4);
-		
-		
-		
+
+
+
 		btnHtpPrev = new JButton("Previous Page");
 		btnHtpPrev.setBounds(500, 620, 120, 50);
 		btnHtpPrev.setContentAreaFilled(false);
@@ -228,7 +237,7 @@ public class GUI extends JFrame implements ActionListener {
 		btnHtpPrev.setBorder(thick);
 		btnHtpPrev.setFont(new Font(Font.SERIF,Font.BOLD,16));
 		lblHowToPlayBackground.add(btnHtpPrev);
-		
+
 		btnHtpNext = new JButton("Next Page");
 		btnHtpNext.setBounds(900, 620, 120, 50);
 		btnHtpNext.setContentAreaFilled(false);
@@ -236,10 +245,10 @@ public class GUI extends JFrame implements ActionListener {
 		btnHtpNext.setBorder(thick);
 		btnHtpNext.setFont(new Font(Font.SERIF,Font.BOLD,16));
 		lblHowToPlayBackground.add(btnHtpNext);
-		
+
 		pnlHowToPlay.add(lblHowToPlayBackground);
 
-		
+
 		// ############### End of How to Play Panel ##################
 
 		// ###############  Start Game Menu Panel  ###############
@@ -858,7 +867,7 @@ public class GUI extends JFrame implements ActionListener {
 		btnGreen4.addActionListener(this);
 		btnCyan4.addActionListener(this);
 		btnPink4.addActionListener(this);
-		
+
 		btnHtpPrev.addActionListener(this);
 		btnHtpNext.addActionListener(this);
 		btnBackFromHtp.addActionListener(this);
@@ -875,6 +884,9 @@ public class GUI extends JFrame implements ActionListener {
 			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile( ));
 			Clip clip = AudioSystem.getClip( );
 			clip.open(audioInputStream);
+			FloatControl gainControl =
+					(FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-10.0f);
 			clip.start( );
 		}
 		catch(Exception ex)
@@ -1012,8 +1024,6 @@ public class GUI extends JFrame implements ActionListener {
 
 			numOfPlayers = 4;
 
-
-
 		}
 
 		if(e.getSource()==btnContinueFromStartGameMenu)
@@ -1081,18 +1091,21 @@ public class GUI extends JFrame implements ActionListener {
 					playerAvatarIndexes[1] = avatarNoP2;
 					remove(pnlStartGameMenu);
 					dispose();
-					Map frame = new Map();
+
+					// Start the actual game
+
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes);
+					Map frame = new Map(gameManager);
 					frame.setVisible(true);
 					frame.setTitle("Risk");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
-					//add(m);
-					//GameManager g = new GameManager(numOfPlayers,playerNames,playerAvatarIndexes);
+
+					//gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
 
 				}
-
 
 			}
 			////
@@ -1147,14 +1160,19 @@ public class GUI extends JFrame implements ActionListener {
 					playerAvatarIndexes[1] = avatarNoP2;
 					playerAvatarIndexes[2] = avatarNoP3;
 					dispose();
-					Map frame = new Map();
+
+					// Start the actual game
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes);
+					Map frame = new Map(gameManager);
 					frame.setVisible(true);
 					frame.setTitle("Risk");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
-					//GameManager g = new GameManager(numOfPlayers,playerNames,playerAvatarIndexes);
+
+					//gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
+
 				}
 
 			}
@@ -1214,16 +1232,18 @@ public class GUI extends JFrame implements ActionListener {
 					playerAvatarIndexes[1] = avatarNoP2;
 					playerAvatarIndexes[2] = avatarNoP3;
 					playerAvatarIndexes[3] = avatarNoP4;
-
 					dispose();
-					Map frame = new Map();
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes);
+					// Start the actual game
+					Map frame = new Map(gameManager);
 					frame.setVisible(true);
 					frame.setTitle("Risk");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
-					//GameManager g = new GameManager(numOfPlayers,playerNames,playerAvatarIndexes);
+
+					//gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
 				}
 
 			}
@@ -4155,7 +4175,7 @@ public class GUI extends JFrame implements ActionListener {
 
 
 		}
-		
+
 		if(e.getSource()==btnHtpNext)
 		{
 			if(htpPageNum == 1)
@@ -4165,7 +4185,7 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage2);
 				htpPageNum++;
 			}
-			
+
 			else if(htpPageNum == 2)
 			{
 				playSound("./src/main/resources/sounds/snd_changePage.wav");
@@ -4173,7 +4193,7 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage3);
 				htpPageNum++;
 			}
-			
+
 			else if(htpPageNum == 3)
 			{
 				playSound("./src/main/resources/sounds/snd_changePage.wav");
@@ -4181,7 +4201,7 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage4);
 				htpPageNum++;
 			}
-			
+
 			else if(htpPageNum == 4)
 			{
 				playSound("./src/main/resources/sounds/snd_changePage.wav");
@@ -4189,7 +4209,7 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage5);
 				htpPageNum++;
 			}
-			
+
 			else if(htpPageNum == 5)
 			{
 				playSound("./src/main/resources/sounds/snd_changePage.wav");
@@ -4197,7 +4217,7 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage6);
 				htpPageNum++;
 			}
-			
+
 			else if(htpPageNum == 6)
 			{
 				playSound("./src/main/resources/sounds/snd_changePage.wav");
@@ -4205,10 +4225,10 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage7);
 				htpPageNum++;
 			}
-		
-				
+
+
 		}
-		
+
 		if(e.getSource()==btnHtpPrev)
 		{
 			if(htpPageNum == 7)
@@ -4218,7 +4238,7 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage6);
 				htpPageNum--;
 			}
-			
+
 			else if(htpPageNum == 6)
 			{
 				playSound("./src/main/resources/sounds/snd_changePage.wav");
@@ -4226,7 +4246,7 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage5);
 				htpPageNum--;
 			}
-			
+
 			else if(htpPageNum == 5)
 			{
 				playSound("./src/main/resources/sounds/snd_changePage.wav");
@@ -4234,7 +4254,7 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage4);
 				htpPageNum--;
 			}
-			
+
 			else if(htpPageNum == 4)
 			{
 				playSound("./src/main/resources/sounds/snd_changePage.wav");
@@ -4242,7 +4262,7 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage3);
 				htpPageNum--;
 			}
-			
+
 			else if(htpPageNum == 3)
 			{
 				playSound("./src/main/resources/sounds/snd_changePage.wav");
@@ -4250,7 +4270,7 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage2);
 				htpPageNum--;
 			}
-			
+
 			else if(htpPageNum == 2)
 			{
 				playSound("./src/main/resources/sounds/snd_changePage.wav");
@@ -4258,52 +4278,52 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage1);
 				htpPageNum--;
 			}
-		
-				
+
+
 		}
-		
+
 		if(e.getSource() == btnBackFromHtp)
 		{
 			playSound("./src/main/resources/sounds/snd_howtoplay.wav");
-			
+
 			if(htpPageNum == 1)
 			{
 				lblHowToPlayBackground.remove(htpPage1);
 			}
-			
+
 			if(htpPageNum == 2)
 			{
 				lblHowToPlayBackground.remove(htpPage2);
 			}
-			
+
 			if(htpPageNum == 3)
 			{
 				lblHowToPlayBackground.remove(htpPage3);
 			}
-			
+
 			if(htpPageNum == 4)
 			{
 				lblHowToPlayBackground.remove(htpPage4);
 			}
-			
+
 			if(htpPageNum == 5)
 			{
 				lblHowToPlayBackground.remove(htpPage5);
 			}
-			
+
 			if(htpPageNum == 6)
 			{
 				lblHowToPlayBackground.remove(htpPage6);
 			}
-			
+
 			if(htpPageNum == 7)
 			{
 				lblHowToPlayBackground.remove(htpPage7);
 			}
 			remove(pnlHowToPlay);
 			add(pnlMainMenu);
-			
-				
+
+
 		}
 
 

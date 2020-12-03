@@ -11,7 +11,8 @@ import java.util.Scanner;
 public class Game {
     private final int playerAmt;
     private Player[] players;
-    private int playerTurn;
+    private int currentPlayerTurn;
+    private String turnType;
     private final Dice dice;
     private int currentTroopAmt;
     private CardLibrary cardLib;
@@ -19,7 +20,7 @@ public class Game {
     private final JSONParser parser;
     private final CombatManager cm;
     private int initialTroopAmt; //initial troop amount for each player
-    private final int CONTINENT_AMT = 6;
+    private final int CONTINENT_AMT = 7;
     
     public Game( int playerAmt, Player[] players, String mapFilePath, String cardsFilePath ) {
         this.parser = new JSONParser();
@@ -30,8 +31,13 @@ public class Game {
         initCards( cardsFilePath );
         initMap( mapFilePath );
 
+        initialTurn();
+        startTurn(players[0]); // start the turn of first player( add infantries )
+        printMap();
         cm = new CombatManager();
-        manageTurns();
+        currentPlayerTurn = 0;
+        turnType = "draft";
+        //manageTurns();
     }
     
     
@@ -147,22 +153,27 @@ public class Game {
 
     }
 
-    private void printInfAmt() {
-        for( int i = 0; i < playerAmt; i++ ) {
-            System.out.println( "Infantries in hand for player " + players[i].getName() + ": " +
-                    players[i].getInfantryAmt() );
-        }
+
+    // passes the turn to the other player
+    public void passTurn() {
+        // TODO: Pass lost players
+        currentPlayerTurn++;
+        currentPlayerTurn = currentPlayerTurn % playerAmt;
+        Player currPlayer = players[currentPlayerTurn];
+        System.out.println( "**** Turn of player: " + currPlayer.getName() + " ****" );
+        startTurn(currPlayer); //start the turn of current player
+
+        // call draftTurn and attackTurn at the frontend.Map from the actionlisteners. TODO: change this later on
     }
 
 
-    /* TODO: turn logic for the game */
+    /*
     private void manageTurns() {
         int turn = 0;
         Player current = players[turn];
         boolean firstTurn = true;
         while( !checkTermination() ) {
 
-            /* execute the initial turn */
             if( firstTurn ) {
                 initialTurn();
                 printMap();
@@ -177,13 +188,16 @@ public class Game {
                 turn = turn % playerAmt;
                 current = players[turn];
             }
+
+            currentPlayerTurn = turn;
+
             System.out.println( "**** Turn of player: " + current.getName() + " ****" );
 
             startTurn(current);
 
             printInfAmt();
 
-            draftTurn(current);
+            draftTurn();
 
             printInfAmt();
 
@@ -194,7 +208,6 @@ public class Game {
             printMap();
 
 
-            // TODO: call attackTurn here
             //       may call fortifyTurn here
             //       may call cardTurn here
             //
@@ -210,32 +223,20 @@ public class Game {
 
         }
     }
+    */
     
     /* add troops to the already owned territories
     * this function currently supports only one transfer action to one of the owned territories for simplicity,
     * this may be changed to support several transfer actions */
-    private void draftTurn( Player p ) {
+    public void draftTurn( Territory draftTo, int troopAmt ) {
+        turnType = "draft";
+        Player p = players[currentPlayerTurn];
         ArrayList<Territory> territories = p.getGainedTerritories();
-        int numOfTerr = p.getGainedTerritories().size();
-
-        System.out.println("Select which territory you want to strengthen: ");
-        for( int i = 0; i < numOfTerr; i++ ) {
-            System.out.println( i + ": " + territories.get(i).getName() );
-        }
-
-        Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
-
-        int troopAmt;
-        do {
-            System.out.println("Enter amount of troops you want to deploy: ");
-            troopAmt = sc.nextInt();
-        } while( troopAmt > p.getInfantryAmt() && troopAmt < 1 );
 
         //put those troops into selected territory
         p.useInfantries(troopAmt);
-        Territory territory = territories.get(choice);
-        Army army = territory.getArmy();
+        Territory territory = draftTo;
+
 
         //create infantries
         ArrayList<Troop> troopsToFortify = new ArrayList<Troop>();
@@ -243,45 +244,32 @@ public class Game {
             troopsToFortify.add( new Infantry() );
         }
 
+        if( territory.getArmy() == null ) { // if there is no army in the draftTo location
+            territory.setArmy( new Army( troopsToFortify, p ) );
+            printMap();
+            return;
+        }
+
+        Army army = territory.getArmy();
+
         //fortify troops
         army.fortify(troopsToFortify);
+        printMap();
     }
 
     /* TODO: might choose not to attack
      *  should be able to attack as many times as the player wants
      * Author: Sukru */
-    private void attackTurn( Player p ) {
-
-        ArrayList<Territory> nonEmptyTerritories = map.getAllNonEmptyTerritories();
-        ArrayList<Territory> myTerrs = p.getGainedTerritories();
-        int myTerrsAmt = p.getGainedTerritories().size();
-        int from, to;
-
-        System.out.println("Select which territory you want to attack from: ");
-        for( int i = 0; i < myTerrsAmt; i++ ) {
-            System.out.println( i + ": " + myTerrs.get(i).getName() );
-        }
-
-        Scanner sc = new Scanner(System.in);
-        from = sc.nextInt();
-        sc.nextLine();
+    // returns true when the attacker wins, false otherwise
+    public boolean attackTurn( Territory attackFrom, Territory attackTo ) {
+        Player p = players[currentPlayerTurn];
+        turnType = "attack";
 
         // defender
-        Territory fromTerritory = myTerrs.get(from);
-
-        System.out.println("Select which territory you want to attack to: ");
-        for( int i = 0; i < nonEmptyTerritories.size(); i++ ) {
-            if( nonEmptyTerritories.get(i).getArmy().getOwner() != p ) { // if the territory is not player p's
-                System.out.println( i + ": " + nonEmptyTerritories.get(i).getName() );
-            }
-        }
-
-        sc = new Scanner(System.in);
-        to = sc.nextInt();
-        sc.nextLine();
+        Territory fromTerritory = attackFrom;
 
         // attacker
-        Territory toTerritory = nonEmptyTerritories.get(to);
+        Territory toTerritory = attackTo;
 
         Army att = fromTerritory.getArmy();
         Army def = toTerritory.getArmy();
@@ -291,6 +279,8 @@ public class Game {
         if( (att.getTotalValue() == 0) ) { // attacker loses
             System.out.println( "Attacker loses." );
             toTerritory.getArmy().changeOwner(p);
+            printMap();
+            return false;
         } else if( (def.getTotalValue() == 0) ) {
             // attacker wins. defender's territory is now attacker's
             System.out.println( "Attacker wins. Defender's territory is now attacker's" );
@@ -298,7 +288,12 @@ public class Game {
             ArrayList<Troop> toAdd = new ArrayList<>();
             toAdd.add( new Infantry() );
             def.fortify( toAdd ); // add a single infantry to the gained territory TODO: FOR NOW
+            printMap();
+            return true;
         }
+
+        System.out.println( "There is an error in attackTurn!" );
+        return false; // should not happen
     }
 
     /* receive cards
@@ -336,6 +331,21 @@ public class Game {
 
     public Player [] getPlayers() {
         return players;
+    }
+
+    public void printInfAmt() {
+        for( int i = 0; i < playerAmt; i++ ) {
+            System.out.println( "Infantries in hand for player " + players[i].getName() + ": " +
+                    players[i].getInfantryAmt() );
+        }
+    }
+
+    public int getCurrentPlayerTurn() {
+        return currentPlayerTurn;
+    }
+
+    public Map getMap() {
+        return map;
     }
     
     
