@@ -1,5 +1,6 @@
 package backend;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +19,7 @@ public class Player {
     private final int playerId;
     private boolean hasLost;
     private boolean won;
+    private Color colorOfPlayer;
     
     public Player( String name, Avatar avatar, int infantryAmt, int playerId ) {
         this.name = name;
@@ -104,4 +106,12 @@ public class Player {
     void sendTroops( int troopAmt, Player player ) {}
 
     void swapCards( ArrayList<Card> cardsToExchange ) {} // exchange cards for infantries
+
+    public Color getColor() {return colorOfPlayer;}
+
+    void setColor(Color color)
+    {
+        this.colorOfPlayer = color;
+    }
+
 }

@@ -11,6 +11,7 @@ public class CircleComponent extends JPanel
     int xposition;
     int yposition;
     int radius;
+    Color color;
 
     public CircleComponent(int radius)
     {
@@ -38,10 +39,14 @@ public class CircleComponent extends JPanel
         super.paintComponent(gr);
         Graphics2D g = (Graphics2D)gr;
         Shape ring = createRingShape(xposition/2, yposition/2, radius, 50);
-        g.setColor(Color.blue);
+        g.setColor(color);
         g.fill(ring);
         g.setColor(Color.BLACK);
         g.draw(ring);
+    }
+    void setColor(Color color)
+    {
+        this.color = color;
     }
     private static Shape createRingShape(
             double centerX, double centerY, double outerRadius, double thickness)

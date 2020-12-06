@@ -1,5 +1,6 @@
 package backend;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,9 +16,9 @@ public class GameManager {
     private final String MAP_FILE_PATH = "./src/main/java/backend/jsonfiles/map.json";
     private final String CARDS_FILE_PATH = "./src/main/java/backend/jsonfiles/cards.json";
 
-    public GameManager(int playerNumber,String[] playernames, int[]playerAvatars)
+    public GameManager(int playerNumber, String[] playernames, int[]playerAvatars, Color[]playerColors)
     {
-        Player[] players = createPlayers(playerNumber,playernames,playerAvatars);
+        Player[] players = createPlayers(playerNumber,playernames,playerAvatars,playerColors);
 
         //initialise the game
         game = new Game(playerNumber, players, MAP_FILE_PATH,
@@ -25,10 +26,10 @@ public class GameManager {
         this.game = game;
     }
 
-    public void startGame(int playerNumber,String[] playernames, int[]playerAvatars) {
+    public void startGame(int playerNumber,String[] playernames, int[]playerAvatars, Color[]playerColors) {
 
         //create the players
-        Player[] players = createPlayers(playerNumber,playernames,playerAvatars);
+        Player[] players = createPlayers(playerNumber,playernames,playerAvatars, playerColors);
 
         //initialise the game
         game = new Game(playerNumber, players, MAP_FILE_PATH,
@@ -37,7 +38,7 @@ public class GameManager {
     }
 
     /* get the names and avatar pics of the users and create the players accordingly */
-    private Player[] createPlayers( int playerAmt,String[] playernames, int[]playerAvatars ) {
+    private Player[] createPlayers( int playerAmt,String[] playernames, int[]playerAvatars, Color[] playerColors ) {
         Player[] players = new Player[playerAmt];
         for( int i = 0; i < playerAmt; i++ ) {
 
@@ -49,6 +50,7 @@ public class GameManager {
 
             //add each player
             players[i] = new Player( playernames[i], new Avatar(avatarImgPath), infantryAmt, i );
+            players[i].setColor(playerColors[i]);
 
         }
 

@@ -77,6 +77,7 @@ public class GUI extends JFrame implements ActionListener {
 	private int numOfPlayers = 4;
 	private int[] playerAvatarIndexes = new int[4];
 	private String[] playerNames = new String[4];
+	private Color[] playerColors = new Color[4];
 
 	private GameManager gameManager;
 
@@ -1089,12 +1090,14 @@ public class GUI extends JFrame implements ActionListener {
 					playerNames[1] = s2;
 					playerAvatarIndexes[0] = avatarNoP1;
 					playerAvatarIndexes[1] = avatarNoP2;
+					playerColors[0] = t1.getForeground();
+					playerColors[1] = t2.getForeground();
 					remove(pnlStartGameMenu);
 					dispose();
 
 					// Start the actual game
 
-					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes);
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors);
 					Map frame = new Map(gameManager);
 					frame.setVisible(true);
 					frame.setTitle("Risk");
@@ -1159,10 +1162,13 @@ public class GUI extends JFrame implements ActionListener {
 					playerAvatarIndexes[0] = avatarNoP1;
 					playerAvatarIndexes[1] = avatarNoP2;
 					playerAvatarIndexes[2] = avatarNoP3;
+					playerColors[0] = t1.getForeground();
+					playerColors[1] = t2.getForeground();
+					playerColors[2] = t3.getForeground();
 					dispose();
 
 					// Start the actual game
-					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes);
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors);
 					Map frame = new Map(gameManager);
 					frame.setVisible(true);
 					frame.setTitle("Risk");
@@ -1232,8 +1238,12 @@ public class GUI extends JFrame implements ActionListener {
 					playerAvatarIndexes[1] = avatarNoP2;
 					playerAvatarIndexes[2] = avatarNoP3;
 					playerAvatarIndexes[3] = avatarNoP4;
+					playerColors[0] = t1.getForeground();
+					playerColors[1] = t2.getForeground();
+					playerColors[2] = t3.getForeground();
+					playerColors[3] = t4.getForeground();
 					dispose();
-					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes);
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors);
 					// Start the actual game
 					Map frame = new Map(gameManager);
 					frame.setVisible(true);

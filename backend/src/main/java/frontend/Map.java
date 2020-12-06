@@ -47,11 +47,7 @@ public class Map extends JFrame implements ActionListener {
     private JLabel avatar1,avatar2,avatar3,avatar4;
     private JLabel player1name,player2name,player3name,player4name;
     CircleComponent component1 = new CircleComponent(90);
-
-    JButton buttonterritory,buttonterritory2,buttonterritory3,buttonterritory4,buttonterritory5,
-            buttonterritory6,buttonterritory7,buttonterritory8,buttonterritory9,buttonterritory10,
-            buttonterritory11,buttonterritory12,buttonterritory13,buttonterritory14,buttonterritory15,buttonterritory16,
-            buttonterritory17,buttonterritory18;
+    private JPanel settingsPanel;
     JButton[] territories;
     JButton attackButton,retreatButton;
     JButton pauseButton;
@@ -73,24 +69,6 @@ public class Map extends JFrame implements ActionListener {
     int noOfPlayers;
 
 
-/*
-*     public static void main(String[] args) {
-        Map frame = new Map();
-        frame.setVisible(true);
-        frame.setTitle("Risk");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(1150,830)); //1570,800
-        frame.setResizable(false);
-        frame.pack();
-        //EventQueue.invokeLater(new Runnable() {
-        //    public void run() {
-        //    }
-        //});
-
-
-}
-* */
-
     public Map( GameManager gameManager )
     {
 
@@ -99,6 +77,11 @@ public class Map extends JFrame implements ActionListener {
         players = game.getPlayers();
         currentPlayer = game.getCurrentPlayerTurn();
         territories = new JButton[45];
+
+        settingsPanel = new JPanel();
+        settingsPanel.setPreferredSize(new Dimension(300,300));
+        settingsPanel.setBounds(100,100,300,300);
+        settingsPanel.setBackground(Color.BLUE);
 
         addMouseListener(new MouseListener() {
             @Override
@@ -227,6 +210,7 @@ public class Map extends JFrame implements ActionListener {
             territories[i].addActionListener(this);
             territories[i].setContentAreaFilled(false);
             territories[i].setForeground(Color.white);
+            territories[i].setFont(new Font(Font.SERIF,Font.BOLD,25));
         }
         //set names of the buttons
         territories[0].setName( "Raken");
@@ -340,17 +324,8 @@ public class Map extends JFrame implements ActionListener {
         territories[44].setBounds(63, 557, 60, 60);
 
         //get army values
-        for(int i = 0; i < 45; i++ )
-        {
-            if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null) {
-                territories[i].setText("" + game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
-                if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getOwner().getName()== players[currentPlayer].getName())
-                    territories[i].setForeground(Color.CYAN);
-                else
-                    territories[i].setForeground(Color.WHITE);
-            }
-            mainPanel.add(territories[i]);
-        }
+        createTerritoryColors();
+        updateTurnColor();
 
         attackButton = new JButton("ATTACK");
         attackButton.setName("ATTACK");
@@ -394,8 +369,10 @@ public class Map extends JFrame implements ActionListener {
         pauseButton.addActionListener(this);
         background.add(pauseButton);
         settingPane = new JLayeredPane();
-        settingPane.setBounds(250,150,700,600);
         settingPane.setPreferredSize(new Dimension(500,700));
+        settingPane.setBounds(250,150,700,600);
+        settingPane.setBackground(Color.BLUE);
+        settingPane.setVisible(true);
         JLabel label1 = new JLabel();
         label1.setOpaque(true);
         label1.setBackground(Color.WHITE);
@@ -471,6 +448,7 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource()==pauseButton)
         {
+            //mainPanel.setEnabled(false);
             int chosenoption;
             Object[] options = { "CONTINUE", "HOW TO PLAY","SETTINGS","QUIT" };
             chosenoption = JOptionPane.showOptionDialog(null, "GAME PAUSED", "GAME PAUSED",
@@ -487,8 +465,13 @@ public class Map extends JFrame implements ActionListener {
                 }
             }else if(chosenoption == 2)
             {
-                background.add(settingPane);
-                mainPanel.setEnabled(false);
+
+                //mainPanel.setEnabled(false);
+                //background.add(settingPane);
+                //mainPanel.add(settingsPanel);
+            }else if(chosenoption == 0)
+            {
+                mainPanel.setEnabled(true);
             }
         }
 
@@ -663,15 +646,7 @@ public class Map extends JFrame implements ActionListener {
                 to = "";
 
                 //update army values
-                for (int i = 0; i < 45; i++) {
-                    if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null) {
-                        territories[i].setText("" + game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
-                        if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getOwner().getName()== players[currentPlayer].getName())
-                            territories[i].setForeground(Color.CYAN);
-                        else
-                            territories[i].setForeground(Color.WHITE);
-                    }
-                }
+                updateTerritories();
                 gameManager.getGame().printInfAmt();
                 attackButton.setEnabled(false);
                 player1name.setText(players[0].getName() + " Infantry numbers:" + players[0].getInfantryAmt());
@@ -694,56 +669,80 @@ public class Map extends JFrame implements ActionListener {
             from = "";
             to = "";
             attackButton.setEnabled(false);
-            for (int i = 0; i < 45; i++) {
-                if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null) {
-                    territories[i].setText("" + game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
-                    if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getOwner().getName()== players[currentPlayer].getName())
-                        territories[i].setForeground(Color.CYAN);
-                    else
-                        territories[i].setForeground(Color.WHITE);
-                }
-            }
-            if(currentPlayer == 0)
-            {
-                player1name.setText(players[0].getName()+" Infantry numbers:" + players[0].getInfantryAmt());
-                component1.setLocation(70 ,175);
-                component1.setSize(component1.getPreferredSize());
-                background.add(component1);
-                background.repaint();
-                background.revalidate();
-
-            }else if(currentPlayer == 1)
-            {
-                player2name.setText(players[1].getName()+" Infantry numbers:" + players[1].getInfantryAmt());
-                component1.setLocation(970,175);
-                component1.setSize(component1.getPreferredSize());
-                background.add(component1);
-                background.repaint();
-                background.revalidate();
-
-            }else if(currentPlayer == 2)
-            {
-                player3name.setText(players[2].getName()+" Infantry numbers:" + players[2].getInfantryAmt());
-                component1.setLocation(70,855);
-                component1.setSize(component1.getPreferredSize());
-                background.add(component1);
-                background.repaint();
-                background.revalidate();
-
-            }else if(currentPlayer == 3)
-            {
-                player4name.setText(players[3].getName()+" Infantry numbers:" + players[3].getInfantryAmt());
-                component1.setLocation(970,855);
-                component1.setSize(component1.getPreferredSize());
-                background.add(component1);
-                background.repaint();
-                background.revalidate();
-            }
+            updateTerritories();
+            updateTurnColor();
             JOptionPane.showMessageDialog(null, "Player "+ players[currentPlayer].getName()+" got 3 more soldiers");
 
         }
         repaint();
         //pack();
+    }
+
+    public void updateTurnColor()
+    {
+        if(currentPlayer == 0)
+        {
+            player1name.setText(players[0].getName()+" Infantry numbers:" + players[0].getInfantryAmt());
+            component1.setLocation(70 ,175);
+            component1.setColor(players[0].getColor());
+            component1.setSize(component1.getPreferredSize());
+            background.add(component1);
+            background.repaint();
+            background.revalidate();
+
+        }else if(currentPlayer == 1)
+        {
+            player2name.setText(players[1].getName()+" Infantry numbers:" + players[1].getInfantryAmt());
+            component1.setLocation(970,175);
+            component1.setColor(players[1].getColor());
+            component1.setSize(component1.getPreferredSize());
+            background.add(component1);
+            background.repaint();
+            background.revalidate();
+
+        }else if(currentPlayer == 2)
+        {
+            player3name.setText(players[2].getName()+" Infantry numbers:" + players[2].getInfantryAmt());
+            component1.setLocation(70,855);
+            component1.setColor(players[2].getColor());
+            component1.setSize(component1.getPreferredSize());
+            background.add(component1);
+            background.repaint();
+            background.revalidate();
+
+        }else if(currentPlayer == 3)
+        {
+            player4name.setText(players[3].getName()+" Infantry numbers:" + players[3].getInfantryAmt());
+            component1.setLocation(970,855);
+            component1.setColor(players[3].getColor());
+            component1.setSize(component1.getPreferredSize());
+            background.add(component1);
+            background.repaint();
+            background.revalidate();
+        }
+    }
+    public void updateTerritories()
+    {
+        for(int i = 0; i < 45; i++ )
+        {
+            if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null) {
+                territories[i].setText("" + game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
+                Player p = game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getOwner();
+                territories[i].setForeground(p.getColor());
+            }
+        }
+    }
+    public void createTerritoryColors()
+    {
+        for(int i = 0; i < 45; i++ )
+        {
+            if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null) {
+                territories[i].setText("" + game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
+                Player p = game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getOwner();
+                territories[i].setForeground(p.getColor());
+            }
+            mainPanel.add(territories[i]);
+        }
     }
 
 
