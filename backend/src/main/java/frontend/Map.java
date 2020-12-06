@@ -11,10 +11,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
@@ -56,7 +53,9 @@ public class Map extends JFrame implements ActionListener {
     JButton cancelAttack,rollDiceButton,allianceButton,decreaseDice,increaseDice;
     String chosenTerritory;
     JLabel firstDiceSet,secondDiceSet,thirdDiceSet,forthDiceSet,fifthDiceSet;
+    JButton cardInfoPanelButton;
     int diceNumberLeft = 3;
+    CardPanel cardPanel;
 
     String from = "";
     String to = "";
@@ -152,7 +151,7 @@ public class Map extends JFrame implements ActionListener {
         allianceButton.addActionListener(this);
 
         mainPanel = new JPanel();
-        mainPanel.setPreferredSize(new Dimension(300,300));
+        mainPanel.setPreferredSize(new Dimension(300,400));
         mainPanel.setLayout(null);
 
 
@@ -166,30 +165,30 @@ public class Map extends JFrame implements ActionListener {
         avatar4 = new JLabel("");
 
         avatar1.setIcon(new ImageIcon(players[0].getAvatar().getImageFileName()));
-        avatar1.setBounds(80,180,80,80);
+        avatar1.setBounds(10,180,80,80);
         player1name = new JLabel(players[0].getName()+" Infantry numbers:" + players[0].getInfantryAmt());
-        player1name.setBounds(60,230,800,80);
+        player1name.setBounds(0,230,800,80);
         background.add(avatar1);
 
         avatar3.setIcon(new ImageIcon(players[1].getAvatar().getImageFileName()));
-        avatar3.setBounds(980,180,80,80);
+        avatar3.setBounds(1060,180,80,80);
         player2name = new JLabel(players[1].getName()+" Infantry numbers:" + players[1].getInfantryAmt());
         player2name.setBounds(960,230,200,80);
         background.add(avatar3);
 
         if(noOfPlayers >=3)
         avatar2.setIcon(new ImageIcon(players[2].getAvatar().getImageFileName()));
-        avatar2.setBounds(80,860,80,80);
+        avatar2.setBounds(10,860,80,80);
         if(noOfPlayers >=3) {
             player3name = new JLabel(players[2].getName()+" Infantry numbers:" + players[2].getInfantryAmt());
         }else
             player3name = new JLabel("");
-        player3name.setBounds(60,910,200,80);
+        player3name.setBounds(0,910,200,80);
         background.add(avatar2);
 
         if(noOfPlayers >=4)
         avatar4.setIcon(new ImageIcon(players[3].getAvatar().getImageFileName()));
-        avatar4.setBounds(980,860,80,80);
+        avatar4.setBounds(1060,860,80,80);
 
         if(noOfPlayers >=4) {
             player4name = new JLabel(players[3].getName()+" Infantry numbers:" + players[3].getInfantryAmt());
@@ -340,6 +339,16 @@ public class Map extends JFrame implements ActionListener {
         attackButton.addActionListener(this);
         background.add(attackButton);
 
+
+        cardInfoPanelButton = new JButton("CARD INFO");
+        cardInfoPanelButton.setName("cardInfoPanelButton");
+        cardInfoPanelButton.setBounds(500, 880, 150, 50);
+        cardInfoPanelButton.setContentAreaFilled(true);
+        cardInfoPanelButton.setBorderPainted(true);
+        cardInfoPanelButton.setEnabled(true);
+        cardInfoPanelButton.addActionListener(this);
+        background.add(cardInfoPanelButton);
+
         draftButton = new JButton("DRAFT");
         draftButton.setName("DRAFT");
         draftButton.setBounds(200, 930, 150, 50);
@@ -360,14 +369,14 @@ public class Map extends JFrame implements ActionListener {
         background.add(nextPlayerButton);
 
         retreatButton = new JButton("RETREAT");
-        retreatButton.setBounds(800, 880, 150, 50);
+        retreatButton.setBounds(880, 880, 150, 50);
         retreatButton.setContentAreaFilled(true);
         retreatButton.setBorderPainted(true);
         retreatButton.setEnabled(false);
         background.add(retreatButton);
 
         pauseButton = new JButton("Pause");
-        pauseButton.setBounds(5, 180, 50, 50);
+        pauseButton.setBounds(505, 180, 100, 50);
         pauseButton.setContentAreaFilled(true);
         pauseButton.setBorderPainted(true);
         pauseButton.addActionListener(this);
@@ -392,6 +401,7 @@ public class Map extends JFrame implements ActionListener {
         background.repaint();
         background.revalidate();
         mainPanel.add(background);
+        mainPanel.setBackground(new Color(199,162,110));
         add(mainPanel);
 
     }
@@ -678,6 +688,17 @@ public class Map extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Player "+ players[currentPlayer].getName()+" got 3 more soldiers");
 
         }
+        if(e.getSource() == cardInfoPanelButton)
+        {
+            cardPanel = new CardPanel();
+            cardPanel.setVisible(true);
+            cardPanel.setTitle("Risk");
+            //cardPanel.setPreferredSize(new Dimension(1150,830)); //1570,800
+            cardPanel.setResizable(false);
+            cardPanel.pack();
+            //this.setVisible(false);
+            //background.add(cardPanel);
+        }
         repaint();
         //pack();
     }
@@ -687,7 +708,7 @@ public class Map extends JFrame implements ActionListener {
         if(currentPlayer == 0)
         {
             player1name.setText(players[0].getName()+" Infantry numbers:" + players[0].getInfantryAmt());
-            component1.setLocation(70 ,175);
+            component1.setLocation(0 ,175);
             component1.setColor(players[0].getColor());
             component1.setSize(component1.getPreferredSize());
             background.add(component1);
@@ -697,7 +718,7 @@ public class Map extends JFrame implements ActionListener {
         }else if(currentPlayer == 1)
         {
             player2name.setText(players[1].getName()+" Infantry numbers:" + players[1].getInfantryAmt());
-            component1.setLocation(970,175);
+            component1.setLocation(1050,175);
             component1.setColor(players[1].getColor());
             component1.setSize(component1.getPreferredSize());
             background.add(component1);
@@ -707,7 +728,7 @@ public class Map extends JFrame implements ActionListener {
         }else if(currentPlayer == 2)
         {
             player3name.setText(players[2].getName()+" Infantry numbers:" + players[2].getInfantryAmt());
-            component1.setLocation(70,855);
+            component1.setLocation(0,855);
             component1.setColor(players[2].getColor());
             component1.setSize(component1.getPreferredSize());
             background.add(component1);
@@ -717,7 +738,7 @@ public class Map extends JFrame implements ActionListener {
         }else if(currentPlayer == 3)
         {
             player4name.setText(players[3].getName()+" Infantry numbers:" + players[3].getInfantryAmt());
-            component1.setLocation(970,855);
+            component1.setLocation(1050,855);
             component1.setColor(players[3].getColor());
             component1.setSize(component1.getPreferredSize());
             background.add(component1);
