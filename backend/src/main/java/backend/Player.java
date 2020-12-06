@@ -11,7 +11,7 @@ public class Player {
 
     private int infantryAmt; //3 players = 35 infantry, 4p = 30, 5p = 25
     private final String name;
-    private final Avatar avatar;
+    private Avatar avatar;
     private Hand hand;
     private boolean underAttack;
     private ArrayList<Continent> gainedContinents;
@@ -113,5 +113,8 @@ public class Player {
     {
         this.colorOfPlayer = color;
     }
+
+    public Avatar getAvatar(){return avatar;}
+
 
 }

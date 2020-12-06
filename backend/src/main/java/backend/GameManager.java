@@ -78,13 +78,17 @@ public class GameManager {
         String avatarImgPath = "";
         //TODO: add avatar images and change the paths accordingly
         if( choice == 1 ) {
-            avatarImgPath = "./src/main/resources/images/alexander_p.png";
+            avatarImgPath = "./src/main/resources/images/napoleon_p.png";
         } else if( choice == 2 ) {
-            avatarImgPath = "./src/main/resources/images/hannibal_p.png";
+            avatarImgPath = "./src/main/resources/images/alexander_p.png";
         } else if( choice == 3 ) {
-            avatarImgPath = "./src/main/resources/images/cengiz_p.png";
+            avatarImgPath = "./src/main/resources/images/hannibal_p.png";
         } else if( choice == 4 ) {
             avatarImgPath = "./src/main/resources/images/caesar_p.png";
+        }else if( choice == 5 ) {
+            avatarImgPath = "./src/main/resources/images/cengiz_p.png";
+        }else if( choice == 6 ) {
+            avatarImgPath = "./src/main/resources/images/suleiman_p.png";
         }
 
         return avatarImgPath;

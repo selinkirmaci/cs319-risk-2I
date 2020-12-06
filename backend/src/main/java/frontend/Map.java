@@ -65,6 +65,7 @@ public class Map extends JFrame implements ActionListener {
     private GameManager gameManager;
     private Game game;
     Player[] players;
+    int[] playerAvatars;
     int currentPlayer;
     int noOfPlayers;
 
@@ -164,19 +165,20 @@ public class Map extends JFrame implements ActionListener {
         avatar3 = new JLabel("");
         avatar4 = new JLabel("");
 
-        avatar1.setIcon(new ImageIcon("./src/main/resources/images/alexander_p.png"));
+        avatar1.setIcon(new ImageIcon(players[0].getAvatar().getImageFileName()));
         avatar1.setBounds(80,180,80,80);
         player1name = new JLabel(players[0].getName()+" Infantry numbers:" + players[0].getInfantryAmt());
         player1name.setBounds(60,230,800,80);
         background.add(avatar1);
 
-        avatar3.setIcon(new ImageIcon("./src/main/resources/images/hannibal_p.png"));
+        avatar3.setIcon(new ImageIcon(players[1].getAvatar().getImageFileName()));
         avatar3.setBounds(980,180,80,80);
         player2name = new JLabel(players[1].getName()+" Infantry numbers:" + players[1].getInfantryAmt());
         player2name.setBounds(960,230,200,80);
         background.add(avatar3);
 
-        avatar2.setIcon(new ImageIcon("./src/main/resources/images/cengiz_p.png"));
+        if(noOfPlayers >=3)
+        avatar2.setIcon(new ImageIcon(players[2].getAvatar().getImageFileName()));
         avatar2.setBounds(80,860,80,80);
         if(noOfPlayers >=3) {
             player3name = new JLabel(players[2].getName()+" Infantry numbers:" + players[2].getInfantryAmt());
@@ -185,8 +187,10 @@ public class Map extends JFrame implements ActionListener {
         player3name.setBounds(60,910,200,80);
         background.add(avatar2);
 
-        avatar4.setIcon(new ImageIcon("./src/main/resources/images/caesar_p.png"));
+        if(noOfPlayers >=4)
+        avatar4.setIcon(new ImageIcon(players[3].getAvatar().getImageFileName()));
         avatar4.setBounds(980,860,80,80);
+
         if(noOfPlayers >=4) {
             player4name = new JLabel(players[3].getName()+" Infantry numbers:" + players[3].getInfantryAmt());
         }else
