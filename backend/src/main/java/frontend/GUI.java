@@ -16,20 +16,10 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.sound.sampled.FloatControl;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.OverlayLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
@@ -41,6 +31,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	private JPanel pnlMainMenu, pnlStartGameMenu, pnlHowToPlay, pnlCredits;
 
+	private JCheckBox boxSecretMission;
 
 	private JButton btnStartGame, btnHowToPlay, btnBackFromHtp, btnHtpPrev, btnHtpNext, btnQuitGame, btnCredits, btnBackFromCredits, btnBackFromStartGameMenu,btnContinueFromStartGameMenu;
 
@@ -273,6 +264,29 @@ public class GUI extends JFrame implements ActionListener {
 		btnContinueFromStartGameMenu.setContentAreaFilled(false);
 		btnContinueFromStartGameMenu.setBorderPainted(true);
 		lblStartGameMenuBackground.add(btnContinueFromStartGameMenu);
+
+		JLabel lblSecretMission = new JLabel("Include");
+		lblSecretMission.setBounds(1433,200,340,70);
+		lblSecretMission.setFont(new Font(Font.SERIF,Font.BOLD,20));
+		lblSecretMission.setForeground(Color.green);
+		lblStartGameMenuBackground.add(lblSecretMission);
+
+		JLabel lblSecretMission2 = new JLabel("Secret Missions");
+		lblSecretMission2.setBounds(1400,230,340,70);
+		lblSecretMission2.setFont(new Font(Font.SERIF,Font.BOLD,20));
+		lblSecretMission2.setForeground(Color.green);
+		lblStartGameMenuBackground.add(lblSecretMission2);
+
+
+		boxSecretMission = new JCheckBox(" ?");
+		boxSecretMission.setBounds(1430,295,70,70);
+		boxSecretMission.setFont(new Font(Font.SERIF,Font.BOLD,40));
+		boxSecretMission.setForeground(Color.green);
+		boxSecretMission.setContentAreaFilled(false);
+		boxSecretMission.setBorderPainted(true);
+		Border thickbor = new LineBorder(Color.red, 3);
+		boxSecretMission.setBorder(thickbor);
+		lblStartGameMenuBackground.add(boxSecretMission);
 
 		btnNumOfPlayers2 = new JButton("");
 		btnNumOfPlayers2.setBounds(1270,180,95,60);
@@ -1025,6 +1039,8 @@ public class GUI extends JFrame implements ActionListener {
 
 			numOfPlayers = 4;
 
+			boxSecretMission.setSelected(false);
+
 		}
 
 		if(e.getSource()==btnContinueFromStartGameMenu)
@@ -1042,6 +1058,7 @@ public class GUI extends JFrame implements ActionListener {
 			String s3 = t3.getText();
 			String s4 = t4.getText();
 
+			//if(boxSecretMission.isSelected())
 
 			if(numOfPlayers == 2)
 			{
