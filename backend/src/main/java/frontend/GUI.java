@@ -41,21 +41,6 @@ public class GUI extends JFrame implements ActionListener {
 	private int htpPageNum = 1;
 	private JLabel lblHowToPlayBackground, htpPage1, htpPage2, htpPage3, htpPage4, htpPage5, htpPage6, htpPage7;
 
-	private JLabel lblTimer;
-	private int seconds = 60;
-	Timer timer1 = new Timer();
-	TimerTask task1 = new TimerTask() {
-		@Override
-		public void run() {
-			seconds--;
-			lblTimer.setText(""+seconds);
-			if(seconds==54)
-			{
-				seconds = 60;
-			}
-		}
-	};
-
 	private JButton btnChooseColour1, btnChooseColour2, btnChooseColour3, btnChooseColour4;
 	private JButton btnChooseAvatar1, btnChooseAvatar2, btnChooseAvatar3, btnChooseAvatar4;
 
