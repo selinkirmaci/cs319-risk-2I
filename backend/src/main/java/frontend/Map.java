@@ -16,6 +16,8 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,6 +45,42 @@ public class Map extends JFrame implements ActionListener {
     private JLabel background;
     private JLabel avatar1,avatar2,avatar3,avatar4;
     private JLabel player1name,player2name,player3name,player4name;
+    JLabel lblTimer;
+    private int seconds = 60;
+    Timer timer1 = new Timer();
+    TimerTask task1 = new TimerTask() {
+        @Override
+        public void run() {
+            seconds--;
+            lblTimer.setText(""+seconds);
+            if(seconds == 0)
+            {
+                nextPlayerButton.doClick();
+                seconds = 60;
+            }
+
+            if (currentPlayer == 0)
+            {
+                lblTimer.setForeground(players[0].getColor());
+            }
+
+            else if (currentPlayer == 1)
+            {
+                lblTimer.setForeground(players[1].getColor());
+            }
+
+            else if (currentPlayer == 2)
+            {
+                lblTimer.setForeground(players[2].getColor());
+            }
+
+            else if (currentPlayer == 3)
+            {
+                lblTimer.setForeground(players[3].getColor());
+            }
+        }
+    };
+
     CircleComponent component1 = new CircleComponent(90);
     private JPanel settingsPanel;
     JButton[] territories;
@@ -163,6 +201,11 @@ public class Map extends JFrame implements ActionListener {
         avatar2 = new JLabel("");
         avatar3 = new JLabel("");
         avatar4 = new JLabel("");
+
+        lblTimer = new JLabel("");
+        lblTimer.setBounds(640, 163, 800, 80);
+        lblTimer.setFont(new Font(Font.SERIF,Font.BOLD,40));
+        background.add(lblTimer);
 
         avatar1.setIcon(new ImageIcon(players[0].getAvatar().getImageFileName()));
         avatar1.setBounds(10,180,80,80);
@@ -685,6 +728,7 @@ public class Map extends JFrame implements ActionListener {
             attackButton.setEnabled(false);
             updateTerritories();
             updateTurnColor();
+            seconds = 60;
             JOptionPane.showMessageDialog(null, "Player "+ players[currentPlayer].getName()+" got 3 more soldiers");
 
         }
@@ -769,6 +813,13 @@ public class Map extends JFrame implements ActionListener {
             mainPanel.add(territories[i]);
         }
     }
+
+    public void startTimer(){
+        timer1.scheduleAtFixedRate(task1,1000,1000);
+
+    }
+
+
 
 
 

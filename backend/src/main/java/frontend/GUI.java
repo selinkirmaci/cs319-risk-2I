@@ -14,7 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -39,6 +40,21 @@ public class GUI extends JFrame implements ActionListener {
 
 	private int htpPageNum = 1;
 	private JLabel lblHowToPlayBackground, htpPage1, htpPage2, htpPage3, htpPage4, htpPage5, htpPage6, htpPage7;
+
+	private JLabel lblTimer;
+	private int seconds = 60;
+	Timer timer1 = new Timer();
+	TimerTask task1 = new TimerTask() {
+		@Override
+		public void run() {
+			seconds--;
+			lblTimer.setText(""+seconds);
+			if(seconds==54)
+			{
+				seconds = 60;
+			}
+		}
+	};
 
 	private JButton btnChooseColour1, btnChooseColour2, btnChooseColour3, btnChooseColour4;
 	private JButton btnChooseAvatar1, btnChooseAvatar2, btnChooseAvatar3, btnChooseAvatar4;
@@ -1116,6 +1132,7 @@ public class GUI extends JFrame implements ActionListener {
 
 					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors);
 					Map frame = new Map(gameManager);
+					frame.startTimer();
 					frame.setVisible(true);
 					frame.setTitle("Risk");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1187,6 +1204,7 @@ public class GUI extends JFrame implements ActionListener {
 					// Start the actual game
 					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors);
 					Map frame = new Map(gameManager);
+					frame.startTimer();
 					frame.setVisible(true);
 					frame.setTitle("Risk");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1263,6 +1281,7 @@ public class GUI extends JFrame implements ActionListener {
 					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors);
 					// Start the actual game
 					Map frame = new Map(gameManager);
+					frame.startTimer();
 					frame.setVisible(true);
 					frame.setTitle("Risk");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
