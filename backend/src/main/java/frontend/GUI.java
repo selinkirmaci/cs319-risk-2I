@@ -914,6 +914,133 @@ public class GUI extends JFrame implements ActionListener {
 
 	// ############## End of Play Sound Method ################
 
+	public void disableButtonsAvatar()
+	{
+		t1.setVisible(false);
+		t2.setVisible(false);
+		t3.setVisible(false);
+		t4.setVisible(false);
+		btnChooseColour1.setVisible(false);
+		btnChooseColour2.setVisible(false);
+		btnChooseColour3.setVisible(false);
+		btnChooseColour4.setVisible(false);
+		btnBackFromStartGameMenu.setVisible(false);
+
+		t1.setEnabled(false);
+		t2.setEnabled(false);
+		t3.setEnabled(false);
+		t4.setEnabled(false);
+		btnChooseColour1.setEnabled(false);
+		btnChooseColour2.setEnabled(false);
+		btnChooseColour3.setEnabled(false);
+		btnChooseColour4.setEnabled(false);
+
+		btnChooseAvatar1.setEnabled(false);
+		btnChooseAvatar2.setEnabled(false);
+		btnChooseAvatar3.setEnabled(false);
+		btnChooseAvatar4.setEnabled(false);
+
+		btnContinueFromStartGameMenu.setEnabled(false);
+	}
+
+	public void enableButtonsAvatar()
+	{
+		t1.setVisible(true);
+		t2.setVisible(true);
+		t3.setVisible(true);
+		t4.setVisible(true);
+
+		btnChooseColour1.setVisible(true);
+		btnChooseColour2.setVisible(true);
+		btnChooseColour3.setVisible(true);
+		btnChooseColour4.setVisible(true);
+		btnBackFromStartGameMenu.setVisible(true);
+
+		t1.setEnabled(true);
+		t2.setEnabled(true);
+
+		btnChooseColour1.setEnabled(true);
+		btnChooseColour2.setEnabled(true);
+		btnChooseAvatar1.setEnabled(true);
+		btnChooseAvatar2.setEnabled(true);
+
+		if(numOfPlayers == 3)
+		{
+			btnChooseColour3.setEnabled(true);
+			t3.setEnabled(true);
+			btnChooseAvatar3.setEnabled(true);
+		}
+
+		else if(numOfPlayers == 4)
+		{
+			btnChooseColour3.setEnabled(true);
+			btnChooseColour4.setEnabled(true);
+			t3.setEnabled(true);
+			t4.setEnabled(true);
+			btnChooseAvatar3.setEnabled(true);
+			btnChooseAvatar4.setEnabled(true);
+		}
+
+		btnContinueFromStartGameMenu.setEnabled(true);
+	}
+
+	public void disableButtonsColor()
+	{
+		lblStartGameMenuBackground.add(lblSelectColourBackground);
+
+		btnBackFromStartGameMenu.setEnabled(false);
+		btnChooseColour1.setEnabled(false);
+		btnChooseColour2.setEnabled(false);
+		btnChooseColour3.setEnabled(false);
+		btnChooseColour4.setEnabled(false);
+
+		btnChooseAvatar1.setEnabled(false);
+		btnChooseAvatar2.setEnabled(false);
+		btnChooseAvatar3.setEnabled(false);
+		btnChooseAvatar4.setEnabled(false);
+
+		t1.setEnabled(false);
+		t2.setEnabled(false);
+		t3.setEnabled(false);
+		t4.setEnabled(false);
+
+		btnContinueFromStartGameMenu.setEnabled(false);
+	}
+
+	public void enableButtonsColor()
+	{
+		lblStartGameMenuBackground.remove(lblSelectColourBackground);
+		btnBackFromStartGameMenu.setEnabled(true);
+
+		btnChooseColour1.setEnabled(true);
+		btnChooseColour2.setEnabled(true);
+
+		if(numOfPlayers == 3)
+		{
+			btnChooseColour3.setEnabled(true);
+			t3.setEnabled(true);
+			btnChooseAvatar3.setEnabled(true);
+		}
+
+		else if(numOfPlayers == 4)
+		{
+			btnChooseColour3.setEnabled(true);
+			btnChooseColour4.setEnabled(true);
+			t3.setEnabled(true);
+			t4.setEnabled(true);
+			btnChooseAvatar3.setEnabled(true);
+			btnChooseAvatar4.setEnabled(true);
+		}
+
+		btnChooseAvatar1.setEnabled(true);
+		btnChooseAvatar2.setEnabled(true);
+
+
+		t1.setEnabled(true);
+		t2.setEnabled(true);
+		btnContinueFromStartGameMenu.setEnabled(true);
+	}
+
 	// ############## Action Events ###########################
 
 	public void actionPerformed(ActionEvent e)
@@ -1299,24 +1426,6 @@ public class GUI extends JFrame implements ActionListener {
 
 		if(e.getSource()==btnChooseColour1)
 		{
-			lblStartGameMenuBackground.add(lblSelectColourBackground);
-
-
-			btnBackFromStartGameMenu.setEnabled(false);
-			btnChooseColour1.setEnabled(false);
-			btnChooseColour2.setEnabled(false);
-			btnChooseColour3.setEnabled(false);
-			btnChooseColour4.setEnabled(false);
-
-			btnChooseAvatar1.setEnabled(false);
-			btnChooseAvatar2.setEnabled(false);
-			btnChooseAvatar3.setEnabled(false);
-			btnChooseAvatar4.setEnabled(false);
-
-			t1.setEnabled(false);
-			t2.setEnabled(false);
-			t3.setEnabled(false);
-			t4.setEnabled(false);
 
 			btnRed1.setVisible(true);
 			btnBlue1.setVisible(true);
@@ -1325,31 +1434,12 @@ public class GUI extends JFrame implements ActionListener {
 			btnCyan1.setVisible(true);
 			btnPink1.setVisible(true);
 
-			btnContinueFromStartGameMenu.setEnabled(false);
-
+			disableButtonsColor();
 
 		}
 
 		if(e.getSource()==btnChooseColour2)
 		{
-			lblStartGameMenuBackground.add(lblSelectColourBackground);
-			btnBackFromStartGameMenu.setEnabled(false);
-
-			btnChooseColour1.setEnabled(false);
-			btnChooseColour2.setEnabled(false);
-			btnChooseColour3.setEnabled(false);
-			btnChooseColour4.setEnabled(false);
-
-			btnChooseAvatar1.setEnabled(false);
-			btnChooseAvatar2.setEnabled(false);
-			btnChooseAvatar3.setEnabled(false);
-			btnChooseAvatar4.setEnabled(false);
-
-			t1.setEnabled(false);
-			t2.setEnabled(false);
-			t3.setEnabled(false);
-			t4.setEnabled(false);
-
 			btnRed1.setVisible(false);
 			btnRed2.setVisible(true);
 
@@ -1368,28 +1458,12 @@ public class GUI extends JFrame implements ActionListener {
 			btnPink1.setVisible(false);
 			btnPink2.setVisible(true);
 
-			btnContinueFromStartGameMenu.setEnabled(false);
+			disableButtonsColor();
 		}
 
 		if(e.getSource()==btnChooseColour3)
 		{
-			lblStartGameMenuBackground.add(lblSelectColourBackground);
-			btnBackFromStartGameMenu.setEnabled(false);
 
-			btnChooseColour1.setEnabled(false);
-			btnChooseColour2.setEnabled(false);
-			btnChooseColour3.setEnabled(false);
-			btnChooseColour4.setEnabled(false);
-
-			btnChooseAvatar1.setEnabled(false);
-			btnChooseAvatar2.setEnabled(false);
-			btnChooseAvatar3.setEnabled(false);
-			btnChooseAvatar4.setEnabled(false);
-
-			t1.setEnabled(false);
-			t2.setEnabled(false);
-			t3.setEnabled(false);
-			t4.setEnabled(false);
 
 			btnRed1.setVisible(false);
 			btnRed2.setVisible(false);
@@ -1415,30 +1489,12 @@ public class GUI extends JFrame implements ActionListener {
 			btnPink2.setVisible(false);
 			btnPink3.setVisible(true);
 
-			btnContinueFromStartGameMenu.setEnabled(false);
-
+			disableButtonsColor();
 
 		}
 
 		if(e.getSource()==btnChooseColour4)
 		{
-			lblStartGameMenuBackground.add(lblSelectColourBackground);
-			btnBackFromStartGameMenu.setEnabled(false);
-
-			btnChooseColour1.setEnabled(false);
-			btnChooseColour2.setEnabled(false);
-			btnChooseColour3.setEnabled(false);
-			btnChooseColour4.setEnabled(false);
-
-			btnChooseAvatar1.setEnabled(false);
-			btnChooseAvatar2.setEnabled(false);
-			btnChooseAvatar3.setEnabled(false);
-			btnChooseAvatar4.setEnabled(false);
-
-			t1.setEnabled(false);
-			t2.setEnabled(false);
-			t3.setEnabled(false);
-			t4.setEnabled(false);
 
 			btnRed1.setVisible(false);
 			btnRed2.setVisible(false);
@@ -1470,26 +1526,16 @@ public class GUI extends JFrame implements ActionListener {
 			btnPink3.setVisible(false);
 			btnPink4.setVisible(true);
 
-			btnContinueFromStartGameMenu.setEnabled(false);
+			disableButtonsColor();
 		}
 
 		if(e.getSource()==btnChooseAvatar1)
 		{
 			lblStartGameMenuBackground.add(lblSelectAvatarBackground);
-			t1.setVisible(false);
-			t2.setVisible(false);
-			t3.setVisible(false);
-			t4.setVisible(false);
-			btnChooseColour1.setVisible(false);
-			btnChooseColour2.setVisible(false);
-			btnChooseColour3.setVisible(false);
-			btnChooseColour4.setVisible(false);
-			btnBackFromStartGameMenu.setVisible(false);
 
 			btnChooseAvatar1.setHorizontalAlignment(JTextField.RIGHT);
 			btnChooseAvatar1.setFont(new Font(Font.SERIF,Font.BOLD,25));
 			btnChooseAvatar1.setText("1");
-
 
 			btnChooseAvatar1.remove(lblAlexander);
 			btnChooseAvatar1.remove(lblSuleiman);
@@ -1497,56 +1543,18 @@ public class GUI extends JFrame implements ActionListener {
 			btnChooseAvatar1.remove(lblCaesar);
 			btnChooseAvatar1.remove(lblNapoleon);
 			btnChooseAvatar1.remove(lblHannibal);
-			///
-			t1.setEnabled(false);
-			t2.setEnabled(false);
-			t3.setEnabled(false);
-			t4.setEnabled(false);
-			btnChooseColour1.setEnabled(false);
-			btnChooseColour2.setEnabled(false);
-			btnChooseColour3.setEnabled(false);
-			btnChooseColour4.setEnabled(false);
-			///
 
-			btnChooseAvatar1.setEnabled(false);
-			btnChooseAvatar2.setEnabled(false);
-			btnChooseAvatar3.setEnabled(false);
-			btnChooseAvatar4.setEnabled(false);
-
-			btnContinueFromStartGameMenu.setEnabled(false);
+			disableButtonsAvatar();
 
 		}
 
 		if(e.getSource()==btnChooseAvatar2)
 		{
 			lblStartGameMenuBackground.add(lblSelectAvatarBackground2);
-			t1.setVisible(false);
-			t2.setVisible(false);
-			t3.setVisible(false);
-			t4.setVisible(false);
-			btnChooseColour1.setVisible(false);
-			btnChooseColour2.setVisible(false);
-			btnChooseColour3.setVisible(false);
-			btnChooseColour4.setVisible(false);
-			btnBackFromStartGameMenu.setVisible(false);
 
 			btnChooseAvatar2.setHorizontalAlignment(JTextField.RIGHT);
 			btnChooseAvatar2.setFont(new Font(Font.SERIF,Font.BOLD,25));
 			btnChooseAvatar2.setText("2");
-
-			t1.setEnabled(false);
-			t2.setEnabled(false);
-			t3.setEnabled(false);
-			t4.setEnabled(false);
-			btnChooseColour1.setEnabled(false);
-			btnChooseColour2.setEnabled(false);
-			btnChooseColour3.setEnabled(false);
-			btnChooseColour4.setEnabled(false);
-
-			btnChooseAvatar1.setEnabled(false);
-			btnChooseAvatar2.setEnabled(false);
-			btnChooseAvatar3.setEnabled(false);
-			btnChooseAvatar4.setEnabled(false);
 
 			btnChooseAvatar2.remove(lblAlexander2);
 			btnChooseAvatar2.remove(lblSuleiman2);
@@ -1555,40 +1563,16 @@ public class GUI extends JFrame implements ActionListener {
 			btnChooseAvatar2.remove(lblNapoleon2);
 			btnChooseAvatar2.remove(lblHannibal2);
 
-			btnContinueFromStartGameMenu.setEnabled(false);
+			disableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnChooseAvatar3)
 		{
 			lblStartGameMenuBackground.add(lblSelectAvatarBackground3);
-			t1.setVisible(false);
-			t2.setVisible(false);
-			t3.setVisible(false);
-			t4.setVisible(false);
-			btnChooseColour1.setVisible(false);
-			btnChooseColour2.setVisible(false);
-			btnChooseColour3.setVisible(false);
-			btnChooseColour4.setVisible(false);
-			btnBackFromStartGameMenu.setVisible(false);
 
 			btnChooseAvatar3.setHorizontalAlignment(JTextField.RIGHT);
 			btnChooseAvatar3.setFont(new Font(Font.SERIF,Font.BOLD,25));
 			btnChooseAvatar3.setText("3");
-
-			t1.setEnabled(false);
-			t2.setEnabled(false);
-			t3.setEnabled(false);
-			t4.setEnabled(false);
-			btnChooseColour1.setEnabled(false);
-			btnChooseColour2.setEnabled(false);
-			btnChooseColour3.setEnabled(false);
-			btnChooseColour4.setEnabled(false);
-			///
-
-			btnChooseAvatar1.setEnabled(false);
-			btnChooseAvatar2.setEnabled(false);
-			btnChooseAvatar3.setEnabled(false);
-			btnChooseAvatar4.setEnabled(false);
 
 			btnChooseAvatar3.remove(lblAlexander3);
 			btnChooseAvatar3.remove(lblSuleiman3);
@@ -1597,40 +1581,16 @@ public class GUI extends JFrame implements ActionListener {
 			btnChooseAvatar3.remove(lblNapoleon3);
 			btnChooseAvatar3.remove(lblHannibal3);
 
-			btnContinueFromStartGameMenu.setEnabled(false);
+			disableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnChooseAvatar4)
 		{
 			lblStartGameMenuBackground.add(lblSelectAvatarBackground4);
-			t1.setVisible(false);
-			t2.setVisible(false);
-			t3.setVisible(false);
-			t4.setVisible(false);
-			btnChooseColour1.setVisible(false);
-			btnChooseColour2.setVisible(false);
-			btnChooseColour3.setVisible(false);
-			btnChooseColour4.setVisible(false);
-			btnBackFromStartGameMenu.setVisible(false);
 
 			btnChooseAvatar4.setHorizontalAlignment(JTextField.RIGHT);
 			btnChooseAvatar4.setFont(new Font(Font.SERIF,Font.BOLD,25));
 			btnChooseAvatar4.setText("4");
-
-			t1.setEnabled(false);
-			t2.setEnabled(false);
-			t3.setEnabled(false);
-			t4.setEnabled(false);
-			btnChooseColour1.setEnabled(false);
-			btnChooseColour2.setEnabled(false);
-			btnChooseColour3.setEnabled(false);
-			btnChooseColour4.setEnabled(false);
-			///
-
-			btnChooseAvatar1.setEnabled(false);
-			btnChooseAvatar2.setEnabled(false);
-			btnChooseAvatar3.setEnabled(false);
-			btnChooseAvatar4.setEnabled(false);
 
 			btnChooseAvatar4.remove(lblAlexander4);
 			btnChooseAvatar4.remove(lblSuleiman4);
@@ -1639,49 +1599,14 @@ public class GUI extends JFrame implements ActionListener {
 			btnChooseAvatar4.remove(lblNapoleon4);
 			btnChooseAvatar4.remove(lblHannibal4);
 
-			btnContinueFromStartGameMenu.setEnabled(false);
+			disableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnRed1)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour1.setBackground(Color.red);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-
 			btnRed1.setVisible(false);
 			btnChooseColour1.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-
 
 			if( !(btnRed1.getBackground().equals(cDef)) )
 			{
@@ -1689,51 +1614,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar1.setForeground(Color.red);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnBlue1)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour1.setBackground(Color.BLUE);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-
 			btnBlue1.setVisible(false);
 			btnChooseColour1.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnBlue1.getBackground().equals(cDef)) )
 			{
@@ -1741,50 +1629,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar1.setForeground(Color.blue);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnYellow1)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour1.setBackground(Color.YELLOW);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-
 			btnYellow1.setVisible(false);
 			btnChooseColour1.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnYellow1.getBackground().equals(cDef)) )
 			{
@@ -1792,49 +1644,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar1.setForeground(Color.yellow);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnGreen1)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour1.setBackground(Color.GREEN);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnGreen1.setVisible(false);
 			btnChooseColour1.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnGreen1.getBackground().equals(cDef)) )
 			{
@@ -1842,49 +1659,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar1.setForeground(Color.green);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnCyan1)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour1.setBackground(Color.CYAN);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnCyan1.setVisible(false);
 			btnChooseColour1.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnCyan1.getBackground().equals(cDef)) )
 			{
@@ -1892,49 +1674,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar1.setForeground(Color.cyan);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnPink1)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour1.setBackground(Color.PINK);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnPink1.setVisible(false);
 			btnChooseColour1.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnPink1.getBackground().equals(cDef)) )
 			{
@@ -1942,50 +1689,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar1.setForeground(Color.pink);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnRed2)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour2.setBackground(Color.red);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnRed2.setVisible(false);
 			btnChooseColour2.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnRed2.getBackground().equals(cDef)) )
 			{
@@ -1993,49 +1704,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar2.setForeground(Color.red);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnBlue2)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour2.setBackground(Color.blue);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnBlue2.setVisible(false);
 			btnChooseColour2.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnBlue2.getBackground().equals(cDef)) )
 			{
@@ -2043,49 +1719,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar2.setForeground(Color.blue);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnYellow2)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour2.setBackground(Color.yellow);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnYellow2.setVisible(false);
 			btnChooseColour2.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnYellow2.getBackground().equals(cDef)) )
 			{
@@ -2093,50 +1734,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar2.setForeground(Color.yellow);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnGreen2)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour2.setBackground(Color.green);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnGreen2.setVisible(false);
 			btnChooseColour2.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnGreen2.getBackground().equals(cDef)) )
 			{
@@ -2144,49 +1749,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar2.setForeground(Color.green);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnCyan2)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour2.setBackground(Color.cyan);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnCyan2.setVisible(false);
 			btnChooseColour2.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnCyan2.getBackground().equals(cDef)) )
 			{
@@ -2194,50 +1764,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar2.setForeground(Color.cyan);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnPink2)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour2.setBackground(Color.pink);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnPink2.setVisible(false);
 			btnChooseColour2.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnPink2.getBackground().equals(cDef)) )
 			{
@@ -2245,49 +1779,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar2.setForeground(Color.pink);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnRed3)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour3.setBackground(Color.red);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnRed3.setVisible(false);
 			btnChooseColour3.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnRed3.getBackground().equals(cDef)) )
 			{
@@ -2295,49 +1794,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar3.setForeground(Color.red);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnBlue3)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour3.setBackground(Color.blue);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnBlue3.setVisible(false);
 			btnChooseColour3.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnBlue3.getBackground().equals(cDef)) )
 			{
@@ -2345,50 +1809,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar3.setForeground(Color.blue);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnYellow3)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour3.setBackground(Color.yellow);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnYellow3.setVisible(false);
 			btnChooseColour3.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnYellow3.getBackground().equals(cDef)) )
 			{
@@ -2396,50 +1824,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar3.setForeground(Color.yellow);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnGreen3)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour3.setBackground(Color.green);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnGreen3.setVisible(false);
 			btnChooseColour3.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnGreen3.getBackground().equals(cDef)) )
 			{
@@ -2447,50 +1839,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar3.setForeground(Color.green);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnCyan3)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour3.setBackground(Color.cyan);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnCyan3.setVisible(false);
 			btnChooseColour3.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnCyan3.getBackground().equals(cDef)) )
 			{
@@ -2498,49 +1854,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar3.setForeground(Color.cyan);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnPink3)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour3.setBackground(Color.pink);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnPink3.setVisible(false);
 			btnChooseColour3.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnPink3.getBackground().equals(cDef)) )
 			{
@@ -2548,50 +1869,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar3.setForeground(Color.pink);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnRed4)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour4.setBackground(Color.red);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnRed4.setVisible(false);
 			btnChooseColour4.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnRed4.getBackground().equals(cDef)) )
 			{
@@ -2599,50 +1884,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar4.setForeground(Color.red);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnBlue4)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour4.setBackground(Color.blue);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnBlue4.setVisible(false);
 			btnChooseColour4.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnBlue4.getBackground().equals(cDef)) )
 			{
@@ -2650,49 +1899,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar4.setForeground(Color.blue);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnYellow4)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour4.setBackground(Color.yellow);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnYellow4.setVisible(false);
 			btnChooseColour4.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnYellow4.getBackground().equals(cDef)) )
 			{
@@ -2700,49 +1914,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar4.setForeground(Color.yellow);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnGreen4)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour4.setBackground(Color.green);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnGreen4.setVisible(false);
 			btnChooseColour4.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnGreen4.getBackground().equals(cDef)) )
 			{
@@ -2750,49 +1929,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar4.setForeground(Color.green);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnCyan4)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour4.setBackground(Color.cyan);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnCyan4.setVisible(false);
 			btnChooseColour4.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnCyan4.getBackground().equals(cDef)) )
 			{
@@ -2800,49 +1944,14 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar4.setForeground(Color.cyan);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnPink4)
 		{
-
-			lblStartGameMenuBackground.remove(lblSelectColourBackground);
 			btnChooseColour4.setBackground(Color.pink);
-			btnBackFromStartGameMenu.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
 			btnPink4.setVisible(false);
 			btnChooseColour4.setText("");
-
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
 
 			if( !(btnPink4.getBackground().equals(cDef)) )
 			{
@@ -2850,1229 +1959,199 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 			btnChooseAvatar4.setForeground(Color.pink);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
+			enableButtonsColor();
 		}
 
 		if(e.getSource()==btnNapoleon1)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true); // ###
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
-
 			btnChooseAvatar1.add(lblNapoleon);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP1 = 1;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnAlexander1)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar1.add(lblAlexander);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP1 = 2;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnHannibal1)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar1.add(lblHannibal);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP1 = 3;
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnCaesar1)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar1.add(lblCaesar);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP1 = 4;
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnCengiz1)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar1.add(lblCengiz);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP1 = 5;
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnSuleiman1)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar1.add(lblSuleiman);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP1 = 6;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnSuleiman2)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground2);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar2.add(lblSuleiman2);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP2 = 6;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnCaesar2)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground2);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar2.add(lblCaesar2);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP2 = 4;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnHannibal2)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground2);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
 			btnChooseAvatar2.add(lblHannibal2);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP2 = 3;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnCengiz2)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground2);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar2.add(lblCengiz2);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP2 = 5;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnAlexander2)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground2);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar2.add(lblAlexander2);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP2 = 2;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnNapoleon2)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground2);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar2.add(lblNapoleon2);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP2 = 1;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnNapoleon3)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground3);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar3.add(lblNapoleon3);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP3 = 1;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnSuleiman3)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground3);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
 			btnChooseAvatar3.add(lblSuleiman3);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP3 = 6;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnCaesar3)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground3);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar3.add(lblCaesar3);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP3 = 4;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnCengiz3)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground3);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar3.add(lblCengiz3);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP3 = 5;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnAlexander3)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground3);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar3.add(lblAlexander3);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP3 = 2;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnHannibal3)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground3);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar3.add(lblHannibal3);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP3 = 3;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnHannibal4)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground4);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar4.add(lblHannibal4);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP4 = 3;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnNapoleon4)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground4);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar4.add(lblNapoleon4);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP4 = 1;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnSuleiman4)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground4);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar4.add(lblSuleiman4);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP4 = 6;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnCengiz4)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground4);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar4.add(lblCengiz4);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP4 = 5;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnCaesar4)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground4);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar4.add(lblCaesar4);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP4 = 4;
-
+			enableButtonsAvatar();
 		}
 
 		if(e.getSource()==btnAlexander4)
 		{
 			lblStartGameMenuBackground.remove(lblSelectAvatarBackground4);
-			t1.setVisible(true);
-			t2.setVisible(true);
-			t3.setVisible(true);
-			t4.setVisible(true);
-			btnChooseColour1.setVisible(true);
-			btnChooseColour2.setVisible(true);
-			btnChooseColour3.setVisible(true);
-			btnChooseColour4.setVisible(true);
-			btnBackFromStartGameMenu.setVisible(true);
-
-			if(numOfPlayers == 3)
-			{
-				btnChooseColour3.setEnabled(true);
-				t3.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-			}
-
-			else if(numOfPlayers == 4)
-			{
-				btnChooseColour3.setEnabled(true);
-				btnChooseColour4.setEnabled(true);
-				t3.setEnabled(true);
-				t4.setEnabled(true);
-				btnChooseAvatar3.setEnabled(true);
-				btnChooseAvatar4.setEnabled(true);
-			}
-
-
-			//###
-			//
-			t1.setEnabled(true);
-			t2.setEnabled(true);
-
-			btnChooseColour1.setEnabled(true);
-			btnChooseColour2.setEnabled(true);
-
-			//
-			btnChooseAvatar1.setEnabled(true);
-			btnChooseAvatar2.setEnabled(true);
-
 			btnChooseAvatar4.add(lblAlexander4);
-
-			btnContinueFromStartGameMenu.setEnabled(true);
-
 			avatarNoP4 = 2;
-
+			enableButtonsAvatar();
 		}
 
 
