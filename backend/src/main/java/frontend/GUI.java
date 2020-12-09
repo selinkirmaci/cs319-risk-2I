@@ -1050,13 +1050,9 @@ public class GUI extends JFrame implements ActionListener {
 
 		if(e.getSource()==btnCredits)
 		{
-
 			remove(pnlMainMenu);
 			add(pnlCredits);
-
 			playSound("./src/main/resources/sounds/snd_howtoplay.wav");
-
-
 		}
 
 		if(e.getSource()==btnStartGame)
@@ -1064,16 +1060,14 @@ public class GUI extends JFrame implements ActionListener {
 			remove(pnlMainMenu);
 			add(pnlStartGameMenu);
 			playSound("./src/main/resources/sounds/snd_startGame.wav");
-
-
 		}
 
 		if(e.getSource()==btnBackFromStartGameMenu)
 		{
 			playSound("./src/main/resources/sounds/snd_howtoplay.wav");
-
 			remove(pnlStartGameMenu);
 			add(pnlMainMenu);
+
 			btnChooseColour1.setBackground(null);
 			btnChooseColour2.setBackground(null);
 			btnChooseColour3.setBackground(null);
@@ -1168,7 +1162,6 @@ public class GUI extends JFrame implements ActionListener {
 			numOfPlayers = 4;
 
 			boxSecretMission.setSelected(false);
-
 		}
 
 		if(e.getSource()==btnContinueFromStartGameMenu)
@@ -1212,7 +1205,6 @@ public class GUI extends JFrame implements ActionListener {
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
 					JOptionPane.showMessageDialog(null, "Avatars must be unique for each player.");
-
 				}
 
 				else if( s1.equals("") || s2.equals("") )
@@ -1257,7 +1249,6 @@ public class GUI extends JFrame implements ActionListener {
 				}
 
 			}
-			////
 
 			else if(numOfPlayers == 3)
 			{
@@ -1283,7 +1274,6 @@ public class GUI extends JFrame implements ActionListener {
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
 					JOptionPane.showMessageDialog(null, "Avatars must be unique for each player.");
-
 				}
 
 				else if( s1.equals("") || s2.equals("") || s3.equals("") )
@@ -1325,22 +1315,17 @@ public class GUI extends JFrame implements ActionListener {
 					frame.pack();
 
 					//gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
-
 				}
 
 			}
-			////
 
 			else if(numOfPlayers == 4)
 			{
-
 				if( c1.equals(c5) || c2.equals(c5) || c3.equals(c5) || c4.equals(c5))
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
 					JOptionPane.showMessageDialog(null, "Every player must choose a color.");
-
 				}
-
 
 				else if( c1.equals(c2) || c1.equals(c3) || c1.equals(c4) || c2.equals(c3) || c2.equals(c4) || c3.equals(c4) )
 				{
@@ -1358,7 +1343,6 @@ public class GUI extends JFrame implements ActionListener {
 				{
 					playSound("./src/main/resources/sounds/snd_error.wav");
 					JOptionPane.showMessageDialog(null, "Avatars must be unique for each player.");
-
 				}
 
 				else if( s1.equals("") || s2.equals("") || s3.equals("") || s4.equals("") )
@@ -1426,7 +1410,6 @@ public class GUI extends JFrame implements ActionListener {
 
 		if(e.getSource()==btnChooseColour1)
 		{
-
 			btnRed1.setVisible(true);
 			btnBlue1.setVisible(true);
 			btnYellow1.setVisible(true);
@@ -1435,7 +1418,6 @@ public class GUI extends JFrame implements ActionListener {
 			btnPink1.setVisible(true);
 
 			disableButtonsColor();
-
 		}
 
 		if(e.getSource()==btnChooseColour2)
@@ -1463,8 +1445,6 @@ public class GUI extends JFrame implements ActionListener {
 
 		if(e.getSource()==btnChooseColour3)
 		{
-
-
 			btnRed1.setVisible(false);
 			btnRed2.setVisible(false);
 			btnRed3.setVisible(true);
@@ -1490,12 +1470,10 @@ public class GUI extends JFrame implements ActionListener {
 			btnPink3.setVisible(true);
 
 			disableButtonsColor();
-
 		}
 
 		if(e.getSource()==btnChooseColour4)
 		{
-
 			btnRed1.setVisible(false);
 			btnRed2.setVisible(false);
 			btnRed3.setVisible(false);
@@ -1545,7 +1523,6 @@ public class GUI extends JFrame implements ActionListener {
 			btnChooseAvatar1.remove(lblHannibal);
 
 			disableButtonsAvatar();
-
 		}
 
 		if(e.getSource()==btnChooseAvatar2)
@@ -2210,11 +2187,6 @@ public class GUI extends JFrame implements ActionListener {
 			btnNumOfPlayers4.setEnabled(true);
 
 			numOfPlayers = 2;
-
-
-
-
-
 		}
 
 		if(e.getSource()==btnNumOfPlayers3)
@@ -2228,12 +2200,9 @@ public class GUI extends JFrame implements ActionListener {
 			t4.setForeground(null);
 			t4.setText("");
 
-
-
 			btnChooseColour4.setEnabled(false);
 			btnChooseColour4.setBackground(null);
 			btnChooseColour4.setText("Select Colour");
-
 
 			btnChooseAvatar4.setEnabled(false);
 			btnChooseAvatar4.remove(lblAlexander4);
@@ -2258,7 +2227,6 @@ public class GUI extends JFrame implements ActionListener {
 			btnChooseAvatar3.setEnabled(true);
 
 			numOfPlayers = 3;
-
 		}
 
 		if(e.getSource()==btnNumOfPlayers4)
@@ -2281,9 +2249,6 @@ public class GUI extends JFrame implements ActionListener {
 			btnNumOfPlayers4.setEnabled(false);
 
 			numOfPlayers = 4;
-
-
-
 		}
 
 		if(e.getSource()==btnHtpNext)
@@ -2335,8 +2300,6 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage7);
 				htpPageNum++;
 			}
-
-
 		}
 
 		if(e.getSource()==btnHtpPrev)
@@ -2388,8 +2351,6 @@ public class GUI extends JFrame implements ActionListener {
 				lblHowToPlayBackground.add(htpPage1);
 				htpPageNum--;
 			}
-
-
 		}
 
 		if(e.getSource() == btnBackFromHtp)
@@ -2432,8 +2393,6 @@ public class GUI extends JFrame implements ActionListener {
 			}
 			remove(pnlHowToPlay);
 			add(pnlMainMenu);
-
-
 		}
 
 
@@ -2447,8 +2406,6 @@ public class GUI extends JFrame implements ActionListener {
 			}
 
 		}
-
-
 
 		repaint();
 		pack();
