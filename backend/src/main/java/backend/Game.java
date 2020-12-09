@@ -1,8 +1,8 @@
 package backend;
 
+import javax.swing.JButton;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  *
@@ -257,11 +257,8 @@ public class Game {
         printMap();
     }
 
-    /* TODO: might choose not to attack
-     *  should be able to attack as many times as the player wants
-     * Author: Sukru */
-    // returns true when the attacker wins, false otherwise
-    public boolean attackTurn( Territory attackFrom, Territory attackTo ) {
+    // gets called only at the end of the attack turn
+    public boolean endAttackTurn( Territory attackFrom, Territory attackTo ) {
         Player p = players[currentPlayerTurn];
         turnType = "attack";
 
@@ -274,7 +271,7 @@ public class Game {
         Army att = fromTerritory.getArmy();
         Army def = toTerritory.getArmy();
 
-        cm.executeWar( att, def );
+        //cm.executeWar( att, def, rollButton );
 
         if( (att.getTotalValue() == 0) ) { // attacker loses
             System.out.println( "Attacker loses." );
@@ -346,6 +343,10 @@ public class Game {
 
     public Map getMap() {
         return map;
+    }
+
+    public CombatManager getCombatManager() {
+        return cm;
     }
     
     

@@ -12,7 +12,7 @@ public class Army {
     private ArrayList<Troop> troops;
     private int totalValue; //total value of all of the troops in this army
     private Player owner; //owner of the army
-    private Territory territory; //territory where the army is in( we may not use this! )
+    //private Territory territory; //territory where the army is in( we may not use this! )
     private int infantryAmt = 0;
     private int calvaryAmt = 0;
     private int artilleryAmt = 0;

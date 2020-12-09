@@ -472,7 +472,8 @@ public class Map extends JFrame implements ActionListener {
     {
 
         if( (e.getSource() != pauseButton) &&
-                (e.getSource() != attackButton) && (e.getSource() != retreatButton) )
+                (e.getSource() != attackButton) && (e.getSource() != retreatButton)
+                && (e.getSource() != rollDiceButton))
         {
             JButton tmp = (JButton) e.getSource();
             if(setFrom) {
@@ -565,11 +566,13 @@ public class Map extends JFrame implements ActionListener {
             if( fromTerr.getArmy() == null || toTerr.getArmy() == null ) {
                 System.out.println("One of the armies are null!");
             } else {
+                // Cancel the timer for now. TODO: We probably need a new different timer for attack turns
+                timer1.cancel();
+
                 System.out.println("Executing war from "+from + " to " + to + "!");
-                boolean attackerWon = gameManager.getGame().attackTurn(fromTerr, toTerr);
 
                 playSound("./src/main/resources/sounds/snd_howtoplay.wav",-10.0f);
-                /*
+
                 rollDiceButton.setEnabled(true);
                 allianceButton.setEnabled(true);
                 decreaseDice.setEnabled(true);
@@ -604,11 +607,6 @@ public class Map extends JFrame implements ActionListener {
                 panel1.add(forthDiceSet);
                 panel1.add(fifthDiceSet);
                 add(panel1);
-
-                 */
-
-                from = "";
-                to = "";
             }
 
             attackButton.setEnabled(false);
@@ -645,10 +643,34 @@ public class Map extends JFrame implements ActionListener {
             min = Math.min(fifthdice,forthdice);
             forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + min + ".png"));
             fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + max + ".png"));
-            rollDiceButton.setEnabled(false);
             allianceButton.setEnabled(false);
             decreaseDice.setEnabled(false);
             increaseDice.setEnabled(false);
+
+            Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
+            Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
+            Army attacker = fromTerr.getArmy();
+            Army defender = toTerr.getArmy();
+
+            // close panel 1 if the attack turn has ended
+            if( game.getCombatManager().warEnded(attacker, defender) != null ) {
+                System.out.println("War has ended. Close panel1.");
+                game.endAttackTurn(fromTerr, toTerr);
+                from = "";
+                to = "";
+                remove(panel1);
+                mainPanel.setVisible(true);
+                attackButton.setEnabled(false);
+                retreatButton.setEnabled(false);
+            }
+
+            // ********************* Single Attack **********************//
+
+            game.getCombatManager().singleAttack( attacker, defender );
+
+            // ********************* End of Single Attack **********************//
+
+
         }
 
         if(e.getSource() == decreaseDice)
