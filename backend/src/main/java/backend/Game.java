@@ -165,65 +165,6 @@ public class Game {
 
         // call draftTurn and attackTurn at the frontend.Map from the actionlisteners. TODO: change this later on
     }
-
-
-    /*
-    private void manageTurns() {
-        int turn = 0;
-        Player current = players[turn];
-        boolean firstTurn = true;
-        while( !checkTermination() ) {
-
-            if( firstTurn ) {
-                initialTurn();
-                printMap();
-                for( int i = 0; i < playerAmt; i++ ) {
-                    System.out.println( "Infantries in hand for player " + players[i].getName() + ": " +
-                            players[i].getInfantryAmt() );
-                }
-            }
-
-            while( players[turn].hasLost() ) { //if the current player has lost the game, skip the turn of that player
-                turn++;
-                turn = turn % playerAmt;
-                current = players[turn];
-            }
-
-            currentPlayerTurn = turn;
-
-            System.out.println( "**** Turn of player: " + current.getName() + " ****" );
-
-            startTurn(current);
-
-            printInfAmt();
-
-            draftTurn();
-
-            printInfAmt();
-
-            printMap();
-
-            attackTurn(current);
-
-            printMap();
-
-
-            //       may call fortifyTurn here
-            //       may call cardTurn here
-            //
-
-
-
-            firstTurn = false;
-
-            //prepare for next turn
-            turn++;
-            turn = turn % playerAmt;
-            current = players[turn];
-
-        }
-    }
-    */
     
     /* add troops to the already owned territories
     * this function currently supports only one transfer action to one of the owned territories for simplicity,
