@@ -41,6 +41,8 @@ public class Map extends JFrame implements ActionListener {
     private JPanel panel1 = new JPanel();
     private JLabel player1 = new JLabel();
     private JLabel player2 = new JLabel();
+    private JLabel attackerLabel;
+    private JLabel defenderLabel;
     private JLabel territoryName;
     private JLabel background;
     private JLabel avatar1,avatar2,avatar3,avatar4;
@@ -220,7 +222,7 @@ public class Map extends JFrame implements ActionListener {
         background.add(avatar3);
 
         if(noOfPlayers >=3)
-        avatar2.setIcon(new ImageIcon(players[2].getAvatar().getImageFileName()));
+            avatar2.setIcon(new ImageIcon(players[2].getAvatar().getImageFileName()));
         avatar2.setBounds(10,860,80,80);
         if(noOfPlayers >=3) {
             player3name = new JLabel(players[2].getName()+" Infantry numbers:" + players[2].getInfantryAmt());
@@ -230,7 +232,7 @@ public class Map extends JFrame implements ActionListener {
         background.add(avatar2);
 
         if(noOfPlayers >=4)
-        avatar4.setIcon(new ImageIcon(players[3].getAvatar().getImageFileName()));
+            avatar4.setIcon(new ImageIcon(players[3].getAvatar().getImageFileName()));
         avatar4.setBounds(1060,860,80,80);
 
         if(noOfPlayers >=4) {
@@ -538,8 +540,15 @@ public class Map extends JFrame implements ActionListener {
             //TODO
             Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
             Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
+            Player attacker = fromTerr.getArmy().getOwner();
+            Player defender = toTerr.getArmy().getOwner();
+            attackerLabel = new JLabel(attacker.getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
+            defenderLabel = new JLabel(defender.getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
+
+            ImageIcon attackerIcon = new ImageIcon(attacker.getAvatar().getImageFileName());
+            ImageIcon defenderIcon = new ImageIcon(defender.getAvatar().getImageFileName());
             playSound("./src/main/resources/sounds/snd_sword1.wav",-10.0f);
-            
+
             /*
             rollDiceButton.setEnabled(true);
             allianceButton.setEnabled(true);
@@ -580,13 +589,17 @@ public class Map extends JFrame implements ActionListener {
                 mainPanel.setVisible(false);
                 panel1.setVisible(true);
                 panel1.setLayout(null);
-                player1.setIcon(new ImageIcon("./src/main/resources/images/cengiz_p.png"));
+                player1.setIcon(attackerIcon);
                 player1.setBounds(70, 200, 100, 100);
+                attackerLabel.setBounds(60,100,300,100);
                 panel1.add(player1);
+                panel1.add(attackerLabel);
 
-                player2.setIcon(new ImageIcon("./src/main/resources/images/alexander_p.png"));
+                player2.setIcon(defenderIcon);
                 player2.setBounds(920, 200, 100, 100);
+                defenderLabel.setBounds(910,100,300,100);
                 panel1.add(player2);
+                panel1.add(defenderLabel);
                 panel1.add(cancelAttack);
 
                 System.out.println(chosenTerritory);
@@ -602,10 +615,10 @@ public class Map extends JFrame implements ActionListener {
                 panel1.add(increaseDice);
 
                 panel1.add(firstDiceSet);
-                panel1.add(secondDiceSet);
-                panel1.add(thirdDiceSet);
+                //panel1.add(secondDiceSet);
+                //panel1.add(thirdDiceSet);
                 panel1.add(forthDiceSet);
-                panel1.add(fifthDiceSet);
+                //panel1.add(fifthDiceSet);
                 add(panel1);
             }
 
@@ -623,7 +636,9 @@ public class Map extends JFrame implements ActionListener {
 
         if(e.getSource() == rollDiceButton)
         {
-        	playSound("./src/main/resources/sounds/snd_dicethrow.wav",-10.0f);
+            int[] dices = new int[2];
+            playSound("./src/main/resources/sounds/snd_dicethrow.wav",-10.0f);
+            /*
             int firstdice = (int) (Math.random() * 6) + 1;
             int seconddice = (int) (Math.random() * 6) + 1;
             int thirddice = (int) (Math.random() * 6) + 1;
@@ -643,6 +658,8 @@ public class Map extends JFrame implements ActionListener {
             min = Math.min(fifthdice,forthdice);
             forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + min + ".png"));
             fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + max + ".png"));
+             */
+
             allianceButton.setEnabled(false);
             decreaseDice.setEnabled(false);
             increaseDice.setEnabled(false);
@@ -652,21 +669,39 @@ public class Map extends JFrame implements ActionListener {
             Army attacker = fromTerr.getArmy();
             Army defender = toTerr.getArmy();
 
+
             // close panel 1 if the attack turn has ended
             if( game.getCombatManager().warEnded(attacker, defender) != null ) {
+                Army winner = game.getCombatManager().warEnded(attacker,defender);
                 System.out.println("War has ended. Close panel1.");
                 game.endAttackTurn(fromTerr, toTerr);
                 from = "";
                 to = "";
-                remove(panel1);
-                mainPanel.setVisible(true);
-                attackButton.setEnabled(false);
-                retreatButton.setEnabled(false);
+                int chosenoption;
+                Object[] options = { "OK" };
+                chosenoption = JOptionPane.showOptionDialog(null, "Winner is "+winner.getOwner().getName(), "WAR ENDED",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                        null, options, options[0]);
+                if(chosenoption == 0)
+                {
+                    updateTerritories();
+                    remove(panel1);
+                    mainPanel.setVisible(true);
+                    attackButton.setEnabled(false);
+                    retreatButton.setEnabled(false);
+                }
+
             }
 
             // ********************* Single Attack **********************//
 
-            game.getCombatManager().singleAttack( attacker, defender );
+            //I think this part should go above close panel operations
+            attackerLabel.setText(fromTerr.getArmy().getOwner().getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
+            defenderLabel.setText(toTerr.getArmy().getOwner().getName()+" has "+toTerr.getArmy().getTotalValue()+" soldiers");
+            dices = game.getCombatManager().singleAttack( attacker, defender );
+            firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
+            forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
+
 
             // ********************* End of Single Attack **********************//
 
@@ -733,7 +768,7 @@ public class Map extends JFrame implements ActionListener {
                 if(noOfPlayers>=3)
                     player3name.setText(players[2].getName() + " Infantry numbers:" + players[2].getInfantryAmt());
                 if(noOfPlayers>=4)
-                player4name.setText(players[3].getName() + " Infantry numbers:" + players[3].getInfantryAmt());
+                    player4name.setText(players[3].getName() + " Infantry numbers:" + players[3].getInfantryAmt());
                 revalidate();
             }
 
@@ -840,9 +875,5 @@ public class Map extends JFrame implements ActionListener {
         timer1.scheduleAtFixedRate(task1,1000,1000);
 
     }
-
-
-
-
 
 }
