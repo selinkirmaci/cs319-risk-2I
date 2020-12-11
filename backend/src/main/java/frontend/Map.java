@@ -15,6 +15,7 @@ import java.awt.event.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,6 +34,8 @@ import javax.swing.SwingConstants;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioSystem;
+import javax.swing.text.html.HTMLEditorKit;
+
 import backend.*;
 
 public class Map extends JFrame implements ActionListener {
@@ -475,7 +478,7 @@ public class Map extends JFrame implements ActionListener {
 
         if( (e.getSource() != pauseButton) &&
                 (e.getSource() != attackButton) && (e.getSource() != retreatButton)
-                && (e.getSource() != rollDiceButton))
+                && (e.getSource() != rollDiceButton) && (e.getSource() != allianceButton))
         {
             JButton tmp = (JButton) e.getSource();
             if(setFrom) {
@@ -708,16 +711,58 @@ public class Map extends JFrame implements ActionListener {
 
         }
 
-        /* TODO
+
         if(e.getSource() == allianceButton)
         {
 
             // We need an option pane here that will ask which user the defender wants
             // to request soldiers(should show every player other than the attacker) and ask the soldier amount
-            game.getAlliance( aiderPlayer, defender, infantryAmt);
+            Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
+            Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
+            Player attacker =fromTerr.getArmy().getOwner();
+            Player defender = toTerr.getArmy().getOwner();
+            ArrayList<Player> otherPlayers = new ArrayList<Player>();
+            for(int i = 0; i < noOfPlayers;i++)
+            {
+                if(players[i] != attacker && players[i] != defender)
+                {
+                    otherPlayers.add(players[i]);
+                }
+            }
+            String[] otherPlayersArray = new String[noOfPlayers-2];
+            for(int i = 0; i<noOfPlayers-2;i++)
+            {
+                otherPlayersArray[i] = otherPlayers.get(i).getName();
+            }
+            Object[] options = otherPlayersArray;
+            int selectedPlayer = JOptionPane.showOptionDialog(null, "Who do you want help from?", "Alliance",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                    null, options, options[0]);
+            String soldierNumber = JOptionPane.showInputDialog("How many soldiers do you want");
+            Object[] acceptanceOptions = { "Yes","No" };
+            int acceptance = JOptionPane.showOptionDialog(null, otherPlayersArray[selectedPlayer]+" do you accept this allinace", "Alliance",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                    null, acceptanceOptions, acceptanceOptions[0]);
+            if(acceptance == 0)
+            {
+                Player tmp;
+                for(int i = 0; i<noOfPlayers;i++)
+                {
+                    if(players[i].getName() == otherPlayersArray[selectedPlayer]);
+                    {
+                        tmp = players[i];
+                        game.getAlliance( tmp, toTerr, Integer.parseInt(soldierNumber));
+                        break;
+                    }
+                }
+                attackerLabel.setText(fromTerr.getArmy().getOwner().getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
+                defenderLabel.setText(toTerr.getArmy().getOwner().getName()+" has "+toTerr.getArmy().getTotalValue()+" soldiers");
+
+            }
+            //game.getAlliance( aiderPlayer, defender, infantryAmt);
 
         }
-        */
+
 
         if(e.getSource() == decreaseDice)
         {
