@@ -203,29 +203,32 @@ public class Game {
         Player p = players[currentPlayerTurn];
         turnType = "attack";
 
-        // defender
+        // attacker
         Territory fromTerritory = attackFrom;
 
-        // attacker
+        // defender
         Territory toTerritory = attackTo;
 
         Army att = fromTerritory.getArmy();
         Army def = toTerritory.getArmy();
 
-        //cm.executeWar( att, def, rollButton );
-
-        if( (att.getTotalValue() == 0) ) { // attacker loses
+        if( (att.getTotalValue() == 1) ) { // attacker loses
             System.out.println( "Attacker loses." );
-            toTerritory.getArmy().changeOwner(p);
             printMap();
             return false;
         } else if( (def.getTotalValue() == 0) ) {
             // attacker wins. defender's territory is now attacker's
             System.out.println( "Attacker wins. Defender's territory is now attacker's" );
-            def.changeOwner( att.getOwner() );
+
+            def.getOwner().removeTerritory(toTerritory);
+            att.getOwner().addGainedTerritory(toTerritory);
+
             ArrayList<Troop> toAdd = new ArrayList<>();
             toAdd.add( new Infantry() );
-            def.fortify( toAdd ); // add a single infantry to the gained territory TODO: FOR NOW
+            def.fortify( toAdd ); // add a single infantry to the gained territory
+
+            def.changeOwner( att.getOwner() );
+
             printMap();
             return true;
         }

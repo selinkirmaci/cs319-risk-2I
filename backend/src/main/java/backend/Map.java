@@ -54,5 +54,15 @@ public class Map {
 
         return null;
     }
+
+
+    // returns true if both of the territories are the same player's
+    public boolean sameOwners( Territory one, Territory two ) {
+        if( one.getArmy().getOwner() == two.getArmy().getOwner() ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
 }

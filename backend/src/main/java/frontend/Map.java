@@ -106,6 +106,7 @@ public class Map extends JFrame implements ActionListener {
 
     private GameManager gameManager;
     private Game game;
+    private backend.Map map;
     Player[] players;
     int[] playerAvatars;
     int currentPlayer;
@@ -117,6 +118,7 @@ public class Map extends JFrame implements ActionListener {
 
         this.gameManager = gameManager;
         game = gameManager.getGame();
+        map = game.getMap();
         players = game.getPlayers();
         currentPlayer = game.getCurrentPlayerTurn();
         territories = new JButton[45];
@@ -508,6 +510,9 @@ public class Map extends JFrame implements ActionListener {
                 System.out.println(chosenTerritory);
             }
 
+            System.out.println("from: " + from);
+            System.out.println("to: " + to);
+
         }
         if(e.getSource()==pauseButton)
         {
@@ -540,17 +545,7 @@ public class Map extends JFrame implements ActionListener {
 
         if(e.getSource() == attackButton)
         {
-            //TODO
-            Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
-            Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
-            Player attacker = fromTerr.getArmy().getOwner();
-            Player defender = toTerr.getArmy().getOwner();
-            attackerLabel = new JLabel(attacker.getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
-            defenderLabel = new JLabel(defender.getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
 
-            ImageIcon attackerIcon = new ImageIcon(attacker.getAvatar().getImageFileName());
-            ImageIcon defenderIcon = new ImageIcon(defender.getAvatar().getImageFileName());
-            playSound("./src/main/resources/sounds/snd_sword1.wav",-10.0f);
 
             /*
             rollDiceButton.setEnabled(true);
@@ -565,19 +560,31 @@ public class Map extends JFrame implements ActionListener {
             panel1.add(player1);
             */
 
-            if(!players[currentPlayer].hasTerritory(fromTerr))
-            {
-                JOptionPane.showMessageDialog(null, "You don't have this territory yet");
-            }else if(players[currentPlayer].hasTerritory(toTerr))
-            {
-                JOptionPane.showMessageDialog(null, "You already own this territory");
-            }
+            Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
+            Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
 
-            System.out.println("Executing war from "+from + " to " + to + "!");
-
+            System.out.println("attacker player " + players[currentPlayer].getName() + " contains " + fromTerr.getName() + ": " + players[currentPlayer].hasTerritory( fromTerr ) );
+            System.out.println("attacker player " + players[currentPlayer].getName() + " contains " + toTerr.getName() + ": " + players[currentPlayer].hasTerritory( toTerr ) );
+            System.out.println("owner of to territory: " + toTerr.getArmy().getOwner().getName());
             if( fromTerr.getArmy() == null || toTerr.getArmy() == null ) {
                 System.out.println("One of the armies are null!");
+                JOptionPane.showMessageDialog(null, "You cannot attack from/to an empty country!");
+            } else if( ( !players[currentPlayer].hasTerritory( fromTerr ) )
+                || ( players[currentPlayer].hasTerritory( toTerr ) ) ) {
+                System.out.println("Invalid attack!");
+                JOptionPane.showMessageDialog(null, "Invalid attack!");
             } else {
+                Player attacker = fromTerr.getArmy().getOwner();
+                Player defender = toTerr.getArmy().getOwner();
+                attackerLabel = new JLabel(attacker.getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
+                defenderLabel = new JLabel(defender.getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
+
+                ImageIcon attackerIcon = new ImageIcon(attacker.getAvatar().getImageFileName());
+                ImageIcon defenderIcon = new ImageIcon(defender.getAvatar().getImageFileName());
+                playSound("./src/main/resources/sounds/snd_sword1.wav",-10.0f);
+
+                System.out.println("Executing war from "+from + " to " + to + "!");
+
                 // Cancel the timer for now. TODO: We probably need a new different timer for attack turns
                 timer1.cancel();
 
@@ -907,9 +914,9 @@ public class Map extends JFrame implements ActionListener {
     {
         for(int i = 0; i < 45; i++ )
         {
-            if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null) {
-                territories[i].setText("" + game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
-                Player p = game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getOwner();
+            if(map.getTerritoryFromName(territories[i].getName()).getArmy() != null) {
+                territories[i].setText("" + map.getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
+                Player p = map.getTerritoryFromName(territories[i].getName()).getArmy().getOwner();
                 territories[i].setForeground(p.getColor());
             }
         }
@@ -918,9 +925,9 @@ public class Map extends JFrame implements ActionListener {
     {
         for(int i = 0; i < 45; i++ )
         {
-            if(game.getMap().getTerritoryFromName(territories[i].getName()).getArmy() != null) {
-                territories[i].setText("" + game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
-                Player p = game.getMap().getTerritoryFromName(territories[i].getName()).getArmy().getOwner();
+            if(map.getTerritoryFromName(territories[i].getName()).getArmy() != null) {
+                territories[i].setText("" + map.getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
+                Player p = map.getTerritoryFromName(territories[i].getName()).getArmy().getOwner();
                 territories[i].setForeground(p.getColor());
             }
             mainPanel.add(territories[i]);

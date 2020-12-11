@@ -79,8 +79,9 @@ public class CombatManager {
 
     // returns the winner if the war has ended, returns null otherwise
     public Army warEnded( Army attacker, Army defender ) {
-        if( (attacker.getTotalValue() == 0) || (defender.getTotalValue() == 0) ) {
-            return getWinner( attacker, defender ); //battle has ended
+        // battle ends when attacker has 1 infantry left
+        if( (attacker.getTotalValue() == 1) || (defender.getTotalValue() == 0) ) {
+            return getWinner( attacker, defender ); // battle has ended
         } else {
             return null;
         }

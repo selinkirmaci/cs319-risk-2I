@@ -76,6 +76,11 @@ public class Player {
         checkGainedContinents();
     }
 
+    public void removeTerritory( Territory t ) {
+        gainedTerritories.remove(t);
+        checkGainedContinents();
+    }
+
     //TODO: check if there are gained continents
     public void checkGainedContinents() {
 
