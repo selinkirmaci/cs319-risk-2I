@@ -95,7 +95,11 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
 
         if (e.getSource() ==  btnSave)
         {
-            playSound("./src/main/resources/sounds/snd_save.wav");
+            if( ((LineBorder)btnSave.getBorder()).getLineColor() == Color.black )
+            {
+                playSound("./src/main/resources/sounds/snd_save.wav");
+            }
+
             Border thick = new LineBorder(Color.green, 5);
             btnSave.setBorder(thick);
         }
