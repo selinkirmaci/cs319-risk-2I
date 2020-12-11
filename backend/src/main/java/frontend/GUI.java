@@ -28,18 +28,13 @@ import javax.sound.sampled.AudioSystem;
 
 public class GUI extends JFrame implements ActionListener {
 
-	private JFrame frame;
-
-	private JPanel pnlMainMenu, pnlStartGameMenu, pnlHowToPlay, pnlCredits;
+	private JPanel pnlMainMenu, pnlStartGameMenu, pnlCredits;
 
 	private JCheckBox boxSecretMission;
 
-	private JButton btnStartGame, btnHowToPlay, btnBackFromHtp, btnHtpPrev, btnHtpNext, btnQuitGame, btnCredits, btnBackFromCredits, btnBackFromStartGameMenu,btnContinueFromStartGameMenu;
+	private JButton btnStartGame, btnHowToPlay, btnQuitGame, btnCredits, btnBackFromCredits, btnBackFromStartGameMenu,btnContinueFromStartGameMenu;
 
 	private JButton btnNumOfPlayers2, btnNumOfPlayers3, btnNumOfPlayers4;
-
-	private int htpPageNum = 1;
-	private JLabel lblHowToPlayBackground, htpPage1, htpPage2, htpPage3, htpPage4, htpPage5, htpPage6, htpPage7;
 
 	private JButton btnChooseColour1, btnChooseColour2, btnChooseColour3, btnChooseColour4;
 	private JButton btnChooseAvatar1, btnChooseAvatar2, btnChooseAvatar3, btnChooseAvatar4;
@@ -53,7 +48,6 @@ public class GUI extends JFrame implements ActionListener {
 	private JButton btnNapoleon2, btnAlexander2, btnSuleiman2, btnCengiz2, btnHannibal2, btnCaesar2;
 	private JButton btnNapoleon3, btnAlexander3, btnSuleiman3, btnCengiz3, btnHannibal3, btnCaesar3;
 	private JButton btnNapoleon4, btnAlexander4, btnSuleiman4, btnCengiz4, btnHannibal4, btnCaesar4;
-
 
 	private JLabel lblSelectColourBackground, lblStartGameMenuBackground;
 	private JLabel lblSelectAvatarBackground, lblSelectAvatarBackground2, lblSelectAvatarBackground3, lblSelectAvatarBackground4;
@@ -73,7 +67,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	private GameManager gameManager;
 
-
+	private HowToPlayPanel htp;
 
 	/**
 	 * Launch the application.
@@ -105,8 +99,6 @@ public class GUI extends JFrame implements ActionListener {
 
 		/* CREATE GAME MANAGER */
 		//gameManager = new GameManager();
-
-
 
 		// ###############  Main Menu Panel  ###############
 
@@ -142,7 +134,6 @@ public class GUI extends JFrame implements ActionListener {
 		btnCredits = new JButton("");
 		btnCredits.setBounds(590, 740, 400, 60);
 
-		//btnCredits.setOpaque(false);
 		btnCredits.setContentAreaFilled(false);
 		btnCredits.setBorderPainted(true);
 		lblGameMenuBackground.add(btnCredits);
@@ -153,8 +144,6 @@ public class GUI extends JFrame implements ActionListener {
 
 		// ###############  End of Main Menu Panel  ###############
 
-
-
 		// ###############  Credits Panel  ###############
 		pnlCredits = new JPanel();
 		pnlCredits.setPreferredSize(new Dimension(300,300));
@@ -162,8 +151,6 @@ public class GUI extends JFrame implements ActionListener {
 		JLabel lblCreditsBackground = new JLabel("");
 		lblCreditsBackground.setIcon(new ImageIcon("./src/main/resources/images/credits.png"));
 		lblCreditsBackground.setBounds(0, -165, 1580, 1100); //1860,1200
-
-
 
 		btnBackFromCredits = new JButton("");
 		btnBackFromCredits.setBounds(35, 670, 280, 75);
@@ -174,81 +161,10 @@ public class GUI extends JFrame implements ActionListener {
 
 		// ###############  End of Credits Panel  ###############
 
-		// ############### How to Play Panel ##################
-
-		pnlHowToPlay = new JPanel();
-		pnlHowToPlay.setPreferredSize(new Dimension(300,300));
-
-		lblHowToPlayBackground = new JLabel("");
-		lblHowToPlayBackground.setIcon(new ImageIcon("./src/main/resources/images/htpBackground.png"));
-		lblHowToPlayBackground.setBounds(0, -165, 1580, 1100); //1860,1200
-
-		htpPage1 = new JLabel("");
-		htpPage1.setIcon(new ImageIcon("./src/main/resources/images/htpPage1.png"));
-		htpPage1.setBounds(428, -170, 1580, 1100); //1860,1200
-
-
-		htpPage2 = new JLabel("");
-		htpPage2.setIcon(new ImageIcon("./src/main/resources/images/htpPage2.png"));
-		htpPage2.setBounds(428, -170, 1580, 1100); //1860,1200
-
-		htpPage3 = new JLabel("");
-		htpPage3.setIcon(new ImageIcon("./src/main/resources/images/htpPage3.png"));
-		htpPage3.setBounds(428, -170, 1580, 1100); //1860,1200
-
-		htpPage4 = new JLabel("");
-		htpPage4.setIcon(new ImageIcon("./src/main/resources/images/htpPage4.png"));
-		htpPage4.setBounds(428, -170, 1580, 1100); //1860,1200
-
-		htpPage5 = new JLabel("");
-		htpPage5.setIcon(new ImageIcon("./src/main/resources/images/htpPage5.png"));
-		htpPage5.setBounds(428, -170, 1580, 1100); //1860,1200
-
-		htpPage6 = new JLabel("");
-		htpPage6.setIcon(new ImageIcon("./src/main/resources/images/htpPage6.png"));
-		htpPage6.setBounds(428, -170, 1580, 1100); //1860,1200
-
-		htpPage7 = new JLabel("");
-		htpPage7.setIcon(new ImageIcon("./src/main/resources/images/htpPage7.png"));
-		htpPage7.setBounds(428, -170, 1580, 1100); //1860,1200
-
-
-		btnBackFromHtp = new JButton("");
-		btnBackFromHtp.setBounds(35, 670, 280, 75);
-		btnBackFromHtp.setContentAreaFilled(false);
-		btnBackFromHtp.setBorderPainted(true);
-		lblHowToPlayBackground.add(btnBackFromHtp);
-
-		Border thick = new LineBorder(Color.red, 4);
-
-
-
-		btnHtpPrev = new JButton("Previous Page");
-		btnHtpPrev.setBounds(500, 620, 120, 50);
-		btnHtpPrev.setContentAreaFilled(false);
-		btnHtpPrev.setBorderPainted(true);
-		btnHtpPrev.setBorder(thick);
-		btnHtpPrev.setFont(new Font(Font.SERIF,Font.BOLD,16));
-		lblHowToPlayBackground.add(btnHtpPrev);
-
-		btnHtpNext = new JButton("Next Page");
-		btnHtpNext.setBounds(900, 620, 120, 50);
-		btnHtpNext.setContentAreaFilled(false);
-		btnHtpNext.setBorderPainted(true);
-		btnHtpNext.setBorder(thick);
-		btnHtpNext.setFont(new Font(Font.SERIF,Font.BOLD,16));
-		lblHowToPlayBackground.add(btnHtpNext);
-
-		pnlHowToPlay.add(lblHowToPlayBackground);
-
-
-		// ############### End of How to Play Panel ##################
-
 		// ###############  Start Game Menu Panel  ###############
 
 		pnlStartGameMenu = new JPanel();
 		pnlStartGameMenu.setPreferredSize(new Dimension(300,300));
-
 
 		lblStartGameMenuBackground = new JLabel("");
 		lblStartGameMenuBackground.setIcon(new ImageIcon("./src/main/resources/images/startgamemenu.png"));
@@ -277,7 +193,6 @@ public class GUI extends JFrame implements ActionListener {
 		lblSecretMission2.setFont(new Font(Font.SERIF,Font.BOLD,20));
 		lblSecretMission2.setForeground(Color.green);
 		lblStartGameMenuBackground.add(lblSecretMission2);
-
 
 		boxSecretMission = new JCheckBox(" ?");
 		boxSecretMission.setBounds(1430,295,70,70);
@@ -309,7 +224,6 @@ public class GUI extends JFrame implements ActionListener {
 		btnNumOfPlayers4.setBorder(thickBorder);
 		btnNumOfPlayers4.setEnabled(false);
 		lblStartGameMenuBackground.add(btnNumOfPlayers4);
-
 
 		btnChooseColour1 = new JButton("Select Colour");
 		btnChooseColour1.setBounds(797, 220, 205, 97);
@@ -359,15 +273,12 @@ public class GUI extends JFrame implements ActionListener {
 		btnChooseAvatar4.setForeground(Color.BLACK);
 		lblStartGameMenuBackground.add(btnChooseAvatar4);
 
-
 		pnlStartGameMenu.add(lblStartGameMenuBackground);
 
 		// ###############  End of Start Game Menu Panel  ###############
 
 		// ############### Select Colour Panel  ###############
 
-		//pnlSelectColour = new JPanel(); ///
-		//pnlSelectColour.setPreferredSize(new Dimension(50,50));///
 		lblSelectColourBackground = new JLabel("");
 		lblSelectColourBackground.setIcon(new ImageIcon("./src/main/resources/images/drawio1.png"));
 		lblSelectColourBackground.setBounds(1260, -40, 1580, 1100); // 650, -165, 1580, 1100
@@ -378,13 +289,11 @@ public class GUI extends JFrame implements ActionListener {
 		lblSelectColourBackground.add(btnRed1);
 		btnRed1.setVisible(false);
 
-
 		btnBlue1 = new JButton("");
 		btnBlue1.setBounds(105, 485, 42, 42);
 		btnBlue1.setBackground(Color.BLUE);
 		lblSelectColourBackground.add(btnBlue1);
 		btnBlue1.setVisible(false);
-
 
 		btnYellow1 = new JButton("");
 		btnYellow1.setBounds(185, 485, 42, 42);
@@ -762,7 +671,6 @@ public class GUI extends JFrame implements ActionListener {
 		btnSuleiman4.setBorderPainted(true);
 		lblSelectAvatarBackground4.add(btnSuleiman4);
 
-
 		// ############### End of Avatar Select ###############
 
 		//################# Textfields ##########################
@@ -772,7 +680,6 @@ public class GUI extends JFrame implements ActionListener {
 		lblStartGameMenuBackground.add(t1);
 		t1.setHorizontalAlignment(JTextField.CENTER);
 		t1.setFont(new Font(Font.SERIF,Font.BOLD,25));
-
 		t1.setBackground(Color.BLACK);
 
 		t2=new JTextField("");
@@ -780,7 +687,6 @@ public class GUI extends JFrame implements ActionListener {
 		lblStartGameMenuBackground.add(t2);
 		t2.setHorizontalAlignment(JTextField.CENTER);
 		t2.setFont(new Font(Font.SERIF,Font.BOLD,25));
-
 		t2.setBackground(Color.BLACK);
 
 		t3=new JTextField("");
@@ -788,7 +694,6 @@ public class GUI extends JFrame implements ActionListener {
 		lblStartGameMenuBackground.add(t3);
 		t3.setHorizontalAlignment(JTextField.CENTER);
 		t3.setFont(new Font(Font.SERIF,Font.BOLD,25));
-
 		t3.setBackground(Color.BLACK);
 
 		t4=new JTextField("");
@@ -796,12 +701,9 @@ public class GUI extends JFrame implements ActionListener {
 		lblStartGameMenuBackground.add(t4);
 		t4.setHorizontalAlignment(JTextField.CENTER);
 		t4.setFont(new Font(Font.SERIF,Font.BOLD,25));
-
 		t4.setBackground(Color.BLACK);
 
-
-		//############### End of textfield #######
-
+		//############### End of textfields #######
 
 		// ######## ACTION LISTENERS ###########
 
@@ -855,7 +757,6 @@ public class GUI extends JFrame implements ActionListener {
 		btnCengiz4.addActionListener(this);
 		btnSuleiman4.addActionListener(this);
 
-
 		btnRed1.addActionListener(this);
 		btnBlue1.addActionListener(this);
 		btnYellow1.addActionListener(this);
@@ -883,11 +784,6 @@ public class GUI extends JFrame implements ActionListener {
 		btnGreen4.addActionListener(this);
 		btnCyan4.addActionListener(this);
 		btnPink4.addActionListener(this);
-
-		btnHtpPrev.addActionListener(this);
-		btnHtpNext.addActionListener(this);
-		btnBackFromHtp.addActionListener(this);
-
 
 	}
 
@@ -1402,10 +1298,9 @@ public class GUI extends JFrame implements ActionListener {
 		if(e.getSource()==btnHowToPlay)
 		{
 			playSound("./src/main/resources/sounds/snd_howtoplay.wav");
-			remove(pnlMainMenu);
-			add(pnlHowToPlay);
-			lblHowToPlayBackground.add(htpPage1);
-			htpPageNum = 1;
+			htp = new HowToPlayPanel(pnlMainMenu);
+			pnlMainMenu.setVisible(false);
+			add(htp);
 		}
 
 		if(e.getSource()==btnChooseColour1)
@@ -2251,149 +2146,7 @@ public class GUI extends JFrame implements ActionListener {
 			numOfPlayers = 4;
 		}
 
-		if(e.getSource()==btnHtpNext)
-		{
-			if(htpPageNum == 1)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage1);
-				lblHowToPlayBackground.add(htpPage2);
-				htpPageNum++;
-			}
 
-			else if(htpPageNum == 2)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage2);
-				lblHowToPlayBackground.add(htpPage3);
-				htpPageNum++;
-			}
-
-			else if(htpPageNum == 3)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage3);
-				lblHowToPlayBackground.add(htpPage4);
-				htpPageNum++;
-			}
-
-			else if(htpPageNum == 4)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage4);
-				lblHowToPlayBackground.add(htpPage5);
-				htpPageNum++;
-			}
-
-			else if(htpPageNum == 5)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage5);
-				lblHowToPlayBackground.add(htpPage6);
-				htpPageNum++;
-			}
-
-			else if(htpPageNum == 6)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage6);
-				lblHowToPlayBackground.add(htpPage7);
-				htpPageNum++;
-			}
-		}
-
-		if(e.getSource()==btnHtpPrev)
-		{
-			if(htpPageNum == 7)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage7);
-				lblHowToPlayBackground.add(htpPage6);
-				htpPageNum--;
-			}
-
-			else if(htpPageNum == 6)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage6);
-				lblHowToPlayBackground.add(htpPage5);
-				htpPageNum--;
-			}
-
-			else if(htpPageNum == 5)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage5);
-				lblHowToPlayBackground.add(htpPage4);
-				htpPageNum--;
-			}
-
-			else if(htpPageNum == 4)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage4);
-				lblHowToPlayBackground.add(htpPage3);
-				htpPageNum--;
-			}
-
-			else if(htpPageNum == 3)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage3);
-				lblHowToPlayBackground.add(htpPage2);
-				htpPageNum--;
-			}
-
-			else if(htpPageNum == 2)
-			{
-				playSound("./src/main/resources/sounds/snd_changePage.wav");
-				lblHowToPlayBackground.remove(htpPage2);
-				lblHowToPlayBackground.add(htpPage1);
-				htpPageNum--;
-			}
-		}
-
-		if(e.getSource() == btnBackFromHtp)
-		{
-			playSound("./src/main/resources/sounds/snd_howtoplay.wav");
-
-			if(htpPageNum == 1)
-			{
-				lblHowToPlayBackground.remove(htpPage1);
-			}
-
-			if(htpPageNum == 2)
-			{
-				lblHowToPlayBackground.remove(htpPage2);
-			}
-
-			if(htpPageNum == 3)
-			{
-				lblHowToPlayBackground.remove(htpPage3);
-			}
-
-			if(htpPageNum == 4)
-			{
-				lblHowToPlayBackground.remove(htpPage4);
-			}
-
-			if(htpPageNum == 5)
-			{
-				lblHowToPlayBackground.remove(htpPage5);
-			}
-
-			if(htpPageNum == 6)
-			{
-				lblHowToPlayBackground.remove(htpPage6);
-			}
-
-			if(htpPageNum == 7)
-			{
-				lblHowToPlayBackground.remove(htpPage7);
-			}
-			remove(pnlHowToPlay);
-			add(pnlMainMenu);
-		}
 
 
 		if(e.getSource()==btnQuitGame)
