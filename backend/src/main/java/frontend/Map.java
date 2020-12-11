@@ -708,6 +708,17 @@ public class Map extends JFrame implements ActionListener {
 
         }
 
+        /* TODO
+        if(e.getSource() == allianceButton)
+        {
+
+            // We need an option pane here that will ask which user the defender wants
+            // to request soldiers(should show every player other than the attacker) and ask the soldier amount
+            game.getAlliance( aiderPlayer, defender, infantryAmt);
+
+        }
+        */
+
         if(e.getSource() == decreaseDice)
         {
             thirdDiceSet.setVisible(false);

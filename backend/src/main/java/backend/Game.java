@@ -234,6 +234,28 @@ public class Game {
         return false; // should not happen
     }
 
+
+    // Gets called during a war. Defender player requests alliance from a player other than the attacker.
+    // Player getAllianceFrom transfers requested amount of soldiers to defender's territory.
+    public boolean getAlliance( Player getAllianceFrom, Territory defender, int infantryAmt ) {
+
+        if( infantryAmt > getAllianceFrom.getInfantryAmt() ) {
+            System.out.println("Player " + getAllianceFrom.getName() + " does not have enough infantries.");
+            return false;
+        }
+
+        getAllianceFrom.useInfantries(infantryAmt);
+
+        ArrayList<Troop> toFortify = new ArrayList<>();
+        for( int i = 0; i < infantryAmt; i++ ) {
+            toFortify.add( new Infantry() );
+        }
+
+        // add these infantries to the defender's army
+        defender.getArmy().fortify(toFortify);
+        return true;
+    }
+
     /* receive cards
     * TODO: check the conditions where a player receives a card. Also, add a turn method where the
     *  player may convert some combinations of these cards into troops */
