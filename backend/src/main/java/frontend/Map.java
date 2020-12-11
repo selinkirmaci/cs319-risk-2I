@@ -593,7 +593,12 @@ public class Map extends JFrame implements ActionListener {
                 playSound("./src/main/resources/sounds/snd_howtoplay.wav",-10.0f);
 
                 rollDiceButton.setEnabled(true);
-                allianceButton.setEnabled(true);
+
+                // cannot request alliance if there are 2 players
+                if( noOfPlayers == 2 ) {
+                    allianceButton.setEnabled(true);
+                }
+
                 decreaseDice.setEnabled(true);
                 increaseDice.setEnabled(true);
                 mainPanel.setVisible(false);
