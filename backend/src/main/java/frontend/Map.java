@@ -594,11 +594,6 @@ public class Map extends JFrame implements ActionListener {
 
                 rollDiceButton.setEnabled(true);
 
-                // cannot request alliance if there are 2 players
-                if( noOfPlayers == 2 ) {
-                    allianceButton.setEnabled(true);
-                }
-
                 decreaseDice.setEnabled(true);
                 increaseDice.setEnabled(true);
                 mainPanel.setVisible(false);
@@ -626,6 +621,11 @@ public class Map extends JFrame implements ActionListener {
                 panel1.add(decreaseDice);
 
                 panel1.add(allianceButton);
+
+                // cannot request alliance if there are 2 players
+                if( noOfPlayers == 2 ) {
+                    allianceButton.setEnabled(false);
+                }
 
                 panel1.add(increaseDice);
 
