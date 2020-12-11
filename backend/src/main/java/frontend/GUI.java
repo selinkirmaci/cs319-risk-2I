@@ -32,7 +32,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	private JCheckBox boxSecretMission;
 
-	private JButton btnStartGame, btnHowToPlay, btnQuitGame, btnCredits, btnBackFromCredits, btnBackFromStartGameMenu,btnContinueFromStartGameMenu;
+	private JButton btnStartGame, btnHowToPlay, btnQuitGame, btnCredits, btnBackFromCredits, btnBackFromStartGameMenu,btnContinueFromStartGameMenu,btnSettings;
 
 	private JButton btnNumOfPlayers2, btnNumOfPlayers3, btnNumOfPlayers4;
 
@@ -68,6 +68,7 @@ public class GUI extends JFrame implements ActionListener {
 	private GameManager gameManager;
 
 	private HowToPlayPanel htp;
+	private SettingsPanel set;
 
 	/**
 	 * Launch the application.
@@ -137,6 +138,19 @@ public class GUI extends JFrame implements ActionListener {
 		btnCredits.setContentAreaFilled(false);
 		btnCredits.setBorderPainted(true);
 		lblGameMenuBackground.add(btnCredits);
+
+		btnSettings = new JButton("");
+		btnSettings.setBounds(1453, 818, 110, 110);
+		btnSettings.setContentAreaFilled(false);
+		btnSettings.setBorderPainted(true);
+		Border thick = new LineBorder(Color.orange, 4);
+		btnSettings.setBorder(thick);
+		lblGameMenuBackground.add(btnSettings);
+
+		JLabel lblSettingsLogo = new JLabel("");
+		lblSettingsLogo.setIcon(new ImageIcon("./src/main/resources/images/settingslogoresized.jpg"));
+		lblSettingsLogo.setBounds(1458, 323, 1580, 1100); //1860,1200
+		lblGameMenuBackground.add(lblSettingsLogo);
 
 		pnlMainMenu.add(lblGameMenuBackground);
 
@@ -714,6 +728,7 @@ public class GUI extends JFrame implements ActionListener {
 		btnStartGame.addActionListener(this);
 		btnBackFromStartGameMenu.addActionListener(this);
 		btnContinueFromStartGameMenu.addActionListener(this);
+		btnSettings.addActionListener(this);
 
 		btnNumOfPlayers2.addActionListener(this);
 		btnNumOfPlayers3.addActionListener(this);
@@ -1301,6 +1316,14 @@ public class GUI extends JFrame implements ActionListener {
 			htp = new HowToPlayPanel(pnlMainMenu);
 			pnlMainMenu.setVisible(false);
 			add(htp);
+		}
+
+		if(e.getSource()==btnSettings)
+		{
+			playSound("./src/main/resources/sounds/snd_settings1.wav");
+			set = new SettingsPanel(pnlMainMenu);
+			pnlMainMenu.setVisible(false);
+			add(set);
 		}
 
 		if(e.getSource()==btnChooseColour1)
