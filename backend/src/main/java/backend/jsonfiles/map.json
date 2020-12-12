@@ -1,7 +1,7 @@
 [
   {
     "name": "Klinosra",
-    "extraArmies": 0,
+    "extraArmies": 10,
     "territories": [
       "Raken",
       "Perleninsel",
@@ -17,7 +17,7 @@
   },
   {
     "name": "Zamuria",
-    "extraArmies": 0,
+    "extraArmies": 6,
     "territories": [
       "Nord-forstheim",
       "Südforstheim",
@@ -29,7 +29,7 @@
   },
   {
     "name": "Teutonia",
-    "extraArmies": 0,
+    "extraArmies": 9,
     "territories": [
       "Sandwacht",
       "Eden",
@@ -44,7 +44,7 @@
   },
   {
     "name": "Grinomika",
-    "extraArmies": 0,
+    "extraArmies": 4,
     "territories": [
       "Sumbaspitze",
       "Nosptenburg",
@@ -54,7 +54,7 @@
   },
   {
     "name": "Mimiken",
-    "extraArmies": 0,
+    "extraArmies": 7,
     "territories": [
       "Niederswith",
       "Bakanwald",
@@ -67,7 +67,7 @@
   },
   {
     "name": "Kultanien",
-    "extraArmies": 0,
+    "extraArmies": 7,
     "territories": [
       "Goldbach",
       "Sonnenwiese",
@@ -80,7 +80,7 @@
   },
   {
     "name": "Donner",
-    "extraArmies": 0,
+    "extraArmies": 2,
     "territories": [
       "Wuselwiese",
       "Donnerwald"
