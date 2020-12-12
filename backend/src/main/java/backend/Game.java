@@ -1,6 +1,5 @@
 package backend;
 
-import javax.swing.JButton;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -23,9 +22,9 @@ public class Game {
     private final int CONTINENT_AMT = 7;
     
     public Game( int playerAmt, Player[] players, String mapFilePath, String cardsFilePath ) {
-        this.parser = new JSONParser();
+        this.parser = JSONParser.getInstance();
         this.playerAmt = playerAmt;
-        this.dice = new Dice();
+        this.dice = Dice.getInstance();
         this.players = players;
         initialTroopAmt = players[0].getInfantryAmt();
         initCards( cardsFilePath );
@@ -34,10 +33,9 @@ public class Game {
         initialTurn();
         startTurn(players[0]); // start the turn of first player( add infantries )
         printMap();
-        cm = new CombatManager();
+        cm = CombatManager.getInstance();
         currentPlayerTurn = 0;
         turnType = "draft";
-        //manageTurns();
     }
     
     

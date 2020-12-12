@@ -2,14 +2,13 @@
 
 package backend;
 
-import javax.swing.JButton;
-
 public class CombatManager {
 
     private final Dice dice;
+    private static CombatManager cmInstance = new CombatManager();
 
-    public CombatManager() {
-        dice = new Dice();
+    private CombatManager() {
+        dice = Dice.getInstance();
     }
 
     /* Execute war between two armies.
@@ -93,6 +92,10 @@ public class CombatManager {
         } else {
             return defender;
         }
+    }
+
+    public static CombatManager getInstance(){
+        return cmInstance;
     }
 
 }

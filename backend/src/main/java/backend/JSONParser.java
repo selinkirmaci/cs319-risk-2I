@@ -13,6 +13,10 @@ import org.json.simple.parser.*;
  */
 public class JSONParser {
 
+    private static JSONParser parserInstance = new JSONParser();
+
+    private JSONParser() {}
+
     // creates and returns a continents array by parsing the data from a JSON file named path
     public ArrayList<Continent> getContinents( String path ) {
         ArrayList<Continent> continents = new ArrayList<>();
@@ -88,6 +92,10 @@ public class JSONParser {
         }
 
         return cards;
+    }
+
+    public static JSONParser getInstance() {
+        return parserInstance;
     }
     
 }

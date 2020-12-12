@@ -12,8 +12,6 @@ public class Army {
     private int totalValue; //total value of all of the troops in this army
     private Player owner; //owner of the army
     private int infantryAmt = 0;
-    private int calvaryAmt = 0;
-    private int artilleryAmt = 0;
     
     public Army( ArrayList<Troop> troops, Player owner ) {
         this.owner = owner;
@@ -45,8 +43,7 @@ public class Army {
     /* for testing purposes */
     public void printArmy() {
         System.out.println("\t\tOwner of the army: " + owner.getName() );
-        System.out.println("\t\tInfantry: " + infantryAmt + ", Calvary: " + calvaryAmt +
-                ", Artillery: " + artilleryAmt );
+        System.out.println("\t\tInfantry: " + infantryAmt );
         System.out.println( "\t\tTotal army value: " + totalValue );
 
     }
@@ -87,24 +84,12 @@ public class Army {
         for ( Troop troop : troops ) {
             if( troop instanceof Infantry ) {
                 infantryAmt++;
-            } else if( troop instanceof Calvary ) {
-                calvaryAmt++;
-            } else if( troop instanceof Artillery ) {
-                artilleryAmt++;
             }
         }
     }
 
     public int getInfantryAmt() {
         return infantryAmt;
-    }
-
-    public int getArtilleryAmt() {
-        return artilleryAmt;
-    }
-
-    public int getCalvaryAmt() {
-        return calvaryAmt;
     }
 
     /* player might trade 5 infantries for one calvary
@@ -114,7 +99,7 @@ public class Army {
         int infAmt = getInfantryAmt();
         if( (num == 5 && infAmt >= 5) ) { //convert to calvary
             infantryAmt -= 5;
-            calvaryAmt += 1;
+            //calvaryAmt += 1;
             int i = 0;
             while( i < num ) {
                 if( troops.get(i) instanceof Infantry ) {
@@ -126,7 +111,7 @@ public class Army {
             troops.add( new Calvary() );
         } else if( (num == 10 && infAmt >= 10) ) { //convert to artillery
             infantryAmt -= 10;
-            artilleryAmt += 1;
+            //artilleryAmt += 1;
             int i = 0;
             while( i < num ) {
                 if( troops.get(i) instanceof Infantry ) {
