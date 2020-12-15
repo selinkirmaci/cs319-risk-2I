@@ -168,8 +168,7 @@ public class Game {
         Player currPlayer = players[currentPlayerTurn];
         System.out.println( "**** Turn of player: " + currPlayer.getName() + " ****" );
         startTurn(currPlayer); //start the turn of current player
-
-        // call draftTurn and attackTurn at the frontend.Map from the actionlisteners. TODO: change this later on
+        currPlayer.getHand().tryGettingImmunityCard(); // try to get immunity card
     }
     
     /* add troops to the already owned territories
@@ -235,7 +234,7 @@ public class Game {
 
             def.changeOwner( att.getOwner() );
 
-            att.getOwner().getCard(toTerritory, cardLib); // get territory card
+            att.getOwner().getTerritoryCard(toTerritory, cardLib); // get territory card
             printMap();
             printHands();
             return true;
@@ -245,6 +244,16 @@ public class Game {
         return false; // should not happen
     }
 
+    // TODO: This is only for territory cards, make it viable for curse cards too.
+    public void cardTurn( ArrayList<Card> cards ) {
+        Player p = players[currentPlayerTurn]
+        int gained = p.tradeTerritoryCards(cards);
+        if( gained == -1 ) {
+            return;
+        }
+
+        p.addInfantries(gained); // add gained infantries to player
+    }
 
     // Gets called during a war. Defender player requests alliance from a player other than the attacker.
     // Player getAllianceFrom transfers requested amount of soldiers to defender's territory.
@@ -265,13 +274,6 @@ public class Game {
         // add these infantries to the defender's army
         defender.getArmy().fortify(toFortify);
         return true;
-    }
-
-    /* receive cards
-    * TODO: check the conditions where a player receives a card. Also, add a turn method where the
-    *  player may convert some combinations of these cards into troops */
-    private void cardTurn() {
-
     }
 
     /* if a player does not have any territory, that player loses the game */

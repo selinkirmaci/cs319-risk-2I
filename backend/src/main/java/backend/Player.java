@@ -21,6 +21,7 @@ public class Player {
     private boolean hasLost;
     private boolean won;
     private Color colorOfPlayer;
+    private int tradeCount;
     
     public Player( String name, Avatar avatar, int infantryAmt, int playerId ) {
         this.name = name;
@@ -32,6 +33,7 @@ public class Player {
         this.playerId = playerId;
         hasLost = false;
         won = false;
+        tradeCount = 1;
     }
 
     public void winGame() {
@@ -138,7 +140,7 @@ public class Player {
     // can either get infantry, calvary or artillery card types of the gained territory.
     // If 3 of these exist, there is 1/3 chance of getting artillery, calvary, infantry card types
     // If 2 of these exist, as example: there is 1/2 chance of getting artillery, calvary or artillery, infantry etc.
-    public void getCard( Territory t, CardLibrary cardLib ) {
+    public void getTerritoryCard( Territory t, CardLibrary cardLib ) {
         ArrayList<Card> cards = new ArrayList<>();
         int typeCount = 0;
         if( cardLib.territoryCardExists(t.getName() + "_inf") ) { // infantry card exists
@@ -153,12 +155,37 @@ public class Player {
 
         if( cards.size() == 0 ) { // no card left
             return;
+        } else if( cards.size() == 1 ) { // single card left
+            hand.addCard( cards.get(0) );
+            cardLib.useTerritoryCard(cards.get(0).getName());
+            return;
         }
 
         int random = getRandomNumberInRange(1, cards.size());
         System.out.println("Player " + name + " got " + cards.get(random).getName() + " card.");
         hand.addCard( cards.get(random) );
+        cardLib.useTerritoryCard(cards.get(random).getName());
 
+    }
+
+    // Trades territory cards
+    // * 3 cards of the same troop design (a,a,a), (i,i,i), (c,c,c)
+    // * 1 each of the 3 troop designs (a,i,c)
+    // if tradecount is x, get 5*x extra infantries
+    // returns gained infantry amount
+    public int tradeTerritoryCards( ArrayList<Card> toTrade ) {
+        int infantryAmt = -1;
+        if( toTrade.size() < 3 ) {
+            System.out.println("Not enough territory cards to trade.");
+            return infantryAmt;
+        }
+
+        if( hand.isViable(toTrade) ) {
+            infantryAmt = tradeCount * 5;
+            tradeCount++;
+        }
+
+        return infantryAmt;
     }
 
 
