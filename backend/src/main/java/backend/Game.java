@@ -27,8 +27,8 @@ public class Game {
         this.dice = Dice.getInstance();
         this.players = players;
         initialTroopAmt = players[0].getInfantryAmt();
-        initCards( cardsFilePath );
         initMap( mapFilePath );
+        initCards();
 
         initialTurn();
         startTurn(players[0]); // start the turn of first player( add infantries )
@@ -65,12 +65,20 @@ public class Game {
             System.out.println("------");
         }
     }
+
+    public void printHands() {
+        for( int i = 0; i < playerAmt; i++ ) {
+            Hand curr = players[i].getHand();
+            System.out.println("Hand of player " + players[i].getName() + ": ");
+            curr.printHand();
+        }
+    }
     
     /* create cards by parsing the data from a JSON file preferably 
        named cards.json */
-    private void initCards( String path ) {
-        ArrayList<Card> cards = parser.getCards( path );
-        this.cardLib = new CardLibrary(cards);
+    private void initCards() {
+        this.cardLib = new CardLibrary();
+        cardLib.createTerritoryCards(map);
     }
 
     // this is the first turn when the game starts
@@ -227,7 +235,9 @@ public class Game {
 
             def.changeOwner( att.getOwner() );
 
+            att.getOwner().getCard(toTerritory, cardLib); // get territory card
             printMap();
+            printHands();
             return true;
         }
 

@@ -1,6 +1,6 @@
 package backend;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -8,9 +8,9 @@ import java.util.ArrayList;
  */
 public class CardLibrary {
     
-    private ArrayList<Card> cards;
-    CardLibrary( ArrayList<Card> cards ) {
-        this.cards = cards;
+    private HashMap<String, Card> territoryCards; // Key: Card name, Value: Card object
+    CardLibrary() {
+        territoryCards = new HashMap<String, Card>();
     }
     
     
@@ -18,5 +18,37 @@ public class CardLibrary {
     private void shuffle() {
         
     }
-    
+
+
+    // creates and adds territory cards for each territory
+    public void createTerritoryCards( Map map ) {
+        for( int i = 0; i < map.getContinents().size(); i++ ) { // each continent
+            for( int j = 0; j < map.getContinents().get(i).getTerritories().size(); j++ ) { // each territory
+                Territory curr = map.getContinents().get(i).getTerritories().get(j);
+                Card territoryCardInf = new TerritoryCard(curr.getName() + "_inf", 1, curr); // infantry card
+                Card territoryCardCalv = new TerritoryCard(curr.getName() + "_calv", 5, curr); // calvary card
+                Card territoryCardArty = new TerritoryCard(curr.getName() + "_arty", 10, curr); // artillery card
+                territoryCards.put(territoryCardInf.getName(), territoryCardInf);
+                territoryCards.put(territoryCardCalv.getName(), territoryCardCalv);
+                territoryCards.put(territoryCardArty.getName(), territoryCardArty);
+            }
+        }
+    }
+
+    // checks if the card exists in the library
+    public boolean territoryCardExists( String cardName ) {
+        return territoryCards.containsKey(cardName);
+    }
+
+
+    public boolean useTerritoryCard( String cardName ) {
+        if( territoryCardExists(cardName) ) {
+            territoryCards.remove(cardName);
+        }
+        return false;
+    }
+
+    public Card getCard( String cardName ) {
+        return territoryCards.get(cardName);
+    }
 }

@@ -1,11 +1,11 @@
 package backend;
 
 public class TerritoryCard extends Card {
-    private final String territory;
+    private final Territory territory;
 
 
-    TerritoryCard( String name, String territory, Troop troopType ) {
-        super(name, troopType);
+    TerritoryCard( String name, int value, Territory territory ) {
+        super(name, value);
         this.territory = territory;
     }
 }

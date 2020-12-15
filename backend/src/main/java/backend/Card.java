@@ -7,11 +7,15 @@ package backend;
 public class Card {
     
     private final String name;
-    private final Troop troopType;
+    private final int value;
     
-    Card( String name, Troop troopType ) {
+    Card( String name, int value ) {
         this.name = name;
-        this.troopType = troopType;
+        this.value = value;
+    }
+
+    public String getName() {
+        return name;
     }
     
 }

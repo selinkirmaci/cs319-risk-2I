@@ -2,6 +2,7 @@ package backend;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -119,7 +120,46 @@ public class Player {
         this.colorOfPlayer = color;
     }
 
-    public Avatar getAvatar(){return avatar;}
+    public Avatar getAvatar() { return avatar; }
+
+    public Hand getHand() { return hand; }
+
+    /* return random number between min-max both inclusive */
+    private static int getRandomNumberInRange(int min, int max) {
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+
+    // gets called after gaining a territory from an attack
+    // can either get infantry, calvary or artillery card types of the gained territory.
+    // If 3 of these exist, there is 1/3 chance of getting artillery, calvary, infantry card types
+    // If 2 of these exist, as example: there is 1/2 chance of getting artillery, calvary or artillery, infantry etc.
+    public void getCard( Territory t, CardLibrary cardLib ) {
+        ArrayList<Card> cards = new ArrayList<>();
+        int typeCount = 0;
+        if( cardLib.territoryCardExists(t.getName() + "_inf") ) { // infantry card exists
+            cards.add(cardLib.getCard(t.getName() + "_inf"));
+        }
+        if( cardLib.territoryCardExists(t.getName() + "_calv") ) { // calvary card exists
+            cards.add(cardLib.getCard(t.getName() + "_calv"));
+        }
+        if( cardLib.territoryCardExists(t.getName() + "_arty") ) { // artillery card exists
+            cards.add(cardLib.getCard(t.getName() + "_arty"));
+        }
+
+        if( cards.size() == 0 ) { // no card left
+            return;
+        }
+
+        int random = getRandomNumberInRange(1, cards.size());
+        System.out.println("Player " + name + " got " + cards.get(random).getName() + " card.");
+        hand.addCard( cards.get(random) );
+
+    }
 
 
 }

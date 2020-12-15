@@ -48,6 +48,7 @@ public class JSONParser {
         return continents;
     }
 
+    /*
     // creates and returns a cards array by parsing the data from a JSON file named path
     public ArrayList<Card> getCards( String path ) {
         ArrayList<Card> cards = new ArrayList<>();
@@ -60,31 +61,21 @@ public class JSONParser {
                 String name = (String) card.get("name");
                 String troopType = (String) card.get("troopType");
                 String territory = (String) card.get("territory");
-                int damage = ((Long) card.get("damage")).intValue();
-
-                // determining troop type
-                Troop troop;
-                if (troopType.equalsIgnoreCase("Artillery")) {
-                    troop = new Artillery();
-                } else if (troopType.equalsIgnoreCase("Calvary")) {
-                    troop = new Calvary();
-                } else if (troopType.equalsIgnoreCase("Infantry")) {
-                    troop = new Infantry();
-                } else {
-                    troop = new Troop();
-                }
+                String cardType = (String) card.get("cardType");
+                int value = ((Long) card.get("value")).intValue();
 
                 // determining card type
                 Card newCard;
-                if (damage != 0) {     // curse card
-                    newCard = new CurseCard(name, troop, damage);
-                } else if (!territory.equals("")) {    // territory card
-                    newCard = new TerritoryCard(name, territory, troop);
-                } else {  // normal card
-                    newCard = new Card(name, troop);
+                if( cardType.equals("t") ) { // territory card
+                    //newCard = new TerritoryCard( name, value, territory );
+                } else if( cardType.equals("c") ) { // curse card
+                    String curseType = (String) card.get( "curseType" );
+                    newCard = new CurseCard( name, value, curseType );
+                } else { // immunity card
+                    newCard = new ImmunityCard( name, value );
                 }
 
-                cards.add(newCard);
+                //cards.add(newCard);
             }
         }
         catch ( IOException | ParseException e ) {
@@ -93,6 +84,7 @@ public class JSONParser {
 
         return cards;
     }
+    */
 
     public static JSONParser getInstance() {
         return parserInstance;

@@ -53,6 +53,10 @@ public class CombatManager {
         int attRoll; //attacker's result from dice roll
         int defRoll; //defender's result from dice roll
 
+        if( attacker.getTotalValue() == 1 || defender.getTotalValue() == 0 ) {
+            return null;
+        }
+
         attRoll = dice.rollDice();
         defRoll = dice.rollDice();
 

@@ -26,11 +26,14 @@ public class Army {
         for ( Troop troop : troops ) {
             if( troop instanceof Infantry ) {
                 val += 1;
-            } else if( troop instanceof Calvary ) {
+            }
+
+            /*else if( troop instanceof Calvary ) {
                 val += 5;
             } else if( troop instanceof Artillery ) {
                 val += 10;
             }
+             */
         }
         
         totalValue = val;
@@ -92,8 +95,9 @@ public class Army {
         return infantryAmt;
     }
 
-    /* player might trade 5 infantries for one calvary
-    or 10 infantries for one artillery */
+    /*
+    // player might trade 5 infantries for one calvary
+    // or 10 infantries for one artillery
     public void tradeTroops( int num ) {
 
         int infAmt = getInfantryAmt();
@@ -123,6 +127,8 @@ public class Army {
             troops.add( new Artillery() );
         }
     }
+     */
+
 
     public void changeOwner( Player p ) {
         owner = p;

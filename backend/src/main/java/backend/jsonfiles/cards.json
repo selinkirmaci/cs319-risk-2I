@@ -1,20 +1,33 @@
 [
   {
-    "name": "exampleCard1",
-    "troopType": "Infantry",
+    "name": "epidemicCurseCard",
     "territory": "",
-    "damage": 0
+    "value": 0,
+    "cardType": "c",
+    "curseType": "epidemic"
   },
   {
-    "name": "exampleCard2",
-    "troopType": "Artillery",
+    "name": "civilWarCurseCard",
+    "territory": "",
+    "value": 0,
+    "cardType": "c",
+    "curseType": "civilWar"
+  },
+  {
+    "name": "celebrationCurseCard",
+    "territory": "",
+    "value": 0,
+    "cardType": "c",
+    "curseType": "celebration"
+  },
+  {
+    "name": "territoryCard",
     "territory": "exampleTerritory1",
-    "damage": 0
+    "value": 1,
   },
   {
     "name": "exampleCard3",
-    "troopType": "Calvary",
     "territory": "",
-    "damage": 123
+    "value": 123
   }
 ]
