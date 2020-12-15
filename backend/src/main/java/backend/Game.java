@@ -230,9 +230,9 @@ public class Game {
 
             ArrayList<Troop> toAdd = new ArrayList<>();
             toAdd.add( new Infantry() );
-            def.fortify( toAdd ); // add a single infantry to the gained territory
 
             def.changeOwner( att.getOwner() );
+            def.fortify( toAdd ); // add a single infantry to the gained territory
 
             att.getOwner().getTerritoryCard(toTerritory, cardLib); // get territory card
             printMap();

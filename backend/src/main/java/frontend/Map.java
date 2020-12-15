@@ -684,6 +684,18 @@ public class Map extends JFrame implements ActionListener {
             Army attacker = fromTerr.getArmy();
             Army defender = toTerr.getArmy();
 
+            // ********************* Single Attack **********************//
+
+            //I think this part should go above close panel operations
+            attackerLabel.setText(fromTerr.getArmy().getOwner().getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
+            defenderLabel.setText(toTerr.getArmy().getOwner().getName()+" has "+toTerr.getArmy().getTotalValue()+" soldiers");
+            dices = game.getCombatManager().singleAttack( attacker, defender );
+            firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
+            forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
+
+
+            // ********************* End of Single Attack **********************//
+
 
             // close panel 1 if the attack turn has ended
             if( game.getCombatManager().warEnded(attacker, defender) != null ) {
@@ -707,20 +719,6 @@ public class Map extends JFrame implements ActionListener {
                 }
 
             }
-
-            // ********************* Single Attack **********************//
-
-            //I think this part should go above close panel operations
-            attackerLabel.setText(fromTerr.getArmy().getOwner().getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
-            defenderLabel.setText(toTerr.getArmy().getOwner().getName()+" has "+toTerr.getArmy().getTotalValue()+" soldiers");
-            dices = game.getCombatManager().singleAttack( attacker, defender );
-            firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
-            forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
-
-
-            // ********************* End of Single Attack **********************//
-
-
         }
 
 

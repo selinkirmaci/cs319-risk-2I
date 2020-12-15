@@ -35,14 +35,14 @@ public class CombatManager {
             System.out.println( "Defender rolled:" + defRoll );
 
             if( attRoll > defRoll ) { //defender loses
-                System.out.println( "Defender lost one infantry. Current army value for defender:" + defender.getTotalValue() );
                 defender.forfeit(); //May change: consider how the loss will be calculated!
+                System.out.println( "Defender lost one infantry. Current army value for defender:" + defender.getTotalValue() );
             } else if( attRoll == defRoll ) {
                 System.out.println( "Even." );
                 continue; //roll again
             } else { //attacker loses
-                System.out.println( "Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue() );
                 attacker.forfeit(); //May change: consider how the loss will be calculated!
+                System.out.println( "Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue() );
             }
         }
 
