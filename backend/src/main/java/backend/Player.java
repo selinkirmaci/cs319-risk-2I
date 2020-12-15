@@ -161,7 +161,7 @@ public class Player {
             return;
         }
 
-        int random = getRandomNumberInRange(1, cards.size());
+        int random = getRandomNumberInRange(0, cards.size() - 1);
         System.out.println("Player " + name + " got " + cards.get(random).getName() + " card.");
         hand.addCard( cards.get(random) );
         cardLib.useTerritoryCard(cards.get(random).getName());

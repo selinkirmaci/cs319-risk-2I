@@ -246,7 +246,7 @@ public class Game {
 
     // TODO: This is only for territory cards, make it viable for curse cards too.
     public void cardTurn( ArrayList<Card> cards ) {
-        Player p = players[currentPlayerTurn]
+        Player p = players[currentPlayerTurn];
         int gained = p.tradeTerritoryCards(cards);
         if( gained == -1 ) {
             return;
