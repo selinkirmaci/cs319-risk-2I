@@ -74,7 +74,6 @@ public class Player {
         }
         return false;
     }
-
     public void addGainedTerritory( Territory t ) {
         gainedTerritories.add(t);
         checkGainedContinents();
@@ -195,5 +194,9 @@ public class Player {
 
     public void setSecretMission(int secretMission) {
         this.secretMission = secretMission;
+    }
+    public int getTradeCount()
+    {
+        return tradeCount;
     }
 }

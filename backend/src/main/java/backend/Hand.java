@@ -15,6 +15,8 @@ public class Hand {
         cards.add(card);
     }
 
+    public ArrayList<Card> getCards(){return cards;}
+
     /* return random number between min-max both inclusive */
     private static int getRandomNumberInRange(int min, int max) {
         if (min >= max) {
@@ -33,6 +35,22 @@ public class Hand {
             Card c = new ImmunityCard("Immunity Card", 1);
             cards.add(c); // add immunity card to hand
         }
+    }
+
+    public Card getCard(String cardName)
+    {
+        for(int i = 0; i<cards.size();i++)
+        {
+            if(cards.get(i).getName() == cardName)
+            {
+                return cards.get(i);
+            }
+        }
+        return null;
+    }
+    public int getSize()
+    {
+        return cards.size();
     }
 
     public void printHand() {

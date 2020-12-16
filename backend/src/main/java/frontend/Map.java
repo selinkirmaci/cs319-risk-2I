@@ -878,7 +878,7 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource() == cardInfoPanelButton)
         {
-            cardPanel = new CardPanel();
+            cardPanel = new CardPanel(players[currentPlayer]);
             cardPanel.setVisible(true);
             cardPanel.setTitle("Risk");
             //cardPanel.setPreferredSize(new Dimension(1150,830)); //1570,800
