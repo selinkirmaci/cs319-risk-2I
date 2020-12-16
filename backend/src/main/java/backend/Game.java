@@ -21,6 +21,7 @@ public class Game {
     private final CombatManager cm;
     private int initialTroopAmt; //initial troop amount for each player
     private final int CONTINENT_AMT = 7;
+    private int tradeCount;
     
     public Game( int playerAmt, Player[] players, String mapFilePath, String cardsFilePath ) {
         this.secretMissionModOn = false;
@@ -37,6 +38,7 @@ public class Game {
         printMap();
         cm = CombatManager.getInstance();
         currentPlayerTurn = 0;
+        tradeCount = 0;
         turnType = "draft";
     }
     
@@ -334,6 +336,13 @@ public class Game {
     public boolean getSecretMissionMod()
     {
         return secretMissionModOn;
+    }
+    public void updateTradeCount()
+    {
+        for(int i = 0; i < players.length;i++)
+        {
+            tradeCount += players[i].getTradeCount();
+        }
     }
     
     
