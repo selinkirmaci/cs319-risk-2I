@@ -8,6 +8,7 @@ import java.util.Random;
  * @author kaan
  */
 public class Game {
+    private boolean secretMissionModOn;
     private final int playerAmt;
     private Player[] players;
     private int currentPlayerTurn;
@@ -22,6 +23,7 @@ public class Game {
     private final int CONTINENT_AMT = 7;
     
     public Game( int playerAmt, Player[] players, String mapFilePath, String cardsFilePath ) {
+        this.secretMissionModOn = false;
         this.parser = JSONParser.getInstance();
         this.playerAmt = playerAmt;
         this.dice = Dice.getInstance();
@@ -323,6 +325,15 @@ public class Game {
 
     public CombatManager getCombatManager() {
         return cm;
+    }
+
+    public void setSecretMissionMod(boolean onOff)
+    {
+        this.secretMissionModOn = onOff;
+    }
+    public boolean getSecretMissionMod()
+    {
+        return secretMissionModOn;
     }
     
     

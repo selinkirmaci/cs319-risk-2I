@@ -40,6 +40,7 @@ import backend.*;
 
 public class Map extends JFrame implements ActionListener {
     private JPanel mainPanel;
+    private SecretMissionFrame secretMissionFrame;
     private JLayeredPane settingPane;
     private JPanel panel1 = new JPanel();
     private JLabel player1 = new JLabel();
@@ -92,6 +93,7 @@ public class Map extends JFrame implements ActionListener {
     JButton attackButton,retreatButton;
     JButton pauseButton;
     JButton draftButton;
+    JButton secretMissionCard;
     JButton nextPlayerButton;
     JButton cancelAttack,rollDiceButton,allianceButton,decreaseDice,increaseDice;
     String chosenTerritory;
@@ -418,6 +420,16 @@ public class Map extends JFrame implements ActionListener {
         nextPlayerButton.addActionListener(this);
         background.add(nextPlayerButton);
 
+        secretMissionCard = new JButton("SECRET MISSION");
+        secretMissionCard.setName("SECRET MISSION");
+        secretMissionCard.setBounds(350, 930, 150, 50);
+        secretMissionCard.setContentAreaFilled(true);
+        secretMissionCard.setBorderPainted(true);
+        secretMissionCard.setEnabled(true);
+        secretMissionCard.addActionListener(this);
+        secretMissionCard.setVisible(game.getSecretMissionMod());
+        background.add(secretMissionCard);
+
         retreatButton = new JButton("RETREAT");
         retreatButton.setBounds(880, 880, 150, 50);
         retreatButton.setContentAreaFilled(true);
@@ -480,7 +492,7 @@ public class Map extends JFrame implements ActionListener {
 
         if( (e.getSource() != pauseButton) &&
                 (e.getSource() != attackButton) && (e.getSource() != retreatButton)
-                && (e.getSource() != rollDiceButton) && (e.getSource() != allianceButton))
+                && (e.getSource() != rollDiceButton) && (e.getSource() != allianceButton) && (e.getSource() != secretMissionCard))
         {
             JButton tmp = (JButton) e.getSource();
             if(setFrom) {
@@ -543,6 +555,15 @@ public class Map extends JFrame implements ActionListener {
             }
         }
 
+        if(e.getSource() == secretMissionCard)
+        {
+            int secretMission = players[currentPlayer].getSecretMission();
+            secretMissionFrame = new SecretMissionFrame(secretMission);
+            secretMissionFrame.setVisible(true);
+            secretMissionFrame.setTitle("Risk");
+            secretMissionFrame.setResizable(false);
+            secretMissionFrame.pack();
+        }
         if(e.getSource() == attackButton)
         {
 

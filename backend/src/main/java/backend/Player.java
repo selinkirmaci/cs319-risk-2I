@@ -22,6 +22,7 @@ public class Player {
     private boolean won;
     private Color colorOfPlayer;
     private int tradeCount;
+    private int secretMission;
     
     public Player( String name, Avatar avatar, int infantryAmt, int playerId ) {
         this.name = name;
@@ -188,5 +189,11 @@ public class Player {
         return infantryAmt;
     }
 
+    public int getSecretMission() {
+        return secretMission;
+    }
 
+    public void setSecretMission(int secretMission) {
+        this.secretMission = secretMission;
+    }
 }

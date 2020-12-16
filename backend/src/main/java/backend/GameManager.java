@@ -16,13 +16,19 @@ public class GameManager {
     private final String MAP_FILE_PATH = "./src/main/java/backend/jsonfiles/map.json";
     private final String CARDS_FILE_PATH = "./src/main/java/backend/jsonfiles/cards.json";
 
-    public GameManager(int playerNumber, String[] playernames, int[]playerAvatars, Color[]playerColors)
+    public GameManager(int playerNumber, String[] playernames, int[]playerAvatars, Color[]playerColors,boolean secretMission)
     {
         Player[] players = createPlayers(playerNumber,playernames,playerAvatars,playerColors);
+        for(int i = 0; i<playerNumber;i++)
+        {
+            int random = (int)(Math.random()*4)+1;
+            players[i].setSecretMission(random);
+        }
 
         //initialise the game
         game = new Game(playerNumber, players, MAP_FILE_PATH,
                 CARDS_FILE_PATH );
+        game.setSecretMissionMod(secretMission);
         this.game = game;
     }
 

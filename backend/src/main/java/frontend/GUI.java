@@ -61,6 +61,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	private int avatarNoP1 = 0, avatarNoP2 = 0, avatarNoP3 = 0, avatarNoP4 = 0;
 	private int numOfPlayers = 4;
+	private boolean secretMission;
 	private int[] playerAvatarIndexes = new int[4];
 	private String[] playerNames = new String[4];
 	private Color[] playerColors = new Color[4];
@@ -1144,8 +1145,11 @@ public class GUI extends JFrame implements ActionListener {
 					dispose();
 
 					// Start the actual game
-
-					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors);
+					if(boxSecretMission.isSelected())
+						secretMission = true;
+					else
+						secretMission = false;
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors,secretMission);
 					Map frame = new Map(gameManager);
 					frame.startTimer();
 					frame.setVisible(true);
@@ -1215,7 +1219,11 @@ public class GUI extends JFrame implements ActionListener {
 					dispose();
 
 					// Start the actual game
-					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors);
+					if(boxSecretMission.isSelected())
+						secretMission = true;
+					else
+						secretMission = false;
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors,secretMission);
 					Map frame = new Map(gameManager);
 					frame.startTimer();
 					frame.setVisible(true);
@@ -1285,7 +1293,12 @@ public class GUI extends JFrame implements ActionListener {
 					playerColors[2] = t3.getForeground();
 					playerColors[3] = t4.getForeground();
 					dispose();
-					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors);
+
+					if(boxSecretMission.isSelected())
+						secretMission = true;
+					else
+						secretMission = false;
+					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors,secretMission);
 					// Start the actual game
 					Map frame = new Map(gameManager);
 					frame.startTimer();
