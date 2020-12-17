@@ -26,14 +26,16 @@ public class CardPanel extends JFrame implements ActionListener
     private JButton firstCardButton,secondCardButton,thirdCardButton;
     private int numberOfCardsChosen;
     private Player currPlayer;
-    public CardPanel(Player currPlayer)
+    private backend.Game game;
+    public CardPanel( backend.Game game)
     {
         setLayout(null);
         setPreferredSize(new Dimension(1200,600));
         setBounds(105,105,400,400);
         setBackground(Color.lightGray);
 
-        this.currPlayer = currPlayer;
+        this.currPlayer = game.getPlayers()[game.getCurrentPlayerTurn()];
+        this.game = game;
 
         firstCard = "";
         secondCard = "";
@@ -59,7 +61,7 @@ public class CardPanel extends JFrame implements ActionListener
         tradeCards.addActionListener(this);
 
         tradeCountLabel = new JLabel();
-        tradeCountLabel.setText("There has been "+ currPlayer.getTradeCount() +" trades before.");
+        tradeCountLabel.setText("There has been a total of " + game.getTradeCount() + " trades before.");
         tradeCountLabel.setBounds(810,20,400,40);
         tradeCountLabel.setFont(new Font(Font.SERIF,Font.BOLD,30));
         tradeCountLabel.setForeground(Color.BLUE);
@@ -131,13 +133,15 @@ public class CardPanel extends JFrame implements ActionListener
             tmpList.add(card1);
             tmpList.add(card2);
             tmpList.add(card3);
-            int tradeSucceess = currPlayer.tradeTerritoryCards(tmpList);
-            if(tradeSucceess == -1)
-            {
+            boolean tradeSuccess = game.cardTurn(tmpList);
+            if( tradeSuccess == false ) {
                 //problem because of the null frame
                 JOptionPane.showMessageDialog(null, "Trade request invalid!");
-            }else
-                JOptionPane.showMessageDialog(null, "Trade successfull.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Trade successful.");
+                // should also update player's current infantry amount
+                dispose(); // or update this panel, because otherwise used cards will still be visible
+            }
         }
     }
 }

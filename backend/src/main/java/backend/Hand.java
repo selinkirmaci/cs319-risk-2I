@@ -93,8 +93,12 @@ public class Hand {
         }
 
         return false;
+    }
 
-
+    public void removeUsedCards( ArrayList<Card> cards ) {
+        for( int i = 0; i < cards.size(); i++ ) {
+            this.cards.remove(cards.get(i));
+        }
     }
 
 

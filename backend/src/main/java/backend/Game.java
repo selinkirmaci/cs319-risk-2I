@@ -78,8 +78,7 @@ public class Game {
         }
     }
     
-    /* create cards by parsing the data from a JSON file preferably 
-       named cards.json */
+    // create cards
     private void initCards() {
         this.cardLib = new CardLibrary();
         cardLib.createTerritoryCards(map);
@@ -249,14 +248,17 @@ public class Game {
     }
 
     // TODO: This is only for territory cards, make it viable for curse cards too.
-    public void cardTurn( ArrayList<Card> cards ) {
+    public boolean cardTurn( ArrayList<Card> cards ) {
         Player p = players[currentPlayerTurn];
-        int gained = p.tradeTerritoryCards(cards);
+        int gained = p.tradeTerritoryCards(cards, tradeCount);
+        updateTradeCount();
         if( gained == -1 ) {
-            return;
+            return false;
         }
 
+        System.out.println("Player " + p.getName() + " gained " + gained + " infantries from trading.");
         p.addInfantries(gained); // add gained infantries to player
+        return true;
     }
 
     // Gets called during a war. Defender player requests alliance from a player other than the attacker.
@@ -343,6 +345,10 @@ public class Game {
         {
             tradeCount += players[i].getTradeCount();
         }
+    }
+
+    public int getTradeCount() {
+        return tradeCount;
     }
     
     

@@ -34,7 +34,7 @@ public class Player {
         this.playerId = playerId;
         hasLost = false;
         won = false;
-        tradeCount = 1;
+        tradeCount = 0;
     }
 
     public void winGame() {
@@ -173,7 +173,7 @@ public class Player {
     // * 1 each of the 3 troop designs (a,i,c)
     // if tradecount is x, get 5*x extra infantries
     // returns gained infantry amount
-    public int tradeTerritoryCards( ArrayList<Card> toTrade ) {
+    public int tradeTerritoryCards( ArrayList<Card> toTrade, int tradeCount ) {
         int infantryAmt = -1;
         if( toTrade.size() < 3 ) {
             System.out.println("Not enough territory cards to trade.");
@@ -181,8 +181,13 @@ public class Player {
         }
 
         if( hand.isViable(toTrade) ) {
-            infantryAmt = tradeCount * 5;
-            tradeCount++;
+            // add gained infantries to player
+            infantryAmt = (tradeCount + 1) * 5;
+
+            // remove the used cards
+            hand.removeUsedCards(toTrade);
+
+            this.tradeCount++;
         }
 
         return infantryAmt;
