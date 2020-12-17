@@ -171,7 +171,7 @@ public class Game {
         Player currPlayer = players[currentPlayerTurn];
         System.out.println( "**** Turn of player: " + currPlayer.getName() + " ****" );
         startTurn(currPlayer); //start the turn of current player
-        currPlayer.getHand().tryGettingImmunityCard(); // try to get immunity card
+        currPlayer.getHand().tryGettingCurseCard(); // try to get immunity card
     }
     
     /* add troops to the already owned territories

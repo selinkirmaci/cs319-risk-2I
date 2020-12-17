@@ -27,13 +27,42 @@ public class Hand {
         return r.nextInt((max - min) + 1) + min;
     }
 
-    // try to get immunity card at the start of each turn (1/10 probability of getting it)
-    public void tryGettingImmunityCard() {
+    // 1: celebration
+    // 2: epidemic
+    // 3: immunity
+    // 4: powerboost
+    // 5: rebellio
+    // try to get curse card at the start of each turn
+    // 1/10 probability of getting each one of the curse cards
+    public void tryGettingCurseCard() {
+
+        // choose one curse card randomly
+        int randomType = getRandomNumberInRange(1, 5);
+        Card chosenCard = null;
+
+        switch(randomType) {
+            case 1:
+                chosenCard = new CurseCard("celebration", 1);
+                break;
+            case 2:
+                chosenCard = new CurseCard("epidemic", 2);
+                break;
+            case 3:
+                chosenCard = new CurseCard("immunity", 3);
+                break;
+            case 4:
+                chosenCard = new CurseCard("powerboost", 4);
+                break;
+            case 5:
+                chosenCard = new CurseCard("rebellio", 5);
+                break;
+        }
+
+        // there is a 1/10 chance of getting one of these cards
         int random = getRandomNumberInRange(0, 9);
         if( random == 0 ) {
-            System.out.println("Gained immunity card!");
-            Card c = new ImmunityCard("Immunity Card", 1);
-            cards.add(c); // add immunity card to hand
+            System.out.println( "Gained " + chosenCard.getName() );
+            cards.add(chosenCard); // add immunity card to hand
         }
     }
 
