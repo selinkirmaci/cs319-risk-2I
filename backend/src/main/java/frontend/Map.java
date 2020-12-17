@@ -701,7 +701,7 @@ public class Map extends JFrame implements ActionListener {
 
         if(e.getSource() == rollDiceButton)
         {
-            int[] dices = new int[2];
+            int[] dices;
             playSound("./src/main/resources/sounds/snd_dicethrow.wav",-10.0f);
 
             /*
@@ -727,6 +727,8 @@ public class Map extends JFrame implements ActionListener {
             allianceButton.setEnabled(false);
             decreaseDice.setEnabled(false);
             increaseDice.setEnabled(false);
+            decreaseDiceDef.setEnabled(false);
+            increaseDiceDef.setEnabled(false);
 
             Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
             Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
@@ -738,10 +740,50 @@ public class Map extends JFrame implements ActionListener {
             //I think this part should go above close panel operations
             attackerLabel.setText(fromTerr.getArmy().getOwner().getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
             defenderLabel.setText(toTerr.getArmy().getOwner().getName()+" has "+toTerr.getArmy().getTotalValue()+" soldiers");
-            dices = game.getCombatManager().singleAttack( attacker, defender ,diceNumberLeft);
-            firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
-            forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
-
+            dices = game.getCombatManager().singleAttack( attacker, defender ,diceNumberLeft,diceNumberLeftDef);
+            //firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
+            //forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
+            //int i = 0;
+            if(dices != null)
+            {
+            if(diceNumberLeft == 3)
+            {
+                firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
+                secondDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[1] + ".png"));
+                thirdDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[2] + ".png"));
+                if(diceNumberLeftDef == 2)
+                {
+                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[3] + ".png"));
+                    fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[4] + ".png"));
+                }else{
+                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[3] + ".png"));
+                }
+            }
+            else if(diceNumberLeft == 2)
+            {
+                firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
+                secondDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[1] + ".png"));
+                if(diceNumberLeftDef == 2)
+                {
+                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[2] + ".png"));
+                    fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[3] + ".png"));
+                }else{
+                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[2] + ".png"));
+                }
+            }else if(diceNumberLeft == 1) {
+                firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
+                if (diceNumberLeftDef == 2) {
+                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
+                    fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[2] + ".png"));
+                } else {
+                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
+                }
+            }
+            }else
+            {
+                diceNumberLeft = 3;
+                diceNumberLeftDef = 2;
+            }
 
             // ********************* End of Single Attack **********************//
 
@@ -830,23 +872,31 @@ public class Map extends JFrame implements ActionListener {
             {
                 secondDiceSet.setVisible(false);
             }
-            increaseDice.setEnabled(true);
             diceNumberLeft--;
+            increaseDice.setEnabled(true);
             if(diceNumberLeft == 1)
             {
                 decreaseDice.setEnabled(false);
             }
+
         }
 
         if(e.getSource() == increaseDice)
         {
             secondDiceSet.setVisible(true);
-            decreaseDiceDef.setEnabled(true);
-            diceNumberLeft++;
+            decreaseDice.setEnabled(true);
+
             if(diceNumberLeft == 2)
             {
                 increaseDice.setEnabled(false);
             }
+            diceNumberLeft++;
+            if(diceNumberLeft == 3)
+            {
+                thirdDiceSet.setVisible(true);
+            }
+
+
         }
         if(e.getSource() == decreaseDiceDef)
         {

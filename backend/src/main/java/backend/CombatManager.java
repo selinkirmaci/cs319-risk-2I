@@ -2,6 +2,11 @@
 
 package backend;
 
+import com.sun.deploy.util.ArrayUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class CombatManager {
 
     private final Dice dice;
@@ -51,14 +56,67 @@ public class CombatManager {
     }
 
     // completes a single attack( a single roll ) and returns the results of these dice rolls
-    public int[] singleAttack( Army attacker, Army defender,int attackerDiceNumber ) {
+    public int[] singleAttack( Army attacker, Army defender,int attackerDiceNumber ,int defenderDiceNumber ) {
         int attRoll; //attacker's result from dice roll
         int defRoll; //defender's result from dice roll
 
         if( attacker.getTotalValue() == 1 || defender.getTotalValue() == 0 ) {
             return null;
         }
+        int[]attRolls = new int[attackerDiceNumber];
+        int[]defRolls = new int[defenderDiceNumber];
 
+        for(int i = 0; i < attackerDiceNumber;i++)
+        {
+            if( attacker.getOwner().isBoosted() ) { // attacker is boosted!
+                attRolls[i] = dice.rollBiasedDice();
+            } else {
+                attRolls[i] = dice.rollDice();
+            }
+        }
+        for(int i = 0; i < defenderDiceNumber;i++)
+        {
+            defRolls[i] = dice.rollDice();
+        }
+        Arrays.sort(attRolls);
+        Arrays.sort(defRolls);
+
+        if(attackerDiceNumber == 1 || defenderDiceNumber == 1)
+        {
+            if(attRolls[attackerDiceNumber-1] > defRolls[defenderDiceNumber-1])
+            {
+                System.out.println( "Defender lost one infantry. Current army value for defender:" + defender.getTotalValue() );
+                defender.forfeit();
+            } else if(attRolls[attackerDiceNumber-1] == defRolls[defenderDiceNumber-1])
+            {
+                System.out.println( "Even." );
+                System.out.println("Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue());
+                attacker.forfeit();
+            }else {
+                System.out.println("Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue());
+                attacker.forfeit();
+            }
+        }else{
+            if(attRolls[attackerDiceNumber-1] > defRolls[defenderDiceNumber-1])
+            {
+                System.out.println( "Defender lost one infantry. Current army value for defender:" + defender.getTotalValue() );
+                defender.forfeit();
+            }else{
+                System.out.println("Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue());
+                attacker.forfeit();
+            }
+            if(attRolls[attackerDiceNumber-2] <= defRolls[defenderDiceNumber-2])
+            {
+                System.out.println("Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue());
+                attacker.forfeit();
+            }else
+            {
+                System.out.println( "Defender lost one infantry. Current army value for defender:" + defender.getTotalValue() );
+                defender.forfeit();
+            }
+        }
+
+/*
         if( attacker.getOwner().isBoosted() ) { // attacker is boosted!
             attRoll = dice.rollBiasedDice();
         } else {
@@ -79,10 +137,13 @@ public class CombatManager {
             System.out.println( "Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue() );
             attacker.forfeit(); //May change: consider how the loss will be calculated!
         }
+ */
 
-        int results[] = new int[2];
-        results[0] = attRoll;
-        results[1] = defRoll;
+        int results[] = new int[attackerDiceNumber+defenderDiceNumber];
+        System.arraycopy(attRolls,0,results,0,attackerDiceNumber);
+        System.arraycopy(defRolls,0,results,attackerDiceNumber,defenderDiceNumber);
+        //results[0] = attRoll;
+        //results[1] = defRoll;
 
         return results;
     }
