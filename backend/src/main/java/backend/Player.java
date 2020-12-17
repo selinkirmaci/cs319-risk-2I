@@ -14,7 +14,6 @@ public class Player {
     private final String name;
     private Avatar avatar;
     private Hand hand;
-    private boolean underAttack;
     private ArrayList<Continent> gainedContinents;
     private ArrayList<Territory> gainedTerritories;
     private final int playerId;
@@ -23,6 +22,7 @@ public class Player {
     private Color colorOfPlayer;
     private int tradeCount;
     private int secretMission;
+    private boolean boosted;
     
     public Player( String name, Avatar avatar, int infantryAmt, int playerId ) {
         this.name = name;
@@ -35,6 +35,7 @@ public class Player {
         hasLost = false;
         won = false;
         tradeCount = 0;
+        boosted = false;
     }
 
     public void winGame() {
@@ -257,6 +258,11 @@ public class Player {
         chosenTerritory.getArmy().makeImmune();
     }
 
+    // increases your chance of winning during an attack
+    private void tradePowerboostCard() {
+        boosted = true;
+    }
+
     public int getSecretMission() {
         return secretMission;
     }
@@ -266,5 +272,13 @@ public class Player {
     public int getTradeCount()
     {
         return tradeCount;
+    }
+
+    public boolean isBoosted() {
+        return boosted;
+    }
+
+    public void unBoost() {
+        boosted = false;
     }
 }

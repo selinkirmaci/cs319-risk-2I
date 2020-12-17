@@ -44,6 +44,8 @@ public class CombatManager {
                 attacker.forfeit(); //May change: consider how the loss will be calculated!
                 System.out.println( "Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue() );
             }
+
+            attacker.getOwner().unBoost(); // boost ends
         }
 
     }
@@ -57,7 +59,12 @@ public class CombatManager {
             return null;
         }
 
-        attRoll = dice.rollDice();
+        if( attacker.getOwner().isBoosted() ) { // attacker is boosted!
+            attRoll = dice.rollBiasedDice();
+        } else {
+            attRoll = dice.rollDice();
+        }
+
         defRoll = dice.rollDice();
 
         System.out.println( "Attacker rolled:" + attRoll );
