@@ -61,17 +61,17 @@ public class Army {
 
     //reduce ONE infantry from the army
     public void forfeit() {
-        // TODO this is very inefficient for now. We might improve this eger firsat kalirsa
-        for( int i = 0; i < troops.size(); i++ ) {
-            Troop t = troops.get(i);
-
-            if( t instanceof Infantry ) {
-                troops.remove(i); //delete the infantry
-                break;
-            }
-        }
-
+        Troop t = troops.get(0);
+        troops.remove(0);
         infantryAmt--;
+        computeTotalValue(troops);
+    }
+
+    public void forfeitMultiple( int loss ) {
+        for( int i = 0; i < loss; i++ ) {
+            troops.remove(i);
+            infantryAmt--;
+        }
         computeTotalValue(troops);
     }
 

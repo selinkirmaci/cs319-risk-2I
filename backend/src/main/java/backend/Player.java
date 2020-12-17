@@ -200,23 +200,21 @@ public class Player {
     // 4: powerboost
     // 5: rebellio
     // Returns true if the curse card is traded succesfully.
-    // TODO:
-    public boolean tradeCurseCard( CurseCard curseCard, Game game ) {
+    // You might pass null into chosenTerritory parameter if the card type is celebration or powerboost
+    public boolean tradeCurseCard( CurseCard curseCard, Game game, Territory chosenTerritory ) {
         int cardType = curseCard.getValue();
 
         if( cardType == 1 ) { // celebration
-            if( tradeCelebrationCard(game) ) {
-                hand.removeUsedCurseCard(curseCard);
-            } else {
-                return false; // trade unsuccesful
-            }
+            tradeCelebrationCard(game);
+            hand.removeUsedCurseCard(curseCard);
+            return true;
         } else if( cardType == 2 ) { // epidemic
+            tradeEpidemicCard(chosenTerritory);
+        } else if( cardType == 3 ) { // immunity
 
-        } else if( cardType == 2 ) { // immunity
+        } else if( cardType == 4 ) { // powerboost
 
-        } else if( cardType == 2 ) { // powerboost
-
-        } else if( cardType == 2 ) { // rebellio
+        } else if( cardType == 5 ) { // rebellio
 
         }
 
@@ -226,9 +224,35 @@ public class Player {
 
     // Collect celebration card
     // Returns true if the celebration card is traded succesfully.
-    private boolean tradeCelebrationCard( Game game ) {
-        // TODO
-        return true;
+    // Collect 3 soldiers from other players.
+    private void tradeCelebrationCard( Game game ) {
+        // player that used the card
+        Player currentPlayer = game.getPlayers()[game.getCurrentPlayerTurn()];
+
+        for( int i = 0; i < game.getPlayers().length; i++ ) {
+            Player curr = game.getPlayers()[i];
+            // pass if current player has lost or does not have 3 infantries
+            if( (curr.hasLost()) || (curr.getInfantryAmt() < 3) ) {
+                continue;
+            }
+
+            curr.useInfantries(3); // remove 3 infantries from curr
+            currentPlayer.addInfantries(3); // add 3 infantries to the player that used the card
+        }
+    }
+
+    // Destroy 4 soldiers from chosen enemy territory
+    // If enemy territory has LTE 4 soldiers, make damage until 1 enemy is left.
+    private void tradeEpidemicCard( Territory chosenTerritory ) {
+        if( chosenTerritory.getArmy().getTotalValue() <= 4 ) {
+            chosenTerritory.getArmy().forfeitMultiple( chosenTerritory.getArmy().getTotalValue() - 1 );
+        } else {
+            chosenTerritory.getArmy().forfeitMultiple( 4 );
+        }
+    }
+
+    private void tradeImmunityCard( Territory chosenTerritory ) {
+
     }
 
     public int getSecretMission() {
