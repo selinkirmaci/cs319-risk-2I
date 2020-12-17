@@ -130,5 +130,9 @@ public class Hand {
         }
     }
 
+    public void removeUsedCurseCard( CurseCard card ) {
+        this.cards.remove(card);
+    }
+
 
 }

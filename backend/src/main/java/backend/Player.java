@@ -193,10 +193,47 @@ public class Player {
         return infantryAmt;
     }
 
+    // Trade given curse card
+    // 1: celebration
+    // 2: epidemic
+    // 3: immunity
+    // 4: powerboost
+    // 5: rebellio
+    // Returns true if the curse card is traded succesfully.
+    // TODO:
+    public boolean tradeCurseCard( CurseCard curseCard, Game game ) {
+        int cardType = curseCard.getValue();
+
+        if( cardType == 1 ) { // celebration
+            if( tradeCelebrationCard(game) ) {
+                hand.removeUsedCurseCard(curseCard);
+            } else {
+                return false; // trade unsuccesful
+            }
+        } else if( cardType == 2 ) { // epidemic
+
+        } else if( cardType == 2 ) { // immunity
+
+        } else if( cardType == 2 ) { // powerboost
+
+        } else if( cardType == 2 ) { // rebellio
+
+        }
+
+        return false;
+    }
+
+
+    // Collect celebration card
+    // Returns true if the celebration card is traded succesfully.
+    private boolean tradeCelebrationCard( Game game ) {
+        // TODO
+        return true;
+    }
+
     public int getSecretMission() {
         return secretMission;
     }
-
     public void setSecretMission(int secretMission) {
         this.secretMission = secretMission;
     }

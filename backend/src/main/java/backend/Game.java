@@ -165,10 +165,16 @@ public class Game {
 
     // passes the turn to the other player
     public void passTurn() {
-        // TODO: Pass lost players
         currentPlayerTurn++;
         currentPlayerTurn = currentPlayerTurn % playerAmt;
         Player currPlayer = players[currentPlayerTurn];
+
+        // Pass lost players
+        if( currPlayer.hasLost() ) {
+            passTurn();
+            return;
+        }
+
         System.out.println( "**** Turn of player: " + currPlayer.getName() + " ****" );
         startTurn(currPlayer); //start the turn of current player
         currPlayer.getHand().tryGettingCurseCard(); // try to get immunity card
@@ -289,11 +295,23 @@ public class Game {
         }
     }
 
-    /* if the player has all of the continents, the player wins */
+    /* if a player has all of the continents, that player wins */
     private void checkIfWon( Player p ) {
         if( p.getGainedContinents().size() == 7 ) {
             p.winGame();
         }
+    }
+
+    // returns winner if anyone won, null otherwise
+    public Player checkIfAnyoneWon() {
+        for( int i = 0; i < playerAmt; i++ ) {
+            Player curr = players[currentPlayerTurn];
+            if( curr.getGainedContinents().size() == 7 ) {
+                curr.hasWon();
+                return curr;
+            }
+        }
+        return null;
     }
 
 
@@ -301,8 +319,10 @@ public class Game {
     /* returns true if the game is ended */
     private boolean checkTermination() {
         for( int i = 0; i < playerAmt; i++ ) {
-            // TODO: write termination conditions i.e. total game duration has ended( may be 10 mins )
-            // or a player won the game etc.
+            if( players[i].hasWon() ) { // end the game if a player won the game
+                return true;
+            }
+            // TODO: may write other termination conditions i.e. total game duration has ended( may be 10 mins )
         }
 
         return false;
@@ -350,6 +370,5 @@ public class Game {
     public int getTradeCount() {
         return tradeCount;
     }
-    
     
 }
