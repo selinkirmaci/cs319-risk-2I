@@ -207,18 +207,19 @@ public class Player {
         if( cardType == 1 ) { // celebration
             tradeCelebrationCard(game);
             hand.removeUsedCurseCard(curseCard);
-            return true;
         } else if( cardType == 2 ) { // epidemic
             tradeEpidemicCard(chosenTerritory);
         } else if( cardType == 3 ) { // immunity
-
+            tradeImmunityCard(chosenTerritory);
         } else if( cardType == 4 ) { // powerboost
 
         } else if( cardType == 5 ) { // rebellio
 
+        } else {
+            return false;
         }
 
-        return false;
+        return true;
     }
 
 
@@ -251,8 +252,9 @@ public class Player {
         }
     }
 
+    // enemies cant attack to your chosen territory for 3 rounds
     private void tradeImmunityCard( Territory chosenTerritory ) {
-
+        chosenTerritory.getArmy().makeImmune();
     }
 
     public int getSecretMission() {

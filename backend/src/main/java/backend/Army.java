@@ -12,12 +12,27 @@ public class Army {
     private int totalValue; //total value of all of the troops in this army
     private Player owner; //owner of the army
     private int infantryAmt = 0;
+    private int immuneTurnCount;
     
     public Army( ArrayList<Troop> troops, Player owner ) {
+        immuneTurnCount = 0;
         this.owner = owner;
         this.troops = troops;
         computeTotalValue( troops );
         computeTroopAmts( troops );
+    }
+
+    // make immune for 3 turns
+    public void makeImmune() {
+        immuneTurnCount = 3;
+    }
+
+    public int getImmuneTurnCount() {
+        return immuneTurnCount;
+    }
+
+    public void reduceImmuneTurnCount() {
+        immuneTurnCount--;
     }
     
     //return total value of the army in terms of infantries

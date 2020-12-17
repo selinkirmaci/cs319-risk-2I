@@ -22,6 +22,7 @@ public class Game {
     private int initialTroopAmt; //initial troop amount for each player
     private final int CONTINENT_AMT = 7;
     private int tradeCount;
+    private ArrayList<Territory> currentlyImmuneTerritories;
     
     public Game( int playerAmt, Player[] players, String mapFilePath, String cardsFilePath ) {
         this.secretMissionModOn = false;
@@ -32,6 +33,7 @@ public class Game {
         initialTroopAmt = players[0].getInfantryAmt();
         initMap( mapFilePath );
         initCards();
+        currentlyImmuneTerritories = new ArrayList<>();
 
         initialTurn();
         startTurn(players[0]); // start the turn of first player( add infantries )
@@ -40,6 +42,26 @@ public class Game {
         currentPlayerTurn = 0;
         tradeCount = 0;
         turnType = "draft";
+    }
+
+    public void addImmuneTerritory( Territory t ) {
+        currentlyImmuneTerritories.add(t);
+    }
+
+    public void removeImmuneTerritory( Territory t ) {
+        currentlyImmuneTerritories.remove(t);
+    }
+
+    // this gets called beginning of every turn and decreases the immunity count of
+    // the territories that are currently immune and removes the territories whose immunities are ended
+    public void decreaseImmunityCounts() {
+        for( int i = 0; i < currentlyImmuneTerritories.size(); i++ ) {
+            Territory curr = currentlyImmuneTerritories.get(i);
+            if( curr.getArmy().getImmuneTurnCount() == 0 ) {
+                removeImmuneTerritory(curr);
+            }
+            curr.getArmy().reduceImmuneTurnCount();
+        }
     }
     
     
@@ -164,6 +186,8 @@ public class Game {
 
 
     // passes the turn to the other player
+    // checks if any territory is immune and if there is an immune territory,
+    // decrease its round count
     public void passTurn() {
         currentPlayerTurn++;
         currentPlayerTurn = currentPlayerTurn % playerAmt;
@@ -178,6 +202,10 @@ public class Game {
         System.out.println( "**** Turn of player: " + currPlayer.getName() + " ****" );
         startTurn(currPlayer); //start the turn of current player
         currPlayer.getHand().tryGettingCurseCard(); // try to get immunity card
+
+        decreaseImmunityCounts();
+        System.out.println( "Currently immune territories: " + currentlyImmuneTerritories.toString() );
+
     }
     
     /* add troops to the already owned territories
