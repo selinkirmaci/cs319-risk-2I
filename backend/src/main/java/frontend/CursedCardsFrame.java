@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.Card;
+import backend.CurseCard;
 import backend.Hand;
 import backend.Player;
 
@@ -20,7 +21,7 @@ public class CursedCardsFrame extends JFrame implements ActionListener
     private JButton[] cards;
     private int cardNumber;
     private JPanel gridPanel;
-    private ArrayList<Card> playersCards;
+    private ArrayList<CurseCard> playersCards;
     private Player currPlayer;
     private backend.Game game;
     public CursedCardsFrame( backend.Game game)
@@ -33,9 +34,9 @@ public class CursedCardsFrame extends JFrame implements ActionListener
         this.currPlayer = game.getPlayers()[game.getCurrentPlayerTurn()];
         this.game = game;
 
-        cardNumber = currPlayer.getHand().getSize();
+        cardNumber = currPlayer.getHand().getCurseCards().size();
         cards = new JButton[cardNumber];
-        playersCards = currPlayer.getHand().getCards();
+        playersCards = currPlayer.getHand().getCurseCards();
 
         gridPanel = new JPanel();
         gridPanel.setLayout(new GridLayout(3,3));
@@ -63,7 +64,7 @@ public class CursedCardsFrame extends JFrame implements ActionListener
             gridPanel.add(tmp);
         }
         cardNumberInfo = new JLabel();
-        cardNumberInfo.setText("You have "+cardNumber+" cursed cards.");
+        cardNumberInfo.setText("You have " + cardNumber + " cursed cards.");
         cardNumberInfo.setBounds(5,5,300,100);
         cardNumberInfo.setFont(new Font(Font.SERIF,Font.BOLD,30));
         cardNumberInfo.setForeground(Color.BLUE);
@@ -77,6 +78,23 @@ public class CursedCardsFrame extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-
+        if(e.getSource() == tradeCards) {
+            // should call this method based on the chosen card's type( boost, immunity etc. )
+            // you can pass null to unused parameters( e.g. chosenTerritory and chosenPlayer should be null in boost )
+            // when epidemic card is attempted to trade, game should ask the player to choose a territory to attack, and then
+            // call this function with the chosenTerritory.
+            // when rebellion card is attempted to trade, game should ask the player to choose an enemy player,
+            // and pass this player as parameter in the function below
+            bool tradeSuccess = game.curseCardTurn( /*CurseCard curseCard, Territory chosenTerritory, Player chosenPlayer*/ );
+            if( tradeSuccess == false ) {
+                //problem because of the null frame
+                JOptionPane.showMessageDialog(null, "Trade request invalid!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Trade successful.");
+                // should also update player's current infantry amount
+                validate(); // or update this panel, because otherwise used cards will still be visible
+                repaint();
+            }
+        }
     }
 }

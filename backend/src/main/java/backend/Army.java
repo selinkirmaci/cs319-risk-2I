@@ -76,6 +76,10 @@ public class Army {
 
     //reduce ONE infantry from the army
     public void forfeit() {
+        if( troops.size() == 0 ) {
+            return;
+        }
+
         Troop t = troops.get(0);
         troops.remove(0);
         infantryAmt--;

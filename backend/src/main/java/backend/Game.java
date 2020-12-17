@@ -184,10 +184,10 @@ public class Game {
 
     }
 
-
     // passes the turn to the other player
     // checks if any territory is immune and if there is an immune territory,
     // decrease its round count
+    // if a player has rebellion, pass that player's turn too
     public void passTurn() {
         currentPlayerTurn++;
         currentPlayerTurn = currentPlayerTurn % playerAmt;
@@ -195,6 +195,10 @@ public class Game {
 
         // Pass lost players
         if( currPlayer.hasLost() ) {
+            passTurn();
+            return;
+        } else if( currPlayer.isHasRebellion() ) {
+            currPlayer.endRebellion();
             passTurn();
             return;
         }
@@ -293,6 +297,11 @@ public class Game {
         System.out.println("Player " + p.getName() + " gained " + gained + " infantries from trading.");
         p.addInfantries(gained); // add gained infantries to player
         return true;
+    }
+
+    public boolean curseCardTurn( CurseCard curseCard, Territory chosenTerritory, Player chosenPlayer ) {
+        Player p = players[currentPlayerTurn];
+        return p.tradeCurseCard(curseCard, this, chosenTerritory, chosenPlayer );
     }
 
     // Gets called during a war. Defender player requests alliance from a player other than the attacker.

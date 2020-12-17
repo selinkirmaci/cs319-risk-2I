@@ -23,6 +23,7 @@ public class Player {
     private int tradeCount;
     private int secretMission;
     private boolean boosted;
+    private boolean hasRebellion;
     
     public Player( String name, Avatar avatar, int infantryAmt, int playerId ) {
         this.name = name;
@@ -36,6 +37,7 @@ public class Player {
         won = false;
         tradeCount = 0;
         boosted = false;
+        hasRebellion = false;
     }
 
     public void winGame() {
@@ -186,7 +188,7 @@ public class Player {
             infantryAmt = (tradeCount + 1) * 5;
 
             // remove the used cards
-            hand.removeUsedCards(toTrade);
+            hand.removeUsedTerritoryCards(toTrade);
 
             this.tradeCount++;
         }
@@ -202,24 +204,24 @@ public class Player {
     // 5: rebellio
     // Returns true if the curse card is traded succesfully.
     // You might pass null into chosenTerritory parameter if the card type is celebration or powerboost
-    public boolean tradeCurseCard( CurseCard curseCard, Game game, Territory chosenTerritory ) {
+    public boolean tradeCurseCard( CurseCard curseCard, Game game, Territory chosenTerritory, Player chosenPlayer ) {
         int cardType = curseCard.getValue();
 
         if( cardType == 1 ) { // celebration
             tradeCelebrationCard(game);
-            hand.removeUsedCurseCard(curseCard);
         } else if( cardType == 2 ) { // epidemic
             tradeEpidemicCard(chosenTerritory);
         } else if( cardType == 3 ) { // immunity
             tradeImmunityCard(chosenTerritory);
         } else if( cardType == 4 ) { // powerboost
-
+            tradePowerboostCard();
         } else if( cardType == 5 ) { // rebellio
-
+            tradeRebellionCard(chosenPlayer);
         } else {
             return false;
         }
 
+        hand.removeUsedCurseCard(curseCard);
         return true;
     }
 
@@ -263,6 +265,11 @@ public class Player {
         boosted = true;
     }
 
+    // chosen player cannot play for one round
+    private void tradeRebellionCard( Player p ) {
+        p.hasRebellion = true;
+    }
+
     public int getSecretMission() {
         return secretMission;
     }
@@ -280,5 +287,13 @@ public class Player {
 
     public void unBoost() {
         boosted = false;
+    }
+
+    public boolean isHasRebellion() {
+        return hasRebellion;
+    }
+
+    public void endRebellion() {
+        hasRebellion = false;
     }
 }

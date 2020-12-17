@@ -5,17 +5,24 @@ import java.util.Random;
 
 public class Hand {
 
-    private ArrayList<Card> cards;
+    private ArrayList<TerritoryCard> territoryCards;
+    private ArrayList<CurseCard> curseCards;
 
     Hand() {
-        cards = new ArrayList<Card>();
+        territoryCards = new ArrayList<TerritoryCard>();
+        curseCards = new ArrayList<CurseCard>();
     }
 
     public void addCard( Card card ) {
-        cards.add(card);
+        if( card instanceof TerritoryCard ) {
+            territoryCards.add((TerritoryCard) card);
+        } else {
+            curseCards.add((CurseCard) card);
+        }
     }
 
-    public ArrayList<Card> getCards(){return cards;}
+    public ArrayList<TerritoryCard> getTerritoryCards(){ return territoryCards; }
+    public ArrayList<CurseCard> getCurseCards(){ return curseCards; }
 
     /* return random number between min-max both inclusive */
     private static int getRandomNumberInRange(int min, int max) {
@@ -38,7 +45,7 @@ public class Hand {
 
         // choose one curse card randomly
         int randomType = getRandomNumberInRange(1, 5);
-        Card chosenCard = null;
+        CurseCard chosenCard = null;
 
         switch(randomType) {
             case 1:
@@ -62,29 +69,27 @@ public class Hand {
         int random = getRandomNumberInRange(0, 9);
         if( random == 0 ) {
             System.out.println( "Gained " + chosenCard.getName() );
-            cards.add(chosenCard); // add immunity card to hand
+            curseCards.add(chosenCard); // add immunity card to hand
         }
     }
 
     public Card getCard(String cardName)
     {
-        for(int i = 0; i<cards.size();i++)
-        {
-            if(cards.get(i).getName() == cardName)
-            {
-                return cards.get(i);
+        for( int i = 0; i < territoryCards.size(); i++ ) {
+            if( territoryCards.get(i).getName() == cardName ) {
+                return territoryCards.get(i);
             }
         }
         return null;
     }
-    public int getSize()
-    {
-        return cards.size();
+
+    public int getSize() {
+        return territoryCards.size();
     }
 
     public void printHand() {
-        for( int i = 0; i < cards.size(); i++ ) {
-            System.out.println(cards.get(i).getName());
+        for( int i = 0; i < territoryCards.size(); i++ ) {
+            System.out.println(territoryCards.get(i).getName());
         }
     }
 
@@ -124,14 +129,14 @@ public class Hand {
         return false;
     }
 
-    public void removeUsedCards( ArrayList<Card> cards ) {
+    public void removeUsedTerritoryCards( ArrayList<Card> cards ) {
         for( int i = 0; i < cards.size(); i++ ) {
-            this.cards.remove(cards.get(i));
+            this.territoryCards.remove(cards.get(i));
         }
     }
 
     public void removeUsedCurseCard( CurseCard card ) {
-        this.cards.remove(card);
+        this.curseCards.remove(card);
     }
 
 

@@ -3,6 +3,7 @@ package frontend;
 import backend.Card;
 import backend.Hand;
 import backend.Player;
+import backend.TerritoryCard;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,7 +21,7 @@ public class CardPanel extends JFrame implements ActionListener
     private JButton[] cards;
     private int cardNumber;
     private JPanel gridPanel;
-    private ArrayList<Card> playersCards;
+    private ArrayList<TerritoryCard> playersCards;
     private JLabel tradeCountLabel;
     private String firstCard,secondCard,thirdCard;
     private JButton firstCardButton,secondCardButton,thirdCardButton;
@@ -48,7 +49,7 @@ public class CardPanel extends JFrame implements ActionListener
 
         cardNumber = currPlayer.getHand().getSize();
         cards = new JButton[cardNumber];
-        playersCards = currPlayer.getHand().getCards();
+        playersCards = currPlayer.getHand().getTerritoryCards();
         gridPanel = new JPanel();
         gridPanel.setLayout(new GridLayout(3,7));
         gridPanel.setBounds(10,100,1190,750);
