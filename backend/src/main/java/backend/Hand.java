@@ -103,9 +103,9 @@ public class Hand {
         for( int i = 0; i < cards.size(); i++ ) {
             if( cards.get(i) instanceof TerritoryCard ) {
                 String cardName = cards.get(i).getName();
-                if( cardName.substring(cardName.indexOf("_") + 1).equals("inf") ) {
+                if( cardName.substring(cardName.indexOf("_") + 1).equals("infantry") ) {
                     inf++;
-                } else if( cardName.substring(cardName.indexOf("_") + 1).equals("calv") ) {
+                } else if( cardName.substring(cardName.indexOf("_") + 1).equals("calvary") ) {
                     c++;
                 } else {
                     a++;

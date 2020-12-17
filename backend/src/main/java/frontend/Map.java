@@ -41,6 +41,7 @@ import backend.*;
 public class Map extends JFrame implements ActionListener {
     private JPanel mainPanel;
     private SecretMissionFrame secretMissionFrame;
+    private CursedCardsFrame cursedCardsFrame;
     private JLayeredPane settingPane;
     private JPanel panel1 = new JPanel();
     private JLabel player1 = new JLabel();
@@ -98,7 +99,7 @@ public class Map extends JFrame implements ActionListener {
     JButton cancelAttack,rollDiceButton,allianceButton,decreaseDice,increaseDice;
     String chosenTerritory;
     JLabel firstDiceSet,secondDiceSet,thirdDiceSet,forthDiceSet,fifthDiceSet;
-    JButton cardInfoPanelButton;
+    JButton cardInfoPanelButton,cursedCardInfoFrameButton;
     int diceNumberLeft = 3;
     CardPanel cardPanel;
 
@@ -430,6 +431,15 @@ public class Map extends JFrame implements ActionListener {
         secretMissionCard.setVisible(game.getSecretMissionMod());
         background.add(secretMissionCard);
 
+        cursedCardInfoFrameButton = new JButton("CURSED CARDS");
+        cursedCardInfoFrameButton.setName("CURSED CARDS");
+        cursedCardInfoFrameButton.setBounds(500, 930, 150, 50);
+        cursedCardInfoFrameButton.setContentAreaFilled(true);
+        cursedCardInfoFrameButton.setBorderPainted(true);
+        cursedCardInfoFrameButton.setEnabled(true);
+        cursedCardInfoFrameButton.addActionListener(this);
+        background.add(cursedCardInfoFrameButton);
+
         retreatButton = new JButton("RETREAT");
         retreatButton.setBounds(880, 880, 150, 50);
         retreatButton.setContentAreaFilled(true);
@@ -492,7 +502,8 @@ public class Map extends JFrame implements ActionListener {
 
         if( (e.getSource() != pauseButton) &&
                 (e.getSource() != attackButton) && (e.getSource() != retreatButton)
-                && (e.getSource() != rollDiceButton) && (e.getSource() != allianceButton) && (e.getSource() != secretMissionCard))
+                && (e.getSource() != rollDiceButton) && (e.getSource() != allianceButton)
+                && (e.getSource() != secretMissionCard)&& (e.getSource() != cursedCardInfoFrameButton))
         {
             JButton tmp = (JButton) e.getSource();
             if(setFrom) {
@@ -881,11 +892,28 @@ public class Map extends JFrame implements ActionListener {
             cardPanel = new CardPanel(game);
             cardPanel.setVisible(true);
             cardPanel.setTitle("Risk");
-            //cardPanel.setPreferredSize(new Dimension(1150,830)); //1570,800
             cardPanel.setResizable(false);
             cardPanel.pack();
-            //this.setVisible(false);
-            //background.add(cardPanel);
+            cardPanel.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    updateTurnColor();
+                    System.out.println("car panel is closed");
+                }
+            });
+        }
+        if(e.getSource() == cursedCardInfoFrameButton)
+        {
+            cursedCardsFrame = new CursedCardsFrame(game);
+            cursedCardsFrame.setVisible(true);
+            cursedCardsFrame.setTitle("Risk");
+            cursedCardsFrame.setResizable(false);
+            cursedCardsFrame.pack();
+            cursedCardsFrame.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    updateTurnColor();
+                    System.out.println("car panel is closed");
+                }
+            });
         }
         repaint();
         //pack();
@@ -953,6 +981,10 @@ public class Map extends JFrame implements ActionListener {
                 territories[i].setText("" + map.getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
                 Player p = map.getTerritoryFromName(territories[i].getName()).getArmy().getOwner();
                 territories[i].setForeground(p.getColor());
+                if( map.getTerritoryFromName(territories[i].getName()).getArmy().getImmuneTurnCount() >0 )
+                    territories[i].setEnabled(false);
+                else
+                    territories[i].setEnabled(true);
             }
             mainPanel.add(territories[i]);
         }

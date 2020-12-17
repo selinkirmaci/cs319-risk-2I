@@ -144,14 +144,14 @@ public class Player {
     public void getTerritoryCard( Territory t, CardLibrary cardLib ) {
         ArrayList<Card> cards = new ArrayList<>();
         int typeCount = 0;
-        if( cardLib.territoryCardExists(t.getName() + "_inf") ) { // infantry card exists
-            cards.add(cardLib.getCard(t.getName() + "_inf"));
+        if( cardLib.territoryCardExists(t.getName() + "_infantry") ) { // infantry card exists
+            cards.add(cardLib.getCard(t.getName() + "_infantry"));
         }
-        if( cardLib.territoryCardExists(t.getName() + "_calv") ) { // calvary card exists
-            cards.add(cardLib.getCard(t.getName() + "_calv"));
+        if( cardLib.territoryCardExists(t.getName() + "_calvary") ) { // calvary card exists
+            cards.add(cardLib.getCard(t.getName() + "_calvary"));
         }
-        if( cardLib.territoryCardExists(t.getName() + "_arty") ) { // artillery card exists
-            cards.add(cardLib.getCard(t.getName() + "_arty"));
+        if( cardLib.territoryCardExists(t.getName() + "_artillery") ) { // artillery card exists
+            cards.add(cardLib.getCard(t.getName() + "_artillery"));
         }
 
         if( cards.size() == 0 ) { // no card left

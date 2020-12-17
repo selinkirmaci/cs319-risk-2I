@@ -25,9 +25,9 @@ public class CardLibrary {
         for( int i = 0; i < map.getContinents().size(); i++ ) { // each continent
             for( int j = 0; j < map.getContinents().get(i).getTerritories().size(); j++ ) { // each territory
                 Territory curr = map.getContinents().get(i).getTerritories().get(j);
-                Card territoryCardInf = new TerritoryCard(curr.getName() + "_inf", 1, curr); // infantry card
-                Card territoryCardCalv = new TerritoryCard(curr.getName() + "_calv", 5, curr); // calvary card
-                Card territoryCardArty = new TerritoryCard(curr.getName() + "_arty", 10, curr); // artillery card
+                Card territoryCardInf = new TerritoryCard(curr.getName() + "_infantry", 1, curr); // infantry card
+                Card territoryCardCalv = new TerritoryCard(curr.getName() + "_calvary", 5, curr); // calvary card
+                Card territoryCardArty = new TerritoryCard(curr.getName() + "_artillery", 10, curr); // artillery card
                 territoryCards.put(territoryCardInf.getName(), territoryCardInf);
                 territoryCards.put(territoryCardCalv.getName(), territoryCardCalv);
                 territoryCards.put(territoryCardArty.getName(), territoryCardArty);

@@ -30,8 +30,8 @@ public class CardPanel extends JFrame implements ActionListener
     public CardPanel( backend.Game game)
     {
         setLayout(null);
-        setPreferredSize(new Dimension(1200,600));
-        setBounds(105,105,400,400);
+        setPreferredSize(new Dimension(1200,900));
+        setBounds(10,50,400,400);
         setBackground(Color.lightGray);
 
         this.currPlayer = game.getPlayers()[game.getCurrentPlayerTurn()];
@@ -50,19 +50,19 @@ public class CardPanel extends JFrame implements ActionListener
         cards = new JButton[cardNumber];
         playersCards = currPlayer.getHand().getCards();
         gridPanel = new JPanel();
-        gridPanel.setLayout(new GridLayout(2,10));
-        gridPanel.setBounds(15,100,800,400);
+        gridPanel.setLayout(new GridLayout(3,7));
+        gridPanel.setBounds(10,100,1190,750);
         backToGame = new JButton("BACK");
-        backToGame.setBounds(0,550,1200,25);
+        backToGame.setBounds(0,850,1200,25);
         backToGame.addActionListener(this);
 
         tradeCards = new JButton("TRADE");
-        tradeCards.setBounds(1000,500,100,40);
+        tradeCards.setBounds(1000,10,100,40);
         tradeCards.addActionListener(this);
 
         tradeCountLabel = new JLabel();
         tradeCountLabel.setText("There has been a total of " + game.getTradeCount() + " trades before.");
-        tradeCountLabel.setBounds(810,20,400,40);
+        tradeCountLabel.setBounds(5,10,650,40);
         tradeCountLabel.setFont(new Font(Font.SERIF,Font.BOLD,30));
         tradeCountLabel.setForeground(Color.BLUE);
 
@@ -71,9 +71,10 @@ public class CardPanel extends JFrame implements ActionListener
 
         for(int i = 0; i < cardNumber;i++)
         {
-            Icon icon = new ImageIcon("./src/main/resources/images/card_photo.PNG");
-            JButton tmp = new JButton(playersCards.get(i).getName());
+            Icon icon = new ImageIcon("./src/main/resources/images/territoryCards/"+(playersCards.get(i).getName()).toLowerCase().trim()+".png");
+            JButton tmp = new JButton();
             tmp.setName(playersCards.get(i).getName());
+            tmp.setIcon(icon);
             tmp.addActionListener(this);
             tmp.setBackground(Color.lightGray);
             gridPanel.add(tmp);
@@ -89,6 +90,10 @@ public class CardPanel extends JFrame implements ActionListener
         add(tradeCountLabel);
         add(gridPanel);
     }
+    public int getTrade()
+    {
+        return 1;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -96,6 +101,7 @@ public class CardPanel extends JFrame implements ActionListener
         if(e.getSource() != backToGame && e.getSource()!=tradeCards)
         {
             JButton cardButton = (JButton) e.getSource();
+            System.out.println(cardButton.getName());
             if(numberOfCardsChosen == 0)
             {
                 firstCardButton.setBackground(Color.lightGray);
@@ -140,7 +146,8 @@ public class CardPanel extends JFrame implements ActionListener
             } else {
                 JOptionPane.showMessageDialog(null, "Trade successful.");
                 // should also update player's current infantry amount
-                dispose(); // or update this panel, because otherwise used cards will still be visible
+                validate(); // or update this panel, because otherwise used cards will still be visible
+                repaint();
             }
         }
     }
