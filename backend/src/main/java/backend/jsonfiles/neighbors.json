@@ -1,0 +1,99 @@
+[
+  {
+    "name": "Raken",
+    "neighbors": [
+      "Klinos",
+      "Nosra",
+      "Perleninsel"
+    ]
+  },
+  {
+    "name": "Klinos",
+    "neighbors": [
+      "Ost-Klina",
+      "Raken"
+    ]
+  },
+  {
+    "name": "Ost-Klina",
+    "neighbors": [
+      "Sumbraspitze",
+      "Nosra"
+    ]
+  },
+  {
+    "name": "Nosra",
+    "neighbors": [
+      "Ost-Klina",
+      "Raken"
+    ]
+  },
+  {
+    "name": "Nord-Ziegelsand",
+    "neighbors": [
+      "Graue Ebene",
+      "Nosra",
+      "Ziegelherz",
+      "Ziegelsand"
+    ]
+  },
+  {
+    "name": "Sumbraspitze",
+    "neighbors": [
+      "Ost-Klina",
+      "Nosptenburg"
+    ]
+  },
+  {
+    "name": "Nosptenburg",
+    "neighbors": [
+      "Graue Ebene",
+      "Sumbraspitze"
+    ]
+  },
+  {
+    "name": "Graue Ebene",
+    "neighbors": [
+      "Nord-Ziegelsand",
+      "Eden"
+    ]
+  },
+  {
+    "name": "Hoiawald",
+    "neighbors": [
+      "Nosptenburg",
+      "Rorschachwall",
+      "Bakanwald"
+    ]
+  },
+  {
+    "name": "Rorschachwall",
+    "neighbors": [
+      "Bakanwald",
+      "Hoiawald"
+    ]
+  },
+  {
+    "name": "Bakanwald",
+    "neighbors": [
+      "Schwarzfeld",
+      "Rorschachwall",
+      "Hoiawald"
+    ]
+  },
+  {
+    "name": "Schwarzfeld",
+    "neighbors": [
+      "Waithenland",
+      "Mimiken",
+      "Bakanwald"
+    ]
+  },
+  {
+    "name": "Mimiken",
+    "neighbors": [
+      "Schwarzfeld",
+      "Windbergen"
+    ]
+  }
+]

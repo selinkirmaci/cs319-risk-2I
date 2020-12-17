@@ -84,9 +84,9 @@ public class CursedCardsFrame extends JFrame implements ActionListener
             // when epidemic card is attempted to trade, game should ask the player to choose a territory to attack, and then
             // call this function with the chosenTerritory.
             // when rebellion card is attempted to trade, game should ask the player to choose an enemy player,
-            // and pass this player as parameter in the function below
-            bool tradeSuccess = game.curseCardTurn( /*CurseCard curseCard, Territory chosenTerritory, Player chosenPlayer*/ );
-            if( tradeSuccess == false ) {
+            // and pass chosen player as parameter in the function below
+            //bool tradeSuccess = game.curseCardTurn( /*CurseCard curseCard, Territory chosenTerritory, Player chosenPlayer*/ );
+            if( true/*tradeSuccess == false*/ ) {
                 //problem because of the null frame
                 JOptionPane.showMessageDialog(null, "Trade request invalid!");
             } else {
