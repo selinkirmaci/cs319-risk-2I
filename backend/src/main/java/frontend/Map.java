@@ -96,11 +96,12 @@ public class Map extends JFrame implements ActionListener {
     JButton draftButton;
     JButton secretMissionCard;
     JButton nextPlayerButton;
-    JButton cancelAttack,rollDiceButton,allianceButton,decreaseDice,increaseDice;
+    JButton cancelAttack,rollDiceButton,allianceButton,decreaseDice,increaseDice,decreaseDiceDef,increaseDiceDef;
     String chosenTerritory;
     JLabel firstDiceSet,secondDiceSet,thirdDiceSet,forthDiceSet,fifthDiceSet;
     JButton cardInfoPanelButton,cursedCardInfoFrameButton;
     int diceNumberLeft = 3;
+    int diceNumberLeftDef = 2;
     CardPanel cardPanel;
 
     String from = "";
@@ -187,12 +188,21 @@ public class Map extends JFrame implements ActionListener {
         rollDiceButton.addActionListener(this);
 
         decreaseDice = new JButton("DECREASE DICE NUMBER");
-        decreaseDice.setBounds(720,720,200,50);
+        decreaseDice.setBounds(10,720,200,50);
         decreaseDice.addActionListener(this);
 
         increaseDice = new JButton("INCREASE DICE NUMBER");
-        increaseDice.setBounds(920,720,200,50);
+        increaseDice.setBounds(210,720,200,50);
         increaseDice.addActionListener(this);
+
+        decreaseDiceDef = new JButton("DECREASE DICE NUMBER");
+        decreaseDiceDef.setBounds(720,720,200,50);
+        decreaseDiceDef.addActionListener(this);
+
+        increaseDiceDef = new JButton("INCREASE DICE NUMBER");
+        increaseDiceDef.setBounds(920,720,200,50);
+        increaseDiceDef.addActionListener(this);
+
 
         allianceButton = new JButton("ALLIANCE");
         allianceButton.setBounds(20,720,100,50);
@@ -503,7 +513,10 @@ public class Map extends JFrame implements ActionListener {
         if( (e.getSource() != pauseButton) &&
                 (e.getSource() != attackButton) && (e.getSource() != retreatButton)
                 && (e.getSource() != rollDiceButton) && (e.getSource() != allianceButton)
-                && (e.getSource() != secretMissionCard)&& (e.getSource() != cursedCardInfoFrameButton))
+                && (e.getSource() != secretMissionCard)&& (e.getSource() != cursedCardInfoFrameButton)
+                && (e.getSource() != decreaseDice) && (e.getSource() != increaseDice)
+                && (e.getSource() != decreaseDiceDef) && (e.getSource() != increaseDiceDef)
+        )
         {
             JButton tmp = (JButton) e.getSource();
             if(setFrom) {
@@ -628,6 +641,8 @@ public class Map extends JFrame implements ActionListener {
 
                 decreaseDice.setEnabled(true);
                 increaseDice.setEnabled(true);
+                decreaseDiceDef.setEnabled(true);
+                increaseDiceDef.setEnabled(true);
                 mainPanel.setVisible(false);
                 panel1.setVisible(true);
                 panel1.setLayout(null);
@@ -661,11 +676,14 @@ public class Map extends JFrame implements ActionListener {
 
                 panel1.add(increaseDice);
 
+                panel1.add(decreaseDiceDef);
+                panel1.add(increaseDiceDef);
+
                 panel1.add(firstDiceSet);
-                //panel1.add(secondDiceSet);
-                //panel1.add(thirdDiceSet);
+                panel1.add(secondDiceSet);
+                panel1.add(thirdDiceSet);
                 panel1.add(forthDiceSet);
-                //panel1.add(fifthDiceSet);
+                panel1.add(fifthDiceSet);
                 add(panel1);
             }
 
@@ -685,6 +703,7 @@ public class Map extends JFrame implements ActionListener {
         {
             int[] dices = new int[2];
             playSound("./src/main/resources/sounds/snd_dicethrow.wav",-10.0f);
+
             /*
             int firstdice = (int) (Math.random() * 6) + 1;
             int seconddice = (int) (Math.random() * 6) + 1;
@@ -697,15 +716,13 @@ public class Map extends JFrame implements ActionListener {
             min = Math.min(min,thirddice);
             int medium = Math.min(firstdice,seconddice);
             medium = Math.max(medium,thirddice);
+*/
+            //firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + 1 + ".png"));
+            secondDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + 1 + ".png"));
+            thirdDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + 1 + ".png"));
+            //forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + 1 + ".png"));
+            fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + 1 + ".png"));
 
-            firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + min + ".png"));
-            secondDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + medium + ".png"));
-            thirdDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + max + ".png"));
-            max = Math.max(forthdice,fifthdice);
-            min = Math.min(fifthdice,forthdice);
-            forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + min + ".png"));
-            fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + max + ".png"));
-             */
 
             allianceButton.setEnabled(false);
             decreaseDice.setEnabled(false);
@@ -721,7 +738,7 @@ public class Map extends JFrame implements ActionListener {
             //I think this part should go above close panel operations
             attackerLabel.setText(fromTerr.getArmy().getOwner().getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
             defenderLabel.setText(toTerr.getArmy().getOwner().getName()+" has "+toTerr.getArmy().getTotalValue()+" soldiers");
-            dices = game.getCombatManager().singleAttack( attacker, defender );
+            dices = game.getCombatManager().singleAttack( attacker, defender ,diceNumberLeft);
             firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
             forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
 
@@ -824,15 +841,32 @@ public class Map extends JFrame implements ActionListener {
         if(e.getSource() == increaseDice)
         {
             secondDiceSet.setVisible(true);
+            decreaseDiceDef.setEnabled(true);
+            diceNumberLeft++;
             if(diceNumberLeft == 2)
             {
-                thirdDiceSet.setVisible(true);
-            }
-            decreaseDice.setEnabled(true);
-            diceNumberLeft++;
-            if(diceNumberLeft == 3)
-            {
                 increaseDice.setEnabled(false);
+            }
+        }
+        if(e.getSource() == decreaseDiceDef)
+        {
+            fifthDiceSet.setVisible(false);
+            increaseDiceDef.setEnabled(true);
+            diceNumberLeftDef--;
+            if(diceNumberLeftDef == 1)
+            {
+                decreaseDiceDef.setEnabled(false);
+            }
+        }
+
+        if(e.getSource() == increaseDiceDef)
+        {
+            fifthDiceSet.setVisible(true);
+            decreaseDiceDef.setEnabled(true);
+            diceNumberLeftDef++;
+            if(diceNumberLeftDef == 2)
+            {
+                increaseDiceDef.setEnabled(false);
             }
         }
 

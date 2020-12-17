@@ -51,7 +51,7 @@ public class CombatManager {
     }
 
     // completes a single attack( a single roll ) and returns the results of these dice rolls
-    public int[] singleAttack( Army attacker, Army defender ) {
+    public int[] singleAttack( Army attacker, Army defender,int attackerDiceNumber ) {
         int attRoll; //attacker's result from dice roll
         int defRoll; //defender's result from dice roll
 
