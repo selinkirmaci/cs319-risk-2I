@@ -621,6 +621,12 @@ public class Map extends JFrame implements ActionListener {
             Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
             Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
 
+            // cannot attack to immune territory
+            if( toTerr.getArmy().isImmune() ) {
+                JOptionPane.showMessageDialog(null, toTerr.getName() + " is immune!");
+                return;
+            }
+
             System.out.println("attacker player " + players[currentPlayer].getName() + " contains " + fromTerr.getName() + ": " + players[currentPlayer].hasTerritory( fromTerr ) );
             System.out.println("attacker player " + players[currentPlayer].getName() + " contains " + toTerr.getName() + ": " + players[currentPlayer].hasTerritory( toTerr ) );
             System.out.println("owner of to territory: " + toTerr.getArmy().getOwner().getName());

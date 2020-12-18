@@ -77,7 +77,7 @@ public class Hand implements Serializable {
         }
 
         // there is a 1/10 chance of getting one of these cards
-        int random = getRandomNumberInRange(0, 9);
+        int random = 0;//getRandomNumberInRange(0, 9); FOR TESTING. TODO: dont forget to correct random after testing
         if( random == 0 ) {
             System.out.println( "Gained " + chosenCard.getName() );
             curseCards.add(chosenCard); // add immunity card to hand
