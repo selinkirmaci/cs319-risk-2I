@@ -100,7 +100,6 @@ public class Map extends JFrame implements ActionListener {
     JButton[] territories;
     JButton attackButton,retreatButton;
     JButton pauseButton;
-    JButton saveButton;
     JButton draftButton;
     JButton secretMissionCard;
     JButton nextPlayerButton;
@@ -401,18 +400,6 @@ public class Map extends JFrame implements ActionListener {
         cardInfoPanelButton.addActionListener(this);
         background.add(cardInfoPanelButton);
 
-        // **************** saveButton ****************
-        saveButton = new JButton("Save Game");
-        saveButton.setName("saveButton");
-        saveButton.setBounds(650, 880, 150, 50);
-        saveButton.setContentAreaFilled(true);
-        saveButton.setBorderPainted(true);
-        saveButton.setEnabled(true);
-        saveButton.addActionListener(this);
-        background.add(saveButton);
-        // **************** end of saveButton ****************
-
-
         draftButton = new JButton("DRAFT");
         draftButton.setName("DRAFT");
         draftButton.setBounds(200, 930, 150, 50);
@@ -555,11 +542,11 @@ public class Map extends JFrame implements ActionListener {
         {
             //mainPanel.setEnabled(false);
             int chosenoption;
-            Object[] options = { "CONTINUE", "HOW TO PLAY","SETTINGS","QUIT" };
+            Object[] options = { "CONTINUE", "HOW TO PLAY","SETTINGS","SAVE GAME","QUIT" };
             chosenoption = JOptionPane.showOptionDialog(null, "GAME PAUSED", "GAME PAUSED",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     null, options, options[0]);
-            if(chosenoption == 3)
+            if(chosenoption == 4)
             {
                 playSound("./src/main/resources/sounds/snd_quitgame.wav",-10.0f);
                 int quit = JOptionPane.showConfirmDialog(null,
@@ -568,7 +555,11 @@ public class Map extends JFrame implements ActionListener {
                 {
                     //dispose();
                 }
-            }else if(chosenoption == 2) //settings
+            }else if(chosenoption == 3)
+            {
+                gameManager.saveGame();
+            }
+            else if(chosenoption == 2) //settings
             {
                 //setVisible(false);
                 mainPanel.setVisible(false);
@@ -985,9 +976,6 @@ public class Map extends JFrame implements ActionListener {
             seconds = 60;
             JOptionPane.showMessageDialog(null, "Player "+ players[currentPlayer].getName()+" got 3 more soldiers");
 
-        }
-        if(e.getSource() == saveButton) {
-            gameManager.saveGame();
         }
         if(e.getSource() == cardInfoPanelButton)
         {
