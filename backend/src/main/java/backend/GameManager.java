@@ -110,9 +110,9 @@ public class GameManager implements Serializable {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH_mm_ss");
         Date date = new Date();
         String sdate = formatter.format(date);
-        System.out.println( System.getProperty("user.dir") + "\\" + sdate + "_saved_game.data" );
+
         try(ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(new File( System.getProperty("user.dir") + "\\" + sdate + "_saved_game.data" )))) {
+                new FileOutputStream(new File(SAVE_FILE_PATH + sdate + "_saved_game.data")))) {
             oos.writeObject(this);
         } catch( IOException e ) {
             e.printStackTrace();
