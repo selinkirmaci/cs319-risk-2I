@@ -516,8 +516,8 @@ public class Map extends JFrame implements ActionListener {
                 && (e.getSource() != secretMissionCard)&& (e.getSource() != cursedCardInfoFrameButton)
                 && (e.getSource() != decreaseDice) && (e.getSource() != increaseDice)
                 && (e.getSource() != decreaseDiceDef) && (e.getSource() != increaseDiceDef)
-        )
-        {
+                && (e.getSource() != cardInfoPanelButton)
+        ) {
             JButton tmp = (JButton) e.getSource();
             if(setFrom) {
                 from = tmp.getName();
