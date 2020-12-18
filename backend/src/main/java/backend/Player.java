@@ -65,6 +65,16 @@ public class Player implements Serializable {
         return infantryAmt;
     }
 
+    public Territory getTerritory(String terr)
+    {
+        for(Territory t: gainedTerritories)
+        {
+            if(t.getName().equals(terr))
+                return t;
+        }
+        return null;
+    }
+
     public ArrayList<Territory> getGainedTerritories() {
         return gainedTerritories;
     }

@@ -1,9 +1,7 @@
 package frontend;
 
-import backend.Card;
-import backend.CurseCard;
-import backend.Hand;
-import backend.Player;
+import backend.*;
+import jdk.nashorn.internal.scripts.JO;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CursedCardsFrame extends JFrame implements ActionListener
@@ -23,7 +22,12 @@ public class CursedCardsFrame extends JFrame implements ActionListener
     private JPanel gridPanel;
     private ArrayList<CurseCard> playersCards;
     private Player currPlayer;
+    private Player[] players;
+    private String chosenCardString;
+    private CurseCard chosenCursedCard;
+    private JButton chosenCardButton;
     private backend.Game game;
+    private boolean tradeSuccess;
     public CursedCardsFrame( backend.Game game)
     {
         setLayout(null);
@@ -33,6 +37,10 @@ public class CursedCardsFrame extends JFrame implements ActionListener
 
         this.currPlayer = game.getPlayers()[game.getCurrentPlayerTurn()];
         this.game = game;
+
+        players = game.getPlayers();
+        chosenCardString = "";
+        chosenCardButton = new JButton();
 
         cardNumber = currPlayer.getHand().getCurseCards().size();
         cards = new JButton[cardNumber];
@@ -60,12 +68,12 @@ public class CursedCardsFrame extends JFrame implements ActionListener
             tmp.setName(playersCards.get(i).getName());
             tmp.setIcon(icon);
             tmp.addActionListener(this);
-            tmp.setBackground(Color.lightGray);
+            tmp.setBackground(Color.white);
             gridPanel.add(tmp);
         }
         cardNumberInfo = new JLabel();
         cardNumberInfo.setText("You have " + cardNumber + " cursed cards.");
-        cardNumberInfo.setBounds(5,5,300,100);
+        cardNumberInfo.setBounds(5,5,500,100);
         cardNumberInfo.setFont(new Font(Font.SERIF,Font.BOLD,30));
         cardNumberInfo.setForeground(Color.BLUE);
         add(cardNumberInfo);
@@ -78,7 +86,15 @@ public class CursedCardsFrame extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        if(e.getSource() == tradeCards) {
+        if(e.getSource() != tradeCards)
+        {
+            chosenCardButton.setBackground(Color.white);
+            chosenCardButton = (JButton) e.getSource();
+            chosenCardButton.setBackground(Color.ORANGE);
+            chosenCardString = chosenCardButton.getName();
+        }
+        if(e.getSource() == tradeCards)
+        {
             // should call this method based on the chosen card's type( boost, immunity etc. )
             // you can pass null to unused parameters( e.g. chosenTerritory and chosenPlayer should be null in boost )
             // when epidemic card is attempted to trade, game should ask the player to choose a territory to attack, and then
@@ -86,14 +102,99 @@ public class CursedCardsFrame extends JFrame implements ActionListener
             // when rebellion card is attempted to trade, game should ask the player to choose an enemy player,
             // and pass chosen player as parameter in the function below
             //bool tradeSuccess = game.curseCardTurn( /*CurseCard curseCard, Territory chosenTerritory, Player chosenPlayer*/ );
-            if( true/*tradeSuccess == false*/ ) {
-                //problem because of the null frame
-                JOptionPane.showMessageDialog(null, "Trade request invalid!");
-            } else {
+
+            chosenCursedCard = currPlayer.getHand().getCursedCard(chosenCardString);
+
+            if(chosenCardString.equals("celebration"))
+            {
+                tradeSuccess = currPlayer.tradeCurseCard(chosenCursedCard,game,null,null);
+            }else if(chosenCardString.equals("epidemic"))
+            {
+                //chose player to send epidemic
+                ArrayList<Player> otherPlayers = new ArrayList<>();
+                for(Player p: players)
+                {
+                    if(!p.getName().equals(currPlayer.getName()))
+                    {
+                        otherPlayers.add(p);
+                    }
+                }
+                Object[] options = new Object[otherPlayers.size()];
+                for(int i = 0; i<otherPlayers.size();i++)
+                {
+                    options[i] = otherPlayers.get(i).getName();
+                }
+
+                int selectedPlayer = JOptionPane.showOptionDialog(null, "Who do you want to send rebellion to?", "REBELLION",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                        null, options, options[0]);
+
+                ArrayList<Territory> enemyTerritories = otherPlayers.get(selectedPlayer).getGainedTerritories();
+
+                //get territories of selected enemy
+                String[] territories = new String[enemyTerritories.size()];
+                for(int i = 0; i<enemyTerritories.size();i++)
+                {
+                    territories[i] = enemyTerritories.get(i).getName();
+                }
+
+                //player choses which territory to attack
+                Object obj = JOptionPane.showInputDialog(null,"choose","choose",JOptionPane.PLAIN_MESSAGE,null,territories,territories);
+                System.out.println(obj);
+
+                String chosenTerr = obj.toString();
+                Territory finalTerr = otherPlayers.get(selectedPlayer).getTerritory(chosenTerr);
+                //trade send
+                tradeSuccess = currPlayer.tradeCurseCard(chosenCursedCard,game,finalTerr,otherPlayers.get(selectedPlayer));
+
+
+            }else if(chosenCardString.equals("immunity"))
+            {
+                ArrayList<Territory> playersTerritoties = currPlayer.getGainedTerritories();
+                String[] territories = new String[playersTerritoties.size()];
+                for(int i = 0; i<playersTerritoties.size();i++)
+                {
+                    territories[i] = playersTerritoties.get(i).getName();
+                }
+                //player choses which territory to make immune
+                Object obj = JOptionPane.showInputDialog(null,"choose","choose",JOptionPane.PLAIN_MESSAGE,null,territories,territories);
+                System.out.println(obj);
+
+                String chosenTerr = obj.toString();
+                Territory finalTerr = currPlayer.getTerritory(chosenTerr);
+                //trade send
+                tradeSuccess = currPlayer.tradeCurseCard(chosenCursedCard,game,finalTerr,null);
+            }else if(chosenCardString.equals("powerboost"))
+            {
+                tradeSuccess = currPlayer.tradeCurseCard(chosenCursedCard,game,null,null);
+            }else if(chosenCardString.equals("rebellio"))
+            {
+                ArrayList<Player> otherPlayers = new ArrayList<>();
+                for(Player p: players)
+                {
+                    if(!p.getName().equals(currPlayer.getName()))
+                    {
+                        otherPlayers.add(p);
+                    }
+                }
+                Object[] options = new Object[otherPlayers.size()];
+                for(int i = 0; i<otherPlayers.size();i++)
+                {
+                    options[i] = otherPlayers.get(i).getName();
+                }
+                int selectedPlayer = JOptionPane.showOptionDialog(null, "Who do you want to send rebellion to?", "REBELLION",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                        null, options, options[0]);
+                tradeSuccess = currPlayer.tradeCurseCard(chosenCursedCard,game,null,otherPlayers.get(selectedPlayer));
+
+            }
+
+            if( tradeSuccess ) {
                 JOptionPane.showMessageDialog(null, "Trade successful.");
-                // should also update player's current infantry amount
                 validate(); // or update this panel, because otherwise used cards will still be visible
                 repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Trade request invalid!");
             }
         }
     }

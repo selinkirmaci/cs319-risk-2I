@@ -25,6 +25,16 @@ public class Hand implements Serializable {
     public ArrayList<TerritoryCard> getTerritoryCards(){ return territoryCards; }
     public ArrayList<CurseCard> getCurseCards(){ return curseCards; }
 
+    public CurseCard getCursedCard(String cardName)
+    {
+        for(CurseCard c: curseCards)
+        {
+            if(c.getName().equals(cardName))
+                return c;
+        }
+        return null;
+    }
+
     /* return random number between min-max both inclusive */
     private static int getRandomNumberInRange(int min, int max) {
         if (min >= max) {
