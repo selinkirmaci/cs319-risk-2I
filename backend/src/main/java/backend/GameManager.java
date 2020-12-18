@@ -112,7 +112,7 @@ public class GameManager implements Serializable {
         String sdate = formatter.format(date);
 
         try(ObjectOutputStream oos = new ObjectOutputStream(
-                new FileOutputStream(new File(SAVE_FILE_PATH + sdate + "_saved_game.data")))) {
+                new FileOutputStream(new File( System.getProperty("user.dir") + File.pathSeparator/*if does not work, try this: File.separator*/ + sdate + "_saved_game.data" )))) {
             oos.writeObject(this);
         } catch( IOException e ) {
             e.printStackTrace();
