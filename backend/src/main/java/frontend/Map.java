@@ -416,7 +416,7 @@ public class Map extends JFrame implements ActionListener {
         // **************** saveButton ****************
         saveButton = new JButton("Save Game");
         saveButton.setName("saveButton");
-        saveButton.setBounds(550, 880, 150, 50);
+        saveButton.setBounds(650, 880, 150, 50);
         saveButton.setContentAreaFilled(true);
         saveButton.setBorderPainted(true);
         saveButton.setEnabled(true);

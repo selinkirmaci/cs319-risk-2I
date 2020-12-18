@@ -1,6 +1,7 @@
 // Author: Alperen
 
 package frontend;
+import backend.Game;
 import backend.GameManager;
 
 import java.awt.BorderLayout;
@@ -13,7 +14,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.sound.sampled.FloatControl;
@@ -33,6 +36,7 @@ public class GUI extends JFrame implements ActionListener {
 	private JCheckBox boxSecretMission;
 
 	private JButton btnStartGame, btnHowToPlay, btnQuitGame, btnCredits, btnBackFromCredits, btnBackFromStartGameMenu,btnContinueFromStartGameMenu,btnSettings;
+	private JButton btnLoadGame;
 
 	private JButton btnNumOfPlayers2, btnNumOfPlayers3, btnNumOfPlayers4;
 
@@ -120,6 +124,12 @@ public class GUI extends JFrame implements ActionListener {
 		btnStartGame.setContentAreaFilled(false);
 		btnStartGame.setBorderPainted(true);
 		lblGameMenuBackground.add(btnStartGame);
+
+		btnLoadGame = new JButton("Load Game");
+		btnLoadGame.setBounds(900, 400, 400, 60);
+		btnLoadGame.setContentAreaFilled(false);
+		btnLoadGame.setBorderPainted(true);
+		lblGameMenuBackground.add(btnLoadGame);
 
 		btnHowToPlay = new JButton("");
 		btnHowToPlay.setBounds(590, 505, 400, 60);
@@ -801,6 +811,8 @@ public class GUI extends JFrame implements ActionListener {
 		btnCyan4.addActionListener(this);
 		btnPink4.addActionListener(this);
 
+		btnLoadGame.addActionListener(this);
+
 	}
 
 	// ############ Method For Playing Sound Effects ###############
@@ -1158,9 +1170,6 @@ public class GUI extends JFrame implements ActionListener {
 					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
-
-					//gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
-
 				}
 
 			}
@@ -1232,8 +1241,6 @@ public class GUI extends JFrame implements ActionListener {
 					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
-
-					//gameManager.startGame( numOfPlayers, playerNames, playerAvatarIndexes);
 				}
 
 			}
@@ -2196,9 +2203,48 @@ public class GUI extends JFrame implements ActionListener {
 
 		}
 
+		if(e.getSource()==btnLoadGame)
+		{
+
+			System.out.println("aasdas");
+			try {
+				System.out.println("aasdas");
+				dispose();
+				Map frame = new Map(loadGame("18-12-2020_15:41:04_saved_game.data", gameManager));
+				frame.startTimer();
+				frame.setVisible(true);
+				frame.setTitle("Risk");
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.setPreferredSize(new Dimension(1150,830)); //1570,800
+				frame.setResizable(false);
+				frame.pack();
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
+		}
+
 		repaint();
 		pack();
 	}
 
 	// ############## End of Action Events ##############
+
+	private static String SAVE_FILE_PATH =  "./src/main/resources/saved_games/";
+
+	public GameManager loadGame( String fileName, GameManager g ) throws IOException {
+		ObjectInputStream objectinputstream = null;
+		try {
+			FileInputStream streamIn = new FileInputStream( SAVE_FILE_PATH + fileName );
+			objectinputstream = new ObjectInputStream(streamIn);
+			g = (GameManager) objectinputstream.readObject();
+		} catch( Exception e ) {
+			e.printStackTrace();
+		} finally {
+			if( objectinputstream != null ) {
+				objectinputstream.close();
+			}
+		}
+		return g;
+	}
+
 }
