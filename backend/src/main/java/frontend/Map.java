@@ -1055,13 +1055,38 @@ public class Map extends JFrame implements ActionListener {
     }
     public void updateTerritories()
     {
+        boolean enabled = false;
         for(int i = 0; i < 45; i++ )
         {
-            if(map.getTerritoryFromName(territories[i].getName()).getArmy() != null) {
+            if(map.getTerritoryFromName(territories[i].getName()).getArmy() != null)
+            {
                 territories[i].setText("" + map.getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
                 Player p = map.getTerritoryFromName(territories[i].getName()).getArmy().getOwner();
                 territories[i].setForeground(p.getColor());
+                territories[i].setEnabled(true);
+                enabled = true;
+            }else
+            {
+                try{
+                ArrayList<Territory> neighbors = map.getTerritoryFromName(territories[i].getName()).getNeighbors();
+                for(int j = 0; j < neighbors.size(); j++)
+                {
+                    if(map.getTerritoryFromName(neighbors.get(j).getName()).getArmy() != null)
+                    {
+                        territories[j].setEnabled(true);
+                        enabled = true;
+                    }
+                }}catch (Exception e)
+                {
+                    System.out.println( "------------------------------------------" );
+                    System.out.println(territories[i].getName());
+                }
             }
+            if(!enabled)
+            {
+                territories[i].setEnabled(false);
+            }
+            enabled = false;
         }
     }
     public void createTerritoryColors()

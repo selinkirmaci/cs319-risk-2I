@@ -344,5 +344,15 @@
       "TautonischeHochebene",
       "Bürthal"
     ]
+  },
+  {
+    "name": "Ziegelherz",
+    "neighbors": [
+      "Nosra",
+      "Nord-Ziegelsand",
+      "Ziegelsand",
+      "Hohe Hinkel",
+      "Grimmspitze"
+    ]
   }
 ]
