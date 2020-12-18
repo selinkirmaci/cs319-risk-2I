@@ -3,6 +3,7 @@
 package frontend;
 import backend.Game;
 import backend.GameManager;
+import backend.SoundManager;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -74,6 +75,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	private HowToPlayPanel htp;
 	private SettingsPanel set;
+	private SoundManager soundManager;
 
 	/**
 	 * Launch the application.
@@ -112,6 +114,7 @@ public class GUI extends JFrame implements ActionListener {
 		pnlMainMenu.setPreferredSize(new Dimension(300,300));
 		pnlMainMenu.setLayout(null);
 
+		soundManager = new SoundManager(0,true,true);
 
 		JLabel lblGameMenuBackground = new JLabel("");
 		lblGameMenuBackground.setIcon(new ImageIcon("./src/main/resources/images/gameMenu.png"));
@@ -819,20 +822,19 @@ public class GUI extends JFrame implements ActionListener {
 
 	public void playSound(String soundName)
 	{
-		try
-		{
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile( ));
-			Clip clip = AudioSystem.getClip( );
-			clip.open(audioInputStream);
-			FloatControl gainControl =
-					(FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-10.0f);
-			clip.start( );
-		}
-		catch(Exception ex)
-		{
-			System.out.println("Error with playing sound.");
-			ex.printStackTrace( );
+		if(soundManager.isSoundOn()) {
+			try {
+				AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+				Clip clip = AudioSystem.getClip();
+				clip.open(audioInputStream);
+				FloatControl gainControl =
+						(FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(soundManager.getVolume());
+				clip.start();
+			} catch (Exception ex) {
+				System.out.println("Error with playing sound.");
+				ex.printStackTrace();
+			}
 		}
 	}
 
@@ -1333,7 +1335,7 @@ public class GUI extends JFrame implements ActionListener {
 		if(e.getSource()==btnHowToPlay)
 		{
 			playSound("./src/main/resources/sounds/snd_howtoplay.wav");
-			htp = new HowToPlayPanel(pnlMainMenu);
+			htp = new HowToPlayPanel(pnlMainMenu,soundManager);
 			pnlMainMenu.setVisible(false);
 			add(htp);
 		}
@@ -1341,7 +1343,7 @@ public class GUI extends JFrame implements ActionListener {
 		if(e.getSource()==btnSettings)
 		{
 			playSound("./src/main/resources/sounds/snd_settings1.wav");
-			set = new SettingsPanel(pnlMainMenu);
+			set = new SettingsPanel(pnlMainMenu,soundManager);
 			pnlMainMenu.setVisible(false);
 			add(set);
 		}

@@ -1,4 +1,6 @@
 package frontend;
+import backend.SoundManager;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -17,9 +19,11 @@ public class HowToPlayPanel extends JPanel implements ActionListener {
     private JButton btnBackFromHtp, btnHtpPrev, btnHtpNext;
     private JLabel lblHowToPlayBackground, htpPage1, htpPage2, htpPage3, htpPage4, htpPage5, htpPage6, htpPage7;
     private JPanel pnlMainMenu;
+    private SoundManager soundManager;
 
-    public HowToPlayPanel(JPanel pnlMainMenu) {
+    public HowToPlayPanel(JPanel pnlMainMenu, SoundManager soundManager) {
         this.pnlMainMenu = pnlMainMenu;
+        this.soundManager = soundManager;
         setSize(1570, 800);
 
         lblHowToPlayBackground = new JLabel("");
@@ -87,17 +91,19 @@ public class HowToPlayPanel extends JPanel implements ActionListener {
     }
 
     public void playSound(String soundName) {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            FloatControl gainControl =
-                    (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-10.0f);
-            clip.start();
-        } catch (Exception ex) {
-            System.out.println("Error with playing sound.");
-            ex.printStackTrace();
+        if(soundManager.isSoundOn()) {
+            try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                FloatControl gainControl =
+                        (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(soundManager.getVolume());
+                clip.start();
+            } catch (Exception ex) {
+                System.out.println("Error with playing sound.");
+                ex.printStackTrace();
+            }
         }
     }
 

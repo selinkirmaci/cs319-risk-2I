@@ -1,5 +1,7 @@
 package frontend;
 
+import backend.SoundManager;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -23,10 +25,14 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
     private JPanel pnlMainMenu;
     private JCheckBox boxSound;
     private JSlider slider;
+    private SoundManager soundManager;
+    private int volume;
 
-    public SettingsPanel(JPanel pnlMainMenu)
+    public SettingsPanel(JPanel pnlMainMenu, SoundManager soundManager)
     {
         this.pnlMainMenu = pnlMainMenu;
+        this.soundManager = soundManager;
+        volume = soundManager.getVolume();
         setSize(1570, 800);
 
         lblSettingsBackground = new JLabel("");
@@ -55,10 +61,18 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
         Border thickbor = new LineBorder(Color.black, 3);
         boxSound.setBorder(thickbor);
         lblSettingsBackground.add(boxSound);
+        boxSound.setSelected(soundManager.isSoundOn());
 
-        slider = new JSlider();
+
+        slider = new JSlider(JSlider.HORIZONTAL,-40,5,-20);
+        slider.setValue(soundManager.getVolume());
         slider.setBounds(688, 413, 180, 75);
         slider.setOpaque(false);
+        slider.addChangeListener(new ChangeListener(){
+        public void stateChanged(ChangeEvent e) {
+            volume = slider.getValue();
+        }
+        });
         lblSettingsBackground.add(slider);
 
         add(lblSettingsBackground);
@@ -70,17 +84,19 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
     }
 
     public void playSound(String soundName) {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            FloatControl gainControl =
-                    (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-10.0f);
-            clip.start();
-        } catch (Exception ex) {
-            System.out.println("Error with playing sound.");
-            ex.printStackTrace();
+        if(soundManager.isSoundOn()) {
+            try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                FloatControl gainControl =
+                        (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(soundManager.getVolume());
+                clip.start();
+            } catch (Exception ex) {
+                System.out.println("Error with playing sound.");
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -98,6 +114,9 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
             if( ((LineBorder)btnSave.getBorder()).getLineColor() == Color.black )
             {
                 playSound("./src/main/resources/sounds/snd_save.wav");
+                soundManager.setSoundOn(boxSound.isSelected());
+                soundManager.setVolume(volume);
+                System.out.println(volume);
             }
 
             Border thick = new LineBorder(Color.green, 5);
