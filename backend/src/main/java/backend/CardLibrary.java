@@ -1,4 +1,5 @@
 package backend;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -6,7 +7,7 @@ import java.util.HashMap;
  *
  * @author kaan
  */
-public class CardLibrary {
+public class CardLibrary implements Serializable {
     
     private HashMap<String, Card> territoryCards; // Key: Card name, Value: Card object
     CardLibrary() {

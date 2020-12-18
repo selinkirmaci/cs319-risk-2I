@@ -1,10 +1,12 @@
 package backend;
 
+import java.io.Serializable;
+
 /**
  *
  * @author kaan
  */
-public class Dice {
+public class Dice implements Serializable {
     
     private static final int SIDES = 6;
     private static Dice diceInstance = new Dice();

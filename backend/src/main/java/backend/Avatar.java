@@ -1,6 +1,8 @@
 package backend;
 
-public class Avatar {
+import java.io.Serializable;
+
+public class Avatar implements Serializable {
 
     private final String imageFileName;
 

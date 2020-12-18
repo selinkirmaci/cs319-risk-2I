@@ -1,6 +1,7 @@
 package backend;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,7 +9,7 @@ import java.util.Random;
  *
  * @author kaan
  */
-public class Player {
+public class Player implements Serializable {
 
     private int infantryAmt; //3 players = 35 infantry, 4p = 30, 5p = 25
     private final String name;

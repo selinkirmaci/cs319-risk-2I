@@ -1,23 +1,25 @@
 package backend;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
  * @author kaan
  */
-public class GameManager {
+public class GameManager implements Serializable {
     private Game game;
     private boolean gameOver;
     private SoundManager soundManager;
     private final int INITIAL_TROOP_AMT = 100;
     private final String MAP_FILE_PATH = "./src/main/java/backend/jsonfiles/map.json";
     private final String NEIGHBORS_FILE_PATH = "./src/main/java/backend/jsonfiles/neighbors.json";
+    private final String SAVE_FILE_PATH = "./src/main/resources/saved_games/";
 
-    public GameManager(int playerNumber, String[] playernames, int[]playerAvatars, Color[]playerColors,boolean secretMission)
-    {
+    public GameManager( int playerNumber, String[] playernames, int[]playerAvatars,
+                       Color[] playerColors, boolean secretMission ) {
         Player[] players = createPlayers(playerNumber,playernames,playerAvatars,playerColors);
         for(int i = 0; i<playerNumber;i++)
         {
@@ -104,7 +106,18 @@ public class GameManager {
         return game;
     }
 
+    public void saveGame() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+        Date date = new Date();
+        String sdate = formatter.format(date);
 
+        try(ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream(new File(SAVE_FILE_PATH + sdate + "_saved_game.data")))) {
+            oos.writeObject(this);
+        } catch( IOException e ) {
+            e.printStackTrace();
+        }
+    }
 
     // TODO:
     //  endGame(), restartGame(), loadGame(), ...

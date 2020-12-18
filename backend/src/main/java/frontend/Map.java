@@ -93,6 +93,7 @@ public class Map extends JFrame implements ActionListener {
     JButton[] territories;
     JButton attackButton,retreatButton;
     JButton pauseButton;
+    JButton saveButton;
     JButton draftButton;
     JButton secretMissionCard;
     JButton nextPlayerButton;
@@ -412,6 +413,18 @@ public class Map extends JFrame implements ActionListener {
         cardInfoPanelButton.addActionListener(this);
         background.add(cardInfoPanelButton);
 
+        // **************** saveButton ****************
+        saveButton = new JButton("Save Game");
+        saveButton.setName("saveButton");
+        saveButton.setBounds(650, 880, 150, 50);
+        saveButton.setContentAreaFilled(true);
+        saveButton.setBorderPainted(true);
+        saveButton.setEnabled(true);
+        saveButton.addActionListener(this);
+        background.add(saveButton);
+        // **************** end of saveButton ****************
+
+
         draftButton = new JButton("DRAFT");
         draftButton.setName("DRAFT");
         draftButton.setBounds(200, 930, 150, 50);
@@ -516,8 +529,8 @@ public class Map extends JFrame implements ActionListener {
                 && (e.getSource() != secretMissionCard)&& (e.getSource() != cursedCardInfoFrameButton)
                 && (e.getSource() != decreaseDice) && (e.getSource() != increaseDice)
                 && (e.getSource() != decreaseDiceDef) && (e.getSource() != increaseDiceDef)
-        )
-        {
+                && (e.getSource() != cardInfoPanelButton) && (e.getSource() != saveButton)
+        ) {
             JButton tmp = (JButton) e.getSource();
             if(setFrom) {
                 from = tmp.getName();
@@ -970,6 +983,9 @@ public class Map extends JFrame implements ActionListener {
             seconds = 60;
             JOptionPane.showMessageDialog(null, "Player "+ players[currentPlayer].getName()+" got 3 more soldiers");
 
+        }
+        if(e.getSource() == saveButton) {
+            gameManager.saveGame();
         }
         if(e.getSource() == cardInfoPanelButton)
         {

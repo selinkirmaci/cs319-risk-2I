@@ -4,10 +4,11 @@ package backend;
 
 import com.sun.deploy.util.ArrayUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CombatManager {
+public class CombatManager implements Serializable {
 
     private final Dice dice;
     private static CombatManager cmInstance = new CombatManager();

@@ -1,10 +1,12 @@
 package backend;
 
+import java.io.Serializable;
+
 /**
  *
  * @author kaan
  */
-public class Card {
+public class Card implements Serializable {
     
     private final String name;
     private final int value;
