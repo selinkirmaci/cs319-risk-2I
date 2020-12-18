@@ -999,7 +999,7 @@ public class Map extends JFrame implements ActionListener {
             cardPanel.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
                     updateTurnColor();
-                    System.out.println("car panel is closed");
+                    System.out.println("card panel is closed");
                 }
             });
         }
@@ -1013,7 +1013,8 @@ public class Map extends JFrame implements ActionListener {
             cursedCardsFrame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
                     updateTurnColor();
-                    System.out.println("car panel is closed");
+                    updateTerritories();
+                    System.out.println("Cursed card panel is closed");
                 }
             });
         }
@@ -1107,6 +1108,7 @@ public class Map extends JFrame implements ActionListener {
                     nextPlayerButton.doClick();
                     timer1.cancel();
                     seconds = 60;
+                    startTimer();
                 }
 
                 if (currentPlayer == 0)
