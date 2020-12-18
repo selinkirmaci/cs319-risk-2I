@@ -54,6 +54,11 @@ public class Map extends JFrame implements ActionListener {
     private JLabel background;
     private JLabel avatar1,avatar2,avatar3,avatar4;
     private JLabel player1name,player2name,player3name,player4name;
+
+    JLabel attackTimerLabel;
+    private int attackSeconds = 10;
+    Timer attackTimer = new Timer();
+
     JLabel lblTimer;
     private int seconds = 60;
     Timer timer1 = new Timer();
@@ -132,37 +137,16 @@ public class Map extends JFrame implements ActionListener {
         currentPlayer = game.getCurrentPlayerTurn();
         territories = new JButton[45];
 
+        attackTimerLabel = new JLabel();
+        attackTimerLabel.setBounds(400,50,40,40);
+        attackTimerLabel.setFont(new Font(Font.SERIF,Font.BOLD,40));
+
+
         settingsPanel = new JPanel();
         settingsPanel.setPreferredSize(new Dimension(300,300));
         settingsPanel.setBounds(100,100,300,300);
         settingsPanel.setBackground(Color.BLUE);
 
-        addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println(e.getX()+" "+e.getY());
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
 
         noOfPlayers = players.length;
         territoryName = new JLabel("");
@@ -612,7 +596,7 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource() == attackButton)
         {
-
+            startAttackTimer();
 
             /*
             rollDiceButton.setEnabled(true);
@@ -643,7 +627,7 @@ public class Map extends JFrame implements ActionListener {
                 System.out.println("One of the armies are null!");
                 JOptionPane.showMessageDialog(null, "You cannot attack from/to an empty country!");
             } else if( ( !players[currentPlayer].hasTerritory( fromTerr ) )
-                || ( players[currentPlayer].hasTerritory( toTerr ) ) ) {
+                    || ( players[currentPlayer].hasTerritory( toTerr ) ) ) {
                 System.out.println("Invalid attack!");
                 JOptionPane.showMessageDialog(null, "Invalid attack!");
             } else {
@@ -686,7 +670,7 @@ public class Map extends JFrame implements ActionListener {
                 panel1.add(player2);
                 panel1.add(defenderLabel);
                 panel1.add(cancelAttack);
-
+                panel1.add(attackTimerLabel);
                 System.out.println(chosenTerritory);
                 territoryName.setText("BATTLE FROM " + from + " TO " + to);
                 panel1.add(territoryName);
@@ -774,39 +758,39 @@ public class Map extends JFrame implements ActionListener {
             //int i = 0;
             if(dices != null)
             {
-            if(diceNumberLeft == 3)
-            {
-                firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
-                secondDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[1] + ".png"));
-                thirdDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[2] + ".png"));
-                if(diceNumberLeftDef == 2)
+                if(diceNumberLeft == 3)
                 {
-                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[3] + ".png"));
-                    fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[4] + ".png"));
-                }else{
-                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[3] + ".png"));
+                    firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
+                    secondDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[1] + ".png"));
+                    thirdDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[2] + ".png"));
+                    if(diceNumberLeftDef == 2)
+                    {
+                        forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[3] + ".png"));
+                        fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[4] + ".png"));
+                    }else{
+                        forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[3] + ".png"));
+                    }
                 }
-            }
-            else if(diceNumberLeft == 2)
-            {
-                firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
-                secondDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[1] + ".png"));
-                if(diceNumberLeftDef == 2)
+                else if(diceNumberLeft == 2)
                 {
-                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[2] + ".png"));
-                    fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[3] + ".png"));
-                }else{
-                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[2] + ".png"));
+                    firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
+                    secondDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[1] + ".png"));
+                    if(diceNumberLeftDef == 2)
+                    {
+                        forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[2] + ".png"));
+                        fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[3] + ".png"));
+                    }else{
+                        forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[2] + ".png"));
+                    }
+                }else if(diceNumberLeft == 1) {
+                    firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
+                    if (diceNumberLeftDef == 2) {
+                        forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
+                        fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[2] + ".png"));
+                    } else {
+                        forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
+                    }
                 }
-            }else if(diceNumberLeft == 1) {
-                firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
-                if (diceNumberLeftDef == 2) {
-                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
-                    fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[2] + ".png"));
-                } else {
-                    forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
-                }
-            }
             }else
             {
                 diceNumberLeft = 3;
@@ -835,6 +819,9 @@ public class Map extends JFrame implements ActionListener {
                     mainPanel.setVisible(true);
                     attackButton.setEnabled(false);
                     retreatButton.setEnabled(false);
+                    attackTimer.cancel();
+                    attackTimer.purge();
+                    startTimer();
                 }
 
             }
@@ -1106,8 +1093,63 @@ public class Map extends JFrame implements ActionListener {
     }
 
     public void startTimer(){
-        timer1.scheduleAtFixedRate(task1,1000,1000);
-
+        timer1 = new Timer();
+        timer1.scheduleAtFixedRate(createTimerTask(),1000,1000);
     }
+    private TimerTask createTimerTask() {
+        return new TimerTask(){
+            @Override
+            public void run() {
+                seconds--;
+                lblTimer.setText(""+seconds);
+                if(seconds == 0)
+                {
+                    nextPlayerButton.doClick();
+                    timer1.cancel();
+                    seconds = 60;
+                }
 
+                if (currentPlayer == 0)
+                {
+                    lblTimer.setForeground(players[0].getColor());
+                }
+
+                else if (currentPlayer == 1)
+                {
+                    lblTimer.setForeground(players[1].getColor());
+                }
+
+                else if (currentPlayer == 2)
+                {
+                    lblTimer.setForeground(players[2].getColor());
+                }
+
+                else if (currentPlayer == 3)
+                {
+                    lblTimer.setForeground(players[3].getColor());
+                }
+            }
+        };
+    }
+    public void startAttackTimer(){
+        attackTimer = new Timer();
+        attackTimer.scheduleAtFixedRate(createAttackTimerTask(),1000,1000);
+    }
+    private TimerTask createAttackTimerTask() {
+        return new TimerTask(){
+            @Override
+            public void run() {
+                attackSeconds--;
+                attackTimerLabel.setText(""+attackSeconds);
+                if(attackSeconds == 0)
+                {
+                    attackTimer.cancel();
+                    mainPanel.setVisible(true);
+                    remove(panel1);
+                    startTimer();
+                    attackSeconds = 10;
+                }
+            }
+        };
+    }
 }
