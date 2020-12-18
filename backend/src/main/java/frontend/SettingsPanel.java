@@ -27,11 +27,13 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
     private JSlider slider;
     private SoundManager soundManager;
     private int volume;
+    private JFrame frame;
 
-    public SettingsPanel(JPanel pnlMainMenu, SoundManager soundManager)
+    public SettingsPanel(JPanel pnlMainMenu, SoundManager soundManager,JFrame frame)
     {
         this.pnlMainMenu = pnlMainMenu;
         this.soundManager = soundManager;
+        this.frame = frame;
         volume = soundManager.getVolume();
         setSize(1570, 800);
 
@@ -106,7 +108,10 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
         {
             playSound("./src/main/resources/sounds/snd_howtoplay.wav");
             setVisible(false);
-            pnlMainMenu.setVisible(true);
+            if(pnlMainMenu != null)
+                pnlMainMenu.setVisible(true);
+            else if(frame != null)
+                frame.setVisible(true);
         }
 
         if (e.getSource() ==  btnSave)

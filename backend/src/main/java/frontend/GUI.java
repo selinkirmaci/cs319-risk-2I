@@ -1164,7 +1164,7 @@ public class GUI extends JFrame implements ActionListener {
 					else
 						secretMission = false;
 					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors,secretMission);
-					Map frame = new Map(gameManager);
+					Map frame = new Map(gameManager,soundManager);
 					frame.startTimer();
 					frame.setVisible(true);
 					frame.setTitle("Risk");
@@ -1235,7 +1235,7 @@ public class GUI extends JFrame implements ActionListener {
 					else
 						secretMission = false;
 					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors,secretMission);
-					Map frame = new Map(gameManager);
+					Map frame = new Map(gameManager,soundManager);
 					frame.startTimer();
 					frame.setVisible(true);
 					frame.setTitle("Risk");
@@ -1309,7 +1309,7 @@ public class GUI extends JFrame implements ActionListener {
 						secretMission = false;
 					gameManager = new GameManager(numOfPlayers, playerNames, playerAvatarIndexes,playerColors,secretMission);
 					// Start the actual game
-					Map frame = new Map(gameManager);
+					Map frame = new Map(gameManager,soundManager);
 					frame.startTimer();
 					frame.setVisible(true);
 					frame.setTitle("Risk");
@@ -1343,7 +1343,7 @@ public class GUI extends JFrame implements ActionListener {
 		if(e.getSource()==btnSettings)
 		{
 			playSound("./src/main/resources/sounds/snd_settings1.wav");
-			set = new SettingsPanel(pnlMainMenu,soundManager);
+			set = new SettingsPanel(pnlMainMenu,soundManager,null);
 			pnlMainMenu.setVisible(false);
 			add(set);
 		}
@@ -2212,7 +2212,7 @@ public class GUI extends JFrame implements ActionListener {
 			try {
 				System.out.println("aasdas");
 				dispose();
-				Map frame = new Map(loadGame("18-12-2020_15:41:04_saved_game.data", gameManager));
+				Map frame = new Map(loadGame("18-12-2020_15:41:04_saved_game.data", gameManager,soundManager),soundManager);
 				frame.startTimer();
 				frame.setVisible(true);
 				frame.setTitle("Risk");
@@ -2233,7 +2233,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	private static String SAVE_FILE_PATH =  "./src/main/resources/saved_games/";
 
-	public GameManager loadGame( String fileName, GameManager g ) throws IOException {
+	public GameManager loadGame( String fileName, GameManager g,SoundManager soundManager ) throws IOException {
 		ObjectInputStream objectinputstream = null;
 		try {
 			FileInputStream streamIn = new FileInputStream( SAVE_FILE_PATH + fileName );

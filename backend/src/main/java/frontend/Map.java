@@ -40,6 +40,8 @@ import backend.*;
 
 public class Map extends JFrame implements ActionListener {
     private JPanel mainPanel;
+    private HowToPlayPanel howToPlayPanel;
+    private SoundManager soundManager;
     private SecretMissionFrame secretMissionFrame;
     private CursedCardsFrame cursedCardsFrame;
     private JLayeredPane settingPane;
@@ -119,10 +121,11 @@ public class Map extends JFrame implements ActionListener {
     int noOfPlayers;
 
 
-    public Map( GameManager gameManager )
+    public Map( GameManager gameManager ,SoundManager soundManager)
     {
 
         this.gameManager = gameManager;
+        this.soundManager = soundManager;
         game = gameManager.getGame();
         map = game.getMap();
         players = game.getPlayers();
@@ -583,7 +586,15 @@ public class Map extends JFrame implements ActionListener {
                 }
             }else if(chosenoption == 2) //settings
             {
-
+                //setVisible(false);
+                mainPanel.setVisible(false);
+                setPanel = new SettingsPanel(mainPanel,soundManager,null);
+                add(setPanel);
+            }else if(chosenoption == 1) //how to playe
+            {
+                mainPanel.setVisible(false);
+                howToPlayPanel = new HowToPlayPanel(mainPanel,soundManager);
+                add(howToPlayPanel);
             }else if(chosenoption == 0) //continue
             {
                 mainPanel.setEnabled(true);
