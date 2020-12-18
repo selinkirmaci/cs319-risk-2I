@@ -125,7 +125,7 @@ public class CursedCardsFrame extends JFrame implements ActionListener
                     options[i] = otherPlayers.get(i).getName();
                 }
 
-                int selectedPlayer = JOptionPane.showOptionDialog(null, "Who do you want to send rebellion to?", "REBELLION",
+                int selectedPlayer = JOptionPane.showOptionDialog(null, "Who do you want to send epidemic to?", "REBELLION",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
                         null, options, options[0]);
 

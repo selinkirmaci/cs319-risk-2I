@@ -223,7 +223,7 @@ public class Player implements Serializable {
         } else if( cardType == 2 ) { // epidemic
             tradeEpidemicCard(chosenTerritory);
         } else if( cardType == 3 ) { // immunity
-            tradeImmunityCard(chosenTerritory);
+            tradeImmunityCard(chosenTerritory, game);
         } else if( cardType == 4 ) { // powerboost
             tradePowerboostCard();
         } else if( cardType == 5 ) { // rebellio
@@ -267,8 +267,9 @@ public class Player implements Serializable {
     }
 
     // enemies cant attack to your chosen territory for 3 rounds
-    private void tradeImmunityCard( Territory chosenTerritory ) {
+    private void tradeImmunityCard( Territory chosenTerritory, Game game ) {
         chosenTerritory.getArmy().makeImmune();
+        game.addImmuneTerritory(chosenTerritory);
     }
 
     // increases your chance of winning during an attack

@@ -35,6 +35,10 @@ public class Army implements Serializable {
     public void reduceImmuneTurnCount() {
         immuneTurnCount--;
     }
+
+    public boolean isImmune() {
+        return immuneTurnCount > 0;
+    }
     
     //return total value of the army in terms of infantries
     private void computeTotalValue( ArrayList<Troop> troops ) {
