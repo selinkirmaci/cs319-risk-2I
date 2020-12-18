@@ -1,12 +1,13 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Represents Army inside each continent
  * @author kaan
  */
-public class Army {
+public class Army implements Serializable {
     
     private ArrayList<Troop> troops;
     private int totalValue; //total value of all of the troops in this army

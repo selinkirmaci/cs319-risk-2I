@@ -1,5 +1,6 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,7 +8,7 @@ import java.util.Random;
  *
  * @author kaan
  */
-public class Game {
+public class Game implements Serializable {
     private boolean secretMissionModOn;
     private final int playerAmt;
     private Player[] players;

@@ -11,7 +11,7 @@ import org.json.simple.parser.*;
  * territory names and card properties) and returns them as preferred type
  * @author Selcen
  */
-public class JSONParser {
+public class JSONParser implements Serializable {
 
     private static JSONParser parserInstance = new JSONParser();
 

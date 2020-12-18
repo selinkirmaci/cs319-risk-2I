@@ -1,12 +1,13 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author kaan
  */
-public class Territory {
+public class Territory implements Serializable {
     private final String name;
     private Army army;
     private ArrayList<Territory> neighbors;

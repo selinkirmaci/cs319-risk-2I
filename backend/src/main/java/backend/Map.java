@@ -1,12 +1,13 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author kaan
  */
-public class Map {
+public class Map implements Serializable {
 
     private final ArrayList<Continent> continents;
     

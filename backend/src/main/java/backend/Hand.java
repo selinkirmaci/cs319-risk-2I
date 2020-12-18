@@ -1,9 +1,10 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Hand {
+public class Hand implements Serializable {
 
     private ArrayList<TerritoryCard> territoryCards;
     private ArrayList<CurseCard> curseCards;

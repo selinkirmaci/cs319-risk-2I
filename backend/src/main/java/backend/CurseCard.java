@@ -1,6 +1,8 @@
 package backend;
 
-public class CurseCard extends Card {
+import java.io.Serializable;
+
+public class CurseCard extends Card implements Serializable {
 
 
     // value = curse card type

@@ -1,14 +1,13 @@
 package backend;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.*;
 
 /**
  *
  * @author kaan
  */
-public class GameManager {
+public class GameManager implements Serializable {
     private Game game;
     private boolean gameOver;
     private SoundManager soundManager;
@@ -16,8 +15,8 @@ public class GameManager {
     private final String MAP_FILE_PATH = "./src/main/java/backend/jsonfiles/map.json";
     private final String NEIGHBORS_FILE_PATH = "./src/main/java/backend/jsonfiles/neighbors.json";
 
-    public GameManager(int playerNumber, String[] playernames, int[]playerAvatars, Color[]playerColors,boolean secretMission)
-    {
+    public GameManager( int playerNumber, String[] playernames, int[]playerAvatars,
+                       Color[] playerColors, boolean secretMission ) {
         Player[] players = createPlayers(playerNumber,playernames,playerAvatars,playerColors);
         for(int i = 0; i<playerNumber;i++)
         {
@@ -102,6 +101,15 @@ public class GameManager {
 
     public Game getGame() {
         return game;
+    }
+
+    public void saveGame() {
+        try(ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream(new File("saved_game.data")))) {
+            oos.writeObject(this);
+        } catch( IOException e ) {
+            e.printStackTrace();
+        }
     }
 
 
