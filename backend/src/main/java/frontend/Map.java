@@ -104,6 +104,7 @@ public class Map extends JFrame implements ActionListener {
     int diceNumberLeft = 3;
     int diceNumberLeftDef = 2;
     CardPanel cardPanel;
+    private SettingsPanel setPanel;
 
     String from = "";
     String to = "";
@@ -580,13 +581,10 @@ public class Map extends JFrame implements ActionListener {
                 {
                     //dispose();
                 }
-            }else if(chosenoption == 2)
+            }else if(chosenoption == 2) //settings
             {
 
-                //mainPanel.setEnabled(false);
-                //background.add(settingPane);
-                //mainPanel.add(settingsPanel);
-            }else if(chosenoption == 0)
+            }else if(chosenoption == 0) //continue
             {
                 mainPanel.setEnabled(true);
             }
