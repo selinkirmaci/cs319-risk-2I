@@ -14,7 +14,7 @@ public class GameManager {
     private SoundManager soundManager;
     private final int INITIAL_TROOP_AMT = 100;
     private final String MAP_FILE_PATH = "./src/main/java/backend/jsonfiles/map.json";
-    private final String CARDS_FILE_PATH = "./src/main/java/backend/jsonfiles/cards.json";
+    private final String NEIGHBORS_FILE_PATH = "./src/main/java/backend/jsonfiles/neighbors.json";
 
     public GameManager(int playerNumber, String[] playernames, int[]playerAvatars, Color[]playerColors,boolean secretMission)
     {
@@ -27,7 +27,7 @@ public class GameManager {
 
         //initialise the game
         game = new Game(playerNumber, players, MAP_FILE_PATH,
-                CARDS_FILE_PATH );
+                NEIGHBORS_FILE_PATH );
         game.setSecretMissionMod(secretMission);
         this.game = game;
     }
@@ -39,7 +39,7 @@ public class GameManager {
 
         //initialise the game
         game = new Game(playerNumber, players, MAP_FILE_PATH,
-                CARDS_FILE_PATH );
+                NEIGHBORS_FILE_PATH );
         this.game = game;
     }
 

@@ -23,13 +23,16 @@ public class Game {
     private final int CONTINENT_AMT = 7;
     private int tradeCount;
     private ArrayList<Territory> currentlyImmuneTerritories;
+    private String neighborsPath;
+    private ArrayList<ArrayList<Territory>> neighbors;
     
-    public Game( int playerAmt, Player[] players, String mapFilePath, String cardsFilePath ) {
+    public Game( int playerAmt, Player[] players, String mapFilePath, String neighborsPath ) {
         this.secretMissionModOn = false;
         this.parser = JSONParser.getInstance();
         this.playerAmt = playerAmt;
         this.dice = Dice.getInstance();
         this.players = players;
+        this.neighborsPath = neighborsPath;
         initialTroopAmt = players[0].getInfantryAmt();
         initMap( mapFilePath );
         initCards();
@@ -70,6 +73,19 @@ public class Game {
     private void initMap( String path ) {
         ArrayList<Continent> continents = parser.getContinents( path );
         map = new Map( continents );
+        this.neighbors = parser.getNeighbors( neighborsPath, map );
+        printNeighbors();
+    }
+
+    private void printNeighbors() {
+        for( int i = 0; i < neighbors.size(); i++ ) {
+            Territory curr = neighbors.get(i).get(0);
+            System.out.println("neighbors of " + curr.getName());
+            for( int j = 0; j < neighbors.get(i).size() - 1; j++ ) {
+                System.out.println(neighbors.get(i).get(j + 1).getName());
+                curr.setNeighbors(neighbors.get(i));
+            }
+        }
     }
 
     public void printMap() {

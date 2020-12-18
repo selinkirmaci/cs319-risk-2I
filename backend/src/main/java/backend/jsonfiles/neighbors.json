@@ -17,7 +17,7 @@
   {
     "name": "Ost-Klina",
     "neighbors": [
-      "Sumbraspitze",
+      "Sumbaspitze",
       "Nosra"
     ]
   },
@@ -38,7 +38,7 @@
     ]
   },
   {
-    "name": "Sumbraspitze",
+    "name": "Sumbaspitze",
     "neighbors": [
       "Ost-Klina",
       "Nosptenburg"
@@ -48,7 +48,7 @@
     "name": "Nosptenburg",
     "neighbors": [
       "Graue Ebene",
-      "Sumbraspitze"
+      "Sumbaspitze"
     ]
   },
   {
@@ -94,6 +94,255 @@
     "neighbors": [
       "Schwarzfeld",
       "Windbergen"
+    ]
+  },
+  {
+    "name": "Windbergen",
+    "neighbors": [
+      "Mimiken",
+      "Waithfels"
+    ]
+  },
+  {
+    "name": "Waithfels",
+    "neighbors": [
+      "Waithenland",
+      "Windbergen",
+      "Morgenrücken",
+      "Uppenwald"
+    ]
+  },
+  {
+    "name": "Waithenland",
+    "neighbors": [
+      "Niederswith",
+      "Schwarzfeld",
+      "Waithfels",
+      "Uppenwald",
+      "Bakanwald"
+    ]
+  },
+  {
+    "name": "Niederswith",
+    "neighbors": [
+      "Waithenland",
+      "Uppenwald",
+      "TeutonischerHammer"
+    ]
+  },
+  {
+    "name": "Uppenwald",
+    "neighbors": [
+      "Waithfels",
+      "Waithenland",
+      "Niederswith",
+      "Morgenfeld",
+      "Ostesteinburg"
+    ]
+  },
+  {
+    "name": "Ostesteinburg",
+    "neighbors": [
+      "Uppenwald",
+      "TeutonischerHammer",
+      "Hochlaub"
+    ]
+  },
+  {
+    "name": "TeutonischerHammer",
+    "neighbors": [
+      "Eden",
+      "TautonischeHochebene",
+      "Ostesteinburg"
+    ]
+  },
+  {
+    "name": "Eden",
+    "neighbors": [
+      "Graue Ebene",
+      "Bakanwald",
+      "TautonischeHochebene",
+      "TeutonischerHammer"
+    ]
+  },
+  {
+    "name": "Sandwacht",
+    "neighbors": [
+      "Ziegelsand",
+      "Wadland"
+    ]
+  },
+  {
+    "name": "Ziegelsand",
+    "neighbors": [
+      "Nord-Ziegelsand",
+      "Sandwacht"
+    ]
+  },
+  {
+    "name": "Hohe Hinkel",
+    "neighbors": [
+      "Grimmspitze",
+      "Ziegelsand"
+    ]
+  },
+  {
+    "name": "Nosra",
+    "neighbors": [
+      "Nord-Ziegelsand",
+      "Ost-Klina",
+      "Raken",
+      "Ziegelherz"
+    ]
+  },
+  {
+    "name": "Perleninsel",
+    "neighbors": [
+      "Raken",
+      "Nord-forstheim",
+      "Grimmspitze"
+    ]
+  },
+  {
+    "name": "Nord-forstheim",
+    "neighbors": [
+      "Perleninsel",
+      "Südforstheim"
+    ]
+  },
+  {
+    "name": "Grimmspitze",
+    "neighbors": [
+      "Ziegelherz",
+      "Hohe Hinkel",
+      "Zankostane",
+      "Perleninsel"
+    ]
+  },
+  {
+    "name": "Eishaiz",
+    "neighbors": [
+      "Silbertal",
+      "Zankostane"
+    ]
+  },
+  {
+    "name": "Zankostane",
+    "neighbors": [
+      "Grimmspitze",
+      "Eishaiz",
+      "Zamuria"
+    ]
+  },
+  {
+    "name": "Zamuria",
+    "neighbors": [
+      "Zankostane",
+      "Silbertal",
+      "Prachthafen"
+    ]
+  },
+  {
+    "name": "Silbertal",
+    "neighbors": [
+      "Eishaiz",
+      "Zankostane",
+      "Zamuria"
+    ]
+  },
+  {
+    "name": "Südforstheim",
+    "neighbors": [
+      "Nord-forstheim",
+      "Silbertal"
+    ]
+  },
+  {
+    "name": "Prachthafen",
+    "neighbors": [
+      "Wadland",
+      "Zamuria",
+      "Wuselwiese"
+    ]
+  },
+  {
+    "name": "Wadland",
+    "neighbors": [
+      "Sandwacht",
+      "TautonischeHochebene",
+      "Prachthafen",
+      "Bürthal"
+    ]
+  },
+  {
+    "name": "TautonischeHochebene",
+    "neighbors": [
+      "Eden",
+      "TautonischeHochebene",
+      "TeutonischerHammer",
+      "Wadland",
+      "Hochlaub"
+    ]
+  },
+  {
+    "name": "Bürthal",
+    "neighbors": [
+      "Wadland",
+      "Hochlaub",
+      "Wuselwiese"
+    ]
+  },
+  {
+    "name": "Wuselwiese",
+    "neighbors": [
+      "Donnerwald",
+      "Goldbach",
+      "Bürthal",
+      "Prachthafen"
+    ]
+  },
+  {
+    "name": "Donnerwald",
+    "neighbors": [
+      "Wuselwiese",
+      "Goldbach"
+    ]
+  },
+  {
+    "name": "Goldbach",
+    "neighbors": [
+      "Sonnenwiese"
+    ]
+  },
+  {
+    "name": "Haus der Sonne",
+    "neighbors": [
+      "Sonnenwiese",
+      "Morgenfeld"
+    ]
+  },
+  {
+    "name": "Morgenfeld",
+    "neighbors": [
+      "Morgenrücken",
+      "Uppenwald",
+      "Haus der Sonne",
+      "Morgenrücken"
+    ]
+  },
+  {
+    "name": "Morgenrücken",
+    "neighbors": [
+      "Morgenfeld",
+      "Waithfels"
+    ]
+  },
+  {
+    "name": "Hochlaub",
+    "neighbors": [
+      "Ostesteinburg",
+      "TautonischeHochebene",
+      "Bürthal"
     ]
   }
 ]

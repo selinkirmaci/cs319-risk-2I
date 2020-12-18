@@ -48,35 +48,31 @@ public class JSONParser {
         return continents;
     }
 
-    // TODO:
-    public ArrayList<Continent> getNeighbors( String path ) {
-        ArrayList<Continent> continents = new ArrayList<>();
-
+    // initializes the neighbors of each territory
+    // outer arraylist contains each territory
+    // inner arraylist contains neighbors of these territories
+    public ArrayList<ArrayList<Territory>> getNeighbors( String path, Map map ) {
+        ArrayList<ArrayList<Territory>> allNeighbors = new ArrayList<>();
         try {
-            JSONArray continentList = (JSONArray) new org.json.simple.parser.JSONParser().parse(new FileReader(path));
-
-            for (int i = 0; i < continentList.size(); i++) {
-                JSONObject cont = (JSONObject) continentList.get(i);
-                String name = (String) cont.get("name");
-                int extraArmies = ((Long) cont.get("extraArmies")).intValue();
-                JSONArray territoryList = (JSONArray) cont.get("territories");
-
-                ArrayList<Territory> territories = new ArrayList<>();
-                for ( Object o : territoryList ) {
+            JSONArray territoryList = (JSONArray) new org.json.simple.parser.JSONParser().parse(new FileReader(path));
+            for (int i = 0; i < territoryList.size(); i++) {
+                ArrayList<Territory> neighbors = new ArrayList<>();
+                JSONObject territory = (JSONObject) territoryList.get(i);
+                neighbors.add(map.getTerritoryFromName((String)territory.get("name")));
+                JSONArray neighborList = (JSONArray) territory.get("neighbors");
+                for( Object o : neighborList ) {
                     String territoryName = ( String ) o;
-                    Territory territory = new Territory(territoryName);
-                    territories.add(territory);
+                    Territory t = map.getTerritoryFromName(territoryName);
+                    neighbors.add(t);
                 }
-
-                Continent continent = new Continent(extraArmies, name, territories, i + 1);
-                continents.add(continent);
+                allNeighbors.add(neighbors);
             }
         }
         catch ( IOException | ParseException e ) {
             e.printStackTrace();
         }
 
-        return continents;
+        return allNeighbors;
     }
 
 

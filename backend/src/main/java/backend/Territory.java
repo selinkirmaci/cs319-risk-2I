@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author kaan
@@ -7,6 +9,7 @@ package backend;
 public class Territory {
     private final String name;
     private Army army;
+    private ArrayList<Territory> neighbors;
     
     
     Territory( String name ) {
@@ -26,4 +29,15 @@ public class Territory {
     }
 
     public String getName() { return name; }
+    public void setNeighbors( ArrayList<Territory> neighbors ) {
+        this.neighbors = neighbors;
+    }
+
+    public ArrayList<Territory> getNeighbors() {
+        return neighbors;
+    }
+
+    public boolean isNeighbor( Territory neighbor ) {
+        return neighbors.contains(neighbor);
+    }
 }
