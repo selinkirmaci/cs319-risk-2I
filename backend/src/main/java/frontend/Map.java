@@ -1010,6 +1010,7 @@ public class Map extends JFrame implements ActionListener {
                 updateTerritories();
                 gameManager.getGame().printInfAmt();
                 attackButton.setEnabled(false);
+                fortifyButton.setEnabled(false);
                 player1name.setText(players[0].getName() + " Infantry numbers:" + players[0].getInfantryAmt());
                 player2name.setText(players[1].getName() + " Infantry numbers:" + players[1].getInfantryAmt());
                 if(noOfPlayers>=3)
@@ -1102,6 +1103,7 @@ public class Map extends JFrame implements ActionListener {
             from = "";
             to = "";
             fortifyButton.setEnabled(false);
+            attackButton.setEnabled(false);
         }
 
 
