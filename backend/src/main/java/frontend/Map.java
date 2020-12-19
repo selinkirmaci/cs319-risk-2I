@@ -533,8 +533,10 @@ public class Map extends JFrame implements ActionListener {
 
             if( !from.equals("") && !to.equals("") ) {
                 attackButton.setEnabled(true);
+                fortifyButton.setEnabled(true);
             } else {
                 attackButton.setEnabled(false);
+                fortifyButton.setEnabled(false);
             }
 
             retreatButton.setEnabled(true);
@@ -1099,6 +1101,7 @@ public class Map extends JFrame implements ActionListener {
 
             from = "";
             to = "";
+            fortifyButton.setEnabled(false);
         }
 
 

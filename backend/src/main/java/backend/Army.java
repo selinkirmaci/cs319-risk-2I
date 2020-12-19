@@ -93,7 +93,7 @@ public class Army implements Serializable {
 
     public void forfeitMultiple( int loss ) {
         for( int i = 0; i < loss; i++ ) {
-            troops.remove(i);
+            troops.remove(0);
             infantryAmt--;
         }
         computeTotalValue(troops);
