@@ -13,9 +13,7 @@ public class Game implements Serializable {
     private final int playerAmt;
     private Player[] players;
     private int currentPlayerTurn;
-    private String turnType;
     private final Dice dice;
-    private int currentTroopAmt;
     private CardLibrary cardLib;
     private Map map;
     private final JSONParser parser;
@@ -45,7 +43,6 @@ public class Game implements Serializable {
         cm = CombatManager.getInstance();
         currentPlayerTurn = 0;
         tradeCount = 0;
-        turnType = "draft";
     }
 
     public void addImmuneTerritory( Territory t ) {
@@ -242,7 +239,6 @@ public class Game implements Serializable {
     
     /* add troops to owned or empty territories */
     public void draftTurn( Territory draftTo, int troopAmt ) {
-        turnType = "draft";
         Player p = players[currentPlayerTurn];
         ArrayList<Territory> territories = p.getGainedTerritories();
 
@@ -274,7 +270,6 @@ public class Game implements Serializable {
     // gets called only at the end of the attack turn
     public boolean endAttackTurn( Territory attackFrom, Territory attackTo ) {
         Player p = players[currentPlayerTurn];
-        turnType = "attack";
 
         // attacker
         Territory fromTerritory = attackFrom;
@@ -294,7 +289,13 @@ public class Game implements Serializable {
             System.out.println( "Attacker wins. Defender's territory is now attacker's" );
 
             def.getOwner().removeTerritory(toTerritory);
+
+            System.out.println("defenders ters" + def.getOwner().hasNoTerritory());
+            def.getOwner().checkIfLost();
+
             att.getOwner().addGainedTerritory(toTerritory);
+
+            att.getOwner().checkIfWon();
 
             ArrayList<Troop> toAdd = new ArrayList<>();
             toAdd.add( new Infantry() );
@@ -305,6 +306,7 @@ public class Game implements Serializable {
             att.getOwner().getTerritoryCard(toTerritory, cardLib); // get territory card
             printMap();
             printHands();
+
             return true;
         }
 
@@ -362,7 +364,7 @@ public class Game implements Serializable {
                 troopsToFortify.add( new Infantry() );
             }
 
-            //add created infantreis to toTerr
+            //add created infantries to toTerr
             toTerr.getArmy().fortify(troopsToFortify);
 
             //remove all infantries from the fromTerr
@@ -397,15 +399,29 @@ public class Game implements Serializable {
         }
     }
 
-    /* if a player has all of the continents, that player wins */
-    private boolean checkIfWon( Player p ) {
+    /* if a player has all of the continents or all other players have lost, that player wins */
+    public boolean checkIfWon( Player p ) {
         if(!secretMissionModOn) {
             if (p.getGainedContinents().size() == 7) {
                 p.winGame();
                 return true;
+            } else  {
+                int lossCount = 0;
+                for( int i = 1; i < playerAmt + 1; i++ ) {
+                    Player currPlayer = players[i - 1];
+                    if( currPlayer == p ) {
+                        continue;
+                    }
+                    if( currPlayer.hasLost() ) {
+                        lossCount++;
+                    }
+                }
+
+                if( lossCount == playerAmt - 1 ) { // other players lost
+                    return true;
+                }
             }
-        }else
-        {
+        } else {
             System.out.println("On secretMissionConditions");
             System.out.println("************************************************************************");
             int secretMissionNumber = p.getSecretMission();
@@ -485,8 +501,7 @@ public class Game implements Serializable {
                 }
                 return null;
             }
-        }else
-        {
+        } else {
             for (int i = 0; i < playerAmt; i++) {
                 Player curr = players[i];
                 if(checkIfWon(curr))

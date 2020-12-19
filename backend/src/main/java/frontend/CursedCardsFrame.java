@@ -29,7 +29,8 @@ public class CursedCardsFrame extends JFrame implements ActionListener
     private backend.Game game;
     private boolean tradeSuccess;
     private JFrame frame;
-    public CursedCardsFrame( backend.Game game)
+    private frontend.Map gamef;
+    public CursedCardsFrame( backend.Game game, frontend.Map gamef )
     {
         setLayout(null);
         setPreferredSize(new Dimension(1200,900));
@@ -38,6 +39,7 @@ public class CursedCardsFrame extends JFrame implements ActionListener
 
         this.currPlayer = game.getPlayers()[game.getCurrentPlayerTurn()];
         this.game = game;
+        this.gamef = gamef;
 
         this.frame = new JFrame();
 
@@ -196,6 +198,7 @@ public class CursedCardsFrame extends JFrame implements ActionListener
                 JOptionPane.showMessageDialog(null, "Trade successful.");
                 revalidate();
                 dispose();
+                gamef.updateTerritories();
             } else {
                 JOptionPane.showMessageDialog(null, "Trade request invalid!");
             }

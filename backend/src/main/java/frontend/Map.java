@@ -887,14 +887,16 @@ public class Map extends JFrame implements ActionListener {
                     attackTimer.cancel();
                     attackTimer.purge();
                     attackSeconds = 10;
-                    Player potentialWinner = game.checkIfAnyoneWon();
-                    if(potentialWinner != null)
-                    {
-                        JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
-                    }
                     // continue the timer whenever it is left
                     timer1 = new Timer();
                     timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
+
+                    boolean won = game.checkIfWon( players[currentPlayer] );
+                    if(won)
+                    {
+                        System.out.println("won the game!!!!!!!!!");
+                        JOptionPane.showMessageDialog(null,players[currentPlayer].getName()+" has won the game!");
+                    }
                 }
 
             }
@@ -1026,6 +1028,8 @@ public class Map extends JFrame implements ActionListener {
 
             if (troopAmt > maxInfAmt) {
                     JOptionPane.showMessageDialog(null,"Invalid. Amount of infantries in hand is: " + maxInfAmt );
+                    from = "";
+                    to = "";
                     System.out.println();
             } else {
                 // TODO: Add a notification panel to show the drafted soldier amount and the territory name.
@@ -1096,7 +1100,7 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource() == cursedCardInfoFrameButton)
         {
-            cursedCardsFrame = new CursedCardsFrame(game);
+            cursedCardsFrame = new CursedCardsFrame(game, this);
             cursedCardsFrame.setVisible(true);
             cursedCardsFrame.setTitle("Risk");
             cursedCardsFrame.setResizable(false);
