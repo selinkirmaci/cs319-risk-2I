@@ -39,6 +39,17 @@ public class Map implements Serializable {
     }
 
 
+    public Continent getContinentOfTerritory(Territory t)
+    {
+        for(Continent c: continents)
+        {
+            if(c.getTerritories().contains(t))
+            {
+                return c;
+            }
+        }
+        return null;
+    }
     /* returns the territory with the corresponding name, returns null if not found */
     public Territory getTerritoryFromName( String territory ) {
         Continent currC;

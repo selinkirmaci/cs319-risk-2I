@@ -3,6 +3,8 @@ package backend;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -17,6 +19,7 @@ public class Player implements Serializable {
     private Hand hand;
     private ArrayList<Continent> gainedContinents;
     private ArrayList<Territory> gainedTerritories;
+    private Continent[] allContinants;
     private final int playerId;
     private boolean hasLost;
     private boolean won;
@@ -25,6 +28,9 @@ public class Player implements Serializable {
     private int secretMission;
     private boolean boosted;
     private boolean hasRebellion;
+    private HashMap<String,Integer> attacksAgainstOthers;
+    private int[] continentNumbersArray;
+    private int gainedContinentsNumber;
     
     public Player( String name, Avatar avatar, int infantryAmt, int playerId ) {
         this.name = name;
@@ -39,6 +45,14 @@ public class Player implements Serializable {
         tradeCount = 0;
         boosted = false;
         hasRebellion = false;
+        continentNumbersArray = new int[7];
+        allContinants = new Continent[7];
+        gainedContinentsNumber = 0;
+        for (int i:continentNumbersArray)
+        {
+            i = 0;
+        }
+        attacksAgainstOthers = new HashMap<String, Integer>();
     }
 
     public void winGame() {
@@ -55,6 +69,30 @@ public class Player implements Serializable {
 
     public boolean hasWon() {
         return won;
+    }
+
+    public void addAttack(String enemy)
+    {
+        System.out.println("In add attack method==========================");
+        if(!attacksAgainstOthers.containsKey(enemy))
+        {
+            attacksAgainstOthers.put(enemy,1);
+        }else
+        {
+            System.out.println("In add attack method2222==========================");
+            System.out.println(attacksAgainstOthers.get(enemy));
+            attacksAgainstOthers.put(enemy,attacksAgainstOthers.get(enemy)+1);
+            System.out.println(attacksAgainstOthers.get(enemy));
+        }
+    }
+    public ArrayList<Integer> getAttackNumbers()
+    {
+       ArrayList<Integer> attackNumbers = new ArrayList<Integer>();
+       for(int i: attacksAgainstOthers.values())
+       {
+           attackNumbers.add(i);
+       }
+       return attackNumbers;
     }
 
     public ArrayList<Continent> getGainedContinents() {
@@ -85,19 +123,111 @@ public class Player implements Serializable {
     public void addGainedTerritory( Territory t ) {
         if( !gainedTerritories.contains(t) ) {
             gainedTerritories.add(t);
+            System.out.println(name);
+            System.out.println("Continent name is: "+t.getContinent().getName()+" ===============================================");
+            if(t.getContinent().getName().equals("Klinosra"))
+            {
+                continentNumbersArray[0] += 1;
+            }else if(t.getContinent().getName().equals("Zamuria"))
+            {
+                continentNumbersArray[1] += 1;
+            }else if(t.getContinent().getName().equals("Teutonia"))
+            {
+                continentNumbersArray[2] += 1;
+            }else if(t.getContinent().getName().equals("Grinomika"))
+            {
+                continentNumbersArray[3] += 1;
+            }else if(t.getContinent().getName().equals("Mimiken"))
+            {
+                continentNumbersArray[4] += 1;
+            }else if(t.getContinent().getName().equals("Kultanien"))
+            {
+                continentNumbersArray[5] += 1;
+            }else if(t.getContinent().getName().equals("Donner"))
+            {
+                continentNumbersArray[6] += 1;
+            }
+            for(int i : continentNumbersArray)
+            {
+                System.out.println(i);
+            }
         }
 
         checkGainedContinents();
     }
+    public int[] getContinentNumbersArray()
+    {
+        return continentNumbersArray;
+    }
+    public int getGainedContinentsNumber()
+    {
+        return gainedContinentsNumber;
+    }
 
+    public void setAllContinants(Continent[] continants)
+    {
+        this.allContinants = continants;
+    }
     public void removeTerritory( Territory t ) {
+        if(t.getContinent().getName().equals("Klinosra"))
+        {
+            continentNumbersArray[0] -= 1;
+        }else if(t.getContinent().getName().equals("Zamuria"))
+        {
+            continentNumbersArray[1] -= 1;
+        }else if(t.getContinent().getName().equals("Teutonia"))
+        {
+            continentNumbersArray[2] -= 1;
+        }else if(t.getContinent().getName().equals("Grinomika"))
+        {
+            continentNumbersArray[3] -= 1;
+        }else if(t.getContinent().getName().equals("Mimiken"))
+        {
+            continentNumbersArray[4] -= 1;
+        }else if(t.getContinent().getName().equals("Kultanien"))
+        {
+            continentNumbersArray[5] -= 1;
+        }else if(t.getContinent().getName().equals("Donner"))
+        {
+            continentNumbersArray[6] -= 1;
+        }
         gainedTerritories.remove(t);
         checkGainedContinents();
     }
 
     //TODO: check if there are gained continents
     public void checkGainedContinents() {
-
+        int gainedContinentNumber = 0;
+        if(continentNumbersArray[0] == 10)
+        {
+            gainedContinentNumber += 1;
+        }
+        if(continentNumbersArray[1] == 6)
+        {
+            gainedContinentNumber += 1;
+        }
+        if(continentNumbersArray[2] == 9)
+        {
+            gainedContinentNumber += 1;
+        }
+        if(continentNumbersArray[3] == 4)
+        {
+            gainedContinentNumber += 1;
+        }
+        if(continentNumbersArray[4] == 7)
+        {
+            gainedContinentNumber += 1;
+        }
+        if(continentNumbersArray[5] == 7)
+        {
+            gainedContinentNumber += 1;
+        }
+        if(continentNumbersArray[6] == 2)
+        {
+            gainedContinentNumber += 1;
+        }
+        System.out.println("GainedContinentNumber is: " + gainedContinentNumber);
+        gainedContinentsNumber = gainedContinentNumber;
     }
 
     public boolean hasNoTerritory() {

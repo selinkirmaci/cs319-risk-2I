@@ -106,7 +106,6 @@ public class CombatManager implements Serializable {
         System.arraycopy(defRolls,0,results,attackerDiceNumber,defenderDiceNumber);
         //results[0] = attRoll;
         //results[1] = defRoll;
-
         return results;
     }
 
@@ -121,6 +120,7 @@ public class CombatManager implements Serializable {
     }
 
     public Army getWinner( Army attacker, Army defender ) {
+
         if( attacker.getTotalValue() == 0 ) {
             return attacker;
         } else {

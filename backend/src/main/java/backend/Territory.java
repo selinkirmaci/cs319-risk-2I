@@ -11,6 +11,7 @@ public class Territory implements Serializable {
     private final String name;
     private Army army;
     private ArrayList<Territory> neighbors;
+    private Continent continent;
     
     
     Territory( String name ) {
@@ -28,6 +29,15 @@ public class Territory implements Serializable {
             return army;
         }
     }
+
+    public Continent getContinent() {
+        return continent;
+    }
+
+    public void setContinent(Continent continent) {
+        this.continent = continent;
+    }
+
     public void removeArmy()
     {
         army = null;

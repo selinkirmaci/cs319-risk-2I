@@ -27,4 +27,14 @@ public class Continent implements Serializable {
     }
 
     public String getName() { return name; }
+
+    public Continent returnSelf(String continentName)
+    {
+        if(name.equals(continentName))
+        {
+            return this;
+        }
+        else
+            return null;
+    }
 }

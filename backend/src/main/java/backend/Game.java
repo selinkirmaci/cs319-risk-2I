@@ -85,6 +85,7 @@ public class Game implements Serializable {
             for( int j = 0; j < neighbors.get(i).size() - 1; j++ ) {
                 System.out.println(neighbors.get(i).get(j + 1).getName());
                 curr.setNeighbors(neighbors.get(i));
+                curr.setContinent(map.getContinentOfTerritory(curr));
             }
         }
     }
@@ -151,6 +152,7 @@ public class Game implements Serializable {
             // distribute an army of 5 infantries into 4 continents (for now)
             for( int j = 0; j < 4; j++ ) {
                 Territory currTerr = currTerrs.get(j); // current territory
+                currTerr.setContinent(map.getContinentOfTerritory(currTerr));
                 players[i].useInfantries(troopAmt); // reduce the amt of infantries that the player has
                 players[i].addGainedTerritory(currTerr); // add the gained territory
 
@@ -211,7 +213,13 @@ public class Game implements Serializable {
         Player currPlayer = players[currentPlayerTurn];
 
         checkIfLosed(currPlayer);
-        checkIfWon(currPlayer);
+        boolean won = checkIfWon(currPlayer);
+
+        if(won)
+        {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println(currPlayer.getName()+ " won!");
+        }
 
         // Pass lost players
         if( currPlayer.hasLost() ) {
@@ -390,14 +398,83 @@ public class Game implements Serializable {
     }
 
     /* if a player has all of the continents, that player wins */
-    private void checkIfWon( Player p ) {
-        if( p.getGainedContinents().size() == 7 ) {
-            p.winGame();
+    private boolean checkIfWon( Player p ) {
+        if(!secretMissionModOn) {
+            if (p.getGainedContinents().size() == 7) {
+                p.winGame();
+                return true;
+            }
+        }else
+        {
+            System.out.println("On secretMissionConditions");
+            System.out.println("************************************************************************");
+            int secretMissionNumber = p.getSecretMission();
+            if(secretMissionNumber == 1) //conquer 24 territories
+            {
+                System.out.println("Secret mission 1");
+                if(p.getGainedTerritories().size()==24)
+                {
+                    p.winGame();
+                    return true;
+                }
+            }else if(secretMissionNumber == 2) // conquer 2 continents
+            {
+                System.out.println("Secret mission 2");
+                System.out.println("Number of continents is: " + p.getGainedContinentsNumber());
+                if(p.getGainedContinentsNumber() == 2)
+                {
+                    p.winGame();
+                    return true;
+                }
+            }else if(secretMissionNumber == 3) // conquer at least 2 territories in each continent
+            {
+                System.out.println("Secret mission 3");
+                ArrayList<Territory> gainedTerritories = p.getGainedTerritories();
+                int[] continentArray = p.getContinentNumbersArray();
+                boolean secretMissionComplete = false;
+                if(gainedTerritories.size() >=14)
+                {
+                    for(int c: continentArray)
+                    {
+                        System.out.println("territory in continent number is: "+c);
+                        if(c >= 2)
+                        {
+                            secretMissionComplete = true;
+                        }
+                    }
+                }
+                if(secretMissionComplete) {
+                    p.winGame();
+                    return true;
+                }
+
+            }else if(secretMissionNumber == 4) //attack and win against all players at least 2 times
+            {
+                System.out.println("Secret mission 4");
+                ArrayList<Integer> attackNumbers = p.getAttackNumbers();
+                boolean secretMissionComplete = false;
+                for(int a:attackNumbers)
+                {
+                    System.out.println("attack number is: " + a);
+                    if( a >= 2)
+                    {
+                        secretMissionComplete = true;
+                    }
+                }
+                if(secretMissionComplete) {
+                    p.winGame();
+                    return true;
+                }
+
+            }
+            return false;
         }
+        return false;
     }
 
     // returns winner if anyone won, null otherwise
     public Player checkIfAnyoneWon() {
+        System.out.println("In checking if anyone won");
         for( int i = 0; i < playerAmt; i++ ) {
             Player curr = players[currentPlayerTurn];
             if( curr.getGainedContinents().size() == 7 ) {

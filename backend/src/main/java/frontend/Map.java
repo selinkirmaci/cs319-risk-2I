@@ -433,7 +433,7 @@ public class Map extends JFrame implements ActionListener {
 
         secretMissionCard = new JButton("SECRET MISSION");
         secretMissionCard.setName("SECRET MISSION");
-        secretMissionCard.setBounds(350, 930, 150, 50);
+        secretMissionCard.setBounds(5, 930, 150, 50);
         secretMissionCard.setContentAreaFilled(true);
         secretMissionCard.setBorderPainted(true);
         secretMissionCard.setEnabled(true);
@@ -842,6 +842,16 @@ public class Map extends JFrame implements ActionListener {
             // close panel 1 if the attack turn has ended
             if( game.getCombatManager().warEnded(attacker, defender) != null ) {
                 Army winner = game.getCombatManager().warEnded(attacker,defender);
+                System.out.println("Combat finish about to enter addAttack");
+                System.out.println(winner.getOwner().getName());
+                System.out.println(attacker.getOwner().getName());
+
+                //problem here
+                if(!winner.getOwner().getName().equals(attacker.getOwner().getName()))
+                {
+                    System.out.println("entered addAttack");
+                    attacker.getOwner().addAttack(defender.getOwner().getName());
+                }
                 System.out.println("War has ended. Close panel1.");
                 game.endAttackTurn(fromTerr, toTerr);
                 from = "";
