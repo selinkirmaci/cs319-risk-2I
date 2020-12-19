@@ -54,18 +54,20 @@ public class Map extends JFrame implements ActionListener {
     private JLabel background;
     private JLabel avatar1,avatar2,avatar3,avatar4;
     private JLabel player1name,player2name,player3name,player4name;
+    private int timeLeft = 60;
 
     JLabel attackTimerLabel;
     private int attackSeconds = 10;
     Timer attackTimer = new Timer();
 
     JLabel lblTimer;
-    private int seconds = 60;
+    private int seconds = timeLeft;
     Timer timer1 = new Timer();
     TimerTask task1 = new TimerTask() {
         @Override
         public void run() {
             seconds--;
+            timeLeft = seconds;
             lblTimer.setText(""+seconds);
             if(seconds == 0)
             {
@@ -540,6 +542,8 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource()==pauseButton)
         {
+            // TODO: stop the timer
+
             //mainPanel.setEnabled(false);
             int chosenoption;
             Object[] options = { "CONTINUE", "HOW TO PLAY","SETTINGS","SAVE GAME","QUIT" };
@@ -587,8 +591,6 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource() == attackButton)
         {
-            startAttackTimer();
-
             /*
             rollDiceButton.setEnabled(true);
             allianceButton.setEnabled(true);
@@ -622,6 +624,11 @@ public class Map extends JFrame implements ActionListener {
                 System.out.println("Invalid attack!");
                 JOptionPane.showMessageDialog(null, "Invalid attack!");
             } else if(fromTerr.isNeighbor(toTerr)) {
+
+                startAttackTimer();
+                timer1.cancel();
+                timer1.purge();
+
                 Player attacker = fromTerr.getArmy().getOwner();
                 Player defender = toTerr.getArmy().getOwner();
                 attackerLabel = new JLabel(attacker.getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
@@ -630,11 +637,6 @@ public class Map extends JFrame implements ActionListener {
                 ImageIcon attackerIcon = new ImageIcon(attacker.getAvatar().getImageFileName());
                 ImageIcon defenderIcon = new ImageIcon(defender.getAvatar().getImageFileName());
                 playSound("./src/main/resources/sounds/snd_sword1.wav",-10.0f);
-
-                System.out.println("Executing war from "+from + " to " + to + "!");
-
-                // Cancel the timer for now. TODO: We probably need a new different timer for attack turns
-                timer1.cancel();
 
                 System.out.println("Executing war from "+from + " to " + to + "!");
 
@@ -815,7 +817,11 @@ public class Map extends JFrame implements ActionListener {
                     retreatButton.setEnabled(false);
                     attackTimer.cancel();
                     attackTimer.purge();
-                    startTimer();
+                    attackSeconds = 10;
+
+                    // continue the timer whenever it is left
+                    timer1 = new Timer();
+                    timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
                 }
 
             }
@@ -1154,7 +1160,7 @@ public class Map extends JFrame implements ActionListener {
         attackTimer.scheduleAtFixedRate(createAttackTimerTask(),1000,1000);
     }
     private TimerTask createAttackTimerTask() {
-        return new TimerTask(){
+        return new TimerTask() {
             @Override
             public void run() {
                 attackSeconds--;
