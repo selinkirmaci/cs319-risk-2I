@@ -126,6 +126,10 @@ public class Map implements Serializable {
 
             printTerrStack(searchStack);
 
+            if( curr == to ) {
+                return true;
+            }
+
             if( (searchStack.size() == 0) || (visitedNeighbors.size() > 45) ) {
                 return false;
             }

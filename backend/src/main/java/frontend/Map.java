@@ -577,6 +577,8 @@ public class Map extends JFrame implements ActionListener {
             }else if(chosenoption == 3)
             {
                 gameManager.saveGame();
+                timer1 = new Timer();
+                timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
             }
             else if(chosenoption == 2) //settings
             {
@@ -644,6 +646,11 @@ public class Map extends JFrame implements ActionListener {
                 return;
             }
 
+            if( fromTerr.getArmy().getTotalValue() <= 1 ) {
+                JOptionPane.showMessageDialog(null, "You need to have at least 2 infantries to attack!");
+                return;
+            }
+
             System.out.println("attacker player " + players[currentPlayer].getName() + " contains " + fromTerr.getName() + ": " + players[currentPlayer].hasTerritory( fromTerr ) );
             System.out.println("attacker player " + players[currentPlayer].getName() + " contains " + toTerr.getName() + ": " + players[currentPlayer].hasTerritory( toTerr ) );
             System.out.println("owner of to territory: " + toTerr.getArmy().getOwner().getName());
@@ -654,6 +661,8 @@ public class Map extends JFrame implements ActionListener {
                     || ( players[currentPlayer].hasTerritory( toTerr ) ) ) {
                 System.out.println("Invalid attack!");
                 JOptionPane.showMessageDialog(null, "Invalid attack!");
+                from = "";
+                to = "";
             } else if(fromTerr.isNeighbor(toTerr)) {
 
                 startAttackTimer();
@@ -724,6 +733,8 @@ public class Map extends JFrame implements ActionListener {
             }else
             {
                 JOptionPane.showMessageDialog(null, "Territories should be neighbors!");
+                from = "";
+                to = "";
             }
 
             attackButton.setEnabled(false);
@@ -967,19 +978,24 @@ public class Map extends JFrame implements ActionListener {
         }
 
         if( e.getSource() == draftButton ) {
-            System.out.println( "Drafting " + chosenTerritory );
-            String m="";
-            m = JOptionPane.showInputDialog("Drafting " + chosenTerritory +". How many soldiers?");
+            Territory chosen = gameManager.getGame().getMap().getTerritoryFromName(chosenTerritory);
+
+            if ( chosen.getArmy() != null && chosen.getArmy().getOwner() != players[currentPlayer] ) {
+                JOptionPane.showMessageDialog(null, "Cannot draft to enemy territory!");
+                return;
+            }
+            System.out.println("Drafting " + chosenTerritory);
+            String m = "";
+            m = JOptionPane.showInputDialog("Drafting " + chosenTerritory + ". How many soldiers?");
 
             int troopAmt = Integer.parseInt(m);
             int playerTurn = gameManager.getGame().getCurrentPlayerTurn();
             Player p = gameManager.getGame().getPlayers()[playerTurn];
             int maxInfAmt = p.getInfantryAmt();
-            Territory chosen = gameManager.getGame().getMap().getTerritoryFromName(chosenTerritory);
 
-            if( troopAmt > maxInfAmt ) {
-                // TODO: Error alert here!
-                System.out.println("Amount of infantries in hand is: " + maxInfAmt );
+            if (troopAmt > maxInfAmt) {
+                    JOptionPane.showMessageDialog(null,"Invalid. Amount of infantries in hand is: " + maxInfAmt );
+                    System.out.println();
             } else {
                 // TODO: Add a notification panel to show the drafted soldier amount and the territory name.
                 gameManager.getGame().draftTurn(chosen, troopAmt);
@@ -1061,8 +1077,14 @@ public class Map extends JFrame implements ActionListener {
                 String m="";
                 m = JOptionPane.showInputDialog("Fortifying " + chosenTerritory +". How many soldiers?");
                 int troopAmt = Integer.parseInt(m);
-                game.fortifyTurn(fromTerr, toTerr, troopAmt);
-                updateTerritories();
+                if( troopAmt >= fromTerr.getArmy().getTotalValue() ) {
+                    from = "";
+                    to = "";
+                    JOptionPane.showMessageDialog(null,"Not enough soldiers" );
+                } else {
+                    game.fortifyTurn(fromTerr, toTerr, troopAmt);
+                    updateTerritories();
+                }
             } else {
                 JOptionPane.showMessageDialog(null,"Cannot access from " + from + " to " + to );
             }
@@ -1118,6 +1140,7 @@ public class Map extends JFrame implements ActionListener {
             background.revalidate();
         }
     }
+
     public void updateTerritories()
     {
         boolean enabled = false;
@@ -1128,7 +1151,7 @@ public class Map extends JFrame implements ActionListener {
                 territories[i].setText("" + map.getTerritoryFromName(territories[i].getName()).getArmy().getTotalValue());
                 Player p = map.getTerritoryFromName(territories[i].getName()).getArmy().getOwner();
                 territories[i].setForeground(p.getColor());
-                territories[i].setEnabled(true);
+                //territories[i].setEnabled(true);
                 enabled = true;
             }else
             {
@@ -1139,7 +1162,7 @@ public class Map extends JFrame implements ActionListener {
                 {
                     if(map.getTerritoryFromName(neighbors.get(j).getName()).getArmy() != null)
                     {
-                        territories[j].setEnabled(true);
+                        //territories[j].setEnabled(true);
                         enabled = true;
                     }
                 }}catch (Exception e)
@@ -1150,7 +1173,7 @@ public class Map extends JFrame implements ActionListener {
             }
             if(!enabled)
             {
-                territories[i].setEnabled(false);
+               // territories[i].setEnabled(false);
             }
             enabled = false;
         }

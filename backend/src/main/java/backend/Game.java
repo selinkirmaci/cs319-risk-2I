@@ -159,8 +159,8 @@ public class Game implements Serializable {
                 for( int k = 0; k < troopAmt; k++ ) {
                     troops.add( new Infantry() );
                 }
-
                 Army army = new Army( troops, players[i] );
+
                 //set the army of that territory
                 currTerr.setArmy(army);
             }

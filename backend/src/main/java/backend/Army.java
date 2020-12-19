@@ -86,7 +86,6 @@ public class Army implements Serializable {
             return;
         }
 
-        Troop t = troops.get(0);
         troops.remove(0);
         infantryAmt--;
         computeTotalValue(troops);

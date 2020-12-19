@@ -18,14 +18,17 @@
     "name": "Ost-Klina",
     "neighbors": [
       "Sumbaspitze",
-      "Nosra"
+      "Nosra",
+      "Klinos"
     ]
   },
   {
     "name": "Nosra",
     "neighbors": [
       "Ost-Klina",
-      "Raken"
+      "Raken",
+      "Nord-Ziegelsand",
+      "Ziegelherz"
     ]
   },
   {
@@ -56,7 +59,8 @@
     "name": "Graue Ebene",
     "neighbors": [
       "Nord-Ziegelsand",
-      "Eden"
+      "Eden",
+      "Nosptenburg"
     ]
   },
   {
@@ -79,7 +83,8 @@
     "neighbors": [
       "Schwarzfeld",
       "Rorschachwall",
-      "Hoiawald"
+      "Hoiawald",
+      "Eden"
     ]
   },
   {
@@ -118,7 +123,6 @@
     "neighbors": [
       "Niederswith",
       "Schwarzfeld",
-      "Waithfels",
       "Uppenwald",
       "Bakanwald"
     ]
@@ -154,7 +158,8 @@
     "neighbors": [
       "Eden",
       "TautonischeHochebene",
-      "Ostesteinburg"
+      "Ostesteinburg",
+      "Niederswith"
     ]
   },
   {
@@ -177,7 +182,8 @@
     "name": "Ziegelsand",
     "neighbors": [
       "Nord-Ziegelsand",
-      "Sandwacht"
+      "Sandwacht",
+      "Hohe Hinkel"
     ]
   },
   {
@@ -185,15 +191,6 @@
     "neighbors": [
       "Grimmspitze",
       "Ziegelsand"
-    ]
-  },
-  {
-    "name": "Nosra",
-    "neighbors": [
-      "Nord-Ziegelsand",
-      "Ost-Klina",
-      "Raken",
-      "Ziegelherz"
     ]
   },
   {
@@ -248,7 +245,8 @@
     "neighbors": [
       "Eishaiz",
       "Zankostane",
-      "Zamuria"
+      "Zamuria",
+      "Südforstheim"
     ]
   },
   {
@@ -279,10 +277,10 @@
     "name": "TautonischeHochebene",
     "neighbors": [
       "Eden",
-      "TautonischeHochebene",
       "TeutonischerHammer",
       "Wadland",
-      "Hochlaub"
+      "Hochlaub",
+      "Bürthal"
     ]
   },
   {
@@ -290,7 +288,8 @@
     "neighbors": [
       "Wadland",
       "Hochlaub",
-      "Wuselwiese"
+      "Wuselwiese",
+      "TautonischeHochebene"
     ]
   },
   {
@@ -325,12 +324,19 @@
     ]
   },
   {
+    "name": "Sonnenwiese",
+    "neighbors": [
+      "Goldbach",
+      "Haus der Sonne",
+      "Morgenfeld"
+    ]
+  },
+  {
     "name": "Morgenfeld",
     "neighbors": [
       "Morgenrücken",
       "Uppenwald",
-      "Haus der Sonne",
-      "Morgenrücken"
+      "Haus der Sonne"
     ]
   },
   {
@@ -353,8 +359,6 @@
     "neighbors": [
       "Nosra",
       "Nord-Ziegelsand",
-      "Ziegelsand",
-      "Hohe Hinkel",
       "Grimmspitze"
     ]
   }
