@@ -628,6 +628,14 @@ public class Map extends JFrame implements ActionListener {
             {
                 JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
             }
+            /*
+            EndGameFrame endGameFrame = new EndGameFrame("selin",gameManager,soundManager);
+            endGameFrame.setVisible(true);
+            endGameFrame.setTitle("Risk");
+            endGameFrame.setResizable(false);
+            endGameFrame.pack();
+            dispose();
+             */
         }
         if(e.getSource() == attackButton)
         {
