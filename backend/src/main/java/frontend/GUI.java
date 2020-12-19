@@ -14,10 +14,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.sound.sampled.FloatControl;
@@ -32,12 +29,12 @@ import javax.sound.sampled.AudioSystem;
 
 public class GUI extends JFrame implements ActionListener {
 
-	private JPanel pnlMainMenu, pnlStartGameMenu, pnlCredits;
+	private JPanel pnlMainMenu, pnlStartGameMenu, pnlCredits, pnlLoadGame;
 
 	private JCheckBox boxSecretMission;
 
-	private JButton btnStartGame, btnHowToPlay, btnQuitGame, btnCredits, btnBackFromCredits, btnBackFromStartGameMenu,btnContinueFromStartGameMenu,btnSettings;
-	private JButton btnLoadGame;
+	private JButton btnStartGame, btnHowToPlay, btnQuitGame, btnCredits, btnBackFromCredits, btnBackFromStartGameMenu,btnContinueFromStartGameMenu,btnSettings,btnBackFromLoadGame;
+	private JButton btnLoadGame, btnSlot1, btnSlot2, btnSlot3, btnSlot4, btnDeleteSlot1, btnDeleteSlot2, btnDeleteSlot3, btnDeleteSlot4;
 
 	private JButton btnNumOfPlayers2, btnNumOfPlayers3, btnNumOfPlayers4;
 
@@ -67,6 +64,8 @@ public class GUI extends JFrame implements ActionListener {
 	private int avatarNoP1 = 0, avatarNoP2 = 0, avatarNoP3 = 0, avatarNoP4 = 0;
 	private int numOfPlayers = 4;
 	private boolean secretMission;
+	private String slot1 = "", slot2 = "", slot3 = "", slot4 = "";
+
 	private int[] playerAvatarIndexes = new int[4];
 	private String[] playerNames = new String[4];
 	private Color[] playerColors = new Color[4];
@@ -129,10 +128,16 @@ public class GUI extends JFrame implements ActionListener {
 		lblGameMenuBackground.add(btnStartGame);
 
 		btnLoadGame = new JButton("Load Game");
-		btnLoadGame.setBounds(900, 400, 400, 60);
+		btnLoadGame.setBounds(1038, 393, 68, 70);
 		btnLoadGame.setContentAreaFilled(false);
 		btnLoadGame.setBorderPainted(true);
 		lblGameMenuBackground.add(btnLoadGame);
+
+		JLabel lblFloppyDisk = new JLabel("");
+		lblFloppyDisk.setIcon(new ImageIcon("./src/main/resources/images/loadGameLogo.png"));
+		lblFloppyDisk.setBounds(1040, -287, 1580, 1100); //1860,1200
+
+		pnlMainMenu.add(lblFloppyDisk);
 
 		btnHowToPlay = new JButton("");
 		btnHowToPlay.setBounds(590, 505, 400, 60);
@@ -188,6 +193,161 @@ public class GUI extends JFrame implements ActionListener {
 		pnlCredits.add(lblCreditsBackground);
 
 		// ###############  End of Credits Panel  ###############
+
+		// ############### Load Game Panel ###################
+
+		pnlLoadGame = new JPanel();
+		pnlLoadGame.setPreferredSize(new Dimension(300,300));
+
+		JLabel lblLoadGameBackground = new JLabel("");
+		lblLoadGameBackground.setIcon(new ImageIcon("./src/main/resources/images/loadGameBackgroundResized.png"));
+		lblLoadGameBackground.setBounds(0, -165, 1580, 1100); //1860,1200
+
+		btnBackFromLoadGame = new JButton("");
+		btnBackFromLoadGame.setBounds(35, 670, 280, 75);
+		btnBackFromLoadGame.setContentAreaFilled(false);
+		btnBackFromLoadGame.setBorderPainted(true);
+		lblLoadGameBackground.add(btnBackFromLoadGame);
+
+		Border bor = new LineBorder(Color.black, 3);
+
+		btnSlot1 = new JButton("Empty");
+		btnSlot1.setBounds(635, 170, 280, 75);
+		btnSlot1.setContentAreaFilled(false);
+		btnSlot1.setBorderPainted(true);
+		btnSlot1.setBorder(bor);
+		lblLoadGameBackground.add(btnSlot1);
+
+		btnSlot2 = new JButton("Empty");
+		btnSlot2.setBounds(635, 300, 280, 75);
+		btnSlot2.setContentAreaFilled(false);
+		btnSlot2.setBorderPainted(true);
+		btnSlot2.setBorder(bor);
+		lblLoadGameBackground.add(btnSlot2);
+
+		btnSlot3 = new JButton("Empty");
+		btnSlot3.setBounds(635, 430, 280, 75);
+		btnSlot3.setContentAreaFilled(false);
+		btnSlot3.setBorderPainted(true);
+		btnSlot3.setBorder(bor);
+		lblLoadGameBackground.add(btnSlot3);
+
+		btnSlot4 = new JButton("Empty");
+		btnSlot4.setBounds(635, 560, 280, 75);
+		btnSlot4.setContentAreaFilled(false);
+		btnSlot4.setBorderPainted(true);
+		btnSlot4.setBorder(bor);
+		lblLoadGameBackground.add(btnSlot4);
+
+		btnDeleteSlot1 = new JButton("");
+		btnDeleteSlot1.setBounds(935, 170, 75, 75);
+		btnDeleteSlot1.setContentAreaFilled(false);
+		btnDeleteSlot1.setBorderPainted(true);
+		btnDeleteSlot1.setBorder(bor);
+		lblLoadGameBackground.add(btnDeleteSlot1);
+
+		btnDeleteSlot2 = new JButton("");
+		btnDeleteSlot2.setBounds(935, 300, 75, 75);
+		btnDeleteSlot2.setContentAreaFilled(false);
+		btnDeleteSlot2.setBorderPainted(true);
+		btnDeleteSlot2.setBorder(bor);
+		lblLoadGameBackground.add(btnDeleteSlot2);
+
+		btnDeleteSlot3 = new JButton("");
+		btnDeleteSlot3.setBounds(935, 430, 75, 75);
+		btnDeleteSlot3.setContentAreaFilled(false);
+		btnDeleteSlot3.setBorderPainted(true);
+		btnDeleteSlot3.setBorder(bor);
+		lblLoadGameBackground.add(btnDeleteSlot3);
+
+		btnDeleteSlot4 = new JButton("");
+		btnDeleteSlot4.setBounds(935, 560, 75, 75);
+		btnDeleteSlot4.setContentAreaFilled(false);
+		btnDeleteSlot4.setBorderPainted(true);
+		btnDeleteSlot4.setBorder(bor);
+		lblLoadGameBackground.add(btnDeleteSlot4);
+
+		JLabel lblBin1 = new JLabel("");
+		lblBin1.setIcon(new ImageIcon("./src/main/resources/images/binResized.png"));
+		lblBin1.setBounds(952, -342, 1580, 1100); //1860,1200
+		lblLoadGameBackground.add(lblBin1);
+
+		JLabel lblBin2 = new JLabel("");
+		lblBin2.setIcon(new ImageIcon("./src/main/resources/images/binResized.png"));
+		lblBin2.setBounds(952, -212, 1580, 1100); //1860,1200
+		lblLoadGameBackground.add(lblBin2);
+
+		JLabel lblBin3 = new JLabel("");
+		lblBin3.setIcon(new ImageIcon("./src/main/resources/images/binResized.png"));
+		lblBin3.setBounds(952, -82, 1580, 1100); //1860,1200
+		lblLoadGameBackground.add(lblBin3);
+
+		JLabel lblBin4 = new JLabel("");
+		lblBin4.setIcon(new ImageIcon("./src/main/resources/images/binResized.png"));
+		lblBin4.setBounds(952, 48, 1580, 1100); //1860,1200
+		lblLoadGameBackground.add(lblBin4);
+
+		try {
+			FileReader reader1 = new FileReader("./src/main/resources/saved_games/slot1.txt");
+			BufferedReader bufferedReader1 = new BufferedReader(reader1);
+
+			FileReader reader2 = new FileReader("./src/main/resources/saved_games/slot2.txt");
+			BufferedReader bufferedReader2 = new BufferedReader(reader2);
+
+			FileReader reader3 = new FileReader("./src/main/resources/saved_games/slot3.txt");
+			BufferedReader bufferedReader3 = new BufferedReader(reader3);
+
+			FileReader reader4 = new FileReader("./src/main/resources/saved_games/slot4.txt");
+			BufferedReader bufferedReader4 = new BufferedReader(reader4);
+
+			String line1, line2, line3, line4;
+
+			while ((line1 = bufferedReader1.readLine()) != null) {
+				slot1=line1;
+			}
+
+			while ((line2 = bufferedReader2.readLine()) != null) {
+				slot2=line2;
+			}
+
+			while ((line3 = bufferedReader3.readLine()) != null) {
+				slot3=line3;
+			}
+
+			while ((line4 = bufferedReader4.readLine()) != null) {
+				slot4=line4;
+			}
+
+			if( !slot1.equals("") )
+			{
+				btnSlot1.setText(slot1);
+			}
+
+			if( !slot2.equals("") )
+			{
+				btnSlot2.setText(slot2);
+			}
+
+			if( !slot3.equals("") )
+			{
+				btnSlot3.setText(slot3);
+			}
+
+			if( !slot4.equals("") )
+			{
+				btnSlot4.setText(slot4);
+			}
+
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+		pnlLoadGame.add(lblLoadGameBackground);
+
+		// ############### End of Load Game ###################
+
 
 		// ###############  Start Game Menu Panel  ###############
 
@@ -815,6 +975,16 @@ public class GUI extends JFrame implements ActionListener {
 		btnPink4.addActionListener(this);
 
 		btnLoadGame.addActionListener(this);
+		btnBackFromLoadGame.addActionListener(this);
+		btnSlot1.addActionListener(this);
+		btnSlot2.addActionListener(this);
+		btnSlot3.addActionListener(this);
+		btnSlot4.addActionListener(this);
+
+		btnDeleteSlot1.addActionListener(this);
+		btnDeleteSlot2.addActionListener(this);
+		btnDeleteSlot3.addActionListener(this);
+		btnDeleteSlot4.addActionListener(this);
 
 	}
 
@@ -2207,21 +2377,158 @@ public class GUI extends JFrame implements ActionListener {
 
 		if(e.getSource()==btnLoadGame)
 		{
+			remove(pnlMainMenu);
+			add(pnlLoadGame);
+		}
 
-			System.out.println("aasdas");
-			try {
-				System.out.println("aasdas");
-				dispose();
-				Map frame = new Map(loadGame("18-12-2020_15:41:04_saved_game.data", gameManager,soundManager),soundManager);
-				frame.startTimer();
-				frame.setVisible(true);
-				frame.setTitle("Risk");
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setPreferredSize(new Dimension(1150,830)); //1570,800
-				frame.setResizable(false);
-				frame.pack();
-			} catch (IOException ioException) {
-				ioException.printStackTrace();
+		if(e.getSource()==btnBackFromLoadGame)
+		{
+			playSound("./src/main/resources/sounds/snd_howtoplay.wav");
+			remove(pnlLoadGame);
+			add(pnlMainMenu);
+		}
+
+		if(e.getSource()==btnSlot1)
+		{
+			if(!slot1.equals(""))
+			{
+				try {
+					playSound("./src/main/resources/sounds/snd_victory.wav");
+					dispose();
+					Map frame = new Map(loadGame(slot1, gameManager,soundManager),soundManager);
+					frame.startTimer();
+					frame.setVisible(true);
+					frame.setTitle("Risk");
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
+					frame.setResizable(false);
+					frame.pack();
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
+			}
+		}
+
+		if(e.getSource()==btnSlot2)
+		{
+			if(!slot2.equals(""))
+			{
+				try {
+					playSound("./src/main/resources/sounds/snd_victory.wav");
+					dispose();
+					Map frame = new Map(loadGame(slot2, gameManager,soundManager),soundManager);
+					frame.startTimer();
+					frame.setVisible(true);
+					frame.setTitle("Risk");
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
+					frame.setResizable(false);
+					frame.pack();
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
+			}
+		}
+
+		if(e.getSource()==btnSlot3)
+		{
+			if(!slot3.equals(""))
+			{
+				try {
+					playSound("./src/main/resources/sounds/snd_victory.wav");
+					dispose();
+					Map frame = new Map(loadGame(slot3, gameManager,soundManager),soundManager);
+					frame.startTimer();
+					frame.setVisible(true);
+					frame.setTitle("Risk");
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
+					frame.setResizable(false);
+					frame.pack();
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
+			}
+		}
+
+		if(e.getSource()==btnSlot4)
+		{
+			if(!slot4.equals(""))
+			{
+				try {
+					playSound("./src/main/resources/sounds/snd_victory.wav");
+					dispose();
+					Map frame = new Map(loadGame(slot4, gameManager,soundManager),soundManager);
+					frame.startTimer();
+					frame.setVisible(true);
+					frame.setTitle("Risk");
+					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					frame.setPreferredSize(new Dimension(1150,830)); //1570,800
+					frame.setResizable(false);
+					frame.pack();
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
+			}
+		}
+
+		if(e.getSource()==btnDeleteSlot1)
+		{
+			if(!slot1.equals(""))
+			{
+				playSound("./src/main/resources/sounds/snd_delete.wav");
+				try {
+					new FileWriter("./src/main/resources/saved_games/slot1.txt", false).close();
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
+				btnSlot1.setText("Empty");
+				slot1 = "";
+			}
+		}
+
+		if(e.getSource()==btnDeleteSlot2)
+		{
+			if(!slot2.equals(""))
+			{
+				playSound("./src/main/resources/sounds/snd_delete.wav");
+				try {
+					new FileWriter("./src/main/resources/saved_games/slot2.txt", false).close();
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
+				btnSlot2.setText("Empty");
+				slot2 = "";
+			}
+		}
+
+		if(e.getSource()==btnDeleteSlot3)
+		{
+			if(!slot3.equals(""))
+			{
+				playSound("./src/main/resources/sounds/snd_delete.wav");
+				try {
+					new FileWriter("./src/main/resources/saved_games/slot3.txt", false).close();
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
+				btnSlot3.setText("Empty");
+				slot3 = "";
+			}
+		}
+
+		if(e.getSource()==btnDeleteSlot4)
+		{
+			if(!slot4.equals(""))
+			{
+				playSound("./src/main/resources/sounds/snd_delete.wav");
+				try {
+					new FileWriter("./src/main/resources/saved_games/slot4.txt", false).close();
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
+				btnSlot4.setText("Empty");
+				slot4 = "";
 			}
 		}
 

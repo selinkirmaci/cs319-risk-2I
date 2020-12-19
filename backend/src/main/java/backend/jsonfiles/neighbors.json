@@ -311,7 +311,9 @@
   {
     "name": "Goldbach",
     "neighbors": [
-      "Sonnenwiese"
+      "Sonnenwiese",
+      "Wuselwiese",
+      "Donnerwald"
     ]
   },
   {
