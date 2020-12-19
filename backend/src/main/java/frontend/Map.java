@@ -621,7 +621,7 @@ public class Map extends JFrame implements ActionListener {
                     || ( players[currentPlayer].hasTerritory( toTerr ) ) ) {
                 System.out.println("Invalid attack!");
                 JOptionPane.showMessageDialog(null, "Invalid attack!");
-            } else {
+            } else if(fromTerr.isNeighbor(toTerr)) {
                 Player attacker = fromTerr.getArmy().getOwner();
                 Player defender = toTerr.getArmy().getOwner();
                 attackerLabel = new JLabel(attacker.getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
@@ -688,6 +688,9 @@ public class Map extends JFrame implements ActionListener {
                 panel1.add(forthDiceSet);
                 panel1.add(fifthDiceSet);
                 add(panel1);
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "Territories should be neighbors!");
             }
 
             attackButton.setEnabled(false);
@@ -1005,9 +1008,9 @@ public class Map extends JFrame implements ActionListener {
                     System.out.println("Cursed card panel is closed");
                 }
             });
+            cursedCardsFrame.setFrame(cursedCardsFrame);
         }
         repaint();
-        //pack();
     }
 
     public void updateTurnColor()

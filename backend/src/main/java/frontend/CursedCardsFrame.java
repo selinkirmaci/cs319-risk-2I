@@ -28,6 +28,7 @@ public class CursedCardsFrame extends JFrame implements ActionListener
     private JButton chosenCardButton;
     private backend.Game game;
     private boolean tradeSuccess;
+    private JFrame frame;
     public CursedCardsFrame( backend.Game game)
     {
         setLayout(null);
@@ -37,6 +38,8 @@ public class CursedCardsFrame extends JFrame implements ActionListener
 
         this.currPlayer = game.getPlayers()[game.getCurrentPlayerTurn()];
         this.game = game;
+
+        this.frame = new JFrame();
 
         players = game.getPlayers();
         chosenCardString = "";
@@ -77,7 +80,7 @@ public class CursedCardsFrame extends JFrame implements ActionListener
         cardNumberInfo.setFont(new Font(Font.SERIF,Font.BOLD,30));
         cardNumberInfo.setForeground(Color.BLUE);
         add(cardNumberInfo);
-        add(backToGame);
+        //add(backToGame);
         add(tradeCards);
         add(gridPanel);
     }
@@ -191,11 +194,14 @@ public class CursedCardsFrame extends JFrame implements ActionListener
 
             if( tradeSuccess ) {
                 JOptionPane.showMessageDialog(null, "Trade successful.");
-                validate(); // or update this panel, because otherwise used cards will still be visible
-                repaint();
+                revalidate();
             } else {
                 JOptionPane.showMessageDialog(null, "Trade request invalid!");
             }
         }
+    }
+    public void setFrame(JFrame frame)
+    {
+        this.frame = frame;
     }
 }
