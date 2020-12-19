@@ -431,22 +431,23 @@ public class Game implements Serializable {
                 System.out.println("Secret mission 3");
                 ArrayList<Territory> gainedTerritories = p.getGainedTerritories();
                 int[] continentArray = p.getContinentNumbersArray();
-                boolean secretMissionComplete = false;
+                boolean secretMissionComplete = true;
                 if(gainedTerritories.size() >=14)
                 {
                     for(int c: continentArray)
                     {
                         System.out.println("territory in continent number is: "+c);
-                        if(c >= 2)
+                        if(c < 2)
                         {
-                            secretMissionComplete = true;
+                            secretMissionComplete = false;
                         }
                     }
+                    if(secretMissionComplete) {
+                        p.winGame();
+                        return true;
+                    }
                 }
-                if(secretMissionComplete) {
-                    p.winGame();
-                    return true;
-                }
+
 
             }else if(secretMissionNumber == 4) //attack and win against all players at least 2 times
             {
@@ -475,12 +476,23 @@ public class Game implements Serializable {
     // returns winner if anyone won, null otherwise
     public Player checkIfAnyoneWon() {
         System.out.println("In checking if anyone won");
-        for( int i = 0; i < playerAmt; i++ ) {
-            Player curr = players[currentPlayerTurn];
-            if( curr.getGainedContinents().size() == 7 ) {
-                curr.hasWon();
-                return curr;
+        if(!secretMissionModOn) {
+            for (int i = 0; i < playerAmt; i++) {
+                Player curr = players[currentPlayerTurn];
+                if (curr.getGainedContinentsNumber() == 7) {
+                    curr.hasWon();
+                    return curr;
+                }
+                return null;
             }
+        }else
+        {
+            for (int i = 0; i < playerAmt; i++) {
+                Player curr = players[i];
+                if(checkIfWon(curr))
+                    return curr;
+            }
+            return null;
         }
         return null;
     }

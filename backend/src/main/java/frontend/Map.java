@@ -623,6 +623,11 @@ public class Map extends JFrame implements ActionListener {
             {
                 JOptionPane.showMessageDialog(null,"Both territories should be your territory");
             }
+            Player potentialWinner = game.checkIfAnyoneWon();
+            if(potentialWinner != null)
+            {
+                JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
+            }
         }
         if(e.getSource() == attackButton)
         {
@@ -863,6 +868,7 @@ public class Map extends JFrame implements ActionListener {
                         null, options, options[0]);
                 if(chosenoption == 0)
                 {
+
                     attackerLabel.setText("");
                     defenderLabel.setText("");
                     updateTerritories();
@@ -873,7 +879,11 @@ public class Map extends JFrame implements ActionListener {
                     attackTimer.cancel();
                     attackTimer.purge();
                     attackSeconds = 10;
-
+                    Player potentialWinner = game.checkIfAnyoneWon();
+                    if(potentialWinner != null)
+                    {
+                        JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
+                    }
                     // continue the timer whenever it is left
                     timer1 = new Timer();
                     timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
@@ -1029,6 +1039,11 @@ public class Map extends JFrame implements ActionListener {
                     player4name.setText(players[3].getName() + " Infantry numbers:" + players[3].getInfantryAmt());
                 revalidate();
             }
+            Player potentialWinner = game.checkIfAnyoneWon();
+            if(potentialWinner != null)
+            {
+                JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
+            }
 
         }
 
@@ -1063,6 +1078,11 @@ public class Map extends JFrame implements ActionListener {
                 public void windowClosing(WindowEvent e) {
                     updateTurnColor();
                     System.out.println("card panel is closed");
+                    Player potentialWinner = game.checkIfAnyoneWon();
+                    if(potentialWinner != null)
+                    {
+                        JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
+                    }
                 }
             });
         }
@@ -1078,6 +1098,11 @@ public class Map extends JFrame implements ActionListener {
                     updateTurnColor();
                     updateTerritories();
                     System.out.println("Cursed card panel is closed");
+                    Player potentialWinner = game.checkIfAnyoneWon();
+                    if(potentialWinner != null)
+                    {
+                        JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
+                    }
                 }
             });
             cursedCardsFrame.setFrame(cursedCardsFrame);
@@ -1114,6 +1139,11 @@ public class Map extends JFrame implements ActionListener {
             to = "";
             fortifyButton.setEnabled(false);
             attackButton.setEnabled(false);
+            Player potentialWinner = game.checkIfAnyoneWon();
+            if(potentialWinner != null)
+            {
+                JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
+            }
         }
 
 
