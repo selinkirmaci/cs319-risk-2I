@@ -651,9 +651,6 @@ public class Map extends JFrame implements ActionListener {
                 return;
             }
 
-            System.out.println("attacker player " + players[currentPlayer].getName() + " contains " + fromTerr.getName() + ": " + players[currentPlayer].hasTerritory( fromTerr ) );
-            System.out.println("attacker player " + players[currentPlayer].getName() + " contains " + toTerr.getName() + ": " + players[currentPlayer].hasTerritory( toTerr ) );
-            System.out.println("owner of to territory: " + toTerr.getArmy().getOwner().getName());
             if( fromTerr.getArmy() == null || toTerr.getArmy() == null ) {
                 System.out.println("One of the armies are null!");
                 JOptionPane.showMessageDialog(null, "You cannot attack from/to an empty country!");
@@ -671,8 +668,8 @@ public class Map extends JFrame implements ActionListener {
 
                 Player attacker = fromTerr.getArmy().getOwner();
                 Player defender = toTerr.getArmy().getOwner();
-                attackerLabel = new JLabel(attacker.getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
-                defenderLabel = new JLabel(defender.getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
+                attackerLabel = new JLabel(attacker.getName() + " has " + fromTerr.getArmy().getTotalValue() + " soldiers");
+                defenderLabel = new JLabel(defender.getName() + " has " + toTerr.getArmy().getTotalValue() + " soldiers");
 
                 ImageIcon attackerIcon = new ImageIcon(attacker.getAvatar().getImageFileName());
                 ImageIcon defenderIcon = new ImageIcon(defender.getAvatar().getImageFileName());
@@ -788,9 +785,11 @@ public class Map extends JFrame implements ActionListener {
             // ********************* Single Attack **********************//
 
             //I think this part should go above close panel operations
-            attackerLabel.setText(fromTerr.getArmy().getOwner().getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
-            defenderLabel.setText(toTerr.getArmy().getOwner().getName()+" has "+toTerr.getArmy().getTotalValue()+" soldiers");
+
             dices = game.getCombatManager().singleAttack( attacker, defender ,diceNumberLeft,diceNumberLeftDef);
+
+            attackerLabel.setText( fromTerr.getArmy().getOwner().getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers" );
+            defenderLabel.setText( toTerr.getArmy().getOwner().getName()+" has "+toTerr.getArmy().getTotalValue()+" soldiers" );
             //firstDiceSet.setIcon(new ImageIcon("./src/main/resources/images/dicered" + dices[0] + ".png"));
             //forthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue" + dices[1] + ".png"));
             //int i = 0;
@@ -852,6 +851,8 @@ public class Map extends JFrame implements ActionListener {
                         null, options, options[0]);
                 if(chosenoption == 0)
                 {
+                    attackerLabel.setText("");
+                    defenderLabel.setText("");
                     updateTerritories();
                     remove(panel1);
                     mainPanel.setVisible(true);
@@ -1070,6 +1071,13 @@ public class Map extends JFrame implements ActionListener {
         }
 
         if(e.getSource() == fortifyButton) {
+            if( (from == "") || (to == "") ) {
+                JOptionPane.showMessageDialog(null,"Invalid selection." );
+                from = "";
+                to = "";
+                return;
+            }
+
             Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
             Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
 
