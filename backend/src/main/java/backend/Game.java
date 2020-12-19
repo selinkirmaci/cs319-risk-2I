@@ -362,6 +362,24 @@ public class Game implements Serializable {
         return false;
     }
 
+    // carry soldierAmount of infantries from "from" to "to"
+    public boolean fortifyTurn( Territory from, Territory to, int soldierAmount ) {
+
+        if( map.remoteNeighbor(from, to) ) {
+            from.getArmy().forfeitMultiple(soldierAmount);
+            ArrayList<Troop> toAdd = new ArrayList<>();
+            for( int i = 0; i < soldierAmount; i++ ) {
+                toAdd.add(new Infantry());
+            }
+
+            to.getArmy().fortify(toAdd);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     /* if a player does not have any territory, that player loses the game */
     private void checkIfLosed( Player p ) {
         if( p.getGainedTerritories().size() == 0 ) {

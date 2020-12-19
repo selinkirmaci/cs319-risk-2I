@@ -105,6 +105,7 @@ public class Map extends JFrame implements ActionListener {
     JButton draftButton;
     JButton secretMissionCard;
     JButton nextPlayerButton;
+    JButton fortifyButton;
     JButton cancelAttack,rollDiceButton,allianceButton,decreaseDice,increaseDice,decreaseDiceDef,increaseDiceDef;
     String chosenTerritory;
     JLabel firstDiceSet,secondDiceSet,thirdDiceSet,forthDiceSet,fifthDiceSet;
@@ -402,6 +403,15 @@ public class Map extends JFrame implements ActionListener {
         cardInfoPanelButton.addActionListener(this);
         background.add(cardInfoPanelButton);
 
+        fortifyButton = new JButton("FORTIFY");
+        fortifyButton.setName("fortifyButton");
+        fortifyButton.setBounds(350, 930, 150, 50);
+        fortifyButton.setContentAreaFilled(true);
+        fortifyButton.setBorderPainted(true);
+        fortifyButton.setEnabled(true);
+        fortifyButton.addActionListener(this);
+        background.add(fortifyButton);
+
         draftButton = new JButton("DRAFT");
         draftButton.setName("DRAFT");
         draftButton.setBounds(200, 930, 150, 50);
@@ -507,7 +517,8 @@ public class Map extends JFrame implements ActionListener {
                 && (e.getSource() != secretMissionCard)&& (e.getSource() != cursedCardInfoFrameButton)
                 && (e.getSource() != decreaseDice) && (e.getSource() != increaseDice)
                 && (e.getSource() != decreaseDiceDef) && (e.getSource() != increaseDiceDef)
-                && (e.getSource() != cardInfoPanelButton)
+                && (e.getSource() != cardInfoPanelButton && e.getSource() != fortifyButton)
+                && (e.getSource() != retreatButton)
         ) {
             JButton tmp = (JButton) e.getSource();
             if(setFrom) {
@@ -1036,6 +1047,26 @@ public class Map extends JFrame implements ActionListener {
             });
             cursedCardsFrame.setFrame(cursedCardsFrame);
         }
+
+        if(e.getSource() == fortifyButton) {
+            Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
+            Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
+
+            if( game.fortifyTurn(fromTerr, toTerr, 0) ) {
+                String m="";
+                m = JOptionPane.showInputDialog("Fortifying " + chosenTerritory +". How many soldiers?");
+                int troopAmt = Integer.parseInt(m);
+                game.fortifyTurn(fromTerr, toTerr, troopAmt);
+                updateTerritories();
+            } else {
+                JOptionPane.showMessageDialog(null,"Cannot access from " + from + " to " + to );
+            }
+
+            from = "";
+            to = "";
+        }
+
+
         repaint();
     }
 

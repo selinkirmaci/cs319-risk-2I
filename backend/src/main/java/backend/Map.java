@@ -2,6 +2,7 @@ package backend;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  *
@@ -64,6 +65,74 @@ public class Map implements Serializable {
         } else {
             return false;
         }
+    }
+
+    // returns owned and unvisited neighbors of territory t
+    public ArrayList<Territory> getOwnedNeighbors( Territory t, ArrayList<Territory> visited ) {
+        ArrayList<Territory> neighbors = t.getNeighbors();
+        Army army = t.getArmy();
+        if( (army == null) || (neighbors.size() == 0) ) {
+            return neighbors;
+        }
+        Player owner = army.getOwner();
+        ArrayList<Territory> ownedNeighbors = new ArrayList<>();
+        for( Territory neighbor: neighbors ) {
+            if( (neighbor.getArmy() != null) && (neighbor.getArmy().getOwner() == owner)
+                    && (neighbor != t) && !visited.contains(neighbor) ) {
+                ownedNeighbors.add(neighbor);
+            }
+        }
+
+        return ownedNeighbors;
+    }
+
+    public boolean foundTargetTerritory( ArrayList<Territory> candidates, Territory target ) {
+        if( candidates.contains(target) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void pushListToStack( Stack<Territory> s, ArrayList<Territory> l ) {
+        for( Territory item: l ) {
+            s.push(item);
+        }
+    }
+
+    public void printTerrStack( Stack<Territory> s ) {
+        for( Territory t: s ) {
+            System.out.println(t.getName() + ", ");
+        }
+    }
+
+
+    // find if two territories are connected with each other
+    public boolean remoteNeighbor( Territory from, Territory to ) {
+        ArrayList<Territory> visitedNeighbors = new ArrayList<>();
+        Stack<Territory> searchStack = new Stack<>();
+        searchStack.push(from);
+
+        Territory curr;
+        do {
+            curr = searchStack.pop(); // visit neighbor
+
+            System.out.println("curr(visiting): " + curr.getName());
+            if( !visitedNeighbors.contains(curr) ) {
+                visitedNeighbors.add(curr);
+            }
+
+            pushListToStack( searchStack, getOwnedNeighbors(curr, visitedNeighbors) );
+
+            printTerrStack(searchStack);
+
+            if( (searchStack.size() == 0) || (visitedNeighbors.size() > 45) ) {
+                return false;
+            }
+        } while( curr != to );
+
+        return true;
+
     }
     
 }
