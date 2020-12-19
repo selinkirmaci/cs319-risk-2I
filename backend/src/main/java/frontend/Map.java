@@ -542,7 +542,10 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource()==pauseButton)
         {
-            // TODO: stop the timer
+            // stop the timer and continue when the player chooses to continue
+            timer1.cancel();
+            timer1.purge();
+            // TODO: there is a bug where the timer does not start when player clicks setting and continues
 
             //mainPanel.setEnabled(false);
             int chosenoption;
@@ -577,6 +580,8 @@ public class Map extends JFrame implements ActionListener {
             }else if(chosenoption == 0) //continue
             {
                 mainPanel.setEnabled(true);
+                timer1 = new Timer();
+                timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
             }
         }
 
