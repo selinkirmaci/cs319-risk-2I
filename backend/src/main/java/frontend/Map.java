@@ -267,7 +267,7 @@ public class Map extends JFrame implements ActionListener {
             territories[i].setFont(new Font(Font.SERIF,Font.BOLD,25));
         }
         //set names of the buttons
-        territories[0].setName( "Raken");
+        territories[0].setName("Raken");
         territories[1].setName("Perleninsel");
         territories[2].setName("Grimmspitze");
         territories[3].setName("Ziegelherz");
@@ -443,6 +443,7 @@ public class Map extends JFrame implements ActionListener {
         retreatButton.setContentAreaFilled(true);
         retreatButton.setBorderPainted(true);
         retreatButton.setEnabled(false);
+        retreatButton.addActionListener(this);
         background.add(retreatButton);
 
         pauseButton = new JButton("Pause");
@@ -584,6 +585,20 @@ public class Map extends JFrame implements ActionListener {
             secretMissionFrame.setTitle("Risk");
             secretMissionFrame.setResizable(false);
             secretMissionFrame.pack();
+        }
+        if(e.getSource() == retreatButton)
+        {
+            Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
+            Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
+            boolean retreatSuccessfull = game.retreat(fromTerr,toTerr);
+
+            if(retreatSuccessfull)
+            {
+                updateTerritories();
+            }else
+            {
+                JOptionPane.showMessageDialog(null,"Both territories should be your territory");
+            }
         }
         if(e.getSource() == attackButton)
         {
@@ -1070,6 +1085,7 @@ public class Map extends JFrame implements ActionListener {
                 enabled = true;
             }else
             {
+                territories[i].setText("");
                 try{
                 ArrayList<Territory> neighbors = map.getTerritoryFromName(territories[i].getName()).getNeighbors();
                 for(int j = 0; j < neighbors.size(); j++)

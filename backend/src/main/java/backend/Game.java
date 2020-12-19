@@ -341,6 +341,26 @@ public class Game implements Serializable {
         defender.getArmy().fortify(toFortify);
         return true;
     }
+    public boolean retreat( Territory fromTerr, Territory toTerr)
+    {
+        Player currPlayer = players[currentPlayerTurn];
+        if(fromTerr.getArmy().getOwner() == currPlayer && toTerr.getArmy().getOwner() == currPlayer)
+        {
+            //cretae infantries to add later
+            ArrayList<Troop> troopsToFortify = new ArrayList<Troop>();
+            for( int i = 0; i < fromTerr.getArmy().getTotalValue(); i++ ) {
+                troopsToFortify.add( new Infantry() );
+            }
+
+            //add created infantreis to toTerr
+            toTerr.getArmy().fortify(troopsToFortify);
+
+            //remove all infantries from the fromTerr
+            fromTerr.removeArmy();
+            return true;
+        }
+        return false;
+    }
 
     /* if a player does not have any territory, that player loses the game */
     private void checkIfLosed( Player p ) {

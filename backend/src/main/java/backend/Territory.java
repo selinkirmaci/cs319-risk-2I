@@ -28,6 +28,10 @@ public class Territory implements Serializable {
             return army;
         }
     }
+    public void removeArmy()
+    {
+        army = null;
+    }
 
     public String getName() { return name; }
     public void setNeighbors( ArrayList<Territory> neighbors ) {

@@ -59,6 +59,7 @@ public class Army implements Serializable {
         totalValue = val;
     }
 
+
     public ArrayList<Troop> getTroops() {
         return troops;
     }
