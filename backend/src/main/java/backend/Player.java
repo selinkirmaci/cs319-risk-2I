@@ -231,7 +231,7 @@ public class Player implements Serializable {
     }
 
     public boolean hasNoTerritory() {
-        return gainedContinents.size() == 0;
+        return gainedTerritories.size() == 0;
     }
 
     public boolean hasAllTerritories() {
@@ -435,4 +435,16 @@ public class Player implements Serializable {
     public void endRebellion() {
         hasRebellion = false;
     }
+
+    public void checkIfLost() {
+        if( hasNoTerritory() ) {
+            loseGame();
+        }
+    }
+    public void checkIfWon() {
+        if( gainedContinents.size() == 7 ) {
+            winGame();
+        }
+    }
+
 }
