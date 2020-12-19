@@ -17,6 +17,8 @@ public class GameManager implements Serializable {
     private final String MAP_FILE_PATH = "./src/main/java/backend/jsonfiles/map.json";
     private final String NEIGHBORS_FILE_PATH = "./src/main/java/backend/jsonfiles/neighbors.json";
     private final String SAVE_FILE_PATH = "./src/main/resources/saved_games/";
+    private String slot1 = "", slot2 = "", slot3 = "", slot4 = "";
+    private String newSave = "";
 
     public GameManager( int playerNumber, String[] playernames, int[]playerAvatars,
                        Color[] playerColors, boolean secretMission ) {
@@ -25,6 +27,57 @@ public class GameManager implements Serializable {
         {
             int random = (int)(Math.random()*4)+1;
             players[i].setSecretMission(random);
+        }
+
+        try {
+            FileReader reader1 = new FileReader("./src/main/resources/saved_games/slot1.txt");
+            BufferedReader bufferedReader1 = new BufferedReader(reader1);
+
+            FileReader reader2 = new FileReader("./src/main/resources/saved_games/slot2.txt");
+            BufferedReader bufferedReader2 = new BufferedReader(reader2);
+
+            FileReader reader3 = new FileReader("./src/main/resources/saved_games/slot3.txt");
+            BufferedReader bufferedReader3 = new BufferedReader(reader3);
+
+            FileReader reader4 = new FileReader("./src/main/resources/saved_games/slot3.txt");
+            BufferedReader bufferedReader4 = new BufferedReader(reader3);
+
+            String line1, line2, line3, line4;
+
+            while ((line1 = bufferedReader1.readLine()) != null) {
+                slot1=line1;
+            }
+
+            while ((line2 = bufferedReader2.readLine()) != null) {
+                slot2=line2;
+            }
+
+            while ((line3 = bufferedReader3.readLine()) != null) {
+                slot3=line3;
+            }
+
+            while ((line4 = bufferedReader4.readLine()) != null) {
+                slot4=line4;
+            }
+
+            if( !slot1.equals("") )
+            {
+                System.out.println(slot1);
+            }
+
+            if( !slot2.equals("") )
+            {
+                System.out.println(slot2);
+            }
+
+            if( !slot3.equals("") )
+            {
+                System.out.println(slot3);
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         //initialise the game
@@ -114,9 +167,47 @@ public class GameManager implements Serializable {
         try(ObjectOutputStream oos = new ObjectOutputStream(
                 new FileOutputStream(new File(SAVE_FILE_PATH + sdate + "_saved_game.data")))) {
             oos.writeObject(this);
+            newSave = sdate + "_saved_game.data";
+            System.out.println(newSave);
         } catch( IOException e ) {
             e.printStackTrace();
         }
+
+        try {
+            FileWriter writer = new FileWriter("./src/main/resources/saved_games/slot1.txt", true);
+            FileWriter writer2 = new FileWriter("./src/main/resources/saved_games/slot2.txt", true);
+            FileWriter writer3 = new FileWriter("./src/main/resources/saved_games/slot3.txt", true);
+            FileWriter writer4 = new FileWriter("./src/main/resources/saved_games/slot4.txt", true);
+
+            if( slot1.equals("") )
+            {
+                writer.write(newSave);
+            }
+
+            else if( slot2.equals("") )
+            {
+                writer2.write(newSave);
+            }
+
+            else if( slot3.equals("") )
+            {
+                writer3.write(newSave);
+            }
+
+            else if( slot4.equals("") )
+            {
+                writer4.write(newSave);
+            }
+
+            writer.close();
+            writer2.close();
+            writer3.close();
+            writer4.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // TODO:
