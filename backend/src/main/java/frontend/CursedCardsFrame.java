@@ -195,6 +195,7 @@ public class CursedCardsFrame extends JFrame implements ActionListener
             if( tradeSuccess ) {
                 JOptionPane.showMessageDialog(null, "Trade successful.");
                 revalidate();
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Trade request invalid!");
             }
