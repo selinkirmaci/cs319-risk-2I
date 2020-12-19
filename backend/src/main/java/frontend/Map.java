@@ -1006,6 +1006,11 @@ public class Map extends JFrame implements ActionListener {
 
             //pass the turn to the next player
             game.passTurn();
+            Player p = game.checkIfAnyoneWon();
+            if( p != null ) {
+                JOptionPane.showMessageDialog(null,"Player " + p.getName() );
+                // TODO: end game panel
+            }
             game.printInfAmt();
             currentPlayer = game.getCurrentPlayerTurn();
             from = "";

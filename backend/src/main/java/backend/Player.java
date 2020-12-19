@@ -79,17 +79,14 @@ public class Player implements Serializable {
         return gainedTerritories;
     }
 
-    public boolean hasTerritory(Territory ter)
-    {
-        for(int i = 0; i<gainedTerritories.size();i++)
-        {
-            if(gainedTerritories.get(i).getName().equals(ter.getName()))
-                return true;
-        }
-        return false;
+    public boolean hasTerritory( Territory ter ) {
+        return gainedTerritories.contains(ter);
     }
     public void addGainedTerritory( Territory t ) {
-        gainedTerritories.add(t);
+        if( !gainedTerritories.contains(t) ) {
+            gainedTerritories.add(t);
+        }
+
         checkGainedContinents();
     }
 

@@ -210,6 +210,9 @@ public class Game implements Serializable {
         currentPlayerTurn = currentPlayerTurn % playerAmt;
         Player currPlayer = players[currentPlayerTurn];
 
+        checkIfLosed(currPlayer);
+        checkIfWon(currPlayer);
+
         // Pass lost players
         if( currPlayer.hasLost() ) {
             passTurn();
@@ -229,9 +232,7 @@ public class Game implements Serializable {
 
     }
     
-    /* add troops to the already owned territories
-    * this function currently supports only one transfer action to one of the owned territories for simplicity,
-    * this may be changed to support several transfer actions */
+    /* add troops to owned or empty territories */
     public void draftTurn( Territory draftTo, int troopAmt ) {
         turnType = "draft";
         Player p = players[currentPlayerTurn];
@@ -250,6 +251,7 @@ public class Game implements Serializable {
 
         if( territory.getArmy() == null ) { // if there is no army in the draftTo location
             territory.setArmy( new Army( troopsToFortify, p ) );
+            p.addGainedTerritory(draftTo);
             printMap();
             return;
         }
@@ -414,7 +416,6 @@ public class Game implements Serializable {
             if( players[i].hasWon() ) { // end the game if a player won the game
                 return true;
             }
-            // TODO: may write other termination conditions i.e. total game duration has ended( may be 10 mins )
         }
 
         return false;
