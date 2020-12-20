@@ -518,11 +518,12 @@ public class Game implements Serializable {
                     p.winGame();
                     return true;
                 }
-            }else if(secretMissionNumber == 2) // conquer 2 continents
+            }else if(secretMissionNumber == 2) // conquer 1 additional continent
             {
+                System.out.println(p.getOriginalContinentNumber());
                 System.out.println("Secret mission 2");
                 System.out.println("Number of continents is: " + p.getGainedContinentsNumber());
-                if(p.getGainedContinents().size()== p.getOriginalContinentNumber()+1)
+                if(p.getGainedContinentsNumber()== p.getOriginalContinentNumber()+1)
                 {
                     p.winGame();
                     return true;
