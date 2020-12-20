@@ -172,6 +172,7 @@ public class Game implements Serializable {
         }
 
         distributeSoldiers(distribution);
+        distributeRemainings();
     }
 
     public void distributeSoldiers(HashMap<Player, ArrayList<Continent>> map) {
@@ -217,6 +218,29 @@ public class Game implements Serializable {
                 }
             }
         }
+    }
+
+    private void distributeRemainings() {
+
+        for( int i = 0; i < playerAmt; i++ ) {
+            Player c = players[i];
+            int left = c.getInfantryAmt();
+            if( left == 0 ) {
+                continue;
+            }
+            for( int j = 0; j < c.getGainedTerritories().size(); j++ ) {
+                if( left == 0 ) {
+                    break;
+                }
+                ArrayList<Troop> troops = new ArrayList();
+                troops.add(new Infantry());
+                c.getGainedTerritories().get(j).getArmy().fortify(troops);
+                c.useInfantries(1);
+                left = c.getInfantryAmt();
+
+            }
+        }
+
     }
 
     /* return random number between min-max both inclusive */
