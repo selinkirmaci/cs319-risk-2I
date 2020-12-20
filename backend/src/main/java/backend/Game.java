@@ -242,7 +242,7 @@ public class Game implements Serializable {
         p.addInfantries( addition );
         System.out.println( "Added " + addition + " infantries to player " + p.getName() );
 
-        int totalAmt = 0;
+        int totalAmt = addition;
 
         //add additional units for gained continents
         for( int i = 0; i < p.getGainedContinents().size(); i++ ) {
@@ -254,7 +254,7 @@ public class Game implements Serializable {
                     p.getName() + " for continent " + p.getGainedContinents().get(i) );
         }
 
-        return totalAmt + 3;
+        return totalAmt;
 
     }
 
