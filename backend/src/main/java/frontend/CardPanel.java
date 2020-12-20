@@ -149,6 +149,7 @@ public class CardPanel extends JFrame implements ActionListener
                 // should also update player's current infantry amount
                 validate(); // or update this panel, because otherwise used cards will still be visible
                 repaint();
+                dispose();
             }
         }
     }

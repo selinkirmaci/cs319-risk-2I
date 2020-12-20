@@ -586,7 +586,7 @@ public class Map extends JFrame implements ActionListener {
                         "ARE YOU A LOSER?", "QUIT?", JOptionPane.YES_NO_OPTION);
                 if(quit == 0)
                 {
-                    //dispose();
+                    dispose();
                 }
             }else if(chosenoption == 3)
             {
@@ -608,6 +608,9 @@ public class Map extends JFrame implements ActionListener {
             }else if(chosenoption == 0) //continue
             {
                 mainPanel.setEnabled(true);
+                timer1 = new Timer();
+                timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
+            } else if(chosenoption == JOptionPane.CLOSED_OPTION) {
                 timer1 = new Timer();
                 timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
             }
@@ -1160,7 +1163,7 @@ public class Map extends JFrame implements ActionListener {
                 if( troopAmt >= fromTerr.getArmy().getTotalValue() ) {
                     from = "";
                     to = "";
-                    JOptionPane.showMessageDialog(null,"Not enough soldiers" );
+                    JOptionPane.showMessageDialog(null,"Not enough soldiers. At least one soldier should be left at the supporting territory" );
                 } else {
                     game.fortifyTurn(fromTerr, toTerr, troopAmt);
                     updateTerritories();
