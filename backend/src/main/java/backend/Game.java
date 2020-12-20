@@ -311,7 +311,7 @@ public class Game implements Serializable {
         currPlayer.getHand().tryGettingCurseCard(); // try to get immunity card
 
         decreaseImmunityCounts();
-        System.out.println( "Currently immune territories: " + currentlyImmuneTerritories.toString() );
+        printInfAmt();
         return gainedAmt;
 
     }
@@ -415,7 +415,9 @@ public class Game implements Serializable {
     // Player getAllianceFrom transfers requested amount of soldiers to defender's territory.
     public boolean getAlliance( Player getAllianceFrom, Territory defender, int infantryAmt ) {
 
+        System.out.println("Player amt of ****** " + getAllianceFrom.getInfantryAmt() );
         if( infantryAmt > getAllianceFrom.getInfantryAmt() ) {
+            System.out.println("Player amt of ****** " + getAllianceFrom.getInfantryAmt() );
             System.out.println("Player " + getAllianceFrom.getName() + " does not have enough infantries.");
             return false;
         }
