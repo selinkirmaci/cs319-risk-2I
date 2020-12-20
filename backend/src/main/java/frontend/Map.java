@@ -710,6 +710,12 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource() == attackButton)
         {
+            if( noOfPlayers == 2 ) {
+                allianceButton.setEnabled(false);
+            } else {
+                allianceButton.setEnabled(true);
+            }
+            
             if(attackAmt >= 3) {
                 JOptionPane.showMessageDialog(null, "Cannot attack for more than 3 times in a turn!");
                 return;
