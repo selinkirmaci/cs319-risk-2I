@@ -55,6 +55,7 @@ public class Map extends JFrame implements ActionListener {
     private JLabel avatar1,avatar2,avatar3,avatar4;
     private JLabel player1name,player2name,player3name,player4name;
     private JButton miniGame;
+    private String overallWinner;
     private int timeLeft = 60;
 
     JLabel attackTimerLabel;
@@ -139,6 +140,8 @@ public class Map extends JFrame implements ActionListener {
         players = game.getPlayers();
         currentPlayer = game.getCurrentPlayerTurn();
         territories = new JButton[45];
+
+        overallWinner = "";
 
         attackTimerLabel = new JLabel();
         attackTimerLabel.setBounds(400,50,40,40);
@@ -637,16 +640,11 @@ public class Map extends JFrame implements ActionListener {
             Player potentialWinner = game.checkIfAnyoneWon();
             if(potentialWinner != null)
             {
+                overallWinner = potentialWinner.getName();
+                endTheGame();
                 JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
             }
-            /*
-            EndGameFrame endGameFrame = new EndGameFrame("selin",gameManager,soundManager);
-            endGameFrame.setVisible(true);
-            endGameFrame.setTitle("Risk");
-            endGameFrame.setResizable(false);
-            endGameFrame.pack();
-            dispose();
-             */
+
         }
         if(e.getSource() == attackButton)
         {
@@ -902,11 +900,13 @@ public class Map extends JFrame implements ActionListener {
                     timer1 = new Timer();
                     timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
 
-                    boolean won = game.checkIfWon( players[currentPlayer] );
-                    if(won)
+                    Player potentialWinner = game.checkIfAnyoneWon();
+                    if(potentialWinner != null)
                     {
-                        System.out.println("won the game!!!!!!!!!");
-                        JOptionPane.showMessageDialog(null,players[currentPlayer].getName()+" has won the game!");
+                        overallWinner = potentialWinner.getName();
+                        endTheGame();
+                        //System.out.println("won the game!!!!!!!!!");
+                        //JOptionPane.showMessageDialog(null,players[currentPlayer].getName()+" has won the game!");
                     }
                 }
 
@@ -1065,7 +1065,9 @@ public class Map extends JFrame implements ActionListener {
             Player potentialWinner = game.checkIfAnyoneWon();
             if(potentialWinner != null)
             {
-                JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
+                overallWinner = potentialWinner.getName();
+                endTheGame();
+                //JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
             }
 
         }
@@ -1084,7 +1086,9 @@ public class Map extends JFrame implements ActionListener {
             }
             Player p = game.checkIfAnyoneWon();
             if( p != null ) {
-                JOptionPane.showMessageDialog(null,"Player " + p.getName() );
+                overallWinner = p.getName();
+                endTheGame();
+                //JOptionPane.showMessageDialog(null,"Player " + p.getName() );
                 // TODO: end game panel
             }
             game.printInfAmt();
@@ -1112,7 +1116,9 @@ public class Map extends JFrame implements ActionListener {
                     Player potentialWinner = game.checkIfAnyoneWon();
                     if(potentialWinner != null)
                     {
-                        JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
+                        overallWinner = potentialWinner.getName();
+                        endTheGame();
+                        //JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
                     }
                 }
             });
@@ -1132,7 +1138,9 @@ public class Map extends JFrame implements ActionListener {
                     Player potentialWinner = game.checkIfAnyoneWon();
                     if(potentialWinner != null)
                     {
-                        JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
+                        overallWinner = potentialWinner.getName();
+                        endTheGame();
+                        //JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
                     }
                 }
             });
@@ -1173,7 +1181,9 @@ public class Map extends JFrame implements ActionListener {
             Player potentialWinner = game.checkIfAnyoneWon();
             if(potentialWinner != null)
             {
-                JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
+                overallWinner = potentialWinner.getName();
+                endTheGame();
+                //JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
             }
         }
         if(e.getSource()==miniGame)
@@ -1364,5 +1374,16 @@ public class Map extends JFrame implements ActionListener {
                 }
             }
         };
+    }
+    private void endTheGame()
+    {
+        EndGameFrame frame = new EndGameFrame(overallWinner,gameManager,soundManager);
+        frame.setVisible(true);
+        frame.setTitle("Risk");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(1200,760)); //1570,800
+        frame.setResizable(false);
+        frame.pack();
+        dispose();
     }
 }
