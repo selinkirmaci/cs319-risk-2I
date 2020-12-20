@@ -67,6 +67,8 @@ public class Map extends JFrame implements ActionListener {
     private Clip clipMusic;
     private Clip miniGameMusic;
 
+    Font font;
+
     Image backgroundForAttack;
 
     JLabel attackTimerLabel;
@@ -144,7 +146,7 @@ public class Map extends JFrame implements ActionListener {
     public Map(GameManager gameManager , SoundManager soundManager)
     {
 
-        playMusic("./src/main/resources/sounds/warmusic.wav",(float)soundManager.getVolume());
+
         this.gameManager = gameManager;
         this.soundManager = soundManager;
         game = gameManager.getGame();
@@ -152,6 +154,10 @@ public class Map extends JFrame implements ActionListener {
         players = game.getPlayers();
         currentPlayer = game.getCurrentPlayerTurn();
         territories = new JButton[45];
+
+        playMusic("./src/main/resources/sounds/warmusic.wav",(float)soundManager.getVolume());
+
+        font = new Font("Algerian",Font.PLAIN,15);
 
         overallWinner = "";
 
@@ -194,29 +200,34 @@ public class Map extends JFrame implements ActionListener {
         fifthDiceSet.setIcon(new ImageIcon("./src/main/resources/images/diceblue1.png"));
 
         rollDiceButton = new JButton("ROLL DICE");
-        rollDiceButton.setBounds(520,720,100,50);
+        rollDiceButton.setBounds(520,720,120,50);
         rollDiceButton.addActionListener(this);
+        rollDiceButton.setFont(font);
 
         decreaseDice = new JButton("DECREASE DICE NUMBER");
-        decreaseDice.setBounds(10,720,200,50);
+        decreaseDice.setBounds(10,720,215,50);
         decreaseDice.addActionListener(this);
+        decreaseDice.setFont(font);
 
         increaseDice = new JButton("INCREASE DICE NUMBER");
-        increaseDice.setBounds(210,720,200,50);
+        increaseDice.setBounds(225,720,215,50);
         increaseDice.addActionListener(this);
+        increaseDice.setFont(font);
 
         decreaseDiceDef = new JButton("DECREASE DICE NUMBER");
-        decreaseDiceDef.setBounds(720,720,200,50);
+        decreaseDiceDef.setBounds(690,720,215,50);
         decreaseDiceDef.addActionListener(this);
+        decreaseDiceDef.setFont(font);
 
         increaseDiceDef = new JButton("INCREASE DICE NUMBER");
-        increaseDiceDef.setBounds(920,720,200,50);
+        increaseDiceDef.setBounds(905,720,215,50);
         increaseDiceDef.addActionListener(this);
-
+        increaseDiceDef.setFont(font);
 
         allianceButton = new JButton("ALLIANCE");
-        allianceButton.setBounds(20,520,100,50);
+        allianceButton.setBounds(20,520,200,50);
         allianceButton.addActionListener(this);
+        allianceButton.setFont(font);
 
         mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(300,400));
@@ -282,7 +293,7 @@ public class Map extends JFrame implements ActionListener {
             territories[i].addActionListener(this);
             territories[i].setContentAreaFilled(false);
             territories[i].setForeground(Color.white);
-            territories[i].setFont(new Font(Font.SERIF,Font.BOLD,25));
+            territories[i].setFont(new Font("Algerian", Font.PLAIN,30));
         }
         //set names of the buttons
         territories[0].setName("Raken");
@@ -407,6 +418,7 @@ public class Map extends JFrame implements ActionListener {
         attackButton.setBorderPainted(true);
         attackButton.setEnabled(false);
         attackButton.addActionListener(this);
+        attackButton.setFont(font);
         background.add(attackButton);
 
 
@@ -417,6 +429,7 @@ public class Map extends JFrame implements ActionListener {
         cardInfoPanelButton.setBorderPainted(true);
         cardInfoPanelButton.setEnabled(true);
         cardInfoPanelButton.addActionListener(this);
+        cardInfoPanelButton.setFont(font);
         background.add(cardInfoPanelButton);
 
         miniGame = new JButton("MINI GAME");
@@ -426,6 +439,7 @@ public class Map extends JFrame implements ActionListener {
         miniGame.setBorderPainted(true);
         miniGame.setEnabled(true);
         miniGame.addActionListener(this);
+        miniGame.setFont(font);
         background.add(miniGame);
 
         fortifyButton = new JButton("FORTIFY");
@@ -435,6 +449,7 @@ public class Map extends JFrame implements ActionListener {
         fortifyButton.setBorderPainted(true);
         fortifyButton.setEnabled(true);
         fortifyButton.addActionListener(this);
+        fortifyButton.setFont(font);
         background.add(fortifyButton);
 
         draftButton = new JButton("DRAFT");
@@ -444,6 +459,7 @@ public class Map extends JFrame implements ActionListener {
         draftButton.setBorderPainted(true);
         draftButton.setEnabled(false);
         draftButton.addActionListener(this);
+        draftButton.setFont(font);
         background.add(draftButton);
 
 
@@ -454,6 +470,7 @@ public class Map extends JFrame implements ActionListener {
         nextPlayerButton.setBorderPainted(true);
         nextPlayerButton.setEnabled(true);
         nextPlayerButton.addActionListener(this);
+        nextPlayerButton.setFont(font);
         background.add(nextPlayerButton);
 
         secretMissionCard = new JButton("SECRET MISSION");
@@ -464,6 +481,7 @@ public class Map extends JFrame implements ActionListener {
         secretMissionCard.setEnabled(true);
         secretMissionCard.addActionListener(this);
         secretMissionCard.setVisible(game.getSecretMissionMod());
+        secretMissionCard.setFont(font);
         background.add(secretMissionCard);
 
         cursedCardInfoFrameButton = new JButton("CURSED CARDS");
@@ -473,6 +491,7 @@ public class Map extends JFrame implements ActionListener {
         cursedCardInfoFrameButton.setBorderPainted(true);
         cursedCardInfoFrameButton.setEnabled(true);
         cursedCardInfoFrameButton.addActionListener(this);
+        cursedCardInfoFrameButton.setFont(font);
         background.add(cursedCardInfoFrameButton);
 
         retreatButton = new JButton("RETREAT");
@@ -481,6 +500,7 @@ public class Map extends JFrame implements ActionListener {
         retreatButton.setBorderPainted(true);
         retreatButton.setEnabled(false);
         retreatButton.addActionListener(this);
+        retreatButton.setFont(font);
         background.add(retreatButton);
 
         pauseButton = new JButton("Pause");
@@ -488,7 +508,9 @@ public class Map extends JFrame implements ActionListener {
         pauseButton.setContentAreaFilled(true);
         pauseButton.setBorderPainted(true);
         pauseButton.addActionListener(this);
+        pauseButton.setFont(font);
         background.add(pauseButton);
+
         settingPane = new JLayeredPane();
         settingPane.setPreferredSize(new Dimension(500,700));
         settingPane.setBounds(250,150,700,600);
@@ -518,6 +540,7 @@ public class Map extends JFrame implements ActionListener {
 
     public void playSound(String soundName,float volume)
     {
+        if(soundManager.isSoundOn())
         try
         {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile( ));
@@ -536,7 +559,8 @@ public class Map extends JFrame implements ActionListener {
     }
     public void playMusic(String soundName,float volume)
     {
-        try
+        if(soundManager.isSoundOn())
+            try
         {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile( ));
             clipMusic = AudioSystem.getClip( );
@@ -555,7 +579,8 @@ public class Map extends JFrame implements ActionListener {
     }
     public void playMusicMini(String soundName,float volume)
     {
-        try
+        if(soundManager.isSoundOn())
+            try
         {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile( ));
             miniGameMusic = AudioSystem.getClip( );
@@ -701,7 +726,6 @@ public class Map extends JFrame implements ActionListener {
             }
             else if(chosenoption == 2) //settings
             {
-                //setVisible(false);
                 mainPanel.setVisible(false);
                 setPanel = new SettingsPanel(mainPanel,soundManager,null);
                 add(setPanel);

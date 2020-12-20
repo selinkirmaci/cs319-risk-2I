@@ -110,8 +110,10 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
             setVisible(false);
             if(pnlMainMenu != null)
                 pnlMainMenu.setVisible(true);
-            else if(frame != null)
+            else if(frame != null) {
                 frame.setVisible(true);
+                frame.revalidate();
+            }
         }
 
         if (e.getSource() ==  btnSave)

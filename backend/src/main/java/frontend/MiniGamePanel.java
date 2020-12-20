@@ -4,6 +4,10 @@ import backend.GameManager;
 import backend.Player;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -91,7 +95,24 @@ public class MiniGamePanel extends JPanel implements ActionListener, KeyListener
         add(countLabel);
         //add(backgroundForMiniGame);
     }
-
+    public void playSound(String soundName)
+    {
+            try
+            {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile( ));
+                Clip clip = AudioSystem.getClip( );
+                clip.open(audioInputStream);
+                FloatControl gainControl =
+                        (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(-20.0f); // Reduce volume by 10 decibels.
+                clip.start( );
+            }
+            catch(Exception ex)
+            {
+                System.out.println("Error with playing sound.");
+                ex.printStackTrace( );
+            }
+    }
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
@@ -158,6 +179,7 @@ public class MiniGamePanel extends JPanel implements ActionListener, KeyListener
                 if (randomypositions[i] + 60 >= playery) {
                     if (randomxpositions[i] <= playerx + 60 && randomxpositions[i] >= playerx) {
                         count+=1;
+                        playSound("./src/main/resources/sounds/beep.wav");
                         countLabel.setText("Collect all you can "+count);
                         randomypositions[i] += 10000;
                         randomxpositions[i] -= 10000;
