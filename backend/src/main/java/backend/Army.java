@@ -47,13 +47,6 @@ public class Army implements Serializable {
             if( troop instanceof Infantry ) {
                 val += 1;
             }
-
-            /*else if( troop instanceof Calvary ) {
-                val += 5;
-            } else if( troop instanceof Artillery ) {
-                val += 10;
-            }
-             */
         }
         
         totalValue = val;
@@ -114,45 +107,6 @@ public class Army implements Serializable {
             }
         }
     }
-
-    public int getInfantryAmt() {
-        return infantryAmt;
-    }
-
-    /*
-    // player might trade 5 infantries for one calvary
-    // or 10 infantries for one artillery
-    public void tradeTroops( int num ) {
-
-        int infAmt = getInfantryAmt();
-        if( (num == 5 && infAmt >= 5) ) { //convert to calvary
-            infantryAmt -= 5;
-            //calvaryAmt += 1;
-            int i = 0;
-            while( i < num ) {
-                if( troops.get(i) instanceof Infantry ) {
-                    i++;
-                    Troop toDelete = troops.remove(i);
-                    toDelete = null; // to let garbage collector delete this troop
-                }
-            }
-            troops.add( new Calvary() );
-        } else if( (num == 10 && infAmt >= 10) ) { //convert to artillery
-            infantryAmt -= 10;
-            //artilleryAmt += 1;
-            int i = 0;
-            while( i < num ) {
-                if( troops.get(i) instanceof Infantry ) {
-                    i++;
-                    Troop toDelete = troops.remove(i);
-                    toDelete = null; // to let garbage collector delete this troop
-                }
-            }
-            troops.add( new Artillery() );
-        }
-    }
-     */
-
 
     public void changeOwner( Player p ) {
         owner = p;

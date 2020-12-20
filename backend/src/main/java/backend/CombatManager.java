@@ -58,8 +58,8 @@ public class CombatManager implements Serializable {
                 attacker.forfeit();
                 System.out.println("Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue());
             }
-        }else{
-            if(attRolls[attackerDiceNumber-1] > defRolls[defenderDiceNumber-1])
+        } else {
+            if( attRolls[attackerDiceNumber-1] > defRolls[defenderDiceNumber-1] )
             {
                 defender.forfeit();
                 System.out.println( "Defender lost one infantry. Current army value for defender:" + defender.getTotalValue() );
@@ -67,7 +67,7 @@ public class CombatManager implements Serializable {
                 attacker.forfeit();
                 System.out.println("Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue());
             }
-            if(attRolls[attackerDiceNumber-2] <= defRolls[defenderDiceNumber-2])
+            if(attRolls[attackerDiceNumber-2] <= defRolls[defenderDiceNumber - 2] && (attacker.getTotalValue() > 0) )
             {
                 attacker.forfeit();
                 System.out.println("Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue());
@@ -78,41 +78,16 @@ public class CombatManager implements Serializable {
             }
         }
 
-/*
-        if( attacker.getOwner().isBoosted() ) { // attacker is boosted!
-            attRoll = dice.rollBiasedDice();
-        } else {
-            attRoll = dice.rollDice();
-        }
-
-        defRoll = dice.rollDice();
-
-        System.out.println( "Attacker rolled:" + attRoll );
-        System.out.println( "Defender rolled:" + defRoll );
-
-        if( attRoll > defRoll ) { //defender loses
-            System.out.println( "Defender lost one infantry. Current army value for defender:" + defender.getTotalValue() );
-            defender.forfeit(); //May change: consider how the loss will be calculated!
-        } else if( attRoll == defRoll ) {
-            System.out.println( "Even." );
-        } else { //attacker loses
-            System.out.println( "Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue() );
-            attacker.forfeit(); //May change: consider how the loss will be calculated!
-        }
- */
-
         int results[] = new int[attackerDiceNumber+defenderDiceNumber];
         System.arraycopy(attRolls,0,results,0,attackerDiceNumber);
         System.arraycopy(defRolls,0,results,attackerDiceNumber,defenderDiceNumber);
-        //results[0] = attRoll;
-        //results[1] = defRoll;
         return results;
     }
 
     // returns the winner if the war has ended, returns null otherwise
     public Army warEnded( Army attacker, Army defender ) {
         // battle ends when attacker has 1 infantry left
-        if( (attacker.getTotalValue() == 1) || (defender.getTotalValue() == 0) ) {
+        if( (attacker.getTotalValue() == 0) || (attacker.getTotalValue() == 1) || (defender.getTotalValue() == 0) ) {
             return getWinner( attacker, defender ); // battle has ended
         } else {
             return null;

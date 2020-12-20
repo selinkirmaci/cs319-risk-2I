@@ -314,7 +314,6 @@ public class Game implements Serializable {
         return false; // should not happen
     }
 
-    // TODO: This is only for territory cards, make it viable for curse cards too.
     public boolean cardTurn( ArrayList<Card> cards ) {
         Player p = players[currentPlayerTurn];
         int gained = p.tradeTerritoryCards(cards, tradeCount);
@@ -353,6 +352,7 @@ public class Game implements Serializable {
         defender.getArmy().fortify(toFortify);
         return true;
     }
+
     public boolean retreat( Territory fromTerr, Territory toTerr)
     {
         Player currPlayer = players[currentPlayerTurn];
@@ -510,19 +510,6 @@ public class Game implements Serializable {
             return null;
         }
         return null;
-    }
-
-
-
-    /* returns true if the game is ended */
-    private boolean checkTermination() {
-        for( int i = 0; i < playerAmt; i++ ) {
-            if( players[i].hasWon() ) { // end the game if a player won the game
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public Player [] getPlayers() {

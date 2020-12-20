@@ -234,10 +234,6 @@ public class Player implements Serializable {
         return gainedTerritories.size() == 0;
     }
 
-    public boolean hasAllTerritories() {
-        return gainedContinents.size() == 6; // change later
-    }
-
     public void useInfantries( int usage ) {
         infantryAmt -= usage;
     }
@@ -249,12 +245,6 @@ public class Player implements Serializable {
     public String getName() {
         return name;
     }
-
-    void attack(Player defender, Territory territory) {};
-
-    void sendTroops( int troopAmt, Player player ) {}
-
-    void swapCards( ArrayList<Card> cardsToExchange ) {} // exchange cards for infantries
 
     public Color getColor() {return colorOfPlayer;}
 

@@ -13,12 +13,6 @@ public class CardLibrary implements Serializable {
     CardLibrary() {
         territoryCards = new HashMap<String, Card>();
     }
-    
-    
-    //call at the beginning of each game
-    private void shuffle() {
-        
-    }
 
 
     // creates and adds territory cards for each territory

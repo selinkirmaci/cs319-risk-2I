@@ -97,14 +97,6 @@ public class Map implements Serializable {
         return ownedNeighbors;
     }
 
-    public boolean foundTargetTerritory( ArrayList<Territory> candidates, Territory target ) {
-        if( candidates.contains(target) ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public void pushListToStack( Stack<Territory> s, ArrayList<Territory> l ) {
         for( Territory item: l ) {
             s.push(item);
