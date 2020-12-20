@@ -64,6 +64,8 @@ public class Map extends JFrame implements ActionListener {
     private int attackAmt = 0;
     private JButton fromButton;
     private JButton toButton,emptyButton;
+    private Clip clipMusic;
+    private Clip miniGameMusic;
 
     Image backgroundForAttack;
 
@@ -142,6 +144,7 @@ public class Map extends JFrame implements ActionListener {
     public Map(GameManager gameManager , SoundManager soundManager)
     {
 
+        playMusic("./src/main/resources/sounds/warmusic.wav",-20.0f);
         this.gameManager = gameManager;
         this.soundManager = soundManager;
         game = gameManager.getGame();
@@ -524,6 +527,44 @@ public class Map extends JFrame implements ActionListener {
                     (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             gainControl.setValue(volume); // Reduce volume by 10 decibels.
             clip.start( );
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace( );
+        }
+    }
+    public void playMusic(String soundName,float volume)
+    {
+        try
+        {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile( ));
+            clipMusic = AudioSystem.getClip( );
+            clipMusic.open(audioInputStream);
+            FloatControl gainControl =
+                    (FloatControl) clipMusic.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(volume); // Reduce volume by 10 decibels.
+            clipMusic.loop(Clip.LOOP_CONTINUOUSLY);
+            clipMusic.start( );
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace( );
+        }
+    }
+    public void playMusicMini(String soundName,float volume)
+    {
+        try
+        {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile( ));
+            miniGameMusic = AudioSystem.getClip( );
+            miniGameMusic.open(audioInputStream);
+            FloatControl gainControl =
+                    (FloatControl) miniGameMusic.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(volume); // Reduce volume by 10 decibels.
+            miniGameMusic.loop(Clip.LOOP_CONTINUOUSLY);
+            miniGameMusic.start( );
         }
         catch(Exception ex)
         {
@@ -1284,6 +1325,8 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource()==miniGame)
         {
+            clipMusic.stop();
+            playMusicMini("./src/main/resources/sounds/minigamemusic.wav",-15.0f);
             timer1.cancel();
             timer1.purge();
             if(players[game.getCurrentPlayerTurn()].getMiniGameChance() == 1)
@@ -1316,6 +1359,8 @@ public class Map extends JFrame implements ActionListener {
                         System.out.println("minigame is closed");
                         timer1 = new Timer();
                         timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
+                        miniGameMusic.stop();
+                        clipMusic.start();
                     }
                 });
             }catch (IOException ioException)
