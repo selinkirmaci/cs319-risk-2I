@@ -554,7 +554,7 @@ public class Map extends JFrame implements ActionListener {
                 fromButton = tmp;
                 Territory fromTerrTmp = game.getMap().getTerritoryFromName(from);
                 Color cF;
-                if(fromTerrTmp.getArmy()!=null){
+                if(game.getMap().getTerritoryFromName(from)!=null){
                     cF = fromTerrTmp.getArmy().getOwner().getColor();
                     fromButton.setBorder(BorderFactory.createLineBorder(cF));
                 }
@@ -566,7 +566,7 @@ public class Map extends JFrame implements ActionListener {
                 toButton = tmp;
                 Territory toTerrTmp = game.getMap().getTerritoryFromName(to);
                 Color cT;
-                if(toTerrTmp.getArmy()!=null){
+                if(game.getMap().getTerritoryFromName(to)!=null){
                     cT = toTerrTmp.getArmy().getOwner().getColor();
                     toButton.setBorder(BorderFactory.createLineBorder(cT));
                 }
@@ -579,7 +579,7 @@ public class Map extends JFrame implements ActionListener {
                 Color cF;
                 fromButton.setBorder(territories[0].getBorder());
                 fromButton = tmp;
-                if(fromTerrTmp.getArmy()!=null){
+                if(game.getMap().getTerritoryFromName(from)!=null){
                     cF = fromTerrTmp.getArmy().getOwner().getColor();
                     fromButton.setBorder(BorderFactory.createLineBorder(cF));
                 }
@@ -808,7 +808,7 @@ public class Map extends JFrame implements ActionListener {
                 panel1.add(forthDiceSet);
                 panel1.add(fifthDiceSet);
 
-                panel1.setBackground(new Color(182,115,45));
+                //panel1.setBackground(new Color(182,115,45));
                 add(panel1);
 
             }else
