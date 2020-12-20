@@ -596,7 +596,12 @@ public class Map extends JFrame implements ActionListener {
                 Territory fromTerrTmp = game.getMap().getTerritoryFromName(from);
                 Color cF;
                 if(game.getMap().getTerritoryFromName(from)!=null){
+                    if(fromTerrTmp.getArmy() == null) {
+                        fromButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+                        return;
+                    }
                     cF = fromTerrTmp.getArmy().getOwner().getColor();
+
                     fromButton.setBorder(BorderFactory.createLineBorder(cF));
                 }
 
@@ -1052,18 +1057,20 @@ public class Map extends JFrame implements ActionListener {
                     null, options, options[0]);
             String soldierNumber = JOptionPane.showInputDialog("How many soldiers do you want");
             Object[] acceptanceOptions = { "Yes","No" };
-            int acceptance = JOptionPane.showOptionDialog(null, otherPlayersArray[selectedPlayer]+" do you accept this allinace", "Alliance",
+            int acceptance = JOptionPane.showOptionDialog(null, otherPlayersArray[selectedPlayer]+" do you accept this alliance", "Alliance",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     null, acceptanceOptions, acceptanceOptions[0]);
             if(acceptance == 0)
             {
                 Player tmp;
-                for(int i = 0; i<noOfPlayers;i++)
+                for(int i = 0; i < noOfPlayers;i++)
                 {
                     if(players[i].getName() == otherPlayersArray[selectedPlayer]);
                     {
                         tmp = players[i];
-                        game.getAlliance( tmp, toTerr, Integer.parseInt(soldierNumber));
+                        if( !game.getAlliance( tmp, toTerr, Integer.parseInt(soldierNumber)) ) {
+                            JOptionPane.showMessageDialog(null, "Player " + tmp.getName() + " does not have enough soldiers!");
+                        }
                         break;
                     }
                 }
