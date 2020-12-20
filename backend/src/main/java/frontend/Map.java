@@ -68,7 +68,7 @@ public class Map extends JFrame implements ActionListener {
     Image backgroundForAttack;
 
     JLabel attackTimerLabel;
-    private int attackSeconds = 10;
+    private int attackSeconds = 30;
     Timer attackTimer = new Timer();
 
     JLabel lblTimer;
@@ -958,7 +958,7 @@ public class Map extends JFrame implements ActionListener {
                     retreatButton.setEnabled(false);
                     attackTimer.cancel();
                     attackTimer.purge();
-                    attackSeconds = 10;
+                    attackSeconds = 30;
                     // continue the timer whenever it is left
                     timer1 = new Timer();
                     timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
@@ -1022,7 +1022,8 @@ public class Map extends JFrame implements ActionListener {
                 }
                 attackerLabel.setText(fromTerr.getArmy().getOwner().getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
                 defenderLabel.setText(toTerr.getArmy().getOwner().getName()+" has "+toTerr.getArmy().getTotalValue()+" soldiers");
-
+                updateTerritories();
+                updateTurnColor();
             }
             //game.getAlliance( aiderPlayer, defender, infantryAmt);
 
@@ -1483,7 +1484,7 @@ public class Map extends JFrame implements ActionListener {
                     mainPanel.setVisible(true);
                     remove(panel1);
                     startTimer();
-                    attackSeconds = 10;
+                    attackSeconds = 30;
                 }
             }
         };
