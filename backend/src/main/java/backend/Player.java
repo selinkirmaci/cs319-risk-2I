@@ -31,6 +31,7 @@ public class Player implements Serializable {
     private HashMap<String,Integer> attacksAgainstOthers;
     private int[] continentNumbersArray;
     private int gainedContinentsNumber;
+    private int miniGameChance;
     
     public Player( String name, Avatar avatar, int infantryAmt, int playerId ) {
         this.name = name;
@@ -48,11 +49,20 @@ public class Player implements Serializable {
         continentNumbersArray = new int[7];
         allContinants = new Continent[7];
         gainedContinentsNumber = 0;
+        miniGameChance = 2;
         for (int i:continentNumbersArray)
         {
             i = 0;
         }
         attacksAgainstOthers = new HashMap<String, Integer>();
+    }
+
+    public int getMiniGameChance() {
+        return miniGameChance;
+    }
+
+    public void setMiniGameChance(int miniGameChance) {
+        this.miniGameChance = miniGameChance;
     }
 
     public void winGame() {

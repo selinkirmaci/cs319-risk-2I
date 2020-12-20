@@ -54,6 +54,7 @@ public class Map extends JFrame implements ActionListener {
     private JLabel background;
     private JLabel avatar1,avatar2,avatar3,avatar4;
     private JLabel player1name,player2name,player3name,player4name;
+    private JButton miniGame;
     private int timeLeft = 60;
 
     JLabel attackTimerLabel;
@@ -383,6 +384,7 @@ public class Map extends JFrame implements ActionListener {
         //get army values
         createTerritoryColors();
         updateTurnColor();
+        updateTurnColor();
 
         attackButton = new JButton("ATTACK");
         attackButton.setName("ATTACK");
@@ -402,6 +404,15 @@ public class Map extends JFrame implements ActionListener {
         cardInfoPanelButton.setEnabled(true);
         cardInfoPanelButton.addActionListener(this);
         background.add(cardInfoPanelButton);
+
+        miniGame = new JButton("MINI GAME");
+        miniGame.setName("miniGame");
+        miniGame.setBounds(650, 880, 150, 50);
+        miniGame.setContentAreaFilled(true);
+        miniGame.setBorderPainted(true);
+        miniGame.setEnabled(true);
+        miniGame.addActionListener(this);
+        background.add(miniGame);
 
         fortifyButton = new JButton("FORTIFY");
         fortifyButton.setName("fortifyButton");
@@ -433,7 +444,7 @@ public class Map extends JFrame implements ActionListener {
 
         secretMissionCard = new JButton("SECRET MISSION");
         secretMissionCard.setName("SECRET MISSION");
-        secretMissionCard.setBounds(5, 930, 150, 50);
+        secretMissionCard.setBounds(650, 930, 150, 50);
         secretMissionCard.setContentAreaFilled(true);
         secretMissionCard.setBorderPainted(true);
         secretMissionCard.setEnabled(true);
@@ -518,7 +529,7 @@ public class Map extends JFrame implements ActionListener {
                 && (e.getSource() != decreaseDice) && (e.getSource() != increaseDice)
                 && (e.getSource() != decreaseDiceDef) && (e.getSource() != increaseDiceDef)
                 && (e.getSource() != cardInfoPanelButton && e.getSource() != fortifyButton)
-                && (e.getSource() != retreatButton)
+                && (e.getSource() != retreatButton) && (e.getSource() != miniGame)
         ) {
             JButton tmp = (JButton) e.getSource();
             if(setFrom) {
@@ -1062,7 +1073,15 @@ public class Map extends JFrame implements ActionListener {
         if( e.getSource() == nextPlayerButton ) {
 
             //pass the turn to the next player
+
             game.passTurn();
+            if(players[game.getCurrentPlayerTurn()].getMiniGameChance() != 0)
+            {
+                miniGame.setEnabled(true);
+            }else
+            {
+                miniGame.setEnabled(false);
+            }
             Player p = game.checkIfAnyoneWon();
             if( p != null ) {
                 JOptionPane.showMessageDialog(null,"Player " + p.getName() );
@@ -1156,6 +1175,31 @@ public class Map extends JFrame implements ActionListener {
             {
                 JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
             }
+        }
+        if(e.getSource()==miniGame)
+        {
+            if(players[game.getCurrentPlayerTurn()].getMiniGameChance() == 1)
+            {
+                players[game.getCurrentPlayerTurn()].setMiniGameChance(0);
+                miniGame.setEnabled(false);
+            }
+            else
+            {
+                miniGame.setEnabled(true);
+                players[game.getCurrentPlayerTurn()].setMiniGameChance(players[game.getCurrentPlayerTurn()].getMiniGameChance()-1);
+            }
+            JFrame f = new JFrame("Mini Game");
+            MiniGamePanel miniGamePanel = new MiniGamePanel(f,gameManager);
+            f.add(miniGamePanel);
+            f.setVisible(true);
+            f.setSize(800,600);
+            f.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    f.dispose();
+                    updateTurnColor();
+                    System.out.println("minigame is closed");
+                }
+            });
         }
 
 
