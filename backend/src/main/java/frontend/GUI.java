@@ -90,6 +90,9 @@ public class GUI extends JFrame implements ActionListener {
 					frame.setPreferredSize(new Dimension(1570,800)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
+					String alter = "selin kırmacı";
+					String newE =  alter.replaceAll(" ","");
+					System.out.println(newE);
 
 				} catch (Exception e) {
 					e.printStackTrace();
