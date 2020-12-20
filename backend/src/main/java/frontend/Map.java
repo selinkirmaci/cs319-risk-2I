@@ -555,10 +555,12 @@ public class Map extends JFrame implements ActionListener {
                 Territory fromTerrTmp = game.getMap().getTerritoryFromName(from);
                 Color cF;
                 if(game.getMap().getTerritoryFromName(from)!=null){
-                    cF = fromTerrTmp.getArmy().getOwner().getColor();
                     if(fromTerrTmp.getArmy() == null) {
-                        fromButton.setBorder(BorderFactory.createLineBorder(cF));
+                        fromButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+                        return;
                     }
+                    cF = fromTerrTmp.getArmy().getOwner().getColor();
+
                     fromButton.setBorder(BorderFactory.createLineBorder(cF));
                 }
 
