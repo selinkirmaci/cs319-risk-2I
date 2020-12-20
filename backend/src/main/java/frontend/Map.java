@@ -555,12 +555,14 @@ public class Map extends JFrame implements ActionListener {
             if( !from.equals("") && !to.equals("") ) {
                 attackButton.setEnabled(true);
                 fortifyButton.setEnabled(true);
+                retreatButton.setEnabled(true);
             } else {
                 attackButton.setEnabled(false);
                 fortifyButton.setEnabled(false);
+                retreatButton.setEnabled(false);
             }
 
-            retreatButton.setEnabled(true);
+
             draftButton.setEnabled(true);
 
             if(tmp.getName() == "DRAFT") {
@@ -644,6 +646,9 @@ public class Map extends JFrame implements ActionListener {
             if(retreatSuccessfull)
             {
                 updateTerritories();
+                from = "";
+                to = "";
+                retreatButton.setEnabled(false);
             }else
             {
                 JOptionPane.showMessageDialog(null,"Both territories should be your territory");
@@ -663,21 +668,17 @@ public class Map extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Cannot attack for more than 3 times in a turn!");
                 return;
             }
-            /*
-            rollDiceButton.setEnabled(true);
-            allianceButton.setEnabled(true);
-            decreaseDice.setEnabled(true);
-            increaseDice.setEnabled(true);
-            mainPanel.setVisible(false);
-            panel1.setVisible(true);
-            panel1.setLayout(null);
-            player1.setIcon(new ImageIcon("./src/main/resources/images/cengiz_p.png"));
-            player1.setBounds(70, 200, 100, 100);
-            panel1.add(player1);
-            */
 
             Territory fromTerr = gameManager.getGame().getMap().getTerritoryFromName(from);
             Territory toTerr = gameManager.getGame().getMap().getTerritoryFromName(to);
+
+            if( fromTerr.getArmy() == null || toTerr.getArmy() == null ) {
+                System.out.println("One of the armies are null!");
+                JOptionPane.showMessageDialog(null, "You cannot attack from/to an empty country!");
+                from = "";
+                to = "";
+                return;
+            }
 
             // cannot attack to immune territory
             if( toTerr.getArmy().isImmune() ) {
@@ -690,15 +691,13 @@ public class Map extends JFrame implements ActionListener {
                 return;
             }
 
-            if( fromTerr.getArmy() == null || toTerr.getArmy() == null ) {
-                System.out.println("One of the armies are null!");
-                JOptionPane.showMessageDialog(null, "You cannot attack from/to an empty country!");
-            } else if( ( !players[currentPlayer].hasTerritory( fromTerr ) )
+            if( ( !players[currentPlayer].hasTerritory( fromTerr ) )
                     || ( players[currentPlayer].hasTerritory( toTerr ) ) ) {
                 System.out.println("Invalid attack!");
                 JOptionPane.showMessageDialog(null, "Invalid attack!");
                 from = "";
                 to = "";
+                return;
             } else if(fromTerr.isNeighbor(toTerr)) {
                 attackAmt++;
 
@@ -1198,6 +1197,7 @@ public class Map extends JFrame implements ActionListener {
             to = "";
             fortifyButton.setEnabled(false);
             attackButton.setEnabled(false);
+            retreatButton.setEnabled(false);
             Player potentialWinner = game.checkIfAnyoneWon();
             if(potentialWinner != null)
             {
