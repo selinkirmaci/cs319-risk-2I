@@ -175,6 +175,7 @@ public class Game implements Serializable {
         distributeRemainings();
     }
 
+    // distribute soldiers equally to territories
     public void distributeSoldiers(HashMap<Player, ArrayList<Continent>> map) {
 
         int terrAmt[] = new int[playerAmt]; // distribute based on these territory amounts
@@ -220,6 +221,7 @@ public class Game implements Serializable {
         }
     }
 
+    // distribute remaining soldiers after distributing for each territory equally
     private void distributeRemainings() {
 
         for( int i = 0; i < playerAmt; i++ ) {

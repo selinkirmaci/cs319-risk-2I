@@ -43,32 +43,62 @@ public class CombatManager implements Serializable {
         Arrays.sort(attRolls);
         Arrays.sort(defRolls);
 
+        int results[] = new int[attackerDiceNumber+defenderDiceNumber];
+        System.arraycopy(attRolls,0,results,0,attackerDiceNumber);
+        System.arraycopy(defRolls,0,results,attackerDiceNumber,defenderDiceNumber);
+
         if(attackerDiceNumber == 1 || defenderDiceNumber == 1)
         {
             if(attRolls[attackerDiceNumber-1] > defRolls[defenderDiceNumber-1])
             {
+                if( defender.getTotalValue() <= 1 ) {
+                    return results;
+                }
                 defender.forfeit();
                 System.out.println( "Defender lost one infantry. Current army value for defender:" + defender.getTotalValue() );
             } else if(attRolls[attackerDiceNumber-1] == defRolls[defenderDiceNumber-1])
             {
+                if( attacker.getTotalValue() <= 1 ) {
+                    return results;
+                } else if( attacker.getTotalValue() == 2 ) {
+                    attacker.forfeit();
+                    return results;
+                }
                 System.out.println( "Even." );
                 attacker.forfeit();
                 System.out.println("Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue());
             }else {
+                if( attacker.getTotalValue() <= 1 ) {
+                    return results;
+                } else if( attacker.getTotalValue() == 2 ) {
+                    attacker.forfeit();
+                    return results;
+                }
+
                 attacker.forfeit();
                 System.out.println("Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue());
             }
         } else {
             if( attRolls[attackerDiceNumber-1] > defRolls[defenderDiceNumber-1] )
             {
+                if( defender.getTotalValue() <= 1 ) {
+                    defender.forfeit();
+                    return results;
+                }
                 defender.forfeit();
                 System.out.println( "Defender lost one infantry. Current army value for defender:" + defender.getTotalValue() );
             }else{
+                if( attacker.getTotalValue() <= 1 ) {
+                    return results;
+                }
                 attacker.forfeit();
                 System.out.println("Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue());
             }
             if(attRolls[attackerDiceNumber-2] <= defRolls[defenderDiceNumber - 2] && (attacker.getTotalValue() > 0) )
             {
+                if( attacker.getTotalValue() <= 1 ) {
+                    return results;
+                }
                 attacker.forfeit();
                 System.out.println("Attacker lost one infantry. Current army value for attacker:" + attacker.getTotalValue());
             }else
@@ -78,9 +108,6 @@ public class CombatManager implements Serializable {
             }
         }
 
-        int results[] = new int[attackerDiceNumber+defenderDiceNumber];
-        System.arraycopy(attRolls,0,results,0,attackerDiceNumber);
-        System.arraycopy(defRolls,0,results,attackerDiceNumber,defenderDiceNumber);
         return results;
     }
 
