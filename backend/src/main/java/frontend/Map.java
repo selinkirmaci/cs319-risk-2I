@@ -58,6 +58,7 @@ public class Map extends JFrame implements ActionListener {
     private String overallWinner;
     private int timeLeft = 60;
     private int gainAmt = 0;
+    private int draftAmt = 0;
 
     JLabel attackTimerLabel;
     private int attackSeconds = 10;
@@ -201,7 +202,7 @@ public class Map extends JFrame implements ActionListener {
 
 
         allianceButton = new JButton("ALLIANCE");
-        allianceButton.setBounds(20,720,100,50);
+        allianceButton.setBounds(20,520,100,50);
         allianceButton.addActionListener(this);
 
         mainPanel = new JPanel();
@@ -1028,10 +1029,18 @@ public class Map extends JFrame implements ActionListener {
         if( e.getSource() == draftButton ) {
             Territory chosen = gameManager.getGame().getMap().getTerritoryFromName(chosenTerritory);
 
+            if( draftAmt >= 3 ) {
+                JOptionPane.showMessageDialog(null, "Cannot draft more than 3 in a turn!");
+                return;
+            }
+
             if ( chosen.getArmy() != null && chosen.getArmy().getOwner() != players[currentPlayer] ) {
                 JOptionPane.showMessageDialog(null, "Cannot draft to enemy territory!");
                 return;
             }
+
+
+
             System.out.println("Drafting " + chosenTerritory);
             String m = "";
             m = JOptionPane.showInputDialog("Drafting " + chosenTerritory + ". How many soldiers?");
@@ -1049,6 +1058,7 @@ public class Map extends JFrame implements ActionListener {
             } else {
                 // TODO: Add a notification panel to show the drafted soldier amount and the territory name.
                 gameManager.getGame().draftTurn(chosen, troopAmt);
+                draftAmt++;
 
                 from = "";
                 to = "";
@@ -1080,6 +1090,7 @@ public class Map extends JFrame implements ActionListener {
 
             //pass the turn to the next player
             gainAmt = game.passTurn();
+            draftAmt = 0;
 
             if(players[game.getCurrentPlayerTurn()].getMiniGameChance() != 0)
             {
@@ -1334,6 +1345,12 @@ public class Map extends JFrame implements ActionListener {
                 {
                     nextPlayerButton.doClick();
                     timer1.cancel();
+                    if( cardPanel != null ) {
+                        cardPanel.dispose();
+                    }
+                    if(secretMissionFrame != null) {
+                        secretMissionFrame.dispose();
+                    }
                     seconds = 60;
                     startTimer();
                 }
