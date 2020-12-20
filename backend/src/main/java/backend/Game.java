@@ -208,6 +208,7 @@ public class Game implements Serializable {
                     currTerr.setContinent(players[i].getGainedContinents().get(j));
                     players[i].useInfantries(distAmt);
                     players[i].addGainedTerritory(currTerr); // add the gained territory
+                    players[i].setOriginalContinentNumber(players[i].getGainedContinents().size());
 
                     //create troops:
                     ArrayList<Troop> troops = new ArrayList<Troop>();
@@ -517,11 +518,11 @@ public class Game implements Serializable {
                     p.winGame();
                     return true;
                 }
-            }else if(secretMissionNumber == p.getGainedContinentsNumber() + 1) // conquer 2 continents
+            }else if(secretMissionNumber == 2) // conquer 2 continents
             {
                 System.out.println("Secret mission 2");
                 System.out.println("Number of continents is: " + p.getGainedContinentsNumber());
-                if(p.getGainedContinentsNumber() == 2)
+                if(p.getGainedContinentsNumber() == p.getOriginalContinentNumber()+1)
                 {
                     p.winGame();
                     return true;
@@ -547,8 +548,6 @@ public class Game implements Serializable {
                         return true;
                     }
                 }
-
-
             }else if(secretMissionNumber == 4) //attack and win against all players at least 2 times
             {
                 System.out.println("Secret mission 4");

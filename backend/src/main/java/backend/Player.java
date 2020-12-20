@@ -32,6 +32,7 @@ public class Player implements Serializable {
     private int[] continentNumbersArray;
     private int gainedContinentsNumber;
     private int miniGameChance;
+    private int originalContinentNumber;
     
     public Player( String name, Avatar avatar, int infantryAmt, int playerId ) {
         this.name = name;
@@ -81,6 +82,15 @@ public class Player implements Serializable {
         return won;
     }
 
+    public void setOriginalContinentNumber(int number)
+    {
+        originalContinentNumber = number;
+    }
+
+    public int getOriginalContinentNumber()
+    {
+        return originalContinentNumber;
+    }
     public void addAttack(String enemy)
     {
         System.out.println("In add attack method==========================");

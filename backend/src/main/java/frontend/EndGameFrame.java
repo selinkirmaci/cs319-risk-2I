@@ -49,7 +49,7 @@ public class EndGameFrame extends JFrame implements ActionListener
         messageLabel.setBounds(380,200,600,50);
         messageLabel.setFont(font);
 
-        winnerLabel = new JLabel(winner);
+        winnerLabel = new JLabel(winner.toUpperCase());
         winnerLabel.setBounds(570,350,200,50);
         winnerLabel.setFont(new Font("Algerian",Font.BOLD,30));
 
