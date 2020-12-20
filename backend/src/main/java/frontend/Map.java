@@ -729,6 +729,7 @@ public class Map extends JFrame implements ActionListener {
             secretMissionFrame.setTitle("Risk");
             secretMissionFrame.setResizable(false);
             secretMissionFrame.pack();
+            updateAllNames();
         }
         if(e.getSource() == retreatButton)
         {
@@ -756,7 +757,7 @@ public class Map extends JFrame implements ActionListener {
                 endTheGame();
                 JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
             }
-
+            updateAllNames();
         }
         if(e.getSource() == attackButton)
         {
@@ -884,7 +885,7 @@ public class Map extends JFrame implements ActionListener {
             }
 
             attackButton.setEnabled(false);
-
+            updateAllNames();
         }
 
         if(e.getSource() == rollDiceButton)
@@ -1030,6 +1031,7 @@ public class Map extends JFrame implements ActionListener {
                 }
 
             }
+            updateAllNames();
         }
 
 
@@ -1061,6 +1063,7 @@ public class Map extends JFrame implements ActionListener {
                     null, options, options[0]);
             String soldierNumber = JOptionPane.showInputDialog("How many soldiers do you want");
             Object[] acceptanceOptions = { "Yes","No" };
+            String allianceFrom = otherPlayersArray[selectedPlayer];
             int acceptance = JOptionPane.showOptionDialog(null, otherPlayersArray[selectedPlayer]+" do you accept this alliance", "Alliance",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     null, acceptanceOptions, acceptanceOptions[0]);
@@ -1069,20 +1072,25 @@ public class Map extends JFrame implements ActionListener {
                 Player tmp;
                 for(int i = 0; i < noOfPlayers;i++)
                 {
-                    if(players[i].getName() == otherPlayersArray[selectedPlayer]);
+                    if(players[i].getName().equals(allianceFrom));
                     {
-                        tmp = players[i];
+                        tmp = game.getPlayerbyName(allianceFrom);
+                        System.out.println(allianceFrom);
+                        System.out.println("in alliance: nameee. "+tmp.getName());
                         if( !game.getAlliance( tmp, toTerr, Integer.parseInt(soldierNumber)) ) {
                             JOptionPane.showMessageDialog(null, "Player " + tmp.getName() + " does not have enough soldiers!");
                         }
                         break;
+
                     }
                 }
                 attackerLabel.setText(fromTerr.getArmy().getOwner().getName()+" has "+fromTerr.getArmy().getTotalValue()+" soldiers");
                 defenderLabel.setText(toTerr.getArmy().getOwner().getName()+" has "+toTerr.getArmy().getTotalValue()+" soldiers");
                 updateTerritories();
                 updateTurnColor();
+                updateAllNames();
             }
+            updateAllNames();
             //game.getAlliance( aiderPlayer, defender, infantryAmt);
 
         }
@@ -1210,7 +1218,7 @@ public class Map extends JFrame implements ActionListener {
                 endTheGame();
                 //JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
             }
-
+            updateAllNames();
         }
 
         if( e.getSource() == nextPlayerButton ) {
@@ -1247,7 +1255,7 @@ public class Map extends JFrame implements ActionListener {
             seconds = 60;
             //TODO: add gained inf amt
             JOptionPane.showMessageDialog(null, "Player "+ players[currentPlayer].getName()+" got "+ gainAmt+ " more soldiers");
-
+            updateAllNames();
         }
         if(e.getSource() == cardInfoPanelButton)
         {
@@ -1256,9 +1264,11 @@ public class Map extends JFrame implements ActionListener {
             cardPanel.setTitle("Risk");
             cardPanel.setResizable(false);
             cardPanel.pack();
+            updateAllNames();
             cardPanel.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
                     updateTurnColor();
+                    updateAllNames();
                     System.out.println("card panel is closed");
                     Player potentialWinner = game.checkIfAnyoneWon();
                     if(potentialWinner != null)
@@ -1280,6 +1290,7 @@ public class Map extends JFrame implements ActionListener {
             cursedCardsFrame.addWindowListener(new WindowAdapter() {
                 public void windowClosing(WindowEvent e) {
                     updateTurnColor();
+                    updateAllNames();
                     updateTerritories();
                     System.out.println("Cursed card panel is closed");
                     Player potentialWinner = game.checkIfAnyoneWon();
@@ -1292,6 +1303,7 @@ public class Map extends JFrame implements ActionListener {
                 }
             });
             cursedCardsFrame.setFrame(cursedCardsFrame);
+            updateAllNames();
         }
 
         if(e.getSource() == fortifyButton) {
@@ -1339,6 +1351,7 @@ public class Map extends JFrame implements ActionListener {
                 endTheGame();
                 //JOptionPane.showMessageDialog(null,potentialWinner.getName()+" has won the game");
             }
+            updateAllNames();
         }
         if(e.getSource()==miniGame)
         {
@@ -1386,10 +1399,18 @@ public class Map extends JFrame implements ActionListener {
             }
         }
 
-
+        updateAllNames();
         repaint();
     }
 
+    public void updateAllNames()
+    {
+        player1name.setText(players[0].getName()+" Infantry numbers:" + players[0].getInfantryAmt());
+        player2name.setText(players[1].getName()+" Infantry numbers:" + players[1].getInfantryAmt());
+        player3name.setText(players[2].getName()+" Infantry numbers:" + players[2].getInfantryAmt());
+        player4name.setText(players[3].getName()+" Infantry numbers:" + players[3].getInfantryAmt());
+        revalidate();
+    }
     public void updateTurnColor()
     {
         if(currentPlayer == 0)

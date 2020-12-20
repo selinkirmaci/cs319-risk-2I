@@ -422,7 +422,10 @@ public class Game implements Serializable {
             return false;
         }
 
+        System.out.println("---------------get alliance------------------");
+        System.out.println(getAllianceFrom.getInfantryAmt());
         getAllianceFrom.useInfantries(infantryAmt);
+        System.out.println(getAllianceFrom.getInfantryAmt());
 
         ArrayList<Troop> toFortify = new ArrayList<>();
         for( int i = 0; i < infantryAmt; i++ ) {
@@ -630,6 +633,17 @@ public class Game implements Serializable {
         {
             tradeCount += players[i].getTradeCount();
         }
+    }
+
+    public Player getPlayerbyName(String name){
+        for(int i = 0; i<players.length;i++)
+        {
+            if(players[i].getName().equals(name))
+            {
+                return players[i];
+            }
+        }
+        return null;
     }
 
     public int getTradeCount() {
