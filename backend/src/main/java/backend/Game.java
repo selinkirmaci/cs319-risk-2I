@@ -446,12 +446,12 @@ public class Game implements Serializable {
             if(secretMissionNumber == 1) //conquer 24 territories
             {
                 System.out.println("Secret mission 1");
-                if(p.getGainedTerritories().size()==24)
+                if( p.getGainedTerritories().size()==30 )
                 {
                     p.winGame();
                     return true;
                 }
-            }else if(secretMissionNumber == 2) // conquer 2 continents
+            }else if(secretMissionNumber == p.getGainedContinentsNumber() + 1) // conquer 2 continents
             {
                 System.out.println("Secret mission 2");
                 System.out.println("Number of continents is: " + p.getGainedContinentsNumber());
