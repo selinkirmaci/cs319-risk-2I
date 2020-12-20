@@ -89,7 +89,7 @@ public class CardPanel extends JFrame implements ActionListener
         cardNumberInfo.setFont(new Font(Font.SERIF,Font.BOLD,30));
         cardNumberInfo.setForeground(Color.BLUE);
         add(cardNumberInfo);
-        add(backToGame);
+        //add(backToGame);
         add(tradeCards);
         add(tradeCountLabel);
         add(gridPanel);
