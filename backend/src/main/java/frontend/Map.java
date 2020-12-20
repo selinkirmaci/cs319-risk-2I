@@ -2,6 +2,7 @@
 
 package frontend;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
@@ -61,6 +62,10 @@ public class Map extends JFrame implements ActionListener {
     private int gainAmt = 0;
     private int draftAmt = 0;
     private int attackAmt = 0;
+    private JButton fromButton;
+    private JButton toButton,emptyButton;
+
+    Image backgroundForAttack;
 
     JLabel attackTimerLabel;
     private int attackSeconds = 10;
@@ -134,7 +139,7 @@ public class Map extends JFrame implements ActionListener {
     int noOfPlayers;
 
 
-    public Map( GameManager gameManager ,SoundManager soundManager)
+    public Map(GameManager gameManager , SoundManager soundManager)
     {
 
         this.gameManager = gameManager;
@@ -146,6 +151,9 @@ public class Map extends JFrame implements ActionListener {
         territories = new JButton[45];
 
         overallWinner = "";
+
+        fromButton = new JButton();
+        toButton = new JButton();
 
         attackTimerLabel = new JLabel();
         attackTimerLabel.setBounds(400,50,40,40);
@@ -499,6 +507,8 @@ public class Map extends JFrame implements ActionListener {
         background.revalidate();
         mainPanel.add(background);
         mainPanel.setBackground(new Color(199,162,110));
+
+
         add(mainPanel);
 
     }
@@ -537,19 +547,51 @@ public class Map extends JFrame implements ActionListener {
             JButton tmp = (JButton) e.getSource();
             //tmp.setBackground(Color.RED);
             if(setFrom) {
+                System.out.println("first");
                 from = tmp.getName();
                 setFrom = !setFrom;
+                fromButton.setBorder(territories[0].getBorder());
+                fromButton = tmp;
+                Territory fromTerrTmp = game.getMap().getTerritoryFromName(from);
+                Color cF;
+                if(fromTerrTmp.getArmy()!=null){
+                    cF = fromTerrTmp.getArmy().getOwner().getColor();
+                    fromButton.setBorder(BorderFactory.createLineBorder(cF));
+                }
+
             } else if( from != "" ) {
+                System.out.println("second");
                 to = tmp.getName();
+                toButton.setBorder(territories[0].getBorder());
+                toButton = tmp;
+                Territory toTerrTmp = game.getMap().getTerritoryFromName(to);
+                Color cT;
+                if(toTerrTmp.getArmy()!=null){
+                    cT = toTerrTmp.getArmy().getOwner().getColor();
+                    toButton.setBorder(BorderFactory.createLineBorder(cT));
+                }
                 setFrom = !setFrom;
+
             } else {
+                System.out.println("third");
                 from = tmp.getName();
+                Territory fromTerrTmp = game.getMap().getTerritoryFromName(from);
+                Color cF;
+                fromButton.setBorder(territories[0].getBorder());
+                fromButton = tmp;
+                if(fromTerrTmp.getArmy()!=null){
+                    cF = fromTerrTmp.getArmy().getOwner().getColor();
+                    fromButton.setBorder(BorderFactory.createLineBorder(cF));
+                }
+
             }
 
             if( from != "" && to != "" && !setFrom ) {
                 from = "";
                 to = "";
                 setFrom = !setFrom;
+                toButton.setBorder(territories[0].getBorder());
+                fromButton.setBorder(territories[0].getBorder());
             }
 
             if( !from.equals("") && !to.equals("") ) {
@@ -557,6 +599,7 @@ public class Map extends JFrame implements ActionListener {
                 fortifyButton.setEnabled(true);
                 retreatButton.setEnabled(true);
             } else {
+
                 attackButton.setEnabled(false);
                 fortifyButton.setEnabled(false);
                 retreatButton.setEnabled(false);
@@ -764,7 +807,10 @@ public class Map extends JFrame implements ActionListener {
                 panel1.add(thirdDiceSet);
                 panel1.add(forthDiceSet);
                 panel1.add(fifthDiceSet);
+
+                panel1.setBackground(new Color(182,115,45));
                 add(panel1);
+
             }else
             {
                 JOptionPane.showMessageDialog(null, "Territories should be neighbors!");

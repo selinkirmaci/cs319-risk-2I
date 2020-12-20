@@ -74,7 +74,7 @@ public class CardPanel extends JFrame implements ActionListener
         {
             String cardNameAltered = (playersCards.get(i).getName()).toLowerCase();
             cardNameAltered = cardNameAltered.replaceAll(" ","");
-            Icon icon = new ImageIcon("./src/main/resources/images/territoryCards/"+(playersCards.get(i).getName()).toLowerCase().trim()+".png");
+            Icon icon = new ImageIcon("./src/main/resources/images/territoryCards/"+cardNameAltered+".png");
             JButton tmp = new JButton();
             System.out.println("Trimed version: "+cardNameAltered);
             tmp.setName(playersCards.get(i).getName());
