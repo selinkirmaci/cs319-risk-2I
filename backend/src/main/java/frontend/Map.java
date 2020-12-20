@@ -56,6 +56,7 @@ public class Map extends JFrame implements ActionListener {
     private JLabel player1name,player2name,player3name,player4name;
     private JButton miniGame;
     private int timeLeft = 60;
+    private int gainAmt = 0;
 
     JLabel attackTimerLabel;
     private int attackSeconds = 10;
@@ -1073,8 +1074,8 @@ public class Map extends JFrame implements ActionListener {
         if( e.getSource() == nextPlayerButton ) {
 
             //pass the turn to the next player
+            gainAmt = game.passTurn();
 
-            game.passTurn();
             if(players[game.getCurrentPlayerTurn()].getMiniGameChance() != 0)
             {
                 miniGame.setEnabled(true);
@@ -1082,6 +1083,7 @@ public class Map extends JFrame implements ActionListener {
             {
                 miniGame.setEnabled(false);
             }
+
             Player p = game.checkIfAnyoneWon();
             if( p != null ) {
                 JOptionPane.showMessageDialog(null,"Player " + p.getName() );
@@ -1095,7 +1097,8 @@ public class Map extends JFrame implements ActionListener {
             updateTerritories();
             updateTurnColor();
             seconds = 60;
-            JOptionPane.showMessageDialog(null, "Player "+ players[currentPlayer].getName()+" got 3 more soldiers");
+            //TODO: add gained inf amt
+            JOptionPane.showMessageDialog(null, "Player "+ players[currentPlayer].getName()+" got "+ gainAmt+ " more soldiers");
 
         }
         if(e.getSource() == cardInfoPanelButton)

@@ -447,4 +447,10 @@ public class Player implements Serializable {
         }
     }
 
+    public void addGainedContinent(Continent c) {
+        if( !gainedContinents.contains(c) ) {
+            gainedContinents.add(c);
+        }
+    }
+
 }
