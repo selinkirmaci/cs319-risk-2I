@@ -57,6 +57,7 @@ public class Map extends JFrame implements ActionListener {
     private JButton miniGame;
     private String overallWinner;
     private int timeLeft = 60;
+    private int gainAmt = 0;
 
     JLabel attackTimerLabel;
     private int attackSeconds = 10;
@@ -588,7 +589,7 @@ public class Map extends JFrame implements ActionListener {
                         "ARE YOU A LOSER?", "QUIT?", JOptionPane.YES_NO_OPTION);
                 if(quit == 0)
                 {
-                    //dispose();
+                    dispose();
                 }
             }else if(chosenoption == 3)
             {
@@ -610,6 +611,9 @@ public class Map extends JFrame implements ActionListener {
             }else if(chosenoption == 0) //continue
             {
                 mainPanel.setEnabled(true);
+                timer1 = new Timer();
+                timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
+            } else if(chosenoption == JOptionPane.CLOSED_OPTION) {
                 timer1 = new Timer();
                 timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
             }
@@ -1075,8 +1079,8 @@ public class Map extends JFrame implements ActionListener {
         if( e.getSource() == nextPlayerButton ) {
 
             //pass the turn to the next player
+            gainAmt = game.passTurn();
 
-            game.passTurn();
             if(players[game.getCurrentPlayerTurn()].getMiniGameChance() != 0)
             {
                 miniGame.setEnabled(true);
@@ -1084,6 +1088,7 @@ public class Map extends JFrame implements ActionListener {
             {
                 miniGame.setEnabled(false);
             }
+
             Player p = game.checkIfAnyoneWon();
             if( p != null ) {
                 overallWinner = p.getName();
@@ -1099,7 +1104,8 @@ public class Map extends JFrame implements ActionListener {
             updateTerritories();
             updateTurnColor();
             seconds = 60;
-            JOptionPane.showMessageDialog(null, "Player "+ players[currentPlayer].getName()+" got 3 more soldiers");
+            //TODO: add gained inf amt
+            JOptionPane.showMessageDialog(null, "Player "+ players[currentPlayer].getName()+" got "+ gainAmt+ " more soldiers");
 
         }
         if(e.getSource() == cardInfoPanelButton)
@@ -1165,7 +1171,7 @@ public class Map extends JFrame implements ActionListener {
                 if( troopAmt >= fromTerr.getArmy().getTotalValue() ) {
                     from = "";
                     to = "";
-                    JOptionPane.showMessageDialog(null,"Not enough soldiers" );
+                    JOptionPane.showMessageDialog(null,"Not enough soldiers. At least one soldier should be left at the supporting territory" );
                 } else {
                     game.fortifyTurn(fromTerr, toTerr, troopAmt);
                     updateTerritories();

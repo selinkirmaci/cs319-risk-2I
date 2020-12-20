@@ -122,46 +122,64 @@ public class Game implements Serializable {
     }
 
     // this is the first turn when the game starts
-    // each player will get a part of a randomly chosen continent
+    // each player will get (1-2-3-4) randomly chosen continent based on player amount
     public void initialTurn() {
         System.out.println( "First Turn: Distributing armies into random continents" );
         ArrayList<Continent> conts = map.getContinents();
         ArrayList<Integer> playerContinents = new ArrayList<Integer>();
+        int amtOfConts = conts.size() / playerAmt; // amount of continents to distribute
+        int remanining = conts.size() - amtOfConts * playerAmt;
+        int[] amtsToDistribute = new int[playerAmt];
 
         for( int i = 0; i < playerAmt; i++ ) {
-            ArrayList<Integer> randomTerrits = new ArrayList<Integer>();
-            int randomCont = getRandomNumberInRange(0,5);
-
-            // get random continent until an unused continent appears
-            // and this unused continent has > 3 territories
-            while( playerContinents.contains(randomCont) &&
-                    conts.get(randomCont).getTerritories().size() > 3 ) {
-                randomCont = getRandomNumberInRange(0,5);
+            if( remanining > 0 ) {
+                amtsToDistribute[i] = amtOfConts + 1;
+                remanining--;
+            } else {
+                amtsToDistribute[i] = amtOfConts;
             }
+        }
 
-            playerContinents.add(randomCont);
+        for( int i = 0; i < playerAmt; i++ ) {
+            for( int j = 0; j < amtsToDistribute[i]; j++ ) {
 
-            Continent currCont = conts.get(randomCont);
-            ArrayList<Territory> currTerrs = currCont.getTerritories();
-            int terrAmt = currTerrs.size();
-            int troopAmt = initialTroopAmt / 5;
-
-            // distribute an army of 5 infantries into 4 continents (for now)
-            for( int j = 0; j < 4; j++ ) {
-                Territory currTerr = currTerrs.get(j); // current territory
-                currTerr.setContinent(map.getContinentOfTerritory(currTerr));
-                players[i].useInfantries(troopAmt); // reduce the amt of infantries that the player has
-                players[i].addGainedTerritory(currTerr); // add the gained territory
-
-                //create troops:
-                ArrayList<Troop> troops = new ArrayList<Troop>();
-                for( int k = 0; k < troopAmt; k++ ) {
-                    troops.add( new Infantry() );
+                if(playerContinents.size() == 7) {
+                    return;
                 }
-                Army army = new Army( troops, players[i] );
 
-                //set the army of that territory
-                currTerr.setArmy(army);
+                int randomCont = getRandomNumberInRange(0,6);
+
+                // get random continent until an unused continent appears
+                // and this unused continent has > 3 territories
+                while( playerContinents.contains(randomCont) ) {
+                    randomCont = getRandomNumberInRange(0,6);
+                }
+
+                playerContinents.add(randomCont);
+
+                Continent currCont = conts.get(randomCont);
+                ArrayList<Territory> currTerrs = currCont.getTerritories();
+                int terrAmt = currTerrs.size();
+                int troopAmt = 1;
+                players[i].addGainedContinent(currCont);
+
+                // distribute an army of one infantry into territories
+                for( int k = 0; k < terrAmt; k++ ) {
+                    Territory currTerr = currTerrs.get(k); // current territory
+                    currTerr.setContinent(map.getContinentOfTerritory(currTerr));
+                    players[i].useInfantries(troopAmt); // reduce the amt of infantries that the player has
+                    players[i].addGainedTerritory(currTerr); // add the gained territory
+
+                    //create troops:
+                    ArrayList<Troop> troops = new ArrayList<Troop>();
+                    for( int p = 0; p < troopAmt; p++ ) {
+                        troops.add( new Infantry() );
+                    }
+                    Army army = new Army( troops, players[i] );
+
+                    //set the army of that territory
+                    currTerr.setArmy(army);
+                }
             }
         }
     }
@@ -180,7 +198,7 @@ public class Game implements Serializable {
     as much as (num. of territories the player has) / 3
     the player cannot get less than 3 units regardless of the owned territory amount
     players should also receive additional units if they own a whole continent */
-    private void startTurn( Player p ) {
+    private int startTurn( Player p ) {
         int numOfTerr = p.getGainedTerritories().size();
         int addition = 3;
         if( (numOfTerr / 3) > 3 ) {
@@ -189,14 +207,19 @@ public class Game implements Serializable {
         p.addInfantries( addition );
         System.out.println( "Added " + addition + " infantries to player " + p.getName() );
 
+        int totalAmt = 0;
+
         //add additional units for gained continents
         for( int i = 0; i < p.getGainedContinents().size(); i++ ) {
             int extra;
             extra = p.getGainedContinents().get(i).getExtraArmies();
+            totalAmt += extra;
             p.addInfantries( extra );
             System.out.println( "Added " + extra + " amount of infantries to player " +
                     p.getName() + " for continent " + p.getGainedContinents().get(i) );
         }
+
+        return totalAmt + 3;
 
     }
 
@@ -204,7 +227,7 @@ public class Game implements Serializable {
     // checks if any territory is immune and if there is an immune territory,
     // decrease its round count
     // if a player has rebellion, pass that player's turn too
-    public void passTurn() {
+    public int passTurn() {
         currentPlayerTurn++;
         currentPlayerTurn = currentPlayerTurn % playerAmt;
         Player currPlayer = players[currentPlayerTurn];
@@ -212,28 +235,23 @@ public class Game implements Serializable {
         checkIfLosed(currPlayer);
         boolean won = checkIfWon(currPlayer);
 
-        if(won)
-        {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println(currPlayer.getName()+ " won!");
-        }
-
         // Pass lost players
         if( currPlayer.hasLost() ) {
             passTurn();
-            return;
+            return -1;
         } else if( currPlayer.isHasRebellion() ) {
             currPlayer.endRebellion();
             passTurn();
-            return;
+            return -1;
         }
 
         System.out.println( "**** Turn of player: " + currPlayer.getName() + " ****" );
-        startTurn(currPlayer); //start the turn of current player
+        int gainedAmt = startTurn(currPlayer); //start the turn of current player
         currPlayer.getHand().tryGettingCurseCard(); // try to get immunity card
 
         decreaseImmunityCounts();
         System.out.println( "Currently immune territories: " + currentlyImmuneTerritories.toString() );
+        return gainedAmt;
 
     }
     
