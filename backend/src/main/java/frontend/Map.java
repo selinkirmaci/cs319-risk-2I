@@ -59,6 +59,7 @@ public class Map extends JFrame implements ActionListener {
     private int timeLeft = 60;
     private int gainAmt = 0;
     private int draftAmt = 0;
+    private int attackAmt = 0;
 
     JLabel attackTimerLabel;
     private int attackSeconds = 10;
@@ -653,6 +654,10 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource() == attackButton)
         {
+            if(attackAmt >= 3) {
+                JOptionPane.showMessageDialog(null, "Cannot attack for more than 3 times in a turn!");
+                return;
+            }
             /*
             rollDiceButton.setEnabled(true);
             allianceButton.setEnabled(true);
@@ -690,6 +695,7 @@ public class Map extends JFrame implements ActionListener {
                 from = "";
                 to = "";
             } else if(fromTerr.isNeighbor(toTerr)) {
+                attackAmt++;
 
                 startAttackTimer();
                 timer1.cancel();
@@ -1091,6 +1097,7 @@ public class Map extends JFrame implements ActionListener {
             //pass the turn to the next player
             gainAmt = game.passTurn();
             draftAmt = 0;
+            attackAmt = 0;
 
             if(players[game.getCurrentPlayerTurn()].getMiniGameChance() != 0)
             {
