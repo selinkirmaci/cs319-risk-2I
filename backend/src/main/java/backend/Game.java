@@ -2,6 +2,7 @@ package backend;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -130,6 +131,7 @@ public class Game implements Serializable {
         int amtOfConts = conts.size() / playerAmt; // amount of continents to distribute
         int remanining = conts.size() - amtOfConts * playerAmt;
         int[] amtsToDistribute = new int[playerAmt];
+        HashMap<Player, ArrayList<Continent>> distribution = new HashMap<>();
 
         for( int i = 0; i < playerAmt; i++ ) {
             if( remanining > 0 ) {
@@ -141,6 +143,7 @@ public class Game implements Serializable {
         }
 
         for( int i = 0; i < playerAmt; i++ ) {
+            ArrayList<Continent> continentsToPut = new ArrayList<>();;
             for( int j = 0; j < amtsToDistribute[i]; j++ ) {
 
                 if(playerContinents.size() == 7) {
@@ -163,21 +166,53 @@ public class Game implements Serializable {
                 int troopAmt = 1;
                 players[i].addGainedContinent(currCont);
 
-                // distribute an army of one infantry into territories
-                for( int k = 0; k < terrAmt; k++ ) {
-                    Territory currTerr = currTerrs.get(k); // current territory
-                    currTerr.setContinent(map.getContinentOfTerritory(currTerr));
-                    players[i].useInfantries(troopAmt); // reduce the amt of infantries that the player has
+                continentsToPut.add(currCont);
+            }
+            distribution.put(players[i], continentsToPut);
+        }
+
+        distributeSoldiers(distribution);
+    }
+
+    public void distributeSoldiers(HashMap<Player, ArrayList<Continent>> map) {
+
+        int terrAmt[] = new int[playerAmt]; // distribute based on these territory amounts
+
+        for( int i = 0; i < playerAmt; i++ ) {
+            terrAmt[i] = 0;
+        }
+
+        // get territory amounts of each player
+        for( int i = 0; i < map.size(); i++ ) {
+            for( int j = 0; j < map.get(players[i]).size(); j++ ) {
+                terrAmt[i] += map.get(players[i]).get(j).getTerritories().size();
+            }
+        }
+
+        int troopAmt = players[0].getInfantryAmt();
+        int distributeAmt[] = new int[playerAmt];
+
+
+        for( int i = 0; i < playerAmt; i++ ) {
+            distributeAmt[i] = troopAmt / terrAmt[i];
+        }
+
+
+        for( int i = 0; i < playerAmt; i++ ) { // each player
+            for( int j = 0; j < players[i].getGainedContinents().size(); j++ ) { // each continent
+                for( int k = 0; k < players[i].getGainedContinents().get(j).getTerritories().size(); k++ ) { // each territory
+                    int distAmt = distributeAmt[i];
+                    Territory currTerr = players[i].getGainedContinents().get(j).getTerritories().get(k);
+                    currTerr.setContinent(players[i].getGainedContinents().get(j));
+                    players[i].useInfantries(distAmt);
                     players[i].addGainedTerritory(currTerr); // add the gained territory
 
                     //create troops:
                     ArrayList<Troop> troops = new ArrayList<Troop>();
-                    for( int p = 0; p < troopAmt; p++ ) {
-                        troops.add( new Infantry() );
+                    for (int p = 0; p < distAmt; p++) {
+                        troops.add(new Infantry());
                     }
-                    Army army = new Army( troops, players[i] );
-
-                    //set the army of that territory
+                    Army army = new Army(troops, players[i]);
                     currTerr.setArmy(army);
                 }
             }

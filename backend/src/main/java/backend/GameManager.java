@@ -127,8 +127,6 @@ public class GameManager implements Serializable {
             infAmt = 35;
         } else if( playerAmt == 4 ) {
             infAmt = 30;
-        } else if( playerAmt == 5 ) {
-            infAmt = 25;
         }
 
         return infAmt;

@@ -60,6 +60,7 @@ public class Map extends JFrame implements ActionListener {
     private int timeLeft = 60;
     private int gainAmt = 0;
     private int draftAmt = 0;
+    private int attackAmt = 0;
 
     JLabel attackTimerLabel;
     private int attackSeconds = 10;
@@ -111,7 +112,7 @@ public class Map extends JFrame implements ActionListener {
     JButton secretMissionCard;
     JButton nextPlayerButton;
     JButton fortifyButton;
-    JButton cancelAttack,rollDiceButton,allianceButton,decreaseDice,increaseDice,decreaseDiceDef,increaseDiceDef;
+    JButton rollDiceButton,allianceButton,decreaseDice,increaseDice,decreaseDiceDef,increaseDiceDef;
     String chosenTerritory;
     JLabel firstDiceSet,secondDiceSet,thirdDiceSet,forthDiceSet,fifthDiceSet;
     JButton cardInfoPanelButton,cursedCardInfoFrameButton;
@@ -261,10 +262,6 @@ public class Map extends JFrame implements ActionListener {
         background.add(player2name);
         background.add(player3name);
         background.add(player4name);
-
-        cancelAttack = new JButton("BACK");
-        cancelAttack.addActionListener(this);
-        cancelAttack.setBounds(20,20,100,50);
 
         //initialize buttons for territories
         for(int i = 0; i < 45; i++)
@@ -538,6 +535,7 @@ public class Map extends JFrame implements ActionListener {
                 && (e.getSource() != retreatButton) && (e.getSource() != miniGame)
         ) {
             JButton tmp = (JButton) e.getSource();
+            //tmp.setBackground(Color.RED);
             if(setFrom) {
                 from = tmp.getName();
                 setFrom = !setFrom;
@@ -546,6 +544,12 @@ public class Map extends JFrame implements ActionListener {
                 setFrom = !setFrom;
             } else {
                 from = tmp.getName();
+            }
+
+            if( from != "" && to != "" && !setFrom ) {
+                from = "";
+                to = "";
+                setFrom = !setFrom;
             }
 
             if( !from.equals("") && !to.equals("") ) {
@@ -569,6 +573,7 @@ public class Map extends JFrame implements ActionListener {
 
             System.out.println("from: " + from);
             System.out.println("to: " + to);
+            System.out.println("setfrom: " + setFrom);
 
         }
         if(e.getSource()==pauseButton)
@@ -654,6 +659,10 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource() == attackButton)
         {
+            if(attackAmt >= 3) {
+                JOptionPane.showMessageDialog(null, "Cannot attack for more than 3 times in a turn!");
+                return;
+            }
             /*
             rollDiceButton.setEnabled(true);
             allianceButton.setEnabled(true);
@@ -691,6 +700,7 @@ public class Map extends JFrame implements ActionListener {
                 from = "";
                 to = "";
             } else if(fromTerr.isNeighbor(toTerr)) {
+                attackAmt++;
 
                 startAttackTimer();
                 timer1.cancel();
@@ -729,7 +739,6 @@ public class Map extends JFrame implements ActionListener {
                 defenderLabel.setBounds(910,100,300,100);
                 panel1.add(player2);
                 panel1.add(defenderLabel);
-                panel1.add(cancelAttack);
                 panel1.add(attackTimerLabel);
                 System.out.println(chosenTerritory);
                 territoryName.setText("BATTLE FROM " + from + " TO " + to);
@@ -766,14 +775,6 @@ public class Map extends JFrame implements ActionListener {
 
             attackButton.setEnabled(false);
 
-        }
-
-        if(e.getSource()==cancelAttack)
-        {
-            remove(panel1);
-            mainPanel.setVisible(true);
-            attackButton.setEnabled(false);
-            retreatButton.setEnabled(false);
         }
 
         if(e.getSource() == rollDiceButton)
@@ -1092,6 +1093,7 @@ public class Map extends JFrame implements ActionListener {
             //pass the turn to the next player
             gainAmt = game.passTurn();
             draftAmt = 0;
+            attackAmt = 0;
 
             if(players[game.getCurrentPlayerTurn()].getMiniGameChance() != 0)
             {
