@@ -552,18 +552,23 @@ public class Game implements Serializable {
             {
                 System.out.println("Secret mission 4");
                 ArrayList<Integer> attackNumbers = p.getAttackNumbers();
-                boolean secretMissionComplete = false;
+                boolean secretMissionComplete = true;
+                boolean wentInLoop = false;
                 for(int a:attackNumbers)
                 {
+                    wentInLoop = true;
                     System.out.println("attack number is: " + a);
-                    if( a >= 2)
+                    if( a < 2)
                     {
-                        secretMissionComplete = true;
+                        secretMissionComplete = false;
                     }
                 }
-                if(secretMissionComplete) {
-                    p.winGame();
-                    return true;
+                if(wentInLoop)
+                {
+                    if(secretMissionComplete) {
+                      p.winGame();
+                      return true;
+                    }
                 }
 
             }
