@@ -28,7 +28,8 @@ public class CardPanel extends JFrame implements ActionListener
     private int numberOfCardsChosen;
     private Player currPlayer;
     private backend.Game game;
-    public CardPanel( backend.Game game)
+    private JFrame frame;
+    public CardPanel( backend.Game game,JFrame frame)
     {
         setLayout(null);
         setPreferredSize(new Dimension(1200,900));
@@ -38,6 +39,7 @@ public class CardPanel extends JFrame implements ActionListener
         this.currPlayer = game.getPlayers()[game.getCurrentPlayerTurn()];
         this.game = game;
 
+        this.frame = frame;
         firstCard = "";
         secondCard = "";
         thirdCard = "";
@@ -152,7 +154,7 @@ public class CardPanel extends JFrame implements ActionListener
                 // should also update player's current infantry amount
                 validate(); // or update this panel, because otherwise used cards will still be visible
                 repaint();
-                dispose();
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
         }
     }

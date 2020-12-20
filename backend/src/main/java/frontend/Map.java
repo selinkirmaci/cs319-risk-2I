@@ -691,6 +691,9 @@ public class Map extends JFrame implements ActionListener {
                 updateTerritories();
                 from = "";
                 to = "";
+                toButton.setBorder(territories[0].getBorder());
+                fromButton.setBorder(territories[0].getBorder());
+
                 retreatButton.setEnabled(false);
             }else
             {
@@ -720,6 +723,8 @@ public class Map extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "You cannot attack from/to an empty country!");
                 from = "";
                 to = "";
+                toButton.setBorder(territories[0].getBorder());
+                fromButton.setBorder(territories[0].getBorder());
                 return;
             }
 
@@ -740,6 +745,8 @@ public class Map extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Invalid attack!");
                 from = "";
                 to = "";
+                toButton.setBorder(territories[0].getBorder());
+                fromButton.setBorder(territories[0].getBorder());
                 return;
             } else if(fromTerr.isNeighbor(toTerr)) {
                 attackAmt++;
@@ -816,6 +823,8 @@ public class Map extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Territories should be neighbors!");
                 from = "";
                 to = "";
+                toButton.setBorder(territories[0].getBorder());
+                fromButton.setBorder(territories[0].getBorder());
             }
 
             attackButton.setEnabled(false);
@@ -930,6 +939,8 @@ public class Map extends JFrame implements ActionListener {
                 game.endAttackTurn(fromTerr, toTerr);
                 from = "";
                 to = "";
+                toButton.setBorder(territories[0].getBorder());
+                fromButton.setBorder(territories[0].getBorder());
                 int chosenoption;
                 Object[] options = { "OK" };
                 chosenoption = JOptionPane.showOptionDialog(null, "Winner is "+winner.getOwner().getName(), "WAR ENDED",
@@ -1101,6 +1112,8 @@ public class Map extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null,"Invalid. Amount of infantries in hand is: " + maxInfAmt );
                     from = "";
                     to = "";
+                toButton.setBorder(territories[0].getBorder());
+                fromButton.setBorder(territories[0].getBorder());
                     System.out.println();
             } else {
                 // TODO: Add a notification panel to show the drafted soldier amount and the territory name.
@@ -1109,6 +1122,8 @@ public class Map extends JFrame implements ActionListener {
 
                 from = "";
                 to = "";
+                toButton.setBorder(territories[0].getBorder());
+                fromButton.setBorder(territories[0].getBorder());
 
                 //update army values
                 updateTerritories();
@@ -1159,6 +1174,8 @@ public class Map extends JFrame implements ActionListener {
             currentPlayer = game.getCurrentPlayerTurn();
             from = "";
             to = "";
+            toButton.setBorder(territories[0].getBorder());
+            fromButton.setBorder(territories[0].getBorder());
             attackButton.setEnabled(false);
             updateTerritories();
             updateTurnColor();
@@ -1169,7 +1186,7 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource() == cardInfoPanelButton)
         {
-            cardPanel = new CardPanel(game);
+            cardPanel = new CardPanel(game,cardPanel);
             cardPanel.setVisible(true);
             cardPanel.setTitle("Risk");
             cardPanel.setResizable(false);
@@ -1217,6 +1234,8 @@ public class Map extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null,"Invalid selection." );
                 from = "";
                 to = "";
+                toButton.setBorder(territories[0].getBorder());
+                fromButton.setBorder(territories[0].getBorder());
                 return;
             }
 
@@ -1230,6 +1249,8 @@ public class Map extends JFrame implements ActionListener {
                 if( troopAmt >= fromTerr.getArmy().getTotalValue() ) {
                     from = "";
                     to = "";
+                    toButton.setBorder(territories[0].getBorder());
+                    fromButton.setBorder(territories[0].getBorder());
                     JOptionPane.showMessageDialog(null,"Not enough soldiers. At least one soldier should be left at the supporting territory" );
                 } else {
                     game.fortifyTurn(fromTerr, toTerr, troopAmt);
@@ -1241,6 +1262,8 @@ public class Map extends JFrame implements ActionListener {
 
             from = "";
             to = "";
+            toButton.setBorder(territories[0].getBorder());
+            fromButton.setBorder(territories[0].getBorder());
             fortifyButton.setEnabled(false);
             attackButton.setEnabled(false);
             retreatButton.setEnabled(false);
@@ -1412,9 +1435,11 @@ public class Map extends JFrame implements ActionListener {
                     timer1.cancel();
                     if( cardPanel != null ) {
                         cardPanel.dispose();
+                        updateTerritories();
                     }
                     if(secretMissionFrame != null) {
                         secretMissionFrame.dispose();
+                        updateTerritories();
                     }
                     seconds = 60;
                     startTimer();
