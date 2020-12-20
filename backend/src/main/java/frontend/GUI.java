@@ -116,7 +116,7 @@ public class GUI extends JFrame implements ActionListener {
 		pnlMainMenu.setPreferredSize(new Dimension(300,300));
 		pnlMainMenu.setLayout(null);
 
-		soundManager = new SoundManager(0,true,true);
+		soundManager = new SoundManager(-20,true,true);
 
 		JLabel lblGameMenuBackground = new JLabel("");
 		lblGameMenuBackground.setIcon(new ImageIcon("./src/main/resources/images/gameMenu.png"));

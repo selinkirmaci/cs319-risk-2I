@@ -144,7 +144,7 @@ public class Map extends JFrame implements ActionListener {
     public Map(GameManager gameManager , SoundManager soundManager)
     {
 
-        playMusic("./src/main/resources/sounds/warmusic.wav",-20.0f);
+        playMusic("./src/main/resources/sounds/warmusic.wav",(float)soundManager.getVolume());
         this.gameManager = gameManager;
         this.soundManager = soundManager;
         game = gameManager.getGame();
@@ -1407,8 +1407,10 @@ public class Map extends JFrame implements ActionListener {
     {
         player1name.setText(players[0].getName()+" Infantry numbers:" + players[0].getInfantryAmt());
         player2name.setText(players[1].getName()+" Infantry numbers:" + players[1].getInfantryAmt());
-        player3name.setText(players[2].getName()+" Infantry numbers:" + players[2].getInfantryAmt());
-        player4name.setText(players[3].getName()+" Infantry numbers:" + players[3].getInfantryAmt());
+        if(noOfPlayers>=3)
+            player3name.setText(players[2].getName()+" Infantry numbers:" + players[2].getInfantryAmt());
+        if(noOfPlayers>=4)
+            player4name.setText(players[3].getName()+" Infantry numbers:" + players[3].getInfantryAmt());
         revalidate();
     }
     public void updateTurnColor()
