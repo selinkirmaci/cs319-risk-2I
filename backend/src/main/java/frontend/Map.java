@@ -68,8 +68,7 @@ public class Map extends JFrame implements ActionListener {
     private Clip miniGameMusic;
 
     Font font;
-
-    Image backgroundForAttack;
+    ImageIcon backgroundForAttack;
 
     JLabel attackTimerLabel;
     private int attackSeconds = 30;
@@ -141,8 +140,7 @@ public class Map extends JFrame implements ActionListener {
     int[] playerAvatars;
     int currentPlayer;
     int noOfPlayers;
-
-
+    private JLabel attackBackgroundLabel;
     public Map(GameManager gameManager , SoundManager soundManager)
     {
 
@@ -156,6 +154,7 @@ public class Map extends JFrame implements ActionListener {
         territories = new JButton[45];
 
         playMusic("./src/main/resources/sounds/warmusic.wav",(float)soundManager.getVolume());
+        backgroundForAttack = new ImageIcon("./src/main/resources/images/background_1.jpg");
 
         font = new Font("Algerian",Font.PLAIN,15);
 
@@ -165,7 +164,7 @@ public class Map extends JFrame implements ActionListener {
         toButton = new JButton();
 
         attackTimerLabel = new JLabel();
-        attackTimerLabel.setBounds(400,50,40,40);
+        attackTimerLabel.setBounds(120,20,40,40);
         attackTimerLabel.setFont(new Font(Font.SERIF,Font.BOLD,40));
 
 
@@ -177,7 +176,7 @@ public class Map extends JFrame implements ActionListener {
 
         noOfPlayers = players.length;
         territoryName = new JLabel("");
-        territoryName.setBounds(500,20,300,50);
+        territoryName.setBounds(220,20,900,50);
 
         firstDiceSet = new JLabel("");
         firstDiceSet.setBounds(40, 280, 100, 100);
@@ -237,6 +236,11 @@ public class Map extends JFrame implements ActionListener {
         background = new JLabel("");
         background.setIcon(new ImageIcon("./src/main/resources/images/map_hq_v2.jpg"));
         background.setBounds(0, -165, 1580, 1100); //1860,1200
+
+        attackBackgroundLabel = new JLabel("");
+        attackBackgroundLabel.setIcon(backgroundForAttack);
+        attackBackgroundLabel.setBounds(-80, -165, 1580, 1100);
+
 
         avatar1 = new JLabel("");
         avatar2 = new JLabel("");
@@ -861,6 +865,7 @@ public class Map extends JFrame implements ActionListener {
                 player1.setIcon(attackerIcon);
                 player1.setBounds(70, 200, 100, 100);
                 attackerLabel.setBounds(60,100,300,100);
+                //panel1.add(attackBackgroundLabel);
                 panel1.add(player1);
                 panel1.add(attackerLabel);
 
@@ -872,6 +877,7 @@ public class Map extends JFrame implements ActionListener {
                 panel1.add(attackTimerLabel);
                 System.out.println(chosenTerritory);
                 territoryName.setText("BATTLE FROM " + from + " TO " + to);
+                territoryName.setFont(new Font("Algerian", Font.PLAIN,30));
                 panel1.add(territoryName);
 
                 panel1.add(rollDiceButton);
@@ -897,6 +903,7 @@ public class Map extends JFrame implements ActionListener {
                 panel1.add(fifthDiceSet);
 
                 //panel1.setBackground(new Color(182,115,45));
+                panel1.add(attackBackgroundLabel);
                 add(panel1);
 
             }else
