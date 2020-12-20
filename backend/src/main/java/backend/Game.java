@@ -522,7 +522,7 @@ public class Game implements Serializable {
             {
                 System.out.println("Secret mission 2");
                 System.out.println("Number of continents is: " + p.getGainedContinentsNumber());
-                if(p.getGainedContinentsNumber() == p.getOriginalContinentNumber()+1)
+                if(p.getGainedContinentsNumber() == 2)
                 {
                     p.winGame();
                     return true;
