@@ -612,10 +612,12 @@ public class Map extends JFrame implements ActionListener {
                 toButton = tmp;
                 Territory toTerrTmp = game.getMap().getTerritoryFromName(to);
                 Color cT;
-                if(game.getMap().getTerritoryFromName(to)!=null){
-                    cT = toTerrTmp.getArmy().getOwner().getColor();
-                    toButton.setBorder(BorderFactory.createLineBorder(cT));
-                }
+                if (game.getMap().getTerritoryFromName(to)!= null){
+                    if (game.getMap().getTerritoryFromName(to).getArmy() != null) {
+                        cT = toTerrTmp.getArmy().getOwner().getColor();
+                        toButton.setBorder(BorderFactory.createLineBorder(cT));
+                    }
+            }
                 setFrom = !setFrom;
 
             } else {
@@ -625,7 +627,8 @@ public class Map extends JFrame implements ActionListener {
                 Color cF;
                 fromButton.setBorder(territories[0].getBorder());
                 fromButton = tmp;
-                if(game.getMap().getTerritoryFromName(from)!=null){
+                if(game.getMap().getTerritoryFromName(from)!=null)
+                if(game.getMap().getTerritoryFromName(from).getArmy()!=null){
                     cF = fromTerrTmp.getArmy().getOwner().getColor();
                     fromButton.setBorder(BorderFactory.createLineBorder(cF));
                 }
