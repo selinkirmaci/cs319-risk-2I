@@ -584,6 +584,7 @@ public class Map extends JFrame implements ActionListener {
                 && (e.getSource() != decreaseDiceDef) && (e.getSource() != increaseDiceDef)
                 && (e.getSource() != cardInfoPanelButton && e.getSource() != fortifyButton)
                 && (e.getSource() != retreatButton) && (e.getSource() != miniGame)
+                && (e.getSource() != draftButton)
         ) {
             JButton tmp = (JButton) e.getSource();
             //tmp.setBackground(Color.RED);
@@ -1143,7 +1144,13 @@ public class Map extends JFrame implements ActionListener {
         }
 
         if( e.getSource() == draftButton ) {
-            Territory chosen = gameManager.getGame().getMap().getTerritoryFromName(chosenTerritory);
+            System.out.println("from is: " +from);
+            System.out.println("to is: " + to );
+            Territory chosen = null;
+            if(gameManager.getGame().getMap().getTerritoryFromName(from)!= null)
+                chosen = gameManager.getGame().getMap().getTerritoryFromName(from);
+            else if(gameManager.getGame().getMap().getTerritoryFromName(to)!= null)
+                chosen = gameManager.getGame().getMap().getTerritoryFromName(to);
 
             if( draftAmt >= 3 ) {
                 JOptionPane.showMessageDialog(null, "Cannot draft more than 3 in a turn!");
@@ -1157,9 +1164,9 @@ public class Map extends JFrame implements ActionListener {
 
 
 
-            System.out.println("Drafting " + chosenTerritory);
+            System.out.println("Drafting " + chosen.getName());
             String m = "";
-            m = JOptionPane.showInputDialog("Drafting " + chosenTerritory + ". How many soldiers?");
+            m = JOptionPane.showInputDialog("Drafting " + chosen.getArmy() + ". How many soldiers?");
 
             int troopAmt = Integer.parseInt(m);
             int playerTurn = gameManager.getGame().getCurrentPlayerTurn();
