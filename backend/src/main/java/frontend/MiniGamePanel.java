@@ -3,16 +3,22 @@ package frontend;
 import backend.GameManager;
 import backend.Player;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 public class MiniGamePanel extends JPanel implements ActionListener, KeyListener
 {
     int[] randomxpositions;
     int[] randomypositions;
+
+    Image icon;
+    Image[] rainingSoldiers;
 
     int count;
     JLabel countLabel;
@@ -28,14 +34,15 @@ public class MiniGamePanel extends JPanel implements ActionListener, KeyListener
     JFrame parentFrame;
 
     Timer t = new Timer(5,this);
-    double playerx = 400,playery=520, velx = 0, vely = 0;
+    int playerx = 400,playery=520, velx = 0, vely = 0;
     double y1=0;
-    public MiniGamePanel(JFrame f, GameManager gameManager)
-    {
+    public MiniGamePanel(JFrame f, GameManager gameManager) throws IOException {
         t.start();
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
+
+        setBackground(new Color(243,205,140));
 
         this.gameManager = gameManager;
         this.parentFrame = f;
@@ -43,6 +50,8 @@ public class MiniGamePanel extends JPanel implements ActionListener, KeyListener
         ballNumber = 50;
 
         gameOver = false;
+
+        rainingSoldiers = new Image[ballNumber];
 
         randomxpositions = new int[ballNumber];
         randomypositions = new int[ballNumber];
@@ -54,6 +63,11 @@ public class MiniGamePanel extends JPanel implements ActionListener, KeyListener
         countLabel.setFont(new Font(Font.SERIF,Font.BOLD,40));
         countLabel.setForeground(Color.red);
 
+
+        //icon = new ImageIcon("./src/main/resources/images/minigame.jpg");
+        //backgroundForMiniGame = new JLabel(bfmg);
+        icon = ImageIO.read(new File("./src/main/resources/images/minigame.jpg"));
+
         for(int i = 0 ; i<ballNumber; i++)
         {
             Random rnd = new Random();
@@ -64,18 +78,25 @@ public class MiniGamePanel extends JPanel implements ActionListener, KeyListener
             int randomy = (rnd1.nextInt(50) + 1) * -20;
             randomypositions[i] = randomy;
         }
+        for(int i = 0; i<ballNumber; i++)
+        {
+            rainingSoldiers[i] = ImageIO.read(new File("./src/main/resources/images/soldier.png"));
+        }
+
         balls = new Ellipse2D.Double[ballNumber];
         for(int i = 0; i<ballNumber; i++)
         {
             balls[i] = new Ellipse2D.Double(randomxpositions[i], randomypositions[i], 40, 40);
         }
         add(countLabel);
+        //add(backgroundForMiniGame);
     }
 
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+        g2.drawImage(icon,-5,0,this);
         g2.fill(new Ellipse2D.Double(playerx,playery,40,40));
 
         for(int i = 0; i<ballNumber; i++)
@@ -84,7 +105,8 @@ public class MiniGamePanel extends JPanel implements ActionListener, KeyListener
         }
         for(int i = 0; i<ballNumber; i++)
         {
-            g2.fill(balls[i]);
+            //g2.fill(balls[i]);
+            g2.drawImage(rainingSoldiers[i],randomxpositions[i],randomypositions[i],this);
         }
     }
 
@@ -118,7 +140,7 @@ public class MiniGamePanel extends JPanel implements ActionListener, KeyListener
         boolean gameOver = true;
         for(int i = 0; i<ballNumber; i++)
         {
-            if(balls[i].getY()<800)
+            if(balls[i].getY()<650)
             {
                 gameOver = false;
             }
@@ -133,8 +155,8 @@ public class MiniGamePanel extends JPanel implements ActionListener, KeyListener
         {
             boolean entered = false;
             if(!entered) {
-                if (balls[i].getY() + 45 >= playery) {
-                    if (balls[i].getX() <= playerx + 40 && balls[i].getX() >= playerx) {
+                if (randomypositions[i] + 60 >= playery) {
+                    if (randomxpositions[i] <= playerx + 60 && randomxpositions[i] >= playerx) {
                         count+=1;
                         countLabel.setText("Collect all you can "+count);
                         randomypositions[i] += 10000;

@@ -15,6 +15,7 @@ import java.awt.event.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
@@ -1205,6 +1206,8 @@ public class Map extends JFrame implements ActionListener {
         }
         if(e.getSource()==miniGame)
         {
+            timer1.cancel();
+            timer1.purge();
             if(players[game.getCurrentPlayerTurn()].getMiniGameChance() == 1)
             {
                 players[game.getCurrentPlayerTurn()].setMiniGameChance(0);
@@ -1216,17 +1219,31 @@ public class Map extends JFrame implements ActionListener {
                 players[game.getCurrentPlayerTurn()].setMiniGameChance(players[game.getCurrentPlayerTurn()].getMiniGameChance()-1);
             }
             JFrame f = new JFrame("Mini Game");
-            MiniGamePanel miniGamePanel = new MiniGamePanel(f,gameManager);
-            f.add(miniGamePanel);
-            f.setVisible(true);
-            f.setSize(800,600);
-            f.addWindowListener(new WindowAdapter() {
-                public void windowClosing(WindowEvent e) {
-                    f.dispose();
-                    updateTurnColor();
-                    System.out.println("minigame is closed");
-                }
-            });
+            try {
+                MiniGamePanel miniGamePanel = new MiniGamePanel(f, gameManager);
+
+                Icon bfmg = new ImageIcon("./src/main/resources/images/minigame.jpg");
+                JLabel backgroundForMiniGame = new JLabel(bfmg);
+                //backgroundForMiniGame.setBounds(0,0,800,600);
+                //backgroundForMiniGame.add(miniGamePanel);
+
+                //f.add(backgroundForMiniGame);
+                f.add(miniGamePanel);
+                f.setVisible(true);
+                f.setSize(800, 600);
+                f.addWindowListener(new WindowAdapter() {
+                    public void windowClosing(WindowEvent e) {
+                        f.dispose();
+                        updateTurnColor();
+                        System.out.println("minigame is closed");
+                        timer1 = new Timer();
+                        timer1.scheduleAtFixedRate(createTimerTask(),1000, 1000);
+                    }
+                });
+            }catch (IOException ioException)
+            {
+                System.out.println("execption");
+            }
         }
 
 
