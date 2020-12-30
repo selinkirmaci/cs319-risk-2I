@@ -27,39 +27,39 @@ public class HowToPlayPanel extends JPanel implements ActionListener {
         setSize(1570, 800);
 
         lblHowToPlayBackground = new JLabel("");
-        lblHowToPlayBackground.setIcon(new ImageIcon("./src/main/resources/images/htpBackground.png"));
+        lblHowToPlayBackground.setIcon(new ImageIcon("./src/main/resources/images/htpBackgroundNew1.png"));
         lblHowToPlayBackground.setBounds(0, -165, 1580, 1100); //1860,1200
 
         htpPage1 = new JLabel("");
-        htpPage1.setIcon(new ImageIcon("./src/main/resources/images/htpPage1.png"));
-        htpPage1.setBounds(428, -170, 1580, 1100); //1860,1200
+        htpPage1.setIcon(new ImageIcon("./src/main/resources/images/htpPage1New1.png"));
+        htpPage1.setBounds(314, -155, 1580, 1100); //1860,1200
 
         htpPage2 = new JLabel("");
-        htpPage2.setIcon(new ImageIcon("./src/main/resources/images/htpPage2.png"));
-        htpPage2.setBounds(428, -170, 1580, 1100); //1860,1200
+        htpPage2.setIcon(new ImageIcon("./src/main/resources/images/htpPage2New1.png"));
+        htpPage2.setBounds(314, -155, 1580, 1100); //1860,1200
 
         htpPage3 = new JLabel("");
-        htpPage3.setIcon(new ImageIcon("./src/main/resources/images/htpPage3.png"));
-        htpPage3.setBounds(428, -170, 1580, 1100); //1860,1200
+        htpPage3.setIcon(new ImageIcon("./src/main/resources/images/htpPage3New1.png"));
+        htpPage3.setBounds(314, -155, 1580, 1100); //1860,1200
 
         htpPage4 = new JLabel("");
-        htpPage4.setIcon(new ImageIcon("./src/main/resources/images/htpPage4.png"));
-        htpPage4.setBounds(428, -170, 1580, 1100); //1860,1200
+        htpPage4.setIcon(new ImageIcon("./src/main/resources/images/htpPage4New1.png"));
+        htpPage4.setBounds(314, -155, 1580, 1100); //1860,1200
 
         htpPage5 = new JLabel("");
-        htpPage5.setIcon(new ImageIcon("./src/main/resources/images/htpPage5.png"));
-        htpPage5.setBounds(428, -170, 1580, 1100); //1860,1200
+        htpPage5.setIcon(new ImageIcon("./src/main/resources/images/htpPage5New1.png"));
+        htpPage5.setBounds(314, -155, 1580, 1100); //1860,1200
 
         htpPage6 = new JLabel("");
-        htpPage6.setIcon(new ImageIcon("./src/main/resources/images/htpPage6.png"));
-        htpPage6.setBounds(428, -170, 1580, 1100); //1860,1200
+        htpPage6.setIcon(new ImageIcon("./src/main/resources/images/htpPage6New1.png"));
+        htpPage6.setBounds(314, -155, 1580, 1100); //1860,1200
 
         htpPage7 = new JLabel("");
-        htpPage7.setIcon(new ImageIcon("./src/main/resources/images/htpPage7.png"));
-        htpPage7.setBounds(428, -170, 1580, 1100); //1860,1200
+        htpPage7.setIcon(new ImageIcon("./src/main/resources/images/htpPage7New1.png"));
+        htpPage7.setBounds(314, -155, 1580, 1100); //1860,1200
 
         btnBackFromHtp = new JButton("");
-        btnBackFromHtp.setBounds(35, 670, 280, 75);
+        btnBackFromHtp.setBounds(17, 700, 220, 75);
         btnBackFromHtp.setContentAreaFilled(false);
         btnBackFromHtp.setBorderPainted(true);
         lblHowToPlayBackground.add(btnBackFromHtp);
@@ -67,19 +67,19 @@ public class HowToPlayPanel extends JPanel implements ActionListener {
         Border thick = new LineBorder(Color.red, 4);
 
         btnHtpPrev = new JButton("Previous Page");
-        btnHtpPrev.setBounds(500, 620, 120, 50);
+        btnHtpPrev.setBounds(340, 640, 100, 50);
         btnHtpPrev.setContentAreaFilled(false);
         btnHtpPrev.setBorderPainted(true);
         btnHtpPrev.setBorder(thick);
-        btnHtpPrev.setFont(new Font(Font.SERIF, Font.BOLD, 16));
+        btnHtpPrev.setFont(new Font(Font.SERIF, Font.BOLD, 13));
         lblHowToPlayBackground.add(btnHtpPrev);
 
         btnHtpNext = new JButton("Next Page");
-        btnHtpNext.setBounds(900, 620, 120, 50);
+        btnHtpNext.setBounds(690, 640, 100, 50);
         btnHtpNext.setContentAreaFilled(false);
         btnHtpNext.setBorderPainted(true);
         btnHtpNext.setBorder(thick);
-        btnHtpNext.setFont(new Font(Font.SERIF, Font.BOLD, 16));
+        btnHtpNext.setFont(new Font(Font.SERIF, Font.BOLD, 13));
         lblHowToPlayBackground.add(btnHtpNext);
 
         lblHowToPlayBackground.add(htpPage1);

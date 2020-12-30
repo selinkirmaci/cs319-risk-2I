@@ -87,7 +87,7 @@ public class GUI extends JFrame implements ActionListener {
 					frame.setVisible(true);
 					frame.setTitle("Risk");
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					frame.setPreferredSize(new Dimension(1570,800)); //1570,800
+					frame.setPreferredSize(new Dimension(1143,793)); //1570,800
 					frame.setResizable(false);
 					frame.pack();
 					String alter = "selin kırmacı";
@@ -120,18 +120,18 @@ public class GUI extends JFrame implements ActionListener {
 
 		JLabel lblGameMenuBackground = new JLabel("");
 		lblGameMenuBackground.setIcon(new ImageIcon("./src/main/resources/images/gameMenu.png"));
-		lblGameMenuBackground.setBounds(0, -165, 1580, 1100); //1860,1200
+		lblGameMenuBackground.setBounds(-200, 0, 1493, 797); //1860,1200
 
 		pnlMainMenu.add(lblGameMenuBackground);
 
 		btnStartGame = new JButton("");
-		btnStartGame.setBounds(580, 400, 400, 60);
+		btnStartGame.setBounds(580, 245, 400, 60);
 		btnStartGame.setContentAreaFilled(false);
 		btnStartGame.setBorderPainted(true);
 		lblGameMenuBackground.add(btnStartGame);
 
 		btnLoadGame = new JButton("Load Game");
-		btnLoadGame.setBounds(1038, 393, 68, 70);
+		btnLoadGame.setBounds(1238, 230, 68, 70);
 		btnLoadGame.setContentAreaFilled(false);
 		btnLoadGame.setBorderPainted(true);
 		lblGameMenuBackground.add(btnLoadGame);
@@ -143,26 +143,26 @@ public class GUI extends JFrame implements ActionListener {
 		pnlMainMenu.add(lblFloppyDisk);
 
 		btnHowToPlay = new JButton("");
-		btnHowToPlay.setBounds(590, 505, 400, 60);
+		btnHowToPlay.setBounds(590, 352, 400, 60);
 		btnHowToPlay.setContentAreaFilled(false);
 		btnHowToPlay.setBorderPainted(true);
 		lblGameMenuBackground.add(btnHowToPlay);
 
 		btnQuitGame = new JButton("");
-		btnQuitGame.setBounds(590, 620, 400, 60);
+		btnQuitGame.setBounds(590, 470, 400, 60);
 		btnQuitGame.setContentAreaFilled(false);
 		btnQuitGame.setBorderPainted(true);
 		lblGameMenuBackground.add(btnQuitGame);
 
 		btnCredits = new JButton("");
-		btnCredits.setBounds(590, 740, 400, 60);
+		btnCredits.setBounds(590, 588, 400, 60);
 
 		btnCredits.setContentAreaFilled(false);
 		btnCredits.setBorderPainted(true);
 		lblGameMenuBackground.add(btnCredits);
 
 		btnSettings = new JButton("");
-		btnSettings.setBounds(1453, 818, 110, 110);
+		btnSettings.setBounds(1200, 618, 100, 100);
 		btnSettings.setContentAreaFilled(false);
 		btnSettings.setBorderPainted(true);
 		Border thick = new LineBorder(Color.orange, 4);
@@ -171,7 +171,7 @@ public class GUI extends JFrame implements ActionListener {
 
 		JLabel lblSettingsLogo = new JLabel("");
 		lblSettingsLogo.setIcon(new ImageIcon("./src/main/resources/images/settingslogoresized.jpg"));
-		lblSettingsLogo.setBounds(1458, 323, 1580, 1100); //1860,1200
+		lblSettingsLogo.setBounds(1200, 618, 100, 100); //1860,1200
 		lblGameMenuBackground.add(lblSettingsLogo);
 
 		pnlMainMenu.add(lblGameMenuBackground);
@@ -359,34 +359,34 @@ public class GUI extends JFrame implements ActionListener {
 
 		lblStartGameMenuBackground = new JLabel("");
 		lblStartGameMenuBackground.setIcon(new ImageIcon("./src/main/resources/images/startgamemenu.png"));
-		lblStartGameMenuBackground.setBounds(0, -165, 1580, 1100); //1860,1200
+		lblStartGameMenuBackground.setBounds(0, 0, 1143, 793); //1860,1200
 
 		btnBackFromStartGameMenu = new JButton("");
-		btnBackFromStartGameMenu.setBounds(25, 675, 200, 65);
+		btnBackFromStartGameMenu.setBounds(15, 700, 145, 65);
 		btnBackFromStartGameMenu.setContentAreaFilled(false);
 		btnBackFromStartGameMenu.setBorderPainted(true);
 		lblStartGameMenuBackground.add(btnBackFromStartGameMenu);
 
 		btnContinueFromStartGameMenu = new JButton("");
-		btnContinueFromStartGameMenu.setBounds(1210,680,340,70);
+		btnContinueFromStartGameMenu.setBounds(880,710,240,70);
 		btnContinueFromStartGameMenu.setContentAreaFilled(false);
 		btnContinueFromStartGameMenu.setBorderPainted(true);
 		lblStartGameMenuBackground.add(btnContinueFromStartGameMenu);
 
 		JLabel lblSecretMission = new JLabel("Include");
-		lblSecretMission.setBounds(1433,200,340,70);
+		lblSecretMission.setBounds(1030,200,340,70);
 		lblSecretMission.setFont(new Font(Font.SERIF,Font.BOLD,20));
 		lblSecretMission.setForeground(Color.green);
 		lblStartGameMenuBackground.add(lblSecretMission);
 
 		JLabel lblSecretMission2 = new JLabel("Secret Missions");
-		lblSecretMission2.setBounds(1400,230,340,70);
+		lblSecretMission2.setBounds(1000,230,340,70);
 		lblSecretMission2.setFont(new Font(Font.SERIF,Font.BOLD,20));
 		lblSecretMission2.setForeground(Color.green);
 		lblStartGameMenuBackground.add(lblSecretMission2);
 
 		boxSecretMission = new JCheckBox(" ?");
-		boxSecretMission.setBounds(1430,295,70,70);
+		boxSecretMission.setBounds(1030,295,70,70);
 		boxSecretMission.setFont(new Font(Font.SERIF,Font.BOLD,40));
 		boxSecretMission.setForeground(Color.green);
 		boxSecretMission.setContentAreaFilled(false);
@@ -396,19 +396,19 @@ public class GUI extends JFrame implements ActionListener {
 		lblStartGameMenuBackground.add(boxSecretMission);
 
 		btnNumOfPlayers2 = new JButton("");
-		btnNumOfPlayers2.setBounds(1270,180,95,60);
+		btnNumOfPlayers2.setBounds(925,185,70,70);
 		btnNumOfPlayers2.setContentAreaFilled(false);
 		btnNumOfPlayers2.setBorderPainted(true);
 		lblStartGameMenuBackground.add(btnNumOfPlayers2);
 
 		btnNumOfPlayers3 = new JButton("");
-		btnNumOfPlayers3.setBounds(1270,245,95,50);
+		btnNumOfPlayers3.setBounds(925,255,70,50);
 		btnNumOfPlayers3.setContentAreaFilled(false);
 		btnNumOfPlayers3.setBorderPainted(true);
 		lblStartGameMenuBackground.add(btnNumOfPlayers3);
 
 		btnNumOfPlayers4 = new JButton("");
-		btnNumOfPlayers4.setBounds(1270,300,95,60);
+		btnNumOfPlayers4.setBounds(925,310,70,60);
 		btnNumOfPlayers4.setContentAreaFilled(false);
 		btnNumOfPlayers4.setBorderPainted(true);
 		Border thickBorder = new LineBorder(Color.green, 5);
@@ -417,49 +417,49 @@ public class GUI extends JFrame implements ActionListener {
 		lblStartGameMenuBackground.add(btnNumOfPlayers4);
 
 		btnChooseColour1 = new JButton("Select Colour");
-		btnChooseColour1.setBounds(797, 220, 205, 97);
+		btnChooseColour1.setBounds(575, 220, 155, 120);
 		btnChooseColour1.setFont(new Font(Font.SERIF,Font.BOLD,16));
 		btnChooseColour1.setForeground(Color.BLACK);
 		lblStartGameMenuBackground.add(btnChooseColour1);
 
 		btnChooseColour2 = new JButton("Select Colour");
-		btnChooseColour2.setBounds(797, 330, 205, 97);
+		btnChooseColour2.setBounds(575, 340, 155, 120);
 		btnChooseColour2.setFont(new Font(Font.SERIF,Font.BOLD,16));
 		btnChooseColour2.setForeground(Color.BLACK);
 		lblStartGameMenuBackground.add(btnChooseColour2);
 
 		btnChooseColour3 = new JButton("Select Colour");
-		btnChooseColour3.setBounds(797, 445, 205, 97);
+		btnChooseColour3.setBounds(575, 460, 155, 120);
 		btnChooseColour3.setFont(new Font(Font.SERIF,Font.BOLD,16));
 		btnChooseColour3.setForeground(Color.BLACK);
 		lblStartGameMenuBackground.add(btnChooseColour3);
 
 		btnChooseColour4 = new JButton("Select Colour");
-		btnChooseColour4.setBounds(797, 560, 205, 97);
+		btnChooseColour4.setBounds(575, 580, 155, 120);
 		btnChooseColour4.setFont(new Font(Font.SERIF,Font.BOLD,16));
 		btnChooseColour4.setForeground(Color.BLACK);
 		lblStartGameMenuBackground.add(btnChooseColour4);
 
 		btnChooseAvatar1 = new JButton("Select Avatar");
-		btnChooseAvatar1.setBounds(1015, 217, 185, 104);
+		btnChooseAvatar1.setBounds(732, 220, 155, 120);
 		btnChooseAvatar1.setFont(new Font(Font.SERIF,Font.BOLD,16));
 		btnChooseAvatar1.setForeground(Color.BLACK);
 		lblStartGameMenuBackground.add(btnChooseAvatar1);
 
 		btnChooseAvatar2 = new JButton("Select Avatar");
-		btnChooseAvatar2.setBounds(1015, 326, 185, 103);
+		btnChooseAvatar2.setBounds(732, 340, 155, 120);
 		btnChooseAvatar2.setFont(new Font(Font.SERIF,Font.BOLD,16));
 		btnChooseAvatar2.setForeground(Color.BLACK);
 		lblStartGameMenuBackground.add(btnChooseAvatar2);
 
 		btnChooseAvatar3 = new JButton("Select Avatar");
-		btnChooseAvatar3.setBounds(1015, 440, 185, 103);
+		btnChooseAvatar3.setBounds(732, 460, 155, 120);
 		btnChooseAvatar3.setFont(new Font(Font.SERIF,Font.BOLD,16));
 		btnChooseAvatar3.setForeground(Color.BLACK);
 		lblStartGameMenuBackground.add(btnChooseAvatar3);
 
 		btnChooseAvatar4 = new JButton("Select Avatar");
-		btnChooseAvatar4.setBounds(1015, 558, 185, 100);
+		btnChooseAvatar4.setBounds(732, 580, 155, 120);
 		btnChooseAvatar4.setFont(new Font(Font.SERIF,Font.BOLD,16));
 		btnChooseAvatar4.setForeground(Color.BLACK);
 		lblStartGameMenuBackground.add(btnChooseAvatar4);
@@ -472,7 +472,7 @@ public class GUI extends JFrame implements ActionListener {
 
 		lblSelectColourBackground = new JLabel("");
 		lblSelectColourBackground.setIcon(new ImageIcon("./src/main/resources/images/drawio1.png"));
-		lblSelectColourBackground.setBounds(1260, -40, 1580, 1100); // 650, -165, 1580, 1100
+		lblSelectColourBackground.setBounds(890, -30, 1580, 1100); // 650, -165, 1580, 1100
 
 		btnRed1 = new JButton("");
 		btnRed1.setBounds(25, 485, 42, 42);
@@ -624,19 +624,19 @@ public class GUI extends JFrame implements ActionListener {
 
 		lblSelectAvatarBackground = new JLabel("");
 		lblSelectAvatarBackground.setIcon(new ImageIcon("./src/main/resources/images/avatarmenu2.png"));
-		lblSelectAvatarBackground.setBounds(80, -80, 1580, 1100); // 1260 -40 1580 1100
+		lblSelectAvatarBackground.setBounds(-80, -80, 1300, 1100); // 1260 -40 1580 1100
 
 		lblSelectAvatarBackground2 = new JLabel("");
 		lblSelectAvatarBackground2.setIcon(new ImageIcon("./src/main/resources/images/avatarmenu2.png"));
-		lblSelectAvatarBackground2.setBounds(80, -80, 1580, 1100); // 1260 -40 1580 1100
+		lblSelectAvatarBackground2.setBounds(-30, -80, 1580, 1100); // 1260 -40 1580 1100
 
 		lblSelectAvatarBackground3 = new JLabel("");
 		lblSelectAvatarBackground3.setIcon(new ImageIcon("./src/main/resources/images/avatarmenu2.png"));
-		lblSelectAvatarBackground3.setBounds(80, -80, 1580, 1100); // 1260 -40 1580 1100
+		lblSelectAvatarBackground3.setBounds(-30, -80, 1580, 1100); // 1260 -40 1580 1100
 
 		lblSelectAvatarBackground4 = new JLabel("");
 		lblSelectAvatarBackground4.setIcon(new ImageIcon("./src/main/resources/images/avatarmenu2.png"));
-		lblSelectAvatarBackground4.setBounds(80, -80, 1580, 1100); // 1260 -40 1580 1100
+		lblSelectAvatarBackground4.setBounds(-30, -80, 1580, 1100); // 1260 -40 1580 1100
 
 		lblSuleiman = new JLabel("");
 		lblSuleiman.setIcon(new ImageIcon("./src/main/resources/images/suleiman_p.png"));
@@ -718,146 +718,146 @@ public class GUI extends JFrame implements ActionListener {
 
 
 		btnNapoleon1 = new JButton("");
-		btnNapoleon1.setBounds(150, 326, 172, 172);
+		btnNapoleon1.setBounds(100, 326, 172, 172);
 		btnNapoleon1.setContentAreaFilled(false);
 		btnNapoleon1.setBorderPainted(true);
 		lblSelectAvatarBackground.add(btnNapoleon1);
 
 		btnAlexander1 = new JButton("");
-		btnAlexander1.setBounds(377, 326, 172, 172);
+		btnAlexander1.setBounds(357, 326, 172, 172);
 		btnAlexander1.setContentAreaFilled(false);
 		btnAlexander1.setBorderPainted(true);
 		lblSelectAvatarBackground.add(btnAlexander1);
 
 		btnHannibal1 = new JButton("");
-		btnHannibal1.setBounds(604, 326, 172, 172);
+		btnHannibal1.setBounds(555, 326, 172, 172);
 		btnHannibal1.setContentAreaFilled(false);
 		btnHannibal1.setBorderPainted(true);
 		lblSelectAvatarBackground.add(btnHannibal1);
 
 		btnCaesar1 = new JButton("");
-		btnCaesar1.setBounds(150, 558, 172, 172);
+		btnCaesar1.setBounds(100, 558, 172, 172);
 		btnCaesar1.setContentAreaFilled(false);
 		btnCaesar1.setBorderPainted(true);
 		lblSelectAvatarBackground.add(btnCaesar1);
 
 		btnCengiz1 = new JButton("");
-		btnCengiz1.setBounds(377, 558, 172, 172);
+		btnCengiz1.setBounds(357, 558, 172, 172);
 		btnCengiz1.setContentAreaFilled(false);
 		btnCengiz1.setBorderPainted(true);
 		lblSelectAvatarBackground.add(btnCengiz1);
 
 		btnSuleiman1 = new JButton("");
-		btnSuleiman1.setBounds(604, 558, 172, 172);
+		btnSuleiman1.setBounds(550, 558, 172, 172);
 		btnSuleiman1.setContentAreaFilled(false);
 		btnSuleiman1.setBorderPainted(true);
 		lblSelectAvatarBackground.add(btnSuleiman1);
 
 		btnNapoleon2 = new JButton("");
-		btnNapoleon2.setBounds(150, 326, 172, 172);
+		btnNapoleon2.setBounds(100, 326, 172, 172);
 		btnNapoleon2.setContentAreaFilled(false);
 		btnNapoleon2.setBorderPainted(true);
 		lblSelectAvatarBackground2.add(btnNapoleon2);
 
 		btnAlexander2 = new JButton("");
-		btnAlexander2.setBounds(377, 326, 172, 172);
+		btnAlexander2.setBounds(327, 326, 172, 172);
 		btnAlexander2.setContentAreaFilled(false);
 		btnAlexander2.setBorderPainted(true);
 		lblSelectAvatarBackground2.add(btnAlexander2);
 
 		btnHannibal2 = new JButton("");
-		btnHannibal2.setBounds(604, 326, 172, 172);
+		btnHannibal2.setBounds(555, 326, 172, 172);
 		btnHannibal2.setContentAreaFilled(false);
 		btnHannibal2.setBorderPainted(true);
 		lblSelectAvatarBackground2.add(btnHannibal2);
 
 		btnCaesar2 = new JButton("");
-		btnCaesar2.setBounds(150, 558, 172, 172);
+		btnCaesar2.setBounds(100, 558, 172, 172);
 		btnCaesar2.setContentAreaFilled(false);
 		btnCaesar2.setBorderPainted(true);
 		lblSelectAvatarBackground2.add(btnCaesar2);
 
 		btnCengiz2 = new JButton("");
-		btnCengiz2.setBounds(377, 558, 172, 172);
+		btnCengiz2.setBounds(357, 558, 172, 172);
 		btnCengiz2.setContentAreaFilled(false);
 		btnCengiz2.setBorderPainted(true);
 		lblSelectAvatarBackground2.add(btnCengiz2);
 
 		btnSuleiman2 = new JButton("");
-		btnSuleiman2.setBounds(604, 558, 172, 172);
+		btnSuleiman2.setBounds(550, 558, 172, 172);
 		btnSuleiman2.setContentAreaFilled(false);
 		btnSuleiman2.setBorderPainted(true);
 		lblSelectAvatarBackground2.add(btnSuleiman2);
 
 
 		btnNapoleon3 = new JButton("");
-		btnNapoleon3.setBounds(150, 326, 172, 172);
+		btnNapoleon3.setBounds(100, 326, 172, 172);
 		btnNapoleon3.setContentAreaFilled(false);
 		btnNapoleon3.setBorderPainted(true);
 		lblSelectAvatarBackground3.add(btnNapoleon3);
 
 		btnAlexander3 = new JButton("");
-		btnAlexander3.setBounds(377, 326, 172, 172);
+		btnAlexander3.setBounds(357, 326, 172, 172);
 		btnAlexander3.setContentAreaFilled(false);
 		btnAlexander3.setBorderPainted(true);
 		lblSelectAvatarBackground3.add(btnAlexander3);
 
 		btnHannibal3 = new JButton("");
-		btnHannibal3.setBounds(604, 326, 172, 172);
+		btnHannibal3.setBounds(555, 326, 172, 172);
 		btnHannibal3.setContentAreaFilled(false);
 		btnHannibal3.setBorderPainted(true);
 		lblSelectAvatarBackground3.add(btnHannibal3);
 
 		btnCaesar3 = new JButton("");
-		btnCaesar3.setBounds(150, 558, 172, 172);
+		btnCaesar3.setBounds(100, 558, 172, 172);
 		btnCaesar3.setContentAreaFilled(false);
 		btnCaesar3.setBorderPainted(true);
 		lblSelectAvatarBackground3.add(btnCaesar3);
 
 		btnCengiz3 = new JButton("");
-		btnCengiz3.setBounds(377, 558, 172, 172);
+		btnCengiz3.setBounds(357, 558, 172, 172);
 		btnCengiz3.setContentAreaFilled(false);
 		btnCengiz3.setBorderPainted(true);
 		lblSelectAvatarBackground3.add(btnCengiz3);
 
 		btnSuleiman3 = new JButton("");
-		btnSuleiman3.setBounds(604, 558, 172, 172);
+		btnSuleiman3.setBounds(550, 558, 172, 172);
 		btnSuleiman3.setContentAreaFilled(false);
 		btnSuleiman3.setBorderPainted(true);
 		lblSelectAvatarBackground3.add(btnSuleiman3);
 
 		btnNapoleon4 = new JButton("");
-		btnNapoleon4.setBounds(150, 326, 172, 172);
+		btnNapoleon4.setBounds(100, 326, 172, 172);
 		btnNapoleon4.setContentAreaFilled(false);
 		btnNapoleon4.setBorderPainted(true);
 		lblSelectAvatarBackground4.add(btnNapoleon4);
 
 		btnAlexander4 = new JButton("");
-		btnAlexander4.setBounds(377, 326, 172, 172);
+		btnAlexander4.setBounds(350, 326, 172, 172);
 		btnAlexander4.setContentAreaFilled(false);
 		btnAlexander4.setBorderPainted(true);
 		lblSelectAvatarBackground4.add(btnAlexander4);
 
 		btnHannibal4 = new JButton("");
-		btnHannibal4.setBounds(604, 326, 172, 172);
+		btnHannibal4.setBounds(555, 326, 172, 172);
 		btnHannibal4.setContentAreaFilled(false);
 		btnHannibal4.setBorderPainted(true);
 		lblSelectAvatarBackground4.add(btnHannibal4);
 
 		btnCaesar4 = new JButton("");
-		btnCaesar4.setBounds(150, 558, 172, 172);
+		btnCaesar4.setBounds(100, 558, 172, 172);
 		btnCaesar4.setContentAreaFilled(false);
 		btnCaesar4.setBorderPainted(true);
 		lblSelectAvatarBackground4.add(btnCaesar4);
 
 		btnCengiz4 = new JButton("");
-		btnCengiz4.setBounds(377, 558, 172, 172);
+		btnCengiz4.setBounds(357, 558, 172, 172);
 		btnCengiz4.setContentAreaFilled(false);
 		btnCengiz4.setBorderPainted(true);
 		lblSelectAvatarBackground4.add(btnCengiz4);
 
 		btnSuleiman4 = new JButton("");
-		btnSuleiman4.setBounds(604, 558, 172, 172);
+		btnSuleiman4.setBounds(550, 558, 172, 172);
 		btnSuleiman4.setContentAreaFilled(false);
 		btnSuleiman4.setBorderPainted(true);
 		lblSelectAvatarBackground4.add(btnSuleiman4);
@@ -867,28 +867,28 @@ public class GUI extends JFrame implements ActionListener {
 		//################# Textfields ##########################
 
 		t1=new JTextField("");
-		t1.setBounds(90, 235, 635, 63);
+		t1.setBounds(63, 240, 465, 75);
 		lblStartGameMenuBackground.add(t1);
 		t1.setHorizontalAlignment(JTextField.CENTER);
 		t1.setFont(new Font(Font.SERIF,Font.BOLD,25));
 		t1.setBackground(Color.BLACK);
 
 		t2=new JTextField("");
-		t2.setBounds(90, 347, 635, 69);
+		t2.setBounds(63, 357, 465, 80);
 		lblStartGameMenuBackground.add(t2);
 		t2.setHorizontalAlignment(JTextField.CENTER);
 		t2.setFont(new Font(Font.SERIF,Font.BOLD,25));
 		t2.setBackground(Color.BLACK);
 
 		t3=new JTextField("");
-		t3.setBounds(92, 460, 638, 66);
+		t3.setBounds(63, 475, 467, 80);
 		lblStartGameMenuBackground.add(t3);
 		t3.setHorizontalAlignment(JTextField.CENTER);
 		t3.setFont(new Font(Font.SERIF,Font.BOLD,25));
 		t3.setBackground(Color.BLACK);
 
 		t4=new JTextField("");
-		t4.setBounds(99, 575, 635, 63);
+		t4.setBounds(65, 595, 467, 75);
 		lblStartGameMenuBackground.add(t4);
 		t4.setHorizontalAlignment(JTextField.CENTER);
 		t4.setFont(new Font(Font.SERIF,Font.BOLD,25));

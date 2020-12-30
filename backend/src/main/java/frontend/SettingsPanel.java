@@ -38,17 +38,17 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
         setSize(1570, 800);
 
         lblSettingsBackground = new JLabel("");
-        lblSettingsBackground.setIcon(new ImageIcon("./src/main/resources/images/settings.png"));
+        lblSettingsBackground.setIcon(new ImageIcon("./src/main/resources/images/settingsNew1.png"));
         lblSettingsBackground.setBounds(0, -165, 1580, 1100); //1860,1200
 
         btnBack = new JButton("");
-        btnBack.setBounds(35, 670, 280, 70);
+        btnBack.setBounds(17, 700, 220, 70);
         btnBack.setContentAreaFilled(false);
         btnBack.setBorderPainted(true);
         lblSettingsBackground.add(btnBack);
 
         btnSave = new JButton("");
-        btnSave.setBounds(687, 564, 180, 75);
+        btnSave.setBounds(476, 589, 180, 75);
         btnSave.setContentAreaFilled(false);
         btnSave.setBorderPainted(true);
         Border thick = new LineBorder(Color.black, 5);
@@ -56,7 +56,7 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
         lblSettingsBackground.add(btnSave);
 
         boxSound = new JCheckBox("");
-        boxSound.setBounds(743,263,70,70);
+        boxSound.setBounds(543,273,70,70);
         boxSound.setFont(new Font(Font.SERIF,Font.BOLD,40));
         boxSound.setContentAreaFilled(false);
         boxSound.setBorderPainted(true);
@@ -68,12 +68,12 @@ public class SettingsPanel extends JPanel implements ActionListener, ItemListene
 
         slider = new JSlider(JSlider.HORIZONTAL,-40,5,-20);
         slider.setValue(soundManager.getVolume());
-        slider.setBounds(688, 413, 180, 75);
+        slider.setBounds(488, 428, 180, 75);
         slider.setOpaque(false);
         slider.addChangeListener(new ChangeListener(){
-        public void stateChanged(ChangeEvent e) {
-            volume = slider.getValue();
-        }
+            public void stateChanged(ChangeEvent e) {
+                volume = slider.getValue();
+            }
         });
         lblSettingsBackground.add(slider);
 

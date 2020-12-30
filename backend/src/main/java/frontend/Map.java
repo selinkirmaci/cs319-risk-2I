@@ -297,7 +297,7 @@ public class Map extends JFrame implements ActionListener {
             territories[i].addActionListener(this);
             territories[i].setContentAreaFilled(false);
             territories[i].setForeground(Color.white);
-            territories[i].setFont(new Font("Algerian", Font.PLAIN,30));
+            territories[i].setFont(new Font("Algerian", Font.PLAIN,20));
         }
         //set names of the buttons
         territories[0].setName("Raken");
@@ -721,6 +721,14 @@ public class Map extends JFrame implements ActionListener {
                 if(quit == 0)
                 {
                     dispose();
+                    clipMusic.stop();
+                    GUI frame = new GUI();
+                    frame.setVisible(true);
+                    frame.setTitle("Risk");
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setPreferredSize(new Dimension(1143,793)); //1570,800
+                    frame.setResizable(false);
+                    frame.pack();
                 }
             }else if(chosenoption == 3)
             {
@@ -1205,7 +1213,7 @@ public class Map extends JFrame implements ActionListener {
 
             System.out.println("Drafting " + chosen.getName());
             String m = "";
-            m = JOptionPane.showInputDialog("Drafting " + chosen.getArmy() + ". How many soldiers?");
+            m = JOptionPane.showInputDialog("Drafting " + chosen.getName() + ". How many soldiers?");
 
             int troopAmt = Integer.parseInt(m);
             int playerTurn = gameManager.getGame().getCurrentPlayerTurn();
